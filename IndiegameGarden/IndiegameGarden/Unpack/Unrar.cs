@@ -454,7 +454,7 @@ namespace IndiegameGarden.Unpack
         }
 
         /// <summary>
-        /// Opens archive specified by the ArchivePathName property for testing or extraction
+        /// Opens archive specified by the ArchivePathName propertyName for testing or extraction
         /// </summary>
         public void Open()
         {
@@ -464,7 +464,7 @@ namespace IndiegameGarden.Unpack
         }
 
         /// <summary>
-        /// Opens archive specified by the ArchivePathName property with a specified mode
+        /// Opens archive specified by the ArchivePathName propertyName with a specified mode
         /// </summary>
         /// <param name="openMode">Mode in which archive should be opened</param>
         public void Open(OpenMode openMode)
@@ -547,7 +547,7 @@ namespace IndiegameGarden.Unpack
         }
 
         /// <summary>
-        /// Reads the next archive header and populates CurrentFile property data
+        /// Reads the next archive header and populates CurrentFile propertyName data
         /// </summary>
         /// <returns></returns>
         public bool ReadHeader()

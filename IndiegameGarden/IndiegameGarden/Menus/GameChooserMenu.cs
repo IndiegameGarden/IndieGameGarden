@@ -30,7 +30,7 @@ namespace IndiegameGarden.Menus
         bool changedSelection = false;
         GameLauncher launcher;
         GamesPanel panel;
-        //Dictionary<string, GameThumbnail> thumbnailsCache = new Dictionary<string, GameThumbnail>();
+        GameTextBox textBox;
 
         const double MIN_MENU_CHANGE_DELAY = 0.2f;
 
@@ -45,6 +45,19 @@ namespace IndiegameGarden.Menus
             // set my panel and games list
             Add(panel);
             panel.UpdateList(gamesList);
+
+            // background
+            Spritelet bg = new Spritelet("flower");
+            bg.Position = new Vector2(0.66667f, 0.5f);
+            bg.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
+            bg.Add(new MyFuncyModifier( delegate(float v) { return v/20.0f; }, "Rotate"));
+            Add(bg);
+
+            textBox = new GameTextBox();
+            textBox.Position = new Vector2(0.66667f, 0.9f);
+            textBox.LayerDepth = 0f;
+            Add(textBox);
+
         }
 
         protected override void OnDraw(ref DrawParams p)
@@ -128,6 +141,10 @@ namespace IndiegameGarden.Menus
             base.OnUpdate(ref p);
 
             KeyboardControls(ref p);
+
+            // update text box
+            textBox.Update(panel.SelectedGame);
+
         }
 
     }

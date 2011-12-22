@@ -28,15 +28,18 @@ namespace IndiegameGarden.Menus
         // cursor is the graphics plus (x,y) coordinate selection 
         GameThumbnailCursor cursor;
         bool isQuitting = false;
+        bool abortIsQuitting = false;
         float timeSinceUserInput = 0f;
 
         public GardenGamesPanel()
         {
             SizeX = 5;
-            SizeY = 4;
+            SizeY = 0;
             cursor = new GameThumbnailCursor();
             Add(cursor);
+            cursor.Scale = 0.95f;
             //cursor.Visible = false;
+
         }
 
         /// <summary>
@@ -74,7 +77,7 @@ namespace IndiegameGarden.Menus
                     SelectedGame = gl[0];
                     cursor.X = 0;
                     cursor.Y = 0;
-            }
+                }
                 else
                 {
                     if (!gl.Contains(SelectedGame))
@@ -87,6 +90,8 @@ namespace IndiegameGarden.Menus
                         SetCursorToGame(SelectedGame);
                     }
                 }
+                // set the nr of rows/cols (SizeX is given)
+                SizeY = gl.Count / SizeX;
             }
         }
 
@@ -145,8 +150,8 @@ namespace IndiegameGarden.Menus
 
                     th.LayerDepth = LAYER_GRID_ITEMS;
                     th.Visible = false;
-                    th.Intensity = 0.3f;
-                    //th.Alpha = 0f;
+                    th.Intensity = 0.0f;
+                    th.Alpha = 0f;
                 }else{
                     // retrieve GameThumbnail from cache
                     th = thumbnailsCache[g.GameID];
@@ -156,7 +161,9 @@ namespace IndiegameGarden.Menus
                 if (!th.Visible && cursor.GameletInRange(th))
                 {
                     th.Visible = true;
-                    th.Add(new MyFuncyModifier(delegate(float v) { th.Alpha = v / 5.0f; th.Intensity = v / 5.0f;  }, 0f, 5f));
+                    th.Intensity = 0f;
+                    th.Add(new MyFuncyModifier(delegate(float v) { return v/4.3f; }, "Intensity", 0f,4.3f ));
+                    th.Add(new MyFuncyModifier(delegate(float v) { return v / 3.0f; }, "Alpha", 0f, 3f));
                 }
 
 
@@ -173,28 +180,33 @@ namespace IndiegameGarden.Menus
                     // if selected - size adapt
                     if (i == indexGameSelected)
                     {
-                        ResizeToTarget(th, 0.45f, 0.01f, 0.002f);
+                        ResizeToTarget(th, 0.32f, 0.01f, 0.002f);
                         th.LayerDepth = LAYER_FRONT;
 
                         // move the cursor to this selection
                         MoveCursorTo(th.Position, 4f);
                         float zmTarget = 1.0f;
-                        const float TIME_START_ZOOM = 2.0f;
+                        const float TIME_START_ZOOM = 1.4f;
                         if (timeSinceUserInput > TIME_START_ZOOM)
                         {
-                            zmTarget += (timeSinceUserInput - TIME_START_ZOOM) * 0.03f;
+                            zmTarget += Math.Min( (timeSinceUserInput - TIME_START_ZOOM) * 0.08f, 3f);
                         }
-                        ZoomToTarget(zmTarget, th.Position, 0.002f);
+                        ZoomToTarget(zmTarget, th.Position, 0.004f);
                     }
                     else
                     {
-                        ResizeToTarget(th, 0.35f, 0.02f, 0.002f);
+                        ResizeToTarget(th, 0.25f, 0.02f, 0.002f);
                     }
                 }
                 else
                 {
                     // isQuitting
-                    ResizeToTarget(th, 0.001f, 0.02f, 0.005f);
+                    ZoomToTarget(0.001f, ZoomCenter, 0.0005f * Zoom);
+                }
+
+                if (abortIsQuitting)
+                {
+                    ZoomToTarget(1.000f, ZoomCenter, 0.0005f);
                 }
 
             }
@@ -244,13 +256,13 @@ namespace IndiegameGarden.Menus
             float sc = Zoom;
             if (sc < targetZoom)
             {
-                sc += spd;
+                sc *= (1.0f+spd);
                 if (sc > targetZoom)
                     sc = targetZoom;
             }
             else if (sc > targetZoom)
             {
-                sc -= spd;
+                sc /= (1.0f+spd);
                 if (sc < targetZoom)
                     sc = targetZoom;
             }
@@ -259,7 +271,7 @@ namespace IndiegameGarden.Menus
                 ZoomCenter = targetCenter;
             else
             {
-                float spd2 = 125 * v.Length() * spd;
+                float spd2 = 5 * v.Length() * spd;
                 if (spd2 < spd)
                     spd2 = spd;
                 v.Normalize();
@@ -327,9 +339,11 @@ namespace IndiegameGarden.Menus
                     break;
                 case UserInput.QUITTING:
                     isQuitting = true;
+                    abortIsQuitting = false;
                     break;
                 case UserInput.ABORT_QUITTING:
                     isQuitting = false;
+                    abortIsQuitting = true;
                     break;
             }
         }

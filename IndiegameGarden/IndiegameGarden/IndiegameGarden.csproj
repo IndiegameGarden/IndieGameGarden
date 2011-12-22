@@ -130,6 +130,7 @@
     <Compile Include="Menus\DodgeSidewaysBehavior.cs" />
     <Compile Include="Menus\GameLauncher.cs" />
     <Compile Include="Menus\GamesPanel.cs" />
+    <Compile Include="Menus\GameTextBox.cs" />
     <Compile Include="Menus\GameThumbnail.cs" />
     <Compile Include="Menus\GameChooserMenu.cs" />
     <Compile Include="Menus\GameThumbnailCursor.cs" />

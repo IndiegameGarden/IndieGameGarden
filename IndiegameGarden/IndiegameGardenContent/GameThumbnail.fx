@@ -1,12 +1,12 @@
+// (c) 2010-2011 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
-float4 DrawColor = float4(0,0,0,0);
 float Time = 0;
 float2 Center = float2(0.5,0.5);
-float NoiseLevel = 0.001;
+float NoiseLevel = 0.005;
 float Velocity = 0.02;
-float ShadowBoxWidth = 0.5/2;
-float ShadowBoxHeight = 0.5/2;
-//float GameThumbnailScale = 0.7;
+float ShadowBoxWidth = 0.7/2;
+float ShadowBoxHeight = 0.7/2;
+float2 ShadowBoxScale = float2(0.7,0.7);
 
 // modify the sampler state on the zero texture sampler, used by SpriteBatch
 sampler TextureSampler : register(s0) = 
@@ -16,9 +16,9 @@ sampler_state
     AddressV = Clamp;
 };
 
-float4 PixelShaderFunction(float2 texCoord : TEXCOORD0) : COLOR0
+float4 PixelShaderFunction(float4 color : COLOR0, float2 texCoord : TEXCOORD0) : COLOR0
 {
-	float4 tex = tex2D(TextureSampler, ((texCoord - Center)*2+Center) ) ;		  
+	float4 tex = tex2D(TextureSampler, ((texCoord - Center)/ShadowBoxScale+Center) ) ;		  
 	float4 res = float4(0,0,0,0);
 	float alpha ;
 	float2 vDif = texCoord - Center ;
@@ -67,22 +67,25 @@ float4 PixelShaderFunction(float2 texCoord : TEXCOORD0) : COLOR0
 		//res.a=1-c;
 		if (c==0)
 		{
-			float4 bg=res;
+			//float4 bg=res;
 			//res.a=0;
 			res=tex;
-			float rRounded = 0.02;
-			float2 cor1 = float2(Center.x-ShadowBoxWidth+rRounded, Center.y-ShadowBoxHeight+rRounded);
+			/*
+			float rRoundedY = 2*0.1;
+			float rRoundedX = 2*0.0625;
+			float2 cor1 = float2(Center.x-ShadowBoxWidth+rRoundedX, Center.y-ShadowBoxHeight+rRoundedY);
 			if (texCoord.x < cor1.x && texCoord.y < cor1.y )
 			{			
-				d = length( texCoord - cor1 );
-				if (d>rRounded)
-					res=bg;
+				d = length( (texCoord - cor1) ); //* float2(0.625 , 1.0) );
+				if (d<rRoundedY)
+					res=float4(1,0,0,0); //bg;
 			}
+			*/
 		}
 	}
 	
 
-	return res * DrawColor;
+	return res * color;
 
 }
 

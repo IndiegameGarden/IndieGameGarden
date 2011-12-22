@@ -52,8 +52,7 @@ namespace IndiegameGarden.Menus
             set
             {
                 intensity = value;
-                Color dc = DrawColor;
-                DrawColor = new Color(intensity * dc.R, intensity * dc.G, intensity * dc.B, dc.A);
+                DrawColor = new Color(intensity, intensity, intensity, DrawColor.A);
             }
 
         }

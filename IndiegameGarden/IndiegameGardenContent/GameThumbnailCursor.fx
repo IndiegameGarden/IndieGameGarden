@@ -1,8 +1,9 @@
+// (c) 2010-2011 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 float2 Center = float2(0.5,0.5);
 float Time = 0;
-float NoiseLevel = 0.001;
-float Velocity = 0.02;
+float NoiseLevel = 0.05;
+float Velocity = 0.00;
 float ShadowBoxWidth = 0.5/2;
 float ShadowBoxHeight = 0.5/2;
 
@@ -22,12 +23,12 @@ float4 PixelShaderFunction(float2 texCoord : TEXCOORD0) : COLOR0
 	float2 vDif = texCoord - Center ;
 	float2 vDifNorm = normalize(vDif);
 	float lDif = length(vDif);
-	lDif += NoiseLevel * noise(Time);
+	lDif += NoiseLevel * noise(Time) ; //* sin(32.2842 * texCoord.x * Time + 13.4294 * texCoord.y * Time);
 	float lWarped = (1-Velocity)*lDif + Velocity * lDif * lDif;
 	float t = -Time;
 	float2 vTexSample = Center + (lWarped * vDifNorm) + (Velocity * t * 0.8334 * vDifNorm); 
 	res = tex2D(TextureSampler, vTexSample ) ;		  
-	alpha = 1-2.0*lDif; //*lDif ;//*2.5;
+	alpha = 1-2.0*lWarped; //lDif; //*lDif ;//*2.5;
 	if (alpha < 0)
 		alpha = 0;
 	res *= alpha;
@@ -45,6 +46,7 @@ float4 PixelShaderFunction(float2 texCoord : TEXCOORD0) : COLOR0
 			d = abs(texCoord.x - (Center.x-ShadowBoxWidth) );
 		else if (texCoord.x > Center.x)
 			d = abs(texCoord.x - (Center.x+ShadowBoxWidth) );
+		//d += NoiseLevel * noise(Time) * sin(32.2842 * texCoord.x * Time + 13.4294 * texCoord.y * Time);
 		float c = 1-23*d;
 		if (c<0) c=0;
 		

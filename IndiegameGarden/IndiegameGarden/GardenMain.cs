@@ -140,14 +140,5 @@ namespace IndiegameGarden
 
         }
 
-        protected void TestRotatingBall()
-        {
-            Spritelet b = new Spritelet("ball-supernova2");
-            b.Position = new Vector2(0.6f, 0.5f);
-            b.LayerDepth = 0.91f;
-            b.Add(new MyFuncyModifier(delegate(float t) { b.RotateModifier += t / 10f; }));
-            gameletsRoot.Add(b);
-        }
-
     }
 }
