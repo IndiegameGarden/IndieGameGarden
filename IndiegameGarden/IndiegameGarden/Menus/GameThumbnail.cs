@@ -29,12 +29,17 @@ namespace IndiegameGarden.Menus
         Object updateTextureLock = new Object();
         bool isLoaded = false;
         float intensity = 1.0f;
+        float fadeTarget = 1.0f;
+        float fadeSpeed = 9999999.0f;
+
+        const float SCALE_REGULAR = 6.25f;
 
         public static Texture2D DefaultTexture;
 
         public GameThumbnail(string gameID)
             : base(DefaultTexture,"GameThumbnail")
         {
+            Scale = SCALE_REGULAR;
             this.gameID = gameID;
             // TODO methods to construct paths!? incl .png
             this.thumbnailFilename = GardenMain.Instance.storageConfig.CreateThumbnailFilepath(gameID,false); 
@@ -85,21 +90,27 @@ namespace IndiegameGarden.Menus
             }
         }
 
-        protected override void OnInit()
-        {
-            base.OnInit();
-        }
-
-        protected override void OnDraw(ref DrawParams p)
-        {
-            base.OnDraw(ref p);
-        }
-
         protected override void OnUpdate(ref UpdateParams p)
         {
             base.OnUpdate(ref p);
 
             ScaleModifier *= 2.0f;
+
+            // handle fading over time
+            if (fadeTarget > Intensity)
+            {
+                Intensity += fadeSpeed * p.dt;
+                Alpha = Intensity;
+                if (fadeTarget < Intensity)
+                    Intensity = fadeTarget;
+            }
+            else if (fadeTarget < Intensity)
+            {
+                Intensity -= fadeSpeed * p.dt;
+                Alpha = Intensity;
+                if (fadeTarget > Intensity)
+                    Intensity = fadeTarget;
+            }
 
             // animation of loading
             if (!isLoaded)
@@ -122,6 +133,38 @@ namespace IndiegameGarden.Menus
         public virtual void HandleDownloadEndedEvent(object sender, DownloaderEventArgs e)
         {
             LoadTextureFromFile();
+        }
+
+        public void MoveToTarget(Vector2 targetPos, float spd)
+        {
+            Velocity = spd * (targetPos - Position);
+        }
+
+        public void ScaleToTarget(float targetScale, float spd, float spdMin)
+        {
+            if (this.Scale < targetScale)
+            {
+                this.Scale += spdMin + spd * (targetScale - this.Scale); //*= 1.01f;
+                if (this.Scale > targetScale)
+                {
+                    this.Scale = targetScale;
+                }
+            }
+            else if (this.Scale > targetScale)
+            {
+                this.Scale += -spdMin + spd * (targetScale - this.Scale); //*= 1.01f;
+                if (this.Scale < targetScale)
+                {
+                    this.Scale = targetScale;
+                }
+            }
+            this.LayerDepth = 0.8f - this.Scale / 1000.0f;
+        }
+
+        public void FadeToTarget(float fadeValue, float timeDuration)
+        {
+            fadeTarget = fadeValue;
+            fadeSpeed = Math.Abs((fadeValue - Intensity) / timeDuration);
         }
 
     }

@@ -8,23 +8,18 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TTengine.Core;
 
+using IndiegameGarden.Store;
+
 namespace IndiegameGarden.Menus
 {
     public class GameThumbnailCursor: EffectSpritelet
     {
-        int xSel, ySel;
-
-        public int X
-        {
-            get { return xSel; }
-            set { xSel = value; }
-        }
-
-        public int Y
-        {
-            get { return ySel; }
-            set { ySel = value; }
-        }
+        /// <summary>
+        /// sets a target position for cursor to move towards
+        /// </summary>
+        public Vector2 Target = Vector2.Zero;
+        public Vector2 GridPosition = Vector2.Zero;
+        public float TargetSpeed = 0f;
 
         public GameThumbnailCursor()
             : base("WhiteTexture","GameThumbnailCursor")
@@ -35,20 +30,20 @@ namespace IndiegameGarden.Menus
         protected override void OnNewParent()
         {
             base.OnNewParent();
-            // check parent to select texture
-            // TODO Texture = (Parent as GameThumbnail).Texture;
         }
 
         protected override void OnUpdate(ref UpdateParams p)
         {
             base.OnUpdate(ref p);
+            // motion towards target
+            Velocity = (Target - Position) * TargetSpeed;
         }
 
-        protected override void OnDraw(ref DrawParams p)
-        {
-            base.OnDraw(ref p);
-        }
-
+        /// <summary>
+        /// checks whether a Gamelet is in selection distance of this cursor
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
         public bool GameletInRange(Gamelet g)
         {
             float d = (g.Position - this.Position).Length();
@@ -56,6 +51,27 @@ namespace IndiegameGarden.Menus
                 return true;
             return false;
 
+        }
+
+        /// <summary>
+        /// configure cursor to travel towards given target position with given speed. Movement
+        /// is not linear but is first-order controlled by distance to target
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="spd"></param>
+        public void MoveToTarget(Vector2 pos, float spd)
+        {
+            Target = pos;
+            TargetSpeed = spd;
+        }
+
+        /// <summary>
+        /// set cursor to select a given game
+        /// </summary>
+        /// <param name="g"></param>
+        public void SetToGame(IndieGame g)
+        {
+            MoveToTarget(g.Position, 4f);
         }
 
     }

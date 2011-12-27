@@ -13,7 +13,7 @@ namespace IndiegameGarden.Store
     {
 
         JSONStore json;
-        List<IndieGame> indieGamesList;
+        GameCollection indieGamesList;
 
         public GameLibrary()
         {
@@ -24,7 +24,7 @@ namespace IndiegameGarden.Store
         {
             string fn = GardenMain.Instance.storageConfig.GameLibraryFilename;
             json = new JSONStore(fn);
-            indieGamesList = new List<IndieGame>();
+            indieGamesList = new GameCollection();
             ParseJson();
         }
 
@@ -40,7 +40,7 @@ namespace IndiegameGarden.Store
             }
         }
 
-        public List<IndieGame> GetList()
+        public GameCollection GetList()
         {
             return indieGamesList;
         }

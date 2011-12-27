@@ -21,7 +21,7 @@ namespace IndiegameGarden.Menus
     public class GameChooserMenu: Gamelet
     {
         const int POINTER_UNDEFINED = -1;
-        List<IndieGame> gamesList;
+        GameCollection gamesList;
         IndieGame gameLastLaunched = null;
         float lastChangeTime = 0;
         float timeSinceLastChange = 0;

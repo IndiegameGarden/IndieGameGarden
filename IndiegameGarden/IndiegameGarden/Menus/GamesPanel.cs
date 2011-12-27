@@ -16,9 +16,9 @@ namespace IndiegameGarden.Menus
         public enum UserInput { LEFT, RIGHT, UP, DOWN, QUITTING, ABORT_QUITTING};
 
         // stores the current list obtained with UpdateList()
-        protected List<IndieGame> gl = new List<IndieGame>();
+        protected GameCollection gl = new GameCollection();
 
-        private IndieGame selectedGame = null;
+        protected IndieGame selectedGame = null;
 
         /// <summary>
         /// which game did the user just select, can be a random jump
@@ -41,7 +41,7 @@ namespace IndiegameGarden.Menus
         /// user action caused update of the games to be displayed
         /// </summary>
         /// <param name="gl">new list of games to use</param>
-        public abstract void UpdateList(List<IndieGame> gl);
+        public abstract void UpdateList(GameCollection gl);
 
         /// <summary>
         /// user action triggered a changed selection event

@@ -21,94 +21,78 @@ namespace IndiegameGarden.Menus
         const float LAYER_ZOOMING_ITEM = 0.1f;
         const float LAYER_DODGING_ITEM = 0.3f;
         const float LAYER_GRID_ITEMS = 0.9f;
+        const float SCALE_REGULAR = 1f; //0.16f;
+        const float SCALE_GRID_X = 0.16f;
+        const float SCALE_GRID_Y = 0.16f;
+        const float CURSOR_SCALE_REGULAR = 0.95f; //5.9375f;
+        const float THUMBNAIL_SCALE_SELECTED = 0.35f; //2f;
+        const float THUMBNAIL_SCALE_UNSELECTED = 0.28f; //1.5625f;
 
-        int sizeX, sizeY, centerRow, centerCol;
-        int indexGameSelected = 0;
+        // maximum sizes of grid
+        public double SizeX=32, SizeY=32;
         Dictionary<string, GameThumbnail> thumbnailsCache = new Dictionary<string, GameThumbnail>();
-        // cursor is the graphics plus (x,y) coordinate selection 
+        // cursor is the graphics thingy plus (x,y) coordinate selection 
         GameThumbnailCursor cursor;
+        // UI related vars - related to whether user indicates to quit program or user cancelled this
         bool isQuitting = false;
         bool abortIsQuitting = false;
         float timeSinceUserInput = 0f;
+        Vector2 PanelShiftPos = Vector2.Zero;
 
         public GardenGamesPanel()
         {
-            SizeX = 5;
-            SizeY = 0;
             cursor = new GameThumbnailCursor();
             Add(cursor);
-            cursor.Scale = 0.95f;
+            cursor.Scale = CURSOR_SCALE_REGULAR;
+            Zoom = SCALE_REGULAR;
             //cursor.Visible = false;
-
         }
 
-        /// <summary>
-        /// number of games placed horizontally
-        /// </summary>
-        public int SizeX {
-            get { return sizeX;}
-            set 
-            { 
-                sizeX = value;
-                centerCol = (sizeX-1) / 2;
-            }
-        }
-
-        /// <summary>
-        /// number of games placed vertically
-        /// </summary>
-        public int SizeY
+        public override void UpdateList(GameCollection gl)
         {
-            get { return sizeY; }
-            set
+            // first process old list - start fading away of items
+            for (int i = 0; i < gl.Count; i++)
             {
-                sizeY = value;
-                centerRow = (sizeY-1) / 2;
+                IndieGame g = gl[i];
+                if (thumbnailsCache.ContainsKey(g.GameID))
+                {
+                    GameThumbnail th = thumbnailsCache[g.GameID];
+                    th.FadeToTarget(0f,4f);
+                }
             }
-        }
-
-        public override void UpdateList(List<IndieGame> gl)
-        {
             this.gl = gl;
+
+            // update selection
             if (gl.Count > 0)
             {
                 if (SelectedGame == null)
                 {
                     SelectedGame = gl[0];
-                    cursor.X = 0;
-                    cursor.Y = 0;
+                    cursor.SetToGame(SelectedGame);
                 }
                 else
                 {
                     if (!gl.Contains(SelectedGame))
                     {
                         SelectedGame = gl[0];
-                        cursor.X = 0;
-                        cursor.Y = 0;
-                    }else{
+                        cursor.SetToGame(SelectedGame);
+                    }
+                    else
+                    {
                         // gl contains the previously selected game. Relocate it in new list.
-                        SetCursorToGame(SelectedGame);
+                        cursor.SetToGame(SelectedGame);
                     }
                 }
-                // set the nr of rows/cols (SizeX is given)
-                SizeY = gl.Count / SizeX;
             }
-        }
-
-        protected void SetCursorToGame(IndieGame g)
-        {
-            int idx = gl.IndexOf(g);
-            if (idx < 0)
-                return; // not found
-            // calculate x,y
-            cursor.X = (idx % SizeY);
-            cursor.Y = idx / SizeX;
         }
 
         protected void SelectGameBelowCursor()
         {
-            indexGameSelected = cursor.X + SizeX * cursor.Y;
-            SelectedGame = gl[indexGameSelected];
+            IndieGame g = gl.FindGameAt(cursor.GridPosition);
+            if (g != null)
+            {
+                SelectedGame = g;                
+            }
         }
 
         protected override void OnUpdate(ref UpdateParams p)
@@ -119,22 +103,14 @@ namespace IndiegameGarden.Menus
             if (gl == null)
                 return;
 
-            // loop over games
-            int Ng = SizeX * SizeY;
-
             IndieGame g;
             GameThumbnail th;
-            const float XSPACING = 0.16f;
-            const float YSPACING = 0.16f;
 
+            // loop all games
             for (int i = 0; i < gl.Count; i++)
             {
                 // fetch that game from list
                 g = gl[i];
-
-                // check if selected game
-                if (g == SelectedGame)
-                    indexGameSelected = i;
 
                 // if GameThumbnail for current game does not exist yet, create it                
                 if (!thumbnailsCache.ContainsKey(g.GameID))
@@ -157,45 +133,65 @@ namespace IndiegameGarden.Menus
                     th = thumbnailsCache[g.GameID];
                 }
                 
-                // check if thnail visible
+                // check if thnail visible and in range. If so, start displaying it (fade in)
                 if (!th.Visible && cursor.GameletInRange(th))
                 {
                     th.Visible = true;
                     th.Intensity = 0f;
-                    th.Add(new MyFuncyModifier(delegate(float v) { return v/4.3f; }, "Intensity", 0f,4.3f ));
-                    th.Add(new MyFuncyModifier(delegate(float v) { return v / 3.0f; }, "Alpha", 0f, 3f));
+                    th.FadeToTarget(1.0f, 4.3f);
                 }
 
+                // coordinate position where to move game thumbnail to 
+                // TODO include centerRow effect
+                Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(SCALE_GRID_X,SCALE_GRID_Y);
+                th.MoveToTarget(targetPos, 4f);
+                // cursor
+                cursor.Target = (cursor.GridPosition - PanelShiftPos) * new Vector2(SCALE_GRID_X,SCALE_GRID_Y);
 
-                // grid position - calculate target x/y pos for game
-                int x = i % SizeX ;
-                int y = (i / SizeX) - (indexGameSelected / SizeX) + centerRow + 1;
+                // panel shift effect
+                Vector2 cp = cursor.Position;
+                float dx = 1f * p.dt;
+                if (cp.X < 0f)
+                {
+                    PanelShiftPos.X -= dx;
+                }
+                else if (cp.X > 1.2f)
+                {
+                    PanelShiftPos.X += dx;
+                }
+                if (cp.Y < 0.2f)
+                {
+                    PanelShiftPos.Y -= dx;
+                }
+                else if (cp.Y > 0.8f)
+                {
+                    PanelShiftPos.Y += dx;
+                }
 
-                // coordinate position
-                Vector2 targetPos = new Vector2(x * XSPACING , y * YSPACING);
-                MoveToTarget(th, targetPos, 4f);
-
+                // quitting and selected game behaviour
                 if (!isQuitting)
                 {
                     // if selected - size adapt
-                    if (i == indexGameSelected)
+                    if (g == SelectedGame)
                     {
-                        ResizeToTarget(th, 0.32f, 0.01f, 0.002f);
+                        th.ScaleToTarget(THUMBNAIL_SCALE_SELECTED, 0.01f, 0.002f);
                         th.LayerDepth = LAYER_FRONT;
 
-                        // move the cursor to this selection
-                        MoveCursorTo(th.Position, 4f);
                         float zmTarget = 1.0f;
                         const float TIME_START_ZOOM = 1.4f;
                         if (timeSinceUserInput > TIME_START_ZOOM)
                         {
                             zmTarget += Math.Min( (timeSinceUserInput - TIME_START_ZOOM) * 0.08f, 3f);
                         }
-                        ZoomToTarget(zmTarget, th.Position, 0.004f);
+                        ZoomToTarget(zmTarget * SCALE_REGULAR, th.PositionAbs, 0.004f);
+                    }
+                    else if (SelectedGame == null)
+                    {
+                        //
                     }
                     else
                     {
-                        ResizeToTarget(th, 0.25f, 0.02f, 0.002f);
+                        th.ScaleToTarget(THUMBNAIL_SCALE_UNSELECTED, 0.02f, 0.002f);
                     }
                 }
                 else
@@ -206,43 +202,10 @@ namespace IndiegameGarden.Menus
 
                 if (abortIsQuitting)
                 {
-                    ZoomToTarget(1.000f, ZoomCenter, 0.0005f);
+                    ZoomToTarget(SCALE_REGULAR, ZoomCenter, 0.0005f);
                 }
 
             }
-        }
-
-        private void MoveCursorTo(Vector2 pos, float spd)
-        {
-            cursor.Velocity = spd * (pos - cursor.Position);
-        }
-
-        // TODO move to class
-        private void MoveToTarget(GameThumbnail t, Vector2 targetPos, float spd)
-        {
-            t.Velocity = spd * ( targetPos - t.Position );
-        }
-
-        // TODO move to class
-        private void ResizeToTarget(GameThumbnail t, float targetScale, float spd, float spdMin)
-        {
-            if (t.Scale < targetScale)
-            {                
-                t.Scale += spdMin + spd * (targetScale - t.Scale); //*= 1.01f;
-                if (t.Scale > targetScale)
-                {
-                    t.Scale = targetScale;
-                }
-            }
-            else if (t.Scale > targetScale)
-            {
-                t.Scale += -spdMin + spd * (targetScale - t.Scale); //*= 1.01f;
-                if (t.Scale < targetScale)
-                {             
-                    t.Scale = targetScale;
-                }
-            }
-            t.LayerDepth = 0.8f - t.Scale / 1000.0f;
         }
 
         /// <summary>
@@ -291,17 +254,6 @@ namespace IndiegameGarden.Menus
 
         public override void ChangedSelectedGameEvent(IndieGame newSel, IndieGame oldSel)
         {
-            try
-            {
-                if (oldSel != null)
-                {
-                    GameThumbnail thOld = thumbnailsCache[oldSel.GameID];
-                }
-            }
-            catch (Exception)
-            {
-                ;
-            }
         }
 
         public override void SendUserInput(GamesPanel.UserInput inp)
@@ -310,30 +262,30 @@ namespace IndiegameGarden.Menus
             switch (inp)
             {
                 case UserInput.DOWN:
-                    if (cursor.Y < SizeY -1 )
+                    if (cursor.GridPosition.Y < SizeY -1 )
                     {
-                        cursor.Y++;
+                        cursor.GridPosition.Y += 1f;
                         SelectGameBelowCursor();
                     }
                     break;
                 case UserInput.UP:
-                    if (cursor.Y > 0)
+                    if (cursor.GridPosition.Y > 0)
                     {
-                        cursor.Y--;
+                        cursor.GridPosition.Y -= 1f;
                         SelectGameBelowCursor();
                     }
                     break;
                 case UserInput.LEFT:
-                    if (cursor.X > 0)
+                    if (cursor.GridPosition.X > 0)
                     {
-                        cursor.X--;
+                        cursor.GridPosition.X -= 1f;
                         SelectGameBelowCursor();
                     }
                     break;
                 case UserInput.RIGHT:
-                    if (cursor.X < SizeX-1)
+                    if (cursor.GridPosition.X < SizeX - 1)
                     {
-                        cursor.X++;
+                        cursor.GridPosition.X += 1f;
                         SelectGameBelowCursor();
                     }   
                     break;

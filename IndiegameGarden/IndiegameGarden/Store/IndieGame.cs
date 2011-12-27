@@ -3,8 +3,8 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 using TTengine.Core;
 using IndiegameGarden.Menus;
@@ -26,8 +26,9 @@ namespace IndiegameGarden.Store
         public string ExeFile = "";
         public string CdPath = ".";
         public double Version = 1;
-
-        bool isInstalled;
+        public Vector2 Position = Vector2.Zero;
+        
+        private bool isInstalled;
 
         public IndieGame()
         {
@@ -46,6 +47,10 @@ namespace IndiegameGarden.Store
         {
             try { GameID = j["GameID"].ToString(); }                catch (KeyNotFoundException ex) { throw (ex);  }
             try { Version = ((JsonNumber)j["Version"]).Value; }     catch (KeyNotFoundException) { ;}
+            try { Position.X = (float) ((JsonNumber)j["X"]).Value; }
+            catch (KeyNotFoundException) { ;}
+            try { Position.Y = (float) ((JsonNumber)j["Y"]).Value; }
+            catch (KeyNotFoundException) { ;}
             try { Name = j["Name"].ToString(); }                     catch (KeyNotFoundException) { ; }
             try { Description = j["Description"].ToString(); }       catch (KeyNotFoundException) { ; }
             try { ExeFile = j["ExeFile"].ToString(); }            catch (KeyNotFoundException) { ; }
