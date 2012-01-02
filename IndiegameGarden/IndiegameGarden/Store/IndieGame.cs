@@ -1,4 +1,4 @@
-﻿// (c) 2010-2011 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
+﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
 using System.IO;
@@ -8,12 +8,13 @@ using Microsoft.Xna.Framework;
 
 using TTengine.Core;
 using IndiegameGarden.Menus;
+using IndiegameGarden.Install;
 using NetServ.Net.Json;
 
 namespace IndiegameGarden.Store
 {
     /**
-     * <summary>represents all data of a game that a user can select, download and start/play</summary>
+     * <summary>represents all data and status of a game that a user can select, download and start/play</summary>
      */
     public class IndieGame
     {
@@ -27,7 +28,9 @@ namespace IndiegameGarden.Store
         public string CdPath = ".";
         public double Version = 1;
         public Vector2 Position = Vector2.Zero;
-        
+        public GameDownloadAndInstallTask dlAndInstallTask = null;
+
+        // private vars
         private bool isInstalled;
 
         public IndieGame()

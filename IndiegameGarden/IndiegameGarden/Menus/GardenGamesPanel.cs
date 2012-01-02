@@ -1,4 +1,4 @@
-﻿// (c) 2010-2011 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
+﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
 using System.Collections.Generic;
@@ -16,22 +16,33 @@ namespace IndiegameGarden.Menus
 {
     public class GardenGamesPanel: GamesPanel
     {
-        const float LAYER_BACK  = 1.0f;
-        const float LAYER_FRONT = 0.0f;
-        const float LAYER_ZOOMING_ITEM = 0.1f;
-        const float LAYER_DODGING_ITEM = 0.3f;
-        const float LAYER_GRID_ITEMS = 0.9f;
-        const float SCALE_REGULAR = 1f; //0.16f;
-        const float SCALE_GRID_X = 0.16f;
-        const float SCALE_GRID_Y = 0.16f;
-        const float CURSOR_SCALE_REGULAR = 0.95f; //5.9375f;
-        const float THUMBNAIL_SCALE_SELECTED = 0.35f; //2f;
-        const float THUMBNAIL_SCALE_UNSELECTED = 0.28f; //1.5625f;
+        public const float LAYER_BACK = 1.0f;
+        public const float LAYER_FRONT = 0.0f;
+        public const float LAYER_ZOOMING_ITEM = 0.1f;
+        public const float LAYER_DODGING_ITEM = 0.3f;
+        public const float LAYER_GRID_ITEMS = 0.9f;
+
+        public const float PANEL_SCALE_REGULAR = 1f; //0.16f;
+        public const float PANEL_SCALE_GRID_X = 0.16f;
+        public const float PANEL_SCALE_GRID_Y = 0.16f;
+        public const float PANEL_SPEED_SHIFT = 1.1f;
+        public const float PANEL_SIZE_X = 1.333f;
+        public const float PANEL_SIZE_Y = 1.0f;
+        public const float CURSOR_SCALE_REGULAR = 0.95f; //5.9375f;
+        public const float THUMBNAIL_SCALE_UNSELECTED = 0.28f; //1.5625f;
+        public const float THUMBNAIL_SCALE_SELECTED = 0.35f; //2f;
+        public const float THUMBNAIL_SCALE_SELECTED2 = 2.857f;
+
 
         // maximum sizes of grid
-        public double SizeX=32, SizeY=32;
+        public double GridMaxX=32, GridMaxY=32;
+
+        // zoom, scale etc. related vars
+        public float ZoomTarget = 1.0f;
+        public float ZoomSpeed = 0f;
+
         Dictionary<string, GameThumbnail> thumbnailsCache = new Dictionary<string, GameThumbnail>();
-        // cursor is the graphics thingy plus (x,y) coordinate selection 
+        // cursor is the graphics selection thingy 
         GameThumbnailCursor cursor;
         // UI related vars - related to whether user indicates to quit program or user cancelled this
         bool isQuitting = false;
@@ -44,7 +55,7 @@ namespace IndiegameGarden.Menus
             cursor = new GameThumbnailCursor();
             Add(cursor);
             cursor.Scale = CURSOR_SCALE_REGULAR;
-            Zoom = SCALE_REGULAR;
+            Zoom = PANEL_SCALE_REGULAR;
             //cursor.Visible = false;
         }
 
@@ -89,10 +100,7 @@ namespace IndiegameGarden.Menus
         protected void SelectGameBelowCursor()
         {
             IndieGame g = gl.FindGameAt(cursor.GridPosition);
-            if (g != null)
-            {
-                SelectedGame = g;                
-            }
+            SelectedGame = g;                
         }
 
         protected override void OnUpdate(ref UpdateParams p)
@@ -100,13 +108,25 @@ namespace IndiegameGarden.Menus
             base.OnUpdate(ref p);
             timeSinceUserInput += p.dt;
 
-            if (gl == null)
-                return;
-
-            IndieGame g;
-            GameThumbnail th;
+            // handle dynamic zooming
+            if (Zoom < ZoomTarget && ZoomSpeed > 0f)
+            {
+                Zoom *= (1.0f + ZoomSpeed);
+                if (Zoom > ZoomTarget)
+                    Zoom = ZoomTarget;
+            }
+            else if (Zoom > ZoomTarget && ZoomSpeed > 0f)
+            {
+                Zoom /= (1.0f + ZoomSpeed);
+                if (Zoom < ZoomTarget)
+                    Zoom = ZoomTarget;
+            }
 
             // loop all games
+            if (gl == null)
+                return;
+            IndieGame g;
+            GameThumbnail th;
             for (int i = 0; i < gl.Count; i++)
             {
                 // fetch that game from list
@@ -141,29 +161,32 @@ namespace IndiegameGarden.Menus
                     th.FadeToTarget(1.0f, 4.3f);
                 }
 
-                // coordinate position where to move game thumbnail to 
-                // TODO include centerRow effect
-                Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(SCALE_GRID_X,SCALE_GRID_Y);
-                th.MoveToTarget(targetPos, 4f);
-                // cursor
-                cursor.Target = (cursor.GridPosition - PanelShiftPos) * new Vector2(SCALE_GRID_X,SCALE_GRID_Y);
+                // coordinate position where to move a game thumbnail to 
+                Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_SCALE_GRID_X,PANEL_SCALE_GRID_Y);
+                th.Target = targetPos;
+                th.TargetSpeed = 4f;
 
-                // panel shift effect
+                // cursor where to move to
+                cursor.Target = (cursor.GridPosition - PanelShiftPos) * new Vector2(PANEL_SCALE_GRID_X,PANEL_SCALE_GRID_Y);
+
+                // panel shift effect when cursor hits edges of panel
                 Vector2 cp = cursor.Position;
-                float dx = 1f * p.dt;
-                if (cp.X < 0f)
+                float chw = cursor.WidthAbs / 2.0f; // cursor-half-width
+                float chh = cursor.HeightAbs / 2.0f; // cursor-half-height
+                float dx = PANEL_SPEED_SHIFT * p.dt;
+                if (cp.X <= chw)
                 {
                     PanelShiftPos.X -= dx;
                 }
-                else if (cp.X > 1.2f)
+                else if (cp.X >= PANEL_SIZE_X - chw)
                 {
                     PanelShiftPos.X += dx;
                 }
-                if (cp.Y < 0.2f)
+                if (cp.Y <= chh)
                 {
                     PanelShiftPos.Y -= dx;
                 }
-                else if (cp.Y > 0.8f)
+                else if (cp.Y >= PANEL_SIZE_Y - chh)
                 {
                     PanelShiftPos.Y += dx;
                 }
@@ -174,16 +197,9 @@ namespace IndiegameGarden.Menus
                     // if selected - size adapt
                     if (g == SelectedGame)
                     {
-                        th.ScaleToTarget(THUMBNAIL_SCALE_SELECTED, 0.01f, 0.002f);
-                        th.LayerDepth = LAYER_FRONT;
-
-                        float zmTarget = 1.0f;
-                        const float TIME_START_ZOOM = 1.4f;
-                        if (timeSinceUserInput > TIME_START_ZOOM)
-                        {
-                            zmTarget += Math.Min( (timeSinceUserInput - TIME_START_ZOOM) * 0.08f, 3f);
-                        }
-                        ZoomToTarget(zmTarget * SCALE_REGULAR, th.PositionAbs, 0.004f);
+                        th.ScaleTarget = THUMBNAIL_SCALE_SELECTED;
+                        th.ScaleSpeed = 0.01f;
+                        //th.LayerDepth = LAYER_FRONT;
                     }
                     else if (SelectedGame == null)
                     {
@@ -191,56 +207,29 @@ namespace IndiegameGarden.Menus
                     }
                     else
                     {
-                        th.ScaleToTarget(THUMBNAIL_SCALE_UNSELECTED, 0.02f, 0.002f);
+                        th.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
+                        th.ScaleSpeed = 0.02f;
                     }
                 }
                 else
                 {
                     // isQuitting
-                    ZoomToTarget(0.001f, ZoomCenter, 0.0005f * Zoom);
+                    ZoomTarget = 0.001f;
+                    ZoomSpeed = 0.005f;
                 }
 
                 if (abortIsQuitting)
                 {
-                    ZoomToTarget(SCALE_REGULAR, ZoomCenter, 0.0005f);
+                    ZoomToNormal();
                 }
 
             }
         }
 
-        /// <summary>
-        /// zoom entire panel towards the zoom target, around position 'center'
-        /// </summary>
-        /// <param name="targetZoom"></param>
-        /// <param name="targetCenter"></param>
-        /// <param name="spd"></param>
-        public void ZoomToTarget(float targetZoom, Vector2 targetCenter, float spd)
+        public void ZoomToNormal()
         {
-            float sc = Zoom;
-            if (sc < targetZoom)
-            {
-                sc *= (1.0f+spd);
-                if (sc > targetZoom)
-                    sc = targetZoom;
-            }
-            else if (sc > targetZoom)
-            {
-                sc /= (1.0f+spd);
-                if (sc < targetZoom)
-                    sc = targetZoom;
-            }
-            Vector2 v = (targetCenter - ZoomCenter);
-            if (v.Length() < spd)
-                ZoomCenter = targetCenter;
-            else
-            {
-                float spd2 = 5 * v.Length() * spd;
-                if (spd2 < spd)
-                    spd2 = spd;
-                v.Normalize();
-                ZoomCenter += spd2 * v;
-            }
-            Zoom = sc;
+            ZoomTarget = PANEL_SCALE_REGULAR;
+            //ZoomCenter = Screen.Center; // don't specify - use previous zoomcenter
         }
 
         protected override void OnDraw(ref DrawParams p)
@@ -254,48 +243,86 @@ namespace IndiegameGarden.Menus
 
         public override void ChangedSelectedGameEvent(IndieGame newSel, IndieGame oldSel)
         {
+            // unselect the previous game
+            if (oldSel != null)
+            {
+                GameThumbnail th = thumbnailsCache[oldSel.GameID];
+                if (th != null)
+                {
+                    th.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
+                    th.ScaleSpeed = 0.01f;
+                }
+            }
         }
 
         public override void SendUserInput(GamesPanel.UserInput inp)
         {
             timeSinceUserInput = 0f;
+            
             switch (inp)
             {
                 case UserInput.DOWN:
-                    if (cursor.GridPosition.Y < SizeY -1 )
+                    if (cursor.GridPosition.Y < GridMaxY -1 )
                     {
                         cursor.GridPosition.Y += 1f;
                         SelectGameBelowCursor();
                     }
+                    ZoomToNormal();
                     break;
+               
                 case UserInput.UP:
                     if (cursor.GridPosition.Y > 0)
                     {
                         cursor.GridPosition.Y -= 1f;
                         SelectGameBelowCursor();
                     }
+                    ZoomToNormal();
                     break;
+                
                 case UserInput.LEFT:
                     if (cursor.GridPosition.X > 0)
                     {
                         cursor.GridPosition.X -= 1f;
                         SelectGameBelowCursor();
                     }
+                    ZoomToNormal();
                     break;
+                
                 case UserInput.RIGHT:
-                    if (cursor.GridPosition.X < SizeX - 1)
+                    if (cursor.GridPosition.X < GridMaxX - 1)
                     {
                         cursor.GridPosition.X += 1f;
                         SelectGameBelowCursor();
-                    }   
+                    }
+                    ZoomToNormal();
                     break;
+                
                 case UserInput.QUITTING:
                     isQuitting = true;
                     abortIsQuitting = false;
                     break;
+                
                 case UserInput.ABORT_QUITTING:
                     isQuitting = false;
                     abortIsQuitting = true;
+                    break;
+
+                case UserInput.SELECT1:
+                    if (SelectedGame != null)
+                    {
+                        // zoom in on selected game
+                        GameThumbnail th = thumbnailsCache[SelectedGame.GameID];
+                        if (th != null)
+                        {
+                            ZoomTarget = THUMBNAIL_SCALE_SELECTED2;
+                            ZoomCenter = th.PositionAbs;
+                            ZoomSpeed = 0.05f;
+                        }
+                    }
+                    break;
+
+                case UserInput.SELECT2:
+                    // TODO
                     break;
             }
         }

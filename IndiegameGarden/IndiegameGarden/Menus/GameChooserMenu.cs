@@ -1,4 +1,4 @@
-﻿// (c) 2010-2011 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
+﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
 using System.IO;
@@ -12,6 +12,7 @@ using TTengine.Core;
 using TTengine.Modifiers;
 
 using IndiegameGarden.Store;
+using IndiegameGarden.Install;
 
 namespace IndiegameGarden.Menus
 {
@@ -23,21 +24,27 @@ namespace IndiegameGarden.Menus
         const int POINTER_UNDEFINED = -1;
         GameCollection gamesList;
         IndieGame gameLastLaunched = null;
-        float lastChangeTime = 0;
-        float timeSinceLastChange = 0;
-        double timeEscapeIsDown = 0;
-        double timeEnterIsUp = 9999;
-        bool changedSelection = false;
+        float lastKeypressTime = 0;
+        double timeEscapeIsPressed = 0;
+        double timeEnterIsNotPressed = 9999;
+        int timesEnterPressed = 0;
+        // to launch/start a game and track its state
         GameLauncher launcher;
-        GamesPanel panel;
-        GameTextBox textBox;
+        // game thumbnails or items selection panel
+        GamesPanel panel;        
+        // box showing info of a game such as title
+        GameInfoBox infoBox;
 
-        const double MIN_MENU_CHANGE_DELAY = 0.2f;
+        // below are UI configuration values
+        public const double MIN_MENU_CHANGE_DELAY = 0.2f;
+        public static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f,0.85f);
+        public static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.95f);
+        public const float INFOBOX_SPEED_MOVE = 2.8f;
 
         public GameChooserMenu()
         {
             panel = new GardenGamesPanel();
-            panel.Position = new Vector2(0.3f, 0.15f);
+            panel.Position = new Vector2(0.0f, 0.0f);
 
             // get the items to display
             gamesList = GardenMain.Instance.gameLibrary.GetList();
@@ -46,6 +53,11 @@ namespace IndiegameGarden.Menus
             Add(panel);
             panel.UpdateList(gamesList);
 
+            // info box
+            infoBox = new GameInfoBox();
+            infoBox.Position = INFOBOX_HIDDEN_POSITION;
+            Add(infoBox);
+
             // background
             Spritelet bg = new Spritelet("flower");
             bg.Position = new Vector2(0.66667f, 0.5f);
@@ -53,97 +65,123 @@ namespace IndiegameGarden.Menus
             bg.Add(new MyFuncyModifier( delegate(float v) { return v/20.0f; }, "Rotate"));
             Add(bg);
 
-            textBox = new GameTextBox();
-            textBox.Position = new Vector2(0.66667f, 0.9f);
-            textBox.LayerDepth = 0f;
-            Add(textBox);
-
         }
 
         protected override void OnDraw(ref DrawParams p)
         {
             base.OnDraw(ref p);
 
-            if (timeEscapeIsDown > 0)
+            if (timeEscapeIsPressed > 0)
                 Screen.DebugText(new Vector2(0f, 0.1f), "ESC is pressed");
         }
 
         protected void KeyboardControls(ref UpdateParams p)
         {
-            timeSinceLastChange = p.simTime - lastChangeTime;
-            if (timeSinceLastChange > MIN_MENU_CHANGE_DELAY)
-            {
-                changedSelection = true;
+            KeyboardState st = Keyboard.GetState();
+            // time bookkeeping
+            float timeSinceLastKeypress = p.simTime - lastKeypressTime;
 
-                if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                    panel.SendUserInput(GamesPanel.UserInput.LEFT);
-
-                else if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                    panel.SendUserInput(GamesPanel.UserInput.RIGHT);
-
-                else if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                    panel.SendUserInput(GamesPanel.UserInput.UP);
-
-                else if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                    panel.SendUserInput(GamesPanel.UserInput.DOWN);
-                else
-                    changedSelection = false;
-            }
-
-            if (changedSelection)
-            {
-                lastChangeTime = p.simTime;
-                gameLastLaunched = null; // reset the memory of last launched
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (!st.IsKeyDown(Keys.Enter))
+                timeEnterIsNotPressed += p.dt;
+            else
+                timeEnterIsNotPressed = 0f;
+            
+            if (st.IsKeyDown(Keys.Escape))
             {
                 // if escape was pressed...
                 panel.SendUserInput(GamesPanel.UserInput.QUITTING);
-                timeEscapeIsDown += p.dt;
-                if (timeEscapeIsDown > 0.5f)
+                timeEscapeIsPressed += p.dt;
+                if (timeEscapeIsPressed > 0.5f)
                     GardenMain.Instance.Exit();
             }
-            else if (timeEscapeIsDown > 0f)
+            else if (timeEscapeIsPressed > 0f)
             {
                 // if ESC was released just now... before quitting
-                timeEscapeIsDown = 0f;
+                timeEscapeIsPressed = 0f;
                 panel.SendUserInput(GamesPanel.UserInput.ABORT_QUITTING);
             }
 
-            // launch the current selection (try it)
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            // check - only proceed if a key pressed and some minimal delay has passed...            
+            if (timeSinceLastKeypress < MIN_MENU_CHANGE_DELAY)
+                return ;
+            if (st.GetPressedKeys().Length == 0)
+                return;
+            
+            // -- a key is pressed - check all keys and take action(s)
+            if (st.IsKeyDown(Keys.Left))
+                panel.SendUserInput(GamesPanel.UserInput.LEFT);
+
+            else if (st.IsKeyDown(Keys.Right))
+                panel.SendUserInput(GamesPanel.UserInput.RIGHT);
+
+            else if (st.IsKeyDown(Keys.Up))
+                panel.SendUserInput(GamesPanel.UserInput.UP);
+
+            else if (st.IsKeyDown(Keys.Down))
+                panel.SendUserInput(GamesPanel.UserInput.DOWN);
+
+            if (st.IsKeyDown(Keys.Enter))
             {
-                if (launcher == null || launcher.IsDone() == true)
+                timesEnterPressed++;
+                if (timesEnterPressed == 1)
                 {
-                    if (timeEnterIsUp > 1.5f) // only launch if enter was released for some time
+                    panel.SendUserInput(GamesPanel.UserInput.SELECT1);
+                    infoBox.Target = INFOBOX_SHOWN_POSITION;
+                    infoBox.TargetSpeed = INFOBOX_SPEED_MOVE;
+                    infoBox.SetGameInfo(panel.SelectedGame);
+                }
+                else if (timesEnterPressed >= 2)
+                {
+                    panel.SendUserInput(GamesPanel.UserInput.SELECT2);
+
+                    // check if download needed
+                    IndieGame g = panel.SelectedGame;
+                    if (!g.IsInstalled)
                     {
-                        IndieGame g = panel.SelectedGame;
-                        if (g.ExeFile.Length > 0)
+                        g.dlAndInstallTask = new GameDownloadAndInstallTask(g);
+                        g.dlAndInstallTask.Start();
+                    }
+                    else
+                    {
+                        // if installed, launch it
+                        if (launcher == null || launcher.IsDone() == true)
                         {
-                            launcher = new GameLauncher(g);
-                            gameLastLaunched = panel.SelectedGame;
-                            launcher.Start();
+                            if (timeEnterIsNotPressed > 1.5f) // only launch if enter was released for some time
+                            {
+                                if (g.ExeFile.Length > 0)
+                                {
+                                    launcher = new GameLauncher(g);
+                                    gameLastLaunched = panel.SelectedGame;
+                                    launcher.Start();
+                                }
+                            }
                         }
                     }
                 }
-                timeEnterIsUp = 0f;
+
             }
             else
             {
-                timeEnterIsUp += p.dt; 
+                // if some key is pressed but not Enter, reset the timesEnter count
+                timesEnterPressed = 0;
+                infoBox.Target = INFOBOX_HIDDEN_POSITION;
             }
+
+            // bookkeeping for next keypress
+            lastKeypressTime = p.simTime;
+            gameLastLaunched = null; // reset the memory of last launched upon keypress
+            
+
         }
 
         protected override void OnUpdate(ref UpdateParams p)
         {
-            changedSelection = false;
             base.OnUpdate(ref p);
 
             KeyboardControls(ref p);
 
             // update text box
-            textBox.Update(panel.SelectedGame);
+            infoBox.SetGameInfo(panel.SelectedGame);
 
         }
 

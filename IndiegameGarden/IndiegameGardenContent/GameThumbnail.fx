@@ -1,4 +1,4 @@
-// (c) 2010-2011 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
+// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 float Time = 0;
 float2 Center = float2(0.5,0.5);

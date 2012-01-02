@@ -144,6 +144,7 @@
     <Compile Include="Install\GameDownloadAndInstallTask.cs" />
     <Compile Include="Install\InstallTask.cs" />
     <Compile Include="Menus\DodgeSidewaysBehavior.cs" />
+    <Compile Include="Menus\GameInfoBox.cs" />
     <Compile Include="Menus\GameLauncher.cs" />
     <Compile Include="Menus\GamesPanel.cs" />
     <Compile Include="Menus\GameTextBox.cs" />
@@ -151,6 +152,8 @@
     <Compile Include="Menus\GameChooserMenu.cs" />
     <Compile Include="Menus\GameThumbnailCursor.cs" />
     <Compile Include="Menus\GardenGamesPanel.cs" />
+    <Compile Include="Menus\MovingEffectSpritelet.cs" />
+    <Compile Include="Menus\ProgressBar.cs" />
     <Compile Include="Store\GameCollection.cs" />
     <Compile Include="Store\GameFilter.cs" />
     <Compile Include="Store\GameLibrary.cs" />

@@ -10,30 +10,56 @@ using IndiegameGarden.Store;
 
 namespace IndiegameGarden.Menus
 {
+    /**
+     * a box showing a text (which can be changed/updated)
+     */
     public class GameTextBox: Gamelet
     {
-        IndieGame game;
+        string txt = null;
         SpriteFont font;
+
+        public GameTextBox(string initialText)
+        {
+            txt = initialText;
+            Init();
+        }
 
         public GameTextBox()
         {
-            font = GardenMain.Instance.Content.Load<SpriteFont>(@"TTDebugFont");
+            txt = "";
+            Init();
         }
 
-        public void Update(IndieGame g)
+        /// <summary>
+        /// get/set the text of this box
+        /// </summary>
+        public string Text
         {
-            game = g;
+            get
+            {
+                return txt;
+            }
+            set
+            {
+                txt = value;
+            }
+        }
+
+        private void Init()
+        {
+            font = GardenMain.Instance.Content.Load<SpriteFont>("m41_lovebit");
         }
 
         protected override void OnDraw(ref DrawParams p)
         {
             base.OnDraw(ref p);
-            if (game != null)
+
+            if (txt == null)
             {
-                string txt = game.GameID;
-                Vector2 origin = new Vector2(2f * txt.Length, 0f);
-                Screen.UseSharedSpritebatch().DrawString(font, txt, DrawPosition, DrawColor, RotateAbs, origin, 3f, SpriteEffects.None, LayerDepth);
+                txt = "";
             }
+            Vector2 origin = Vector2.Zero; // new Vector2(2f * txt.Length, 0f);
+            Screen.UseSharedSpritebatch().DrawString(font, txt, DrawPosition, DrawColor, RotateAbs, origin, ScaleAbs, SpriteEffects.None, LayerDepth);
         }
     }
 }

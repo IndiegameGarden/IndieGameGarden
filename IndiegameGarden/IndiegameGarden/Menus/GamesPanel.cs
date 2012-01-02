@@ -1,4 +1,4 @@
-﻿// (c) 2010-2011 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
+﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace IndiegameGarden.Menus
     /// </summary>
     public abstract class GamesPanel: Gamelet
     {
-        public enum UserInput { LEFT, RIGHT, UP, DOWN, QUITTING, ABORT_QUITTING};
+        public enum UserInput { LEFT, RIGHT, UP, DOWN, QUITTING, ABORT_QUITTING, SELECT1, SELECT2 };
 
         // stores the current list obtained with UpdateList()
         protected GameCollection gl = new GameCollection();
