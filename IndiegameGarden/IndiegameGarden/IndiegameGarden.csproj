@@ -159,15 +159,15 @@
     <Compile Include="Store\GameLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="GardenMain.cs" />
+    <Compile Include="GardenGame.cs" />
     <Compile Include="Store\IndieGame.cs" />
-    <Compile Include="Store\IndieGameFilter.cs" />
     <Compile Include="Store\JSONStore.cs" />
-    <Compile Include="Store\StorageConfig.cs" />
+    <Compile Include="Store\GardenConfig.cs" />
     <Compile Include="Menus\ThumbnailFromFile.cs" />
-    <Compile Include="Unpack\PackedFile.cs" />
+    <Compile Include="Unpack\UnpackerTask.cs" />
     <Compile Include="Unpack\Unrar.cs" />
-    <Compile Include="Unpack\Unzip.cs" />
+    <Compile Include="Unpack\Unrarrer.cs" />
+    <Compile Include="Unpack\Unzipper.cs" />
     <Compile Include="Util\RandomMath.cs" />
   </ItemGroup>
   <ItemGroup>

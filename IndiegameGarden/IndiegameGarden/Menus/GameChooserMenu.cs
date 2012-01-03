@@ -17,41 +17,43 @@ using IndiegameGarden.Install;
 namespace IndiegameGarden.Menus
 {
     /// <summary>
-    /// main menu to choose a game; uses a GamePanel to delegate rendering to
+    /// main menu to choose a game; uses a GamePanel to delegate thumbnail rendering and navigation to
     /// </summary>
     public class GameChooserMenu: Gamelet
     {
-        const int POINTER_UNDEFINED = -1;
         GameCollection gamesList;
         IndieGame gameLastLaunched = null;
         float lastKeypressTime = 0;
         double timeEscapeIsPressed = 0;
         double timeEnterIsNotPressed = 9999;
         int timesEnterPressed = 0;
-        // to launch/start a game and track its state
+        // used to launch/start a game and track its state
         GameLauncher launcher;
-        // game thumbnails or items selection panel
+        // the game thumbnails or items selection panel
         GamesPanel panel;        
-        // box showing info of a game such as title
+        // box showing info of a game such as title and download progress
         GameInfoBox infoBox;
 
         // below are UI configuration values
-        public const double MIN_MENU_CHANGE_DELAY = 0.2f;
-        public static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f,0.85f);
-        public static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.95f);
-        public const float INFOBOX_SPEED_MOVE = 2.8f;
+        const double MIN_MENU_CHANGE_DELAY = 0.2f;
+        static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f,0.85f);
+        static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.95f);
+        const float INFOBOX_SPEED_MOVE = 2.8f;
 
+        /// <summary>
+        /// construct new menu
+        /// </summary>
         public GameChooserMenu()
         {
             panel = new GardenGamesPanel();
             panel.Position = new Vector2(0.0f, 0.0f);
 
             // get the items to display
-            gamesList = GardenMain.Instance.gameLibrary.GetList();
+            gamesList = GardenGame.Instance.GameLib.GetList();
 
             // set my panel and games list
             Add(panel);
-            panel.UpdateList(gamesList);
+            panel.OnUpdateList(gamesList);
 
             // info box
             infoBox = new GameInfoBox();
@@ -62,7 +64,7 @@ namespace IndiegameGarden.Menus
             Spritelet bg = new Spritelet("flower");
             bg.Position = new Vector2(0.66667f, 0.5f);
             bg.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
-            bg.Add(new MyFuncyModifier( delegate(float v) { return v/20.0f; }, "Rotate"));
+            bg.Add(new MyFuncyModifier( delegate(float v) { return v/25.0f; }, "Rotate"));
             Add(bg);
 
         }
@@ -71,10 +73,15 @@ namespace IndiegameGarden.Menus
         {
             base.OnDraw(ref p);
 
+            // DEBUG
             if (timeEscapeIsPressed > 0)
                 Screen.DebugText(new Vector2(0f, 0.1f), "ESC is pressed");
         }
 
+        /// <summary>
+        /// handles all keyboard input into the menu
+        /// </summary>
+        /// <param name="p">UpdateParams from TTEngine OnUpdate()</param>
         protected void KeyboardControls(ref UpdateParams p)
         {
             KeyboardState st = Keyboard.GetState();
@@ -89,16 +96,16 @@ namespace IndiegameGarden.Menus
             if (st.IsKeyDown(Keys.Escape))
             {
                 // if escape was pressed...
-                panel.SendUserInput(GamesPanel.UserInput.QUITTING);
+                panel.OnUserInput(GamesPanel.UserInput.QUITTING);
                 timeEscapeIsPressed += p.dt;
                 if (timeEscapeIsPressed > 0.5f)
-                    GardenMain.Instance.Exit();
+                    GardenGame.Instance.Exit();
             }
             else if (timeEscapeIsPressed > 0f)
             {
                 // if ESC was released just now... before quitting
                 timeEscapeIsPressed = 0f;
-                panel.SendUserInput(GamesPanel.UserInput.ABORT_QUITTING);
+                panel.OnUserInput(GamesPanel.UserInput.ABORT_QUITTING);
             }
 
             // check - only proceed if a key pressed and some minimal delay has passed...            
@@ -109,42 +116,43 @@ namespace IndiegameGarden.Menus
             
             // -- a key is pressed - check all keys and take action(s)
             if (st.IsKeyDown(Keys.Left))
-                panel.SendUserInput(GamesPanel.UserInput.LEFT);
+                panel.OnUserInput(GamesPanel.UserInput.LEFT);
 
             else if (st.IsKeyDown(Keys.Right))
-                panel.SendUserInput(GamesPanel.UserInput.RIGHT);
+                panel.OnUserInput(GamesPanel.UserInput.RIGHT);
 
             else if (st.IsKeyDown(Keys.Up))
-                panel.SendUserInput(GamesPanel.UserInput.UP);
+                panel.OnUserInput(GamesPanel.UserInput.UP);
 
             else if (st.IsKeyDown(Keys.Down))
-                panel.SendUserInput(GamesPanel.UserInput.DOWN);
+                panel.OnUserInput(GamesPanel.UserInput.DOWN);
 
             if (st.IsKeyDown(Keys.Enter))
             {
                 timesEnterPressed++;
                 if (timesEnterPressed == 1)
                 {
-                    panel.SendUserInput(GamesPanel.UserInput.SELECT1);
+                    panel.OnUserInput(GamesPanel.UserInput.SELECT1);
                     infoBox.Target = INFOBOX_SHOWN_POSITION;
                     infoBox.TargetSpeed = INFOBOX_SPEED_MOVE;
                     infoBox.SetGameInfo(panel.SelectedGame);
                 }
                 else if (timesEnterPressed >= 2)
                 {
-                    panel.SendUserInput(GamesPanel.UserInput.SELECT2);
+                    panel.OnUserInput(GamesPanel.UserInput.SELECT2);
 
+                    // TODO delegate to a method? all below
                     // check if download needed
                     IndieGame g = panel.SelectedGame;
                     if (!g.IsInstalled)
                     {
-                        g.dlAndInstallTask = new GameDownloadAndInstallTask(g);
-                        g.dlAndInstallTask.Start();
+                        g.DlAndInstallTask = new GameDownloadAndInstallTask(g);
+                        g.DlAndInstallTask.Start();
                     }
                     else
                     {
                         // if installed, launch it
-                        if (launcher == null || launcher.IsDone() == true)
+                        if (launcher == null || launcher.IsFinished() == true)
                         {
                             if (timeEnterIsNotPressed > 1.5f) // only launch if enter was released for some time
                             {
@@ -178,9 +186,10 @@ namespace IndiegameGarden.Menus
         {
             base.OnUpdate(ref p);
 
+            // check keyboard inputs from user
             KeyboardControls(ref p);
 
-            // update text box
+            // update text box with currently selected game info
             infoBox.SetGameInfo(panel.SelectedGame);
 
         }

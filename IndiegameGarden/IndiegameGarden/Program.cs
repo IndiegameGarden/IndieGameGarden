@@ -12,7 +12,7 @@ namespace IndiegameGarden
         /// </summary>
         static void Main(string[] args)
         {
-            using (GardenMain game = new GardenMain())
+            using (GardenGame game = new GardenGame())
             {
                 game.Run();
             }

@@ -8,10 +8,14 @@ using MyDownloader.Core;
 
 namespace IndiegameGarden.Download
 {
+    /**
+     * A base class for various file downloader classes
+     */
     public abstract class BaseDownloader: ITask
     {
         protected Downloader downloader;
         protected bool isStarted = false;
+        protected bool isFinished = false;
 
         public virtual double Progress()
         {
@@ -25,9 +29,15 @@ namespace IndiegameGarden.Download
             return isStarted;
         }
 
+        public virtual bool IsFinished()
+        {
+            return isFinished;
+        }
+
         public virtual void Start()
         {
             isStarted = true;
+            isFinished = false;
         }
 
         public virtual void Abort()
@@ -37,21 +47,22 @@ namespace IndiegameGarden.Download
                 DownloadManager.Instance.RemoveDownload(downloader);
             }
             downloader = null;
+            isFinished = true;
         }
 
         /// <summary>
-        /// internal method to start a download without mirrors
+        /// class-internal method to start a download without mirrors
         /// </summary>
-        /// <param name="urlPath"></param>
-        /// <param name="filename"></param>
-        /// <param name="toLocalFolder"></param>
+        /// <param name="urlPath">full URL path of file, optionally leaving out protocol http://</param>
+        /// <param name="filename">local name under which to store the file</param>
+        /// <param name="toLocalFolder">local folder where to store file</param>
         protected void InternalStartDownload(string urlPath, string filename, string toLocalFolder)
         {
             InternalStartDownload(urlPath,filename,toLocalFolder, new string[] {} );
         }
 
         /// <summary>
-        /// internal method to start a download with mirrors
+        /// class-internal method to start a download with mirrors
         /// </summary>
         /// <param name="urlPath">full URL path of file, optionally leaving out protocol http://</param>
         /// <param name="filename">local name under which to store the file</param>
@@ -64,20 +75,31 @@ namespace IndiegameGarden.Download
                 urlPath = "http://" + urlPath;
 
             // starts to listen to the event 'DownloadEnded' from DownloadManager
-            DownloadManager.Instance.DownloadEnded += new EventHandler<DownloaderEventArgs>(HandleDownloadEndedEvent);
+            DownloadManager.Instance.DownloadEnded += new EventHandler<DownloaderEventArgs>(EvHandleDownloadEnded);
 
             string localFile = toLocalFolder + "\\" + filename ;
             // TODO check segments count
-            downloader = DownloadManager.Instance.Add(ResourceLocation.FromURL(urlPath), ResourceLocation.FromURLArray(mirrors), localFile, 10, true);
+            downloader = DownloadManager.Instance.Add(  ResourceLocation.FromURL(urlPath), 
+                                                        ResourceLocation.FromURLArray(mirrors), 
+                                                        localFile, 3, true);
 
         }
 
+        // called by MyDownloader framework upon any download ready/error etc.
+        private void EvHandleDownloadEnded(object sender, DownloaderEventArgs e)
+        {
+            // check if it is my download
+            if (e.Downloader == downloader)
+            {
+                OnDownloadEnded(e.Downloader);
+            }
+        }
+
         /// <summary>
-        /// called when download task has ended
+        /// called when download task has ended. Can use dl.State to check state of the finished download (e.g. error, success, etc.)
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public abstract void HandleDownloadEndedEvent(object sender, DownloaderEventArgs e);
+        /// <param name="dl">The Downloader class of the file whose downloading has ended</param>
+        public abstract void OnDownloadEnded(Downloader dl);
 
     }
 }

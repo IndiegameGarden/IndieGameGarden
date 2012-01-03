@@ -11,11 +11,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace IndiegameGarden.Menus
 {
+    /**
+     * a graphical progress bar between 0 and 100% with textual indication on the side
+     */
     public class ProgressBar: Spritelet
     {
         float progressValue;
         float progressValueTarget;
-        float progressCatchupSpeed = 50.0f;
+        float progressCatchupSpeed = 50.0f; // TODO make public?
         SpriteFont spriteFont;
         Color textColor = Color.White;
 
@@ -24,6 +27,7 @@ namespace IndiegameGarden.Menus
         {
             progressValue = 0f;
             progressValueTarget = 0f;
+            spriteFont = TTengineMaster.ActiveGame.Content.Load<SpriteFont>("m41_lovebit");
         }
 
         public float Progress
@@ -36,12 +40,6 @@ namespace IndiegameGarden.Menus
             {
                 progressValueTarget = value;
             }
-        }
-
-        protected override void OnInit()
-        {
-            base.OnInit();
-            spriteFont = TTengineMaster.ActiveGame.Content.Load<SpriteFont>("m41_lovebit");
         }
 
         protected override void OnUpdate(ref UpdateParams p)

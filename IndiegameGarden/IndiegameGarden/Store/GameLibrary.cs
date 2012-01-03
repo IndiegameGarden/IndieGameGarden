@@ -9,40 +9,48 @@ using NetServ.Net.Json;
 
 namespace IndiegameGarden.Store
 {
+    /**
+     * stores a library of game information, parsed from JSON format files
+     */
     public class GameLibrary
     {
-
         JSONStore json;
-        GameCollection indieGamesList;
+        GameCollection gamesList;
 
         public GameLibrary()
         {
             Load();
         }
 
+        /// <summary>
+        /// (re)load information from config file(s)
+        /// </summary>
         public void Load()
         {
-            string fn = GardenMain.Instance.storageConfig.GameLibraryFilename;
+            string fn = GardenGame.Instance.Config.GameLibraryFilename;
             json = new JSONStore(fn);
-            indieGamesList = new GameCollection();
+            gamesList = new GameCollection();
             ParseJson();
         }
 
+        // parse all games in the 'json' data
         private void ParseJson()
         {
-            //JsonString name = (JsonString)obj["Name"];
             JsonArray gl = (JsonArray)json.GetArray("gameslist");
             foreach( IJsonType g in gl )
             {
-                //JsonString n = (JsonString) ((JsonObject)g)["Name"];
                 IndieGame ig = new IndieGame( (JsonObject)g );
-                indieGamesList.Add(ig);
+                gamesList.Add(ig);
             }
         }
 
+        /// <summary>
+        /// get a GameCollection containing all games in the library
+        /// </summary>
+        /// <returns>GameCollection containing all games in the library</returns>
         public GameCollection GetList()
         {
-            return indieGamesList;
+            return gamesList;
         }
     }
 }

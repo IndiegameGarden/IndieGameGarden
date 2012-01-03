@@ -6,12 +6,17 @@ using Microsoft.Xna.Framework;
 
 namespace IndiegameGarden.Store
 {
+    /**
+     * a selected collection/list of games
+     */
     public class GameCollection: List<IndieGame>
     {
 
         /// <summary>
         /// find the game closest to given position
         /// </summary>
+        /// <param name="pos">index position (x,y)</param>
+        /// <returns>found IndieGame or null if none are found near</returns>
         public IndieGame FindGameAt(Vector2 pos)
         {
             IndieGame sel = null;

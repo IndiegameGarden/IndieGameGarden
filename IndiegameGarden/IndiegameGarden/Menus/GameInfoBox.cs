@@ -29,7 +29,7 @@ namespace IndiegameGarden.Menus
         private void InitComponents()
         {
             dlProgressBar = new ProgressBar();
-            dlProgressBar.Position = new Vector2(0.15f, 0.07f);
+            dlProgressBar.Position = new Vector2(0.18f, 0.07f);
             dlProgressBar.Visible = false;
             Add(dlProgressBar);
 
@@ -60,14 +60,21 @@ namespace IndiegameGarden.Menus
                 }
                 else
                 {
-                    if (game.dlAndInstallTask != null)
+                    if (game.DlAndInstallTask != null)
                     {
-                        txt += "Downloading...\n";
+                        if (game.DlAndInstallTask.IsDownloading())
+                        {
+                            txt += "Downloading...\n";
+                        }
+                        else if (game.DlAndInstallTask.IsInstalling())
+                        {
+                            txt += "Installing...\n";
+                        }
                         dlProgressBar.Visible = true;
-                        dlProgressBar.Progress = (float) game.dlAndInstallTask.Progress();
+                        dlProgressBar.Progress = (float) game.DlAndInstallTask.Progress();
                     }
 
-                    if (game.dlAndInstallTask == null)
+                    if (game.DlAndInstallTask == null)
                     {
                         txt += "Press ENTER to download this game!\n";
                     }

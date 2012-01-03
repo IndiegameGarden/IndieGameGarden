@@ -1,14 +1,12 @@
 ﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using MyDownloader.Core;
 
 namespace IndiegameGarden.Download
 {
+    /**
+     * A downloader of configuration files
+     */
     public class ConfigDownloader: BaseDownloader
     {
         string filename;
@@ -20,13 +18,13 @@ namespace IndiegameGarden.Download
 
         public override void Start()
         {
-            string url = GardenMain.Instance.storageConfig.ConfigFilesServerURL + filename;
-            InternalStartDownload(url, filename, GardenMain.Instance.storageConfig.ConfigFilesFolder);
+            string url = GardenGame.Instance.Config.ConfigFilesServerURL + filename;
+            InternalStartDownload(url, filename, GardenGame.Instance.Config.ConfigFilesFolder);
         }
 
-        public override void HandleDownloadEndedEvent(object sender, DownloaderEventArgs e)
+        public override void OnDownloadEnded(Downloader dl)
         {
+            // TODO
         }
-
     }
 }

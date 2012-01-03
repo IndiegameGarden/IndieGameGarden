@@ -7,7 +7,12 @@ using System.Text;
 
 namespace IndiegameGarden.Store
 {
+    /**
+     * filters a GameCollection to produce a new, reduced GameCollection.
+     * For example to keep only games whose title start with letter 'A'.
+     */
     public class GameFilter
     {
+        // TODO
     }
 }

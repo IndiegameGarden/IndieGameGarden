@@ -12,7 +12,7 @@ using IndiegameGarden.Store;
 namespace IndiegameGarden.Menus
 {
     /// <summary>
-    /// launches a game .exe and keeps track of when it has finished
+    /// launches a game .exe in a separate process and keeps track of when it has finished
     /// </summary>
     public class GameLauncher: ITask
     {
@@ -28,7 +28,7 @@ namespace IndiegameGarden.Menus
         public GameLauncher(IndieGame g)
         {
             string cwd = System.IO.Directory.GetCurrentDirectory();
-            cdPath = cwd + "\\" + GardenMain.Instance.storageConfig.UnpackedFilesFolder + "\\" + g.GameID + "\\" + g.CdPath;
+            cdPath = cwd + "\\" + GardenGame.Instance.Config.UnpackedFilesFolder + "\\" + g.GameID + "\\" + g.CdPath;
             filePath = g.ExeFile;
         }
 
@@ -67,7 +67,7 @@ namespace IndiegameGarden.Menus
 
         public double Progress()
         {
-            if (IsDone())
+            if (IsFinished())
                 return 1.0;
             return 0.0;
         }
@@ -77,7 +77,7 @@ namespace IndiegameGarden.Menus
             return isStarted;
         }
 
-        public bool IsDone()
+        public bool IsFinished()
         {
             return isDone || isFailed;
         }

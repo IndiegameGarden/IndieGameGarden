@@ -1,18 +1,16 @@
 ﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
-
 using MyDownloader.Core;
 using IndiegameGarden.Store;
 
 namespace IndiegameGarden.Download
 {
+    /**
+     * a downloader to download a game file such as .zip / .rar
+     */
     public class GameDownloader: BaseDownloader
     {
-        IndieGame game;
+        protected IndieGame game;
 
         public GameDownloader(IndieGame game): base()
         {
@@ -21,21 +19,14 @@ namespace IndiegameGarden.Download
 
         public override void Start()
         {
-            string fn = game.GameID + ". " + ExtractFileExtension(game.PackedFileURL);
-            string toLocalFolder = GardenMain.Instance.storageConfig.PackedFilesFolder;
+            string fn = game.PackedFileName; 
+            string toLocalFolder = GardenGame.Instance.Config.PackedFilesFolder;
             InternalStartDownload(game.PackedFileURL, fn, toLocalFolder, game.PackedFileMirrors);
         }
 
-        private string ExtractFileExtension(string url)
+        public override void OnDownloadEnded(Downloader dl)
         {
-            int i = url.LastIndexOf('.');
-            if (i == -1)
-                return "";
-            return url.Substring(i + 1);
-        }
-
-        public override void HandleDownloadEndedEvent(object sender, DownloaderEventArgs e)
-        {
+            // TODO
         }
     }
 }

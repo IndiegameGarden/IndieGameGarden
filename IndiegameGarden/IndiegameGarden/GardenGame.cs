@@ -3,10 +3,8 @@
 // defines for global settings (debug etc)
 // -> defines set in Visual Studio Profiles: DEBUG, RELEASE
 
-
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -33,31 +31,39 @@ namespace IndiegameGarden
 {
     /**
      * <summary>
-     * Main game class and singleton
+     * Main game class and singleton for IndiegameGarden
      * </summary>
      */
-    public class GardenMain : Game
+    public class GardenGame : Game
     {
-        public static GardenMain Instance = null;
+        /// <summary>
+        /// singleton instance
+        /// </summary>
+        public static GardenGame Instance = null;
 
-        public GameLibrary gameLibrary;
-        public StorageConfig storageConfig;
+        /// <summary>
+        /// Library of games to select from
+        /// </summary>
+        public GameLibrary GameLib;
 
-        // gfx/TTengine related
+        /// <summary>
+        /// configuration and parameters store
+        /// </summary>
+        public GardenConfig Config;
+
+        // --- internal + TTengine related
         GraphicsDeviceManager graphics;
-        public int preferredWindowWidth = 1024; //1280; //1440; //1280;
-        public int preferredWindowHeight = 768; //720; //900; //720;
-        public Screenlet toplevelScreen;
+        int preferredWindowWidth = 1024; //1280; //1440; //1280;
+        int preferredWindowHeight = 768; //720; //900; //720;
+        Screenlet toplevelScreen;        
         // treeRoot is a pointer, set to the top-level Gamelet to render
-        public Gamelet treeRoot;
-        //public Gamelet titleScreen;
-        public Gamelet gameletsRoot;
-        public SpriteBatch spriteBatch;
+        Gamelet treeRoot;
+        Gamelet gameletsRoot;
+        SpriteBatch spriteBatch;
+        HttpFtpProtocolExtension myDownloaderProtocol;
 
-        // internal
-        private HttpFtpProtocolExtension myDownloaderProtocol;
-
-        public GardenMain()
+        #region Constructors
+        public GardenGame()
         {
             Instance = this;
             Content.RootDirectory = "Content";
@@ -77,6 +83,7 @@ namespace IndiegameGarden
             this.IsFixedTimeStep = false;
             graphics.SynchronizeWithVerticalRetrace = true;
         }
+        #endregion
 
         protected override void Initialize()
         {
@@ -90,14 +97,14 @@ namespace IndiegameGarden
             treeRoot = toplevelScreen;
             gameletsRoot = physicsModel;
 
-            // MyDownloader config
+            // MyDownloader Config
             myDownloaderProtocol = new HttpFtpProtocolExtension();
 
-            // StorageConfig
-            storageConfig = new StorageConfig();
+            // GardenConfig
+            Config = new GardenConfig();
 
             // game library
-            gameLibrary = new GameLibrary();
+            GameLib = new GameLibrary();
 
             // game chooser menu
             GameChooserMenu menu = new GameChooserMenu();

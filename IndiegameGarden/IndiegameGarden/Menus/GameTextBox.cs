@@ -1,6 +1,7 @@
-﻿using System;
+﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
@@ -15,15 +16,22 @@ namespace IndiegameGarden.Menus
      */
     public class GameTextBox: Gamelet
     {
-        string txt = null;
+        string txt ;
         SpriteFont font;
 
+        /// <summary>
+        /// construct a box with initial text. Can be changed later with the Text property.
+        /// </summary>
+        /// <param name="initialText">initial text to display</param>
         public GameTextBox(string initialText)
         {
             txt = initialText;
             Init();
         }
 
+        /// <summary>
+        /// construct a box without text yet (empty)
+        /// </summary>
         public GameTextBox()
         {
             txt = "";
@@ -47,17 +55,13 @@ namespace IndiegameGarden.Menus
 
         private void Init()
         {
-            font = GardenMain.Instance.Content.Load<SpriteFont>("m41_lovebit");
+            font = GardenGame.Instance.Content.Load<SpriteFont>("m41_lovebit");
         }
 
         protected override void OnDraw(ref DrawParams p)
         {
             base.OnDraw(ref p);
 
-            if (txt == null)
-            {
-                txt = "";
-            }
             Vector2 origin = Vector2.Zero; // new Vector2(2f * txt.Length, 0f);
             Screen.UseSharedSpritebatch().DrawString(font, txt, DrawPosition, DrawColor, RotateAbs, origin, ScaleAbs, SpriteEffects.None, LayerDepth);
         }

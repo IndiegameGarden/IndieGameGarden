@@ -15,6 +15,8 @@ namespace IndiegameGarden.Menus
     public class MovingEffectSpritelet: EffectSpritelet
     {
 
+        protected float intensity = 1.0f;
+
         public MovingEffectSpritelet(): base((Texture2D)null,null)
         {
         }
@@ -33,13 +35,35 @@ namespace IndiegameGarden.Menus
         /// sets a target position for cursor to move towards
         /// </summary>
         public Vector2 Target = Vector2.Zero;
+
+        /// <summary>
+        /// speed for moving towards Target
+        /// </summary>
         public float TargetSpeed = 0f;
+
+        /// <summary>
+        /// target for Fade value
+        /// </summary>
         public float FadeTarget = 1.0f;
+
+        /// <summary>
+        /// speed of fading towards FadeTarget
+        /// </summary>
         public float FadeSpeed = 0f;
+
+        /// <summary>
+        /// set target for Scale
+        /// </summary>
         public float ScaleTarget = 1.0f;
+
+        /// <summary>
+        /// speed for scaling towards ScaleTarget
+        /// </summary>
         public float ScaleSpeed = 0f;
 
-
+        /// <summary>
+        /// the intensity of displaying thumbnail (amount color/brightness) between 0f...1f (max)
+        /// </summary>
         public float Intensity
         {
             get
@@ -53,8 +77,6 @@ namespace IndiegameGarden.Menus
             }
 
         }
-
-        protected float intensity = 1.0f;
 
         protected override void OnUpdate(ref UpdateParams p)
         {
@@ -85,6 +107,7 @@ namespace IndiegameGarden.Menus
 
         }
 
+        // scaling logic during OnUpdate()
         private void ScaleToTarget(float targetScale, float spd, float spdMin)
         {
             if (this.Scale < targetScale)

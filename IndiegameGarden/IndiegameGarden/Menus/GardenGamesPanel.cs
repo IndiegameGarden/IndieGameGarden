@@ -14,8 +14,13 @@ using IndiegameGarden.Util;
 
 namespace IndiegameGarden.Menus
 {
+    /**
+     * a GamesPanel that arranges games in a large rectangular matrix, the "garden". User can travel
+     * the garden with a cursor. Only a part of the garden is shown at a time.
+     */
     public class GardenGamesPanel: GamesPanel
     {
+        // below: UI constants
         public const float LAYER_BACK = 1.0f;
         public const float LAYER_FRONT = 0.0f;
         public const float LAYER_ZOOMING_ITEM = 0.1f;
@@ -25,7 +30,7 @@ namespace IndiegameGarden.Menus
         public const float PANEL_SCALE_REGULAR = 1f; //0.16f;
         public const float PANEL_SCALE_GRID_X = 0.16f;
         public const float PANEL_SCALE_GRID_Y = 0.16f;
-        public const float PANEL_SPEED_SHIFT = 1.1f;
+        public const float PANEL_SPEED_SHIFT = 2.1f;
         public const float PANEL_SIZE_X = 1.333f;
         public const float PANEL_SIZE_Y = 1.0f;
         public const float CURSOR_SCALE_REGULAR = 0.95f; //5.9375f;
@@ -33,11 +38,10 @@ namespace IndiegameGarden.Menus
         public const float THUMBNAIL_SCALE_SELECTED = 0.35f; //2f;
         public const float THUMBNAIL_SCALE_SELECTED2 = 2.857f;
 
-
         // maximum sizes of grid
         public double GridMaxX=32, GridMaxY=32;
 
-        // zoom, scale etc. related vars
+        // zoom, scale etc. related vars for panel
         public float ZoomTarget = 1.0f;
         public float ZoomSpeed = 0f;
 
@@ -59,7 +63,7 @@ namespace IndiegameGarden.Menus
             //cursor.Visible = false;
         }
 
-        public override void UpdateList(GameCollection gl)
+        public override void OnUpdateList(GameCollection gl)
         {
             // first process old list - start fading away of items
             for (int i = 0; i < gl.Count; i++)
@@ -97,6 +101,7 @@ namespace IndiegameGarden.Menus
             }
         }
 
+        // shorthand method to select the game currently indicated by cursor
         protected void SelectGameBelowCursor()
         {
             IndieGame g = gl.FindGameAt(cursor.GridPosition);
@@ -122,7 +127,7 @@ namespace IndiegameGarden.Menus
                     Zoom = ZoomTarget;
             }
 
-            // loop all games
+            //-- loop all games adapt their display properties where needed
             if (gl == null)
                 return;
             IndieGame g;
@@ -214,6 +219,7 @@ namespace IndiegameGarden.Menus
                 else
                 {
                     // isQuitting
+                    // FIXME out of game loop!
                     ZoomTarget = 0.001f;
                     ZoomSpeed = 0.005f;
                 }
@@ -226,6 +232,7 @@ namespace IndiegameGarden.Menus
             }
         }
 
+        // shorthand method to restore zoom of panel back to normal
         public void ZoomToNormal()
         {
             ZoomTarget = PANEL_SCALE_REGULAR;
@@ -236,12 +243,13 @@ namespace IndiegameGarden.Menus
         {
             base.OnDraw(ref p);
 
+            // DEBUG
             if (SelectedGame != null)
                 Screen.DebugText(0f, 0f, "Selected: " + gl.IndexOf(SelectedGame) + " " + SelectedGame.GameID );
             Screen.DebugText(0f, 0.1f, "Zoom: " + Zoom);
         }
 
-        public override void ChangedSelectedGameEvent(IndieGame newSel, IndieGame oldSel)
+        public override void OnChangedSelectedGame(IndieGame newSel, IndieGame oldSel)
         {
             // unselect the previous game
             if (oldSel != null)
@@ -255,7 +263,7 @@ namespace IndiegameGarden.Menus
             }
         }
 
-        public override void SendUserInput(GamesPanel.UserInput inp)
+        public override void OnUserInput(GamesPanel.UserInput inp)
         {
             timeSinceUserInput = 0f;
             

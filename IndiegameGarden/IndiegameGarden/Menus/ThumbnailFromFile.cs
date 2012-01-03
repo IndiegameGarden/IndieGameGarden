@@ -12,6 +12,7 @@ using IndiegameGarden.Store;
 
 namespace IndiegameGarden.Menus
 {
+    /*
     public class ThumbnailFromFile: Spritelet
     {
         string thumbnailFilename = null;
@@ -23,7 +24,7 @@ namespace IndiegameGarden.Menus
 
         public static ThumbnailFromFile CreateFromGameID(string gameID)
         {
-            string path = GardenMain.Instance.storageConfig.ThumbnailsFolder + "\\" + gameID + ".png" ;
+            string path = GardenGame.Instance.Config.ThumbnailsFolder + "\\" + gameID + ".png" ;
             return new ThumbnailFromFile(path);
         }
 
@@ -51,4 +52,5 @@ namespace IndiegameGarden.Menus
             LoadTextureFromFile();
         }
     }
+     */
 }

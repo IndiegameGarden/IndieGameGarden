@@ -29,7 +29,8 @@ namespace IndiegameGarden.Menus
         Object updateTextureLock = new Object();
         bool isLoaded = false;
 
-        public static Texture2D DefaultTexture;
+        // a default texture to use if no thumbnail has been loaded yet
+        static Texture2D DefaultTexture;
 
         public GameThumbnail(string gameID)
             : base(DefaultTexture,"GameThumbnail")
@@ -37,8 +38,8 @@ namespace IndiegameGarden.Menus
             Scale = GardenGamesPanel.THUMBNAIL_SCALE_UNSELECTED;
             this.gameID = gameID;
             // TODO methods to construct paths!? incl .png
-            this.thumbnailFilename = GardenMain.Instance.storageConfig.CreateThumbnailFilepath(gameID,false); 
-            this.thumbnailUrl = GardenMain.Instance.storageConfig.CreateThumbnailURL(gameID,false);
+            this.thumbnailFilename = GardenGame.Instance.Config.CreateThumbnailFilepath(gameID,false); 
+            this.thumbnailUrl = GardenGame.Instance.Config.CreateThumbnailURL(gameID,false);
             Thread t = new Thread(new ThreadStart(StartLoadingProcess));
             t.Start();
         }
@@ -55,16 +56,16 @@ namespace IndiegameGarden.Menus
             else
             {
                 // start a download
-                downl = new ThumbnailDownloader(gameID);
-                DownloadManager.Instance.DownloadEnded += new EventHandler<DownloaderEventArgs>(HandleDownloadEndedEvent);
+                downl = new ThumbnailDownloader(gameID, new OnDownloadOK(OnThumbnailDownloaded) );
                 downl.Start();
             }
         }
 
+        // (re) loads texture from a file and puts in updatedTexture var
         protected void LoadTextureFromFile()
         {
             FileStream fs = new FileStream(thumbnailFilename, FileMode.Open);
-            Texture2D tex = Texture2D.FromStream(GardenMain.Instance.GraphicsDevice, fs);
+            Texture2D tex = Texture2D.FromStream(GardenGame.Instance.GraphicsDevice, fs);
             lock (updateTextureLock)
             {
                 updatedTexture = tex;
@@ -86,6 +87,7 @@ namespace IndiegameGarden.Menus
             // check if a new texture has been loaded in background
             if (updatedTexture != null)
             {
+                // yes: replace texture by new one
                 lock (updateTextureLock)
                 {
                     Texture = updatedTexture;
@@ -95,11 +97,13 @@ namespace IndiegameGarden.Menus
             }
         }
 
-        public virtual void HandleDownloadEndedEvent(object sender, DownloaderEventArgs e)
+        /// <summary>
+        /// called via a Delegate when thumbnail has been downloaded ok.
+        /// </summary>
+        public void OnThumbnailDownloaded(string gameID)
         {
             LoadTextureFromFile();
         }
-
 
     }
 }

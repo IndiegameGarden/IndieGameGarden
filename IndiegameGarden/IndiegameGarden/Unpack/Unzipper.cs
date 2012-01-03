@@ -9,9 +9,29 @@ using Ionic.Zip;
 
 namespace IndiegameGarden.Unpack
 {
-    class Unzip
+    /**
+     * wraps the Ionic.Zip unzipping library to get ease of use and progress indication
+     */
+    public class Unzipper
     {
-        public static void UnzipFile(string zipfile, string destDir)
+        public string zipfile;
+        public string destdir;
+        double progress = 0;
+
+        public Unzipper(string zipfile, string destdir)
+        {
+            this.zipfile = zipfile;
+            this.destdir = destdir;
+        }
+
+        public double Progress
+        {
+            get{
+                return progress;
+            }
+        }
+
+        public void Unzip()
         {
             try
             {
@@ -22,12 +42,13 @@ namespace IndiegameGarden.Unpack
                 var options = new ReadOptions { StatusMessageWriter = System.Console.Out };
                 using (ZipFile zip = ZipFile.Read(zipfile, options))
                 {
+                    zip.ExtractProgress += new EventHandler<ExtractProgressEventArgs>(EvHandlerExtractProgress);
                     // This call to ExtractAll() assumes:
                     //   - none of the entries are password-protected.
                     //   - want to extract all entries to current working directory
                     //   - none of the files in the zip already exist in the directory;
                     //     if they do, the method will throw.
-                    zip.ExtractAll(destDir);
+                    zip.ExtractAll(destdir);
                 }
             }
             catch (System.Exception ex1)
@@ -35,6 +56,14 @@ namespace IndiegameGarden.Unpack
                 throw(ex1);
             }
 
+        }
+
+        void EvHandlerExtractProgress(object sender, ExtractProgressEventArgs e)
+        {
+            if (e.TotalBytesToTransfer >= 0)
+            {
+                progress = ((double)e.BytesTransferred) / ((double)e.TotalBytesToTransfer);
+            }
         }
     }
 }

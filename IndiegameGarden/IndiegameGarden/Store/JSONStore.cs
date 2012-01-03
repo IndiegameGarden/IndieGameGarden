@@ -9,17 +9,29 @@ using NetServ.Net.Json;
 
 namespace IndiegameGarden.Store
 {
+    /**
+     * JSON storage object, can read JSON from a file
+     */
     public class JSONStore
     {
         private string fn = null;
         JsonObject json = null;
 
+        /// <summary>
+        /// create new instance from a .json file and load it
+        /// </summary>
+        /// <param name="filename"></param>
         public JSONStore(string filename)
         {
-            fn = GardenMain.Instance.storageConfig.ConfigFilesFolder + "\\" + filename;
+            fn = GardenGame.Instance.Config.ConfigFilesFolder + "\\" + filename;
             Load();
         }
 
+        /// <summary>
+        /// utility method to translate a JsonArray to a string[]
+        /// </summary>
+        /// <param name="j"></param>
+        /// <returns></returns>
         public static string[] ToStringArray(JsonArray j)
         {
             string[] s = new string[j.Count];
@@ -42,6 +54,11 @@ namespace IndiegameGarden.Store
 
         }
 
+        /// <summary>
+        /// retrieve a JsonArray from the store with given name
+        /// </summary>
+        /// <param name="key">name of the JSON array to return</param>
+        /// <returns>JsonArray with given name 'key'</returns>
         public JsonArray GetArray(string key)
         {
             return (JsonArray) json[key];

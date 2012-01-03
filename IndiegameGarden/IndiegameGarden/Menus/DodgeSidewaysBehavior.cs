@@ -9,6 +9,9 @@ using TTengine.Core;
 
 namespace IndiegameGarden.Menus
 {
+    /**
+     * attach to a Gamelet to get a one-shot 'dodging' sideways effect
+     */
     public class DodgeSidewaysBehavior: Gamelet
     {
         float ampl, layerDepthWhileMoving, layerDepthOld, moveDuration;

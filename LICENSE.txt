@@ -1,4 +1,9 @@
-Copyright (c) 2010-2011, TranceTrance.com and its domain owner
+
+-------------------------------------------------------------------------------
+
+For files where (c) TranceTrance.com and FreeBSD license is indicated:
+
+Copyright (c) 2010-2012, TranceTrance.com and its domain owner
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, 
@@ -20,3 +25,30 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-------------------------------------------------------------------------------
+
+For 
+ - RandomMath.cs 
+ - Ionic DotNetZip library (http://dotnetzip.codeplex.com/)
+the Microsoft Permissive License applies.
+See file Microsoft_Permissive_License.rtf for conditions.
+
+NOTE: Ionic DotNetZip source not included in the archive. 
+
+-------------------------------------------------------------------------------
+
+For NetServ.Net.Json (http://www.codeproject.com/KB/recipes/JSON.aspx) the 
+GNU General Public License version 2 or greater, published by Free Software
+Foundation, applies.
+
+NOTE: this source code is not modified nor included in this archive.
+
+-------------------------------------------------------------------------------
+
+The MyDownloader library (http://www.codeproject.com/KB/IP/MyDownloader.aspx)
+is licensed under the The Code Project Open License (CPOL) 1.02. For details
+see CPOL.htm.
+
+NOTE: MyDownloader source code is partially included in this archive.
+

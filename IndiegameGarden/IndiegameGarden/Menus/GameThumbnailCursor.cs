@@ -12,6 +12,9 @@ using IndiegameGarden.Store;
 
 namespace IndiegameGarden.Menus
 {
+    /**
+     * a cursor hovering over game thumbnails to select them
+     */
     public class GameThumbnailCursor: MovingEffectSpritelet
     {
         public Vector2 GridPosition = Vector2.Zero;        
@@ -25,8 +28,8 @@ namespace IndiegameGarden.Menus
         /// <summary>
         /// checks whether a Gamelet is in selection distance of this cursor
         /// </summary>
-        /// <param name="g"></param>
-        /// <returns></returns>
+        /// <param name="g">gamelet to check this cursor against</param>
+        /// <returns>true if in range</returns>
         public bool GameletInRange(Gamelet g)
         {
             float d = (g.Position - this.Position).Length();
@@ -37,7 +40,7 @@ namespace IndiegameGarden.Menus
         }
 
         /// <summary>
-        /// set cursor to select a given game
+        /// set cursor to select a given game. It will move there in next Update()s.
         /// </summary>
         /// <param name="g"></param>
         public void SetToGame(IndieGame g)

@@ -7,11 +7,14 @@ using System.Text;
 
 namespace IndiegameGarden.Store
 {
-    public class StorageConfig
+    /**
+     * configuration data object for the Garden application. Information loaded from JSON.
+     */
+    public class GardenConfig
     {
         JSONStore cfg;
 
-        public StorageConfig(): base()
+        public GardenConfig(): base()
         {
             Init();
             LoadJson();
@@ -19,16 +22,16 @@ namespace IndiegameGarden.Store
 
         private void Init()
         {
-            ConfigFilesFolder = "config";
+            ConfigFilesFolder = "Config";
             PackedFilesFolder = "zips";
             UnpackedFilesFolder = "games";
             ThumbnailsFolder = "thumbs";
 
-            StorageConfigFilename = "config.json";
+            StorageConfigFilename = "Config.json";
             GameLibraryFilename = "gamelib.json";
 
             ThumbnailsServerURL = "http://indie.trancetrance.com/thumbs/";
-            ConfigFilesServerURL = "http://indie.trancetrance.com/config/";
+            ConfigFilesServerURL = "http://indie.trancetrance.com/Config/";
             PackedFilesServerURL = "http://indie.trancetrance.com/zips/";
 
         }
@@ -45,6 +48,7 @@ namespace IndiegameGarden.Store
             }
         }
 
+        // TODO document the fields below
         public string ConfigFilesFolder { get; set; }
 
         public string PackedFilesFolder { get; set; }
@@ -83,6 +87,11 @@ namespace IndiegameGarden.Store
         public string CreateGameFolder(string gameID)
         {
             return UnpackedFilesFolder + "\\" + gameID;
+        }
+
+        public string CreatePackedFilepath(string packedGameFile)
+        {
+            return PackedFilesFolder + "\\" + packedGameFile;
         }
     }
 }

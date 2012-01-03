@@ -10,13 +10,14 @@ namespace IndiegameGarden.Download
     public interface ITask
     {
         /// <summary>
-        /// Get task progress indication value
+        /// Get task progress indication value. IsFinished()==true implies Progress()==1 and vice versa.
+        /// IsStarted()==false implies Progress()==0 but not vice versa.
         /// </summary>
         /// <returns>progress indication between 0...1</returns>
         double Progress();
 
         /// <summary>
-        /// Start this task
+        /// Start this task. Calling this while the task is started should have no effect.
         /// </summary>
         void Start();
 
@@ -26,9 +27,15 @@ namespace IndiegameGarden.Download
         void Abort();
 
         /// <summary>
-        /// check whether Task is started or not
+        /// check whether Task is already started or not
         /// </summary>
-        /// <returns>true if started</returns>
+        /// <returns>true if started, false otherwise</returns>
         bool IsStarted();
+
+        /// <summary>
+        /// check whether Task is already finished or not
+        /// </summary>
+        /// <returns>true if finished, false otherwise</returns>
+        bool IsFinished();
     }
 }
