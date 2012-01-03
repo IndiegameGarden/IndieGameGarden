@@ -7,23 +7,20 @@ using System.Text;
 using System.Diagnostics;
 
 using IndiegameGarden.Download;
-using IndiegameGarden.Store;
+using IndiegameGarden.Base;
 
 namespace IndiegameGarden.Menus
 {
     /// <summary>
     /// launches a game .exe in a separate process and keeps track of when it has finished
     /// </summary>
-    public class GameLauncher: ITask
+    public class GameLauncher: Task
     {
         public Process Proc = null;
         public IndieGame Game;
 
         string filePath;
         string cdPath;
-        bool isStarted = false;
-        bool isDone = false;
-        bool isFailed = false;
 
         public GameLauncher(IndieGame g)
         {
@@ -32,10 +29,9 @@ namespace IndiegameGarden.Menus
             filePath = g.ExeFile;
         }
 
-        public void Start()
+        public override void Start()
         {
-            isStarted = true;
-
+            status = ITaskStatus.STARTED;
             try
             {
                 string cwd = System.IO.Directory.GetCurrentDirectory();
@@ -47,44 +43,35 @@ namespace IndiegameGarden.Menus
             }
             catch (System.ComponentModel.Win32Exception)
             {
-                isFailed = true;
+                status = ITaskStatus.FAILED;
             }
             catch (System.ObjectDisposedException)
-            {
-                isFailed = true;
+            {             
+                status = ITaskStatus.FAILED;
             }
             catch (System.IO.FileNotFoundException)
-            {
-                isFailed = true;
+            {             
+                status = ITaskStatus.FAILED;
             }
 
         }
 
-        public void Abort()
+        public override void Abort()
         {
+            status = ITaskStatus.FAILED;
             throw new NotImplementedException("Abort() method");
         }
 
-        public double Progress()
+        public override double Progress()
         {
             if (IsFinished())
                 return 1.0;
             return 0.0;
         }
 
-        public bool IsStarted()
-        {
-            return isStarted;
-        }
-
-        public bool IsFinished()
-        {
-            return isDone || isFailed;
-        }
-
         private void processExitedEvent(object sender, System.EventArgs e)
         {
-            isDone = true;
+            status = ITaskStatus.FINISHED;
         }
 
     }

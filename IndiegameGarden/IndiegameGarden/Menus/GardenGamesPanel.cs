@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 using TTengine.Core;
 using TTengine.Modifiers;
 
-using IndiegameGarden.Store;
+using IndiegameGarden.Base;
 using IndiegameGarden.Util;
 
 namespace IndiegameGarden.Menus

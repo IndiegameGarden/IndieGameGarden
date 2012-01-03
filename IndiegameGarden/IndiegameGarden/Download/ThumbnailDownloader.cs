@@ -38,7 +38,7 @@ namespace IndiegameGarden.Download
         public override void Start()
         {
             string url = GardenGame.Instance.Config.ThumbnailsServerURL + filename;
-            InternalStartDownload(url, filename, GardenGame.Instance.Config.ThumbnailsFolder);
+            InternalStartDownload(url, filename, GardenGame.Instance.Config.ThumbnailsFolder, true);
         }
 
         public override void OnDownloadEnded(Downloader dl)

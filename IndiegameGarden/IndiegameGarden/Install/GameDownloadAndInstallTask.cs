@@ -6,19 +6,20 @@ using System.Linq;
 using System.Text;
 
 using IndiegameGarden.Download;
-using IndiegameGarden.Store;
+using IndiegameGarden.Base;
 using MyDownloader.Core;
 
 namespace IndiegameGarden.Install
 {
     /// <summary>
-    /// a Task to both download and install a game
+    /// a Task to both download and install a game. If game file already exists locally, download is skipped.
+    /// If game is already installed locally, install is skipped.
     /// </summary>
     public class GameDownloadAndInstallTask: GameDownloader
     {
         InstallTask installTask;
-        enum TaskPhase { DOWNLOAD, INSTALL };
-        TaskPhase phase;
+        enum CombinedTaskPhase { CHECK, DOWNLOAD, INSTALL, DONE };
+        CombinedTaskPhase combinedTaskPhase;
 
         /// <summary>
         /// create new Download and Install task
@@ -26,12 +27,21 @@ namespace IndiegameGarden.Install
         /// <param name="game">info of game to download and install</param>
         public GameDownloadAndInstallTask(IndieGame game): base(game)
         {
-            phase = TaskPhase.DOWNLOAD;
+            combinedTaskPhase = CombinedTaskPhase.CHECK;
         }
 
         public override void Start()
         {
-            // first start the download task (my base class)
+            // do the checking if already installed
+            game.Refresh();
+            if (game.IsInstalled)
+            {
+                combinedTaskPhase = CombinedTaskPhase.DONE;
+                return;
+            }
+
+            // start the download task (my base class)
+            combinedTaskPhase = CombinedTaskPhase.DOWNLOAD;
             base.Start();
         }
 
@@ -41,18 +51,13 @@ namespace IndiegameGarden.Install
             installTask.Abort();
         }
 
-        public override bool IsStarted()
-        {
-            return IsStarted();
-        }
-
         /// <summary>
         /// check whether currently downloading
         /// </summary>
         /// <returns>true if downloading, false otherwise</returns>
         public bool IsDownloading()
         {
-            return (phase == TaskPhase.DOWNLOAD);
+            return (combinedTaskPhase == CombinedTaskPhase.DOWNLOAD);
         }
 
         /// <summary>
@@ -61,19 +66,23 @@ namespace IndiegameGarden.Install
         /// <returns>true if installing, false otherwise</returns>
         public bool IsInstalling()
         {
-            return (phase == TaskPhase.INSTALL);
+            return (combinedTaskPhase == CombinedTaskPhase.INSTALL);
         }
 
         public override double Progress()
         {
-            switch (phase)
+            switch (combinedTaskPhase)
             {
-                case TaskPhase.DOWNLOAD:
+                case CombinedTaskPhase.CHECK:
+                    return 0;
+                case CombinedTaskPhase.DOWNLOAD:
                     return ProgressDownload();
-                case TaskPhase.INSTALL:
+                case CombinedTaskPhase.INSTALL:
                     return ProgressInstall();
+                case CombinedTaskPhase.DONE:
+                    return 1;
             }
-            throw new NotImplementedException("Wrong phase");
+            throw new NotImplementedException("Wrong combinedTaskPhase");
         }
 
         /// <summary>
@@ -99,9 +108,10 @@ namespace IndiegameGarden.Install
         // once download ends, start the install task
         public override void OnDownloadEnded(Downloader dl)
         {
-            if (dl.State.Equals(DownloaderState.Ended))
+            if (dl==null || dl.State.Equals(DownloaderState.Ended))
             {
                 // if download ready and OK, start install
+                combinedTaskPhase = CombinedTaskPhase.INSTALL;
                 installTask = new InstallTask(game);
                 installTask.Start();
             }
@@ -109,7 +119,7 @@ namespace IndiegameGarden.Install
             {
                 // TODO
                 throw new NotImplementedException("check code OnDownloadEnded");
-            }
+            }            
         }
 
     }

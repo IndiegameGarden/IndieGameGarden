@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework;
 using TTengine.Core;
 using TTengine.Modifiers;
 
-using IndiegameGarden.Store;
+using IndiegameGarden.Base;
 using IndiegameGarden.Install;
 
 namespace IndiegameGarden.Menus
@@ -141,30 +141,7 @@ namespace IndiegameGarden.Menus
                 {
                     panel.OnUserInput(GamesPanel.UserInput.SELECT2);
 
-                    // TODO delegate to a method? all below
-                    // check if download needed
-                    IndieGame g = panel.SelectedGame;
-                    if (!g.IsInstalled)
-                    {
-                        g.DlAndInstallTask = new GameDownloadAndInstallTask(g);
-                        g.DlAndInstallTask.Start();
-                    }
-                    else
-                    {
-                        // if installed, launch it
-                        if (launcher == null || launcher.IsFinished() == true)
-                        {
-                            if (timeEnterIsNotPressed > 1.5f) // only launch if enter was released for some time
-                            {
-                                if (g.ExeFile.Length > 0)
-                                {
-                                    launcher = new GameLauncher(g);
-                                    gameLastLaunched = panel.SelectedGame;
-                                    launcher.Start();
-                                }
-                            }
-                        }
-                    }
+                    InstallAndLaunchGame(panel.SelectedGame);
                 }
 
             }
@@ -180,6 +157,33 @@ namespace IndiegameGarden.Menus
             gameLastLaunched = null; // reset the memory of last launched upon keypress
             
 
+        }
+
+        private void InstallAndLaunchGame(IndieGame g)
+        {
+            // check if download+install needed
+            if (g.DlAndInstallTask==null && !g.IsInstalled)
+            {
+                g.DlAndInstallTask = new GameDownloadAndInstallTask(g);
+                g.DlAndInstallTask.Start();
+            }
+
+            if (g.IsInstalled)
+            {
+                // if installed, then launch it if possible
+                if (launcher == null || launcher.IsFinished() == true)
+                {
+                    if (timeEnterIsNotPressed > 1.5f) // only launch if enter was released for some time
+                    {
+                        if (g.ExeFile.Length > 0) // check if an exe file has been defined
+                        {
+                            launcher = new GameLauncher(g);
+                            gameLastLaunched = panel.SelectedGame;
+                            launcher.Start();
+                        }
+                    }
+                }
+            }
         }
 
         protected override void OnUpdate(ref UpdateParams p)

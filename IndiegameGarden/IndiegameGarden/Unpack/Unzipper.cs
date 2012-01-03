@@ -42,7 +42,7 @@ namespace IndiegameGarden.Unpack
                 var options = new ReadOptions { StatusMessageWriter = System.Console.Out };
                 using (ZipFile zip = ZipFile.Read(zipfile, options))
                 {
-                    zip.ExtractProgress += new EventHandler<ExtractProgressEventArgs>(EvHandlerExtractProgress);
+                    //zip.ExtractProgress += new EventHandler<ExtractProgressEventArgs>(EvHandlerExtractProgress);
                     // This call to ExtractAll() assumes:
                     //   - none of the entries are password-protected.
                     //   - want to extract all entries to current working directory

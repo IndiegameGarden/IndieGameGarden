@@ -1,7 +1,13 @@
 ﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
-namespace IndiegameGarden.Download
+namespace IndiegameGarden.Base
 {
+    /// <summary>
+    /// task status indication: IDLE if not yet started, STARTED when started, FINISHED when 
+    /// successfully concluded and FAILED on error/abort/etc.
+    /// </summary>
+    public enum ITaskStatus { IDLE, STARTED, FINISHED, FAILED } 
+
     /**
      * <summary>
      * a task that takes time such as loading, downloading, installing or processing
@@ -15,6 +21,12 @@ namespace IndiegameGarden.Download
         /// </summary>
         /// <returns>progress indication between 0...1</returns>
         double Progress();
+
+        /// <summary>
+        /// get the current Task status
+        /// </summary>
+        /// <returns>one of ITaskStatus status indications</returns>
+        ITaskStatus Status();
 
         /// <summary>
         /// Start this task. Calling this while the task is started should have no effect.

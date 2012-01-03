@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TTengine.Core;
-using IndiegameGarden.Store;
+using IndiegameGarden.Base;
 
 namespace IndiegameGarden.Menus
 {

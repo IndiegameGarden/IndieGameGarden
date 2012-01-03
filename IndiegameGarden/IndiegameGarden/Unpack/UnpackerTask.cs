@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using IndiegameGarden.Base;
 using IndiegameGarden.Download;
 
 namespace IndiegameGarden.Unpack
@@ -12,10 +13,8 @@ namespace IndiegameGarden.Unpack
     /**
      * a task to unpack a packed (.zip, .rar etc) file. Internally uses specific zip/rar/etc. classes.
      */
-    public class UnpackerTask: ITask
+    public class UnpackerTask: Task
     {
-        bool isStarted = false;
-        bool isDone = false;
         private enum PackedFileType { RAR, ZIP, UNKNOWN } ;
         string filename ;
         string destfolder;
@@ -48,46 +47,42 @@ namespace IndiegameGarden.Unpack
                 filetype = PackedFileType.UNKNOWN;
         }
 
-        public void Start()
+        public override void Start()
         {
-            isStarted = true;
-            isDone = false;
-            // TODO error handling e.g. incomplete archives, overwriting files etc.
-            switch (filetype)
+            status = ITaskStatus.STARTED;         
+            // TODO error handling e.g. incomplete archives
+            try
             {
-                case PackedFileType.ZIP:
-                    unzipper = new Unzipper(filename, destfolder);
-                    unzipper.Unzip();
-                    break;
-                case PackedFileType.RAR:
-                    unrarrer = new Unrarrer(filename, destfolder);
-                    unrarrer.Unrar();
-                    break;
-                default:
-                    throw new NotImplementedException("unpackertask filetype");
+                switch (filetype)
+                {
+                    case PackedFileType.ZIP:
+                        unzipper = new Unzipper(filename, destfolder);
+                        unzipper.Unzip();
+                        break;
+                    case PackedFileType.RAR:
+                        unrarrer = new Unrarrer(filename, destfolder);
+                        unrarrer.Unrar();
+                        break;
+                    default:
+                        throw new NotImplementedException("unpackertask filetype");
 
+                }
+                status = ITaskStatus.FINISHED;
             }
-            isDone = true;
+            catch (Exception ex)
+            {
+                status = ITaskStatus.FAILED;
+            }            
         }
 
-        public void Abort()
+        public override void Abort()
         {
             throw new NotImplementedException();
         }
 
-        public bool IsStarted()
+        public override double Progress()
         {
-            return isStarted;
-        }
-
-        public bool IsFinished()
-        {
-            return isDone;
-        }
-
-        public double Progress()
-        {
-            if (isStarted)
+            if (status != ITaskStatus.IDLE)
             {
                 switch (filetype)
                 {

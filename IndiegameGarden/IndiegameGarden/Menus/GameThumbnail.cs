@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TTengine.Core;
 
-using IndiegameGarden.Store;
+using IndiegameGarden.Base;
 using IndiegameGarden.Download;
 using MyDownloader.Core;
 
@@ -38,10 +38,21 @@ namespace IndiegameGarden.Menus
             Scale = GardenGamesPanel.THUMBNAIL_SCALE_UNSELECTED;
             this.gameID = gameID;
             // TODO methods to construct paths!? incl .png
-            this.thumbnailFilename = GardenGame.Instance.Config.CreateThumbnailFilepath(gameID,false); 
-            this.thumbnailUrl = GardenGame.Instance.Config.CreateThumbnailURL(gameID,false);
+            this.thumbnailFilename = GardenGame.Instance.Config.GetThumbnailFilepath(gameID,false); 
+            this.thumbnailUrl = GardenGame.Instance.Config.GetThumbnailURL(gameID,false);
             Thread t = new Thread(new ThreadStart(StartLoadingProcess));
             t.Start();
+        }
+
+        protected override void OnInit()
+        {
+            base.OnInit();
+
+            // first-time texture init
+            if (DefaultTexture == null)
+            {
+                DefaultTexture = GardenGame.Instance.Content.Load<Texture2D>("ball-supernova2");
+            }
         }
 
         /// <summary>

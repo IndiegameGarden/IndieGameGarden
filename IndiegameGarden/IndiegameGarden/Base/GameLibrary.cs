@@ -7,7 +7,7 @@ using System.Text;
 using System.IO;
 using NetServ.Net.Json;
 
-namespace IndiegameGarden.Store
+namespace IndiegameGarden.Base
 {
     /**
      * stores a library of game information, parsed from JSON format files

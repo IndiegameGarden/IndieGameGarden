@@ -7,7 +7,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TTengine.Core;
-using IndiegameGarden.Store;
+using IndiegameGarden.Base;
 
 namespace IndiegameGarden.Menus
 {

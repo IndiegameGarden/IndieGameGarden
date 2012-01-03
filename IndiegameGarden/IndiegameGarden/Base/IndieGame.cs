@@ -11,7 +11,7 @@ using IndiegameGarden.Menus;
 using IndiegameGarden.Install;
 using NetServ.Net.Json;
 
-namespace IndiegameGarden.Store
+namespace IndiegameGarden.Base
 {
     /**
      * <summary>represents all data and status of a game that a user can select, download and start/play</summary>
@@ -56,7 +56,7 @@ namespace IndiegameGarden.Store
         public string ExeFile = "";
 
         /// <summary>
-        /// directory path that OS has to 'change directory' to, before launching the game
+        /// directory gameDirPath that OS has to 'change directory' to, before launching the game
         /// </summary>
         public string CdPath = ".";
 
@@ -75,7 +75,8 @@ namespace IndiegameGarden.Store
         public GameDownloadAndInstallTask DlAndInstallTask = null;
 
         //-- private vars
-        private bool isInstalled;
+        private bool isInstalled = false;
+        private bool installationChanged = true;
 
         public IndieGame()
         {
@@ -89,8 +90,23 @@ namespace IndiegameGarden.Store
         {
             get
             {
+                if (installationChanged)
+                {
+                    String gameDirPath = GardenGame.Instance.Config.GetGameFolder(GameID);
+                    String exePath = GardenGame.Instance.Config.GetExeFilepath(GameID, CdPath, ExeFile);
+                    isInstalled = Directory.Exists(gameDirPath) && File.Exists(exePath);
+                    installationChanged = false;
+                }
                 return isInstalled;
             }
+        }
+
+        /// <summary>
+        /// refresh information by reading from local disk (e.g. installation status etc.)
+        /// </summary>
+        public void Refresh()
+        {
+            installationChanged = true;
         }
 
         /// <summary>
@@ -128,8 +144,6 @@ namespace IndiegameGarden.Store
                 JsonArray am = (JsonArray)j["PackedFileMirrors"];
                 PackedFileMirrors = JSONStore.ToStringArray(am);
             }catch(KeyNotFoundException){;}
-            String path = GardenGame.Instance.Config.CreateGameFolder(GameID);
-            isInstalled = Directory.Exists(path);            
         }
 
         // extract an extension e.g. "zip" from a full URL http://server/test/name.zip 

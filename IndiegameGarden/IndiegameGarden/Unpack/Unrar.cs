@@ -394,7 +394,7 @@ namespace IndiegameGarden.Unpack
         }
 
         /// <summary>
-        /// Default destination path for extraction
+        /// Default destination gameDirPath for extraction
         /// </summary>
         public string DestinationPath
         {
@@ -653,7 +653,7 @@ namespace IndiegameGarden.Unpack
         }
 
         /// <summary>
-        /// Extracts the current file to the default destination path
+        /// Extracts the current file to the default destination gameDirPath
         /// </summary>
         /// <returns></returns>
         public void Extract()
@@ -662,7 +662,7 @@ namespace IndiegameGarden.Unpack
         }
 
         /// <summary>
-        /// Extracts the current file to a specified destination path and filename
+        /// Extracts the current file to a specified destination gameDirPath and filename
         /// </summary>
         /// <param name="destinationName">Path and name of extracted file</param>
         /// <returns></returns>

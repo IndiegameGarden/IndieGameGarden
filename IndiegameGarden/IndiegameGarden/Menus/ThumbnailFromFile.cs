@@ -8,7 +8,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using TTengine.Core;
 
-using IndiegameGarden.Store;
+using IndiegameGarden.Base;
 
 namespace IndiegameGarden.Menus
 {
@@ -24,8 +24,8 @@ namespace IndiegameGarden.Menus
 
         public static ThumbnailFromFile CreateFromGameID(string gameID)
         {
-            string path = GardenGame.Instance.Config.ThumbnailsFolder + "\\" + gameID + ".png" ;
-            return new ThumbnailFromFile(path);
+            string gameDirPath = GardenGame.Instance.Config.ThumbnailsFolder + "\\" + gameID + ".png" ;
+            return new ThumbnailFromFile(gameDirPath);
         }
 
         public static ThumbnailFromFile CreateFromFile(string filePath)

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using NetServ.Net.Json;
 
-namespace IndiegameGarden.Store
+namespace IndiegameGarden.Base
 {
     /**
      * JSON storage object, can read JSON from a file

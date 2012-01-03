@@ -1,7 +1,7 @@
 ﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using MyDownloader.Core;
-using IndiegameGarden.Store;
+using IndiegameGarden.Base;
 
 namespace IndiegameGarden.Download
 {
@@ -21,7 +21,7 @@ namespace IndiegameGarden.Download
         {
             string fn = game.PackedFileName; 
             string toLocalFolder = GardenGame.Instance.Config.PackedFilesFolder;
-            InternalStartDownload(game.PackedFileURL, fn, toLocalFolder, game.PackedFileMirrors);
+            InternalStartDownload(game.PackedFileURL, fn, toLocalFolder, false, game.PackedFileMirrors);
         }
 
         public override void OnDownloadEnded(Downloader dl)

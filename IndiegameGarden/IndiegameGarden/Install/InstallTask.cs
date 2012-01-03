@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-using IndiegameGarden.Store;
+using IndiegameGarden.Base;
 using IndiegameGarden.Download;
 using IndiegameGarden.Unpack;
 
@@ -16,10 +16,8 @@ namespace IndiegameGarden.Install
     /// <summary>
     /// a task to install a game or program from a compressed file format
     /// </summary>
-    public class InstallTask: ITask
+    public class InstallTask: Task
     {
-        bool isStarted = false;
-        bool isDone = false;
         IndieGame game;
         UnpackerTask unpacker;
 
@@ -28,10 +26,11 @@ namespace IndiegameGarden.Install
             this.game = game;
         }
 
-        public void Start()
+        public override void Start()
         {
-            string destFolder = GardenGame.Instance.Config.CreateGameFolder(game.GameID);
-            unpacker = new UnpackerTask(GardenGame.Instance.Config.CreatePackedFilepath(game.PackedFileName), 
+            status = ITaskStatus.STARTED;
+            string destFolder = GardenGame.Instance.Config.GetGameFolder(game.GameID);
+            unpacker = new UnpackerTask(GardenGame.Instance.Config.GetPackedFilepath(game.PackedFileName), 
                                         destFolder );
             Thread t = new Thread(new ThreadStart(StartInstallingThread));
             t.Start();
@@ -43,37 +42,37 @@ namespace IndiegameGarden.Install
         {
             if (File.Exists(unpacker.Filename))
             {                
-                unpacker.Start();                
+                unpacker.Start();
+                status = ITaskStatus.FINISHED;
             }
             else
             {
+                status = ITaskStatus.FAILED;
                 // error, file not there!
                 throw new NotImplementedException("file missing handler");
             }
-            isDone = true;
+            game.Refresh();
         }
 
-        public void Abort()
+        public override void Abort()
         {
+            status = ITaskStatus.FAILED;
             throw new NotImplementedException("Abort() not impl in InstallTask()");
         }
 
-        public double Progress()
+        public override double Progress()
         {
             // TODO more fine grained info
-            if (isDone)
+            if (status == ITaskStatus.IDLE)
+                return 0;
+            if (status == ITaskStatus.FINISHED)
                 return 1;
-            return 0;
+            if (status == ITaskStatus.FAILED)
+                return 1;
+            if (unpacker == null)
+                return 0;
+            return unpacker.Progress();
         }
 
-        public bool IsStarted()
-        {
-            return isStarted;
-        }
-
-        public bool IsFinished()
-        {
-            return isDone;
-        }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace IndiegameGarden.Store
+namespace IndiegameGarden.Base
 {
     /**
      * a selected collection/list of games

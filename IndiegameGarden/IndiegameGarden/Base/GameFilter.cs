@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IndiegameGarden.Store
+namespace IndiegameGarden.Base
 {
     /**
      * filters a GameCollection to produce a new, reduced GameCollection.

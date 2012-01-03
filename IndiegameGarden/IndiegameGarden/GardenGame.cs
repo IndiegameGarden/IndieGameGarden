@@ -21,7 +21,7 @@ using TTengine.Modifiers;
 using IndiegameGarden.Download;
 using IndiegameGarden.Unpack;
 using IndiegameGarden.Menus;
-using IndiegameGarden.Store;
+using IndiegameGarden.Base;
 
 using MyDownloader.Core.Extensions;
 using MyDownloader.Extension;
