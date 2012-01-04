@@ -1,0 +1,22 @@
+﻿IndiegameGarden Tasks List
+
+OPEN  [top issues first]
+
+Implement and test SetForegroundWindow function used in launching
+Version number included in .zip file name and in game folder (to test)
+Test .zip/.rar progress bars for unpacking
+Test launcher in fullscreen mode
+Display a message when launching starts
+  Display a progress bar when launching starts with bar speed set by config file
+Put loader threads in lower priority
+Allow loading of config from server (where config includes URL/mirror locations etc)
+Add default mirror of own server to all game downloads, where name on server equals the local zipfilename
+Add mirrors to all thumbnail loading
+Add TTMusicEngine and one music file
+  Music loading from URLs specified in configuration file
+Easter egg with sprites from OpenGameArt in menu
+
+
+CLOSED  [date order]
+
+2012-01-04 Fix problem that game is never launched

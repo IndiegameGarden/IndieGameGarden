@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using System.Runtime.InteropServices; //required for SetForegroundWindow
 
 using IndiegameGarden.Download;
 using IndiegameGarden.Base;
@@ -22,6 +23,10 @@ namespace IndiegameGarden.Menus
         string filePath;
         string cdPath;
 
+        //Import the SetForeground API to activate it
+        [DllImportAttribute("User32.dll")]
+        private static extern IntPtr SetForegroundWindow(int hWnd);
+
         public GameLauncher(IndieGame g)
         {
             string cwd = System.IO.Directory.GetCurrentDirectory();
@@ -37,6 +42,7 @@ namespace IndiegameGarden.Menus
                 string cwd = System.IO.Directory.GetCurrentDirectory();
                 System.IO.Directory.SetCurrentDirectory(cdPath);
                 Proc = System.Diagnostics.Process.Start(filePath);
+                SetForegroundWindow(Proc.MainWindowHandle.ToInt32());
                 Proc.Exited += new EventHandler(processExitedEvent);
                 Proc.EnableRaisingEvents = true;
                 System.IO.Directory.SetCurrentDirectory(cwd);

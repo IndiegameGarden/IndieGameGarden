@@ -21,6 +21,7 @@ namespace IndiegameGarden.Unpack
         PackedFileType filetype;
         Unzipper unzipper;
         Unrarrer unrarrer;
+        
 
         public UnpackerTask(string filename, string destfolder)
         {
@@ -29,6 +30,9 @@ namespace IndiegameGarden.Unpack
             DetectFileType();
         }
 
+        /// <summary>
+        /// the filename of the file that is unpacked by this task
+        /// </summary>
         public string Filename
         {
             get
@@ -47,6 +51,9 @@ namespace IndiegameGarden.Unpack
                 filetype = PackedFileType.UNKNOWN;
         }
 
+        /// <summary>
+        /// NOTE: Method blocks until task FINISHED
+        /// </summary>
         public override void Start()
         {
             status = ITaskStatus.STARTED;         
@@ -72,6 +79,7 @@ namespace IndiegameGarden.Unpack
             catch (Exception ex)
             {
                 status = ITaskStatus.FAILED;
+                msg = ex.ToString();
             }            
         }
 
@@ -82,7 +90,11 @@ namespace IndiegameGarden.Unpack
 
         public override double Progress()
         {
-            if (status != ITaskStatus.IDLE)
+            if (status == ITaskStatus.IDLE)
+                return 0;
+            if (status == ITaskStatus.FINISHED || status == ITaskStatus.FAILED)
+                return 1;
+            if (status == ITaskStatus.STARTED)
             {
                 switch (filetype)
                 {

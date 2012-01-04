@@ -63,7 +63,8 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// Latest version of the game packed file which is available
         /// </summary>
-        public double Version = 1;
+        public int Version = 1;
+
         /// <summary>
         /// where in 2D coordinates this game is positioned
         /// </summary>
@@ -92,8 +93,8 @@ namespace IndiegameGarden.Base
             {
                 if (installationChanged)
                 {
-                    String gameDirPath = GardenGame.Instance.Config.GetGameFolder(GameID);
-                    String exePath = GardenGame.Instance.Config.GetExeFilepath(GameID, CdPath, ExeFile);
+                    String gameDirPath = GardenGame.Instance.Config.GetGameFolder(GameID, Version);
+                    String exePath = GardenGame.Instance.Config.GetExeFilepath(GameID, Version, CdPath, ExeFile);
                     isInstalled = Directory.Exists(gameDirPath) && File.Exists(exePath);
                     installationChanged = false;
                 }
@@ -117,7 +118,7 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                return GameID + "." + ExtractFileExtension(PackedFileURL);
+                return GameID + "_v" + Version + "." + ExtractFileExtension(PackedFileURL);
             }
         }
 
@@ -128,7 +129,7 @@ namespace IndiegameGarden.Base
         public IndieGame(JsonObject j)
         {
             try { GameID = j["GameID"].ToString(); }                catch (KeyNotFoundException ex) { throw (ex);  }
-            try { Version = ((JsonNumber)j["Version"]).Value; }     catch (KeyNotFoundException) { ;}
+            try { Version = (int) ((JsonNumber)j["Version"]).Value; }     catch (KeyNotFoundException) { ;}
             try { Position.X = (float) ((JsonNumber)j["X"]).Value; }
             catch (KeyNotFoundException) { ;}
             try { Position.Y = (float) ((JsonNumber)j["Y"]).Value; }

@@ -23,7 +23,7 @@ namespace IndiegameGarden.Base
         /// <param name="filename"></param>
         public JSONStore(string filename)
         {
-            fn = GardenGame.Instance.Config.ConfigFilesFolder + "\\" + filename;
+            fn = filename;
             Load();
         }
 

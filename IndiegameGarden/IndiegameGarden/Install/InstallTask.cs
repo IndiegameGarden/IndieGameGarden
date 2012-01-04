@@ -29,7 +29,7 @@ namespace IndiegameGarden.Install
         public override void Start()
         {
             status = ITaskStatus.STARTED;
-            string destFolder = GardenGame.Instance.Config.GetGameFolder(game.GameID);
+            string destFolder = GardenGame.Instance.Config.GetGameFolder(game.GameID, game.Version);
             unpacker = new UnpackerTask(GardenGame.Instance.Config.GetPackedFilepath(game.PackedFileName), 
                                         destFolder );
             Thread t = new Thread(new ThreadStart(StartInstallingThread));
@@ -43,7 +43,8 @@ namespace IndiegameGarden.Install
             if (File.Exists(unpacker.Filename))
             {                
                 unpacker.Start();
-                status = ITaskStatus.FINISHED;
+                status = unpacker.Status();
+                errorMsg = unpacker.ErrorMessage;
             }
             else
             {

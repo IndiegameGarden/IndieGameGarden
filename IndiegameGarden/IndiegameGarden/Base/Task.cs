@@ -11,10 +11,22 @@ namespace IndiegameGarden.Base
     public abstract class Task: ITask
     {
         protected ITaskStatus status = ITaskStatus.IDLE;
+        protected string errorMsg = "";
 
         public virtual ITaskStatus Status()
         {
             return status;
+        }
+
+        /// <summary>
+        /// If task status indicates ITaskStatus.FAILED, the error message can be found here
+        /// </summary>
+        public string ErrorMessage
+        {
+            get
+            {
+                return errorMsg;
+            }
         }
 
         public virtual bool IsStarted()

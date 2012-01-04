@@ -87,6 +87,8 @@ namespace IndiegameGarden
 
         protected override void Initialize()
         {
+            Exception initError = null;
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
             toplevelScreen = new Screenlet(1024, 768);
             Gamelet physicsModel = new FixedTimestepPhysics();
@@ -101,17 +103,39 @@ namespace IndiegameGarden
             myDownloaderProtocol = new HttpFtpProtocolExtension();
 
             // GardenConfig
-            Config = new GardenConfig();
+            try
+            {
+                Config = new GardenConfig();
+            }
+            catch (Exception ex)
+            {
+                TTengine.Util.MsgBox.Show("Could not load configuration", "Could not load configuration file."); // TODO
+                initError = ex;
+                Exit();
+            }
 
             // game library
-            GameLib = new GameLibrary();
+            try
+            {
+                GameLib = new GameLibrary();
+            }
+            catch (Exception ex)
+            {
+                MsgBox.Show("Could not load game library file", "Could not load game library file."); // TODO
+                initError = ex;
+                Exit();
+            }
 
-            // game chooser menu
-            GameChooserMenu menu = new GameChooserMenu();
-            gameletsRoot.Add(menu);
+            if (initError == null)
+            {
+                // game chooser menu
+                GameChooserMenu menu = new GameChooserMenu();
+                gameletsRoot.Add(menu);
+            }
 
             // finally call base to enumnerate all (gfx) Game components to init
             base.Initialize();
+
         }
 
         protected override void LoadContent()

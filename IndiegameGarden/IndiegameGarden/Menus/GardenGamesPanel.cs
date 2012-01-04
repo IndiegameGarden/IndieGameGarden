@@ -36,7 +36,8 @@ namespace IndiegameGarden.Menus
         public const float CURSOR_SCALE_REGULAR = 0.95f; //5.9375f;
         public const float THUMBNAIL_SCALE_UNSELECTED = 0.28f; //1.5625f;
         public const float THUMBNAIL_SCALE_SELECTED = 0.35f; //2f;
-        public const float THUMBNAIL_SCALE_SELECTED2 = 2.857f;
+        public const float THUMBNAIL_SCALE_SELECTED1 = 2.857f;
+        public const float THUMBNAIL_SCALE_SELECTED2 = 6.3f;
 
         // maximum sizes of grid
         public double GridMaxX=32, GridMaxY=32;
@@ -322,7 +323,7 @@ namespace IndiegameGarden.Menus
                         GameThumbnail th = thumbnailsCache[SelectedGame.GameID];
                         if (th != null)
                         {
-                            ZoomTarget = THUMBNAIL_SCALE_SELECTED2;
+                            ZoomTarget = THUMBNAIL_SCALE_SELECTED1;
                             ZoomCenter = th.PositionAbs;
                             ZoomSpeed = 0.05f;
                         }
@@ -330,7 +331,17 @@ namespace IndiegameGarden.Menus
                     break;
 
                 case UserInput.SELECT2:
-                    // TODO
+                    if (SelectedGame != null)
+                    {
+                        // zoom in on selected game
+                        GameThumbnail th = thumbnailsCache[SelectedGame.GameID];
+                        if (th != null)
+                        {
+                            ZoomTarget = THUMBNAIL_SCALE_SELECTED2;
+                            ZoomCenter = th.Position;
+                            ZoomSpeed = 0.05f;
+                        }
+                    }
                     break;
             }
         }

@@ -25,7 +25,7 @@ namespace IndiegameGarden.Menus
         IndieGame gameLastLaunched = null;
         float lastKeypressTime = 0;
         double timeEscapeIsPressed = 0;
-        double timeEnterIsNotPressed = 9999;
+        double timeEnterIsNotPressed = 9999; // TODO may remove
         int timesEnterPressed = 0;
         // used to launch/start a game and track its state
         GameLauncher launcher;
@@ -88,11 +88,7 @@ namespace IndiegameGarden.Menus
             // time bookkeeping
             float timeSinceLastKeypress = p.simTime - lastKeypressTime;
 
-            if (!st.IsKeyDown(Keys.Enter))
-                timeEnterIsNotPressed += p.dt;
-            else
-                timeEnterIsNotPressed = 0f;
-            
+            // check esc key
             if (st.IsKeyDown(Keys.Escape))
             {
                 // if escape was pressed...
@@ -152,10 +148,13 @@ namespace IndiegameGarden.Menus
                 infoBox.Target = INFOBOX_HIDDEN_POSITION;
             }
 
-            // bookkeeping for next keypress
+            // (time) bookkeeping for next keypress
             lastKeypressTime = p.simTime;
             gameLastLaunched = null; // reset the memory of last launched upon keypress
-            
+            if (!st.IsKeyDown(Keys.Enter))
+                timeEnterIsNotPressed += p.dt;
+            else
+                timeEnterIsNotPressed = 0f;          
 
         }
 
@@ -173,15 +172,9 @@ namespace IndiegameGarden.Menus
                 // if installed, then launch it if possible
                 if (launcher == null || launcher.IsFinished() == true)
                 {
-                    if (timeEnterIsNotPressed > 1.5f) // only launch if enter was released for some time
-                    {
-                        if (g.ExeFile.Length > 0) // check if an exe file has been defined
-                        {
-                            launcher = new GameLauncher(g);
-                            gameLastLaunched = panel.SelectedGame;
-                            launcher.Start();
-                        }
-                    }
+                    launcher = new GameLauncher(g);
+                    gameLastLaunched = panel.SelectedGame;
+                    //launcher.Start();
                 }
             }
         }

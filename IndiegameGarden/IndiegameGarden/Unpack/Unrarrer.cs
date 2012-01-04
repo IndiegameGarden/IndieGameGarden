@@ -40,11 +40,28 @@ namespace IndiegameGarden.Unpack
             unrar.Open();
             //unrar.DataAvailable
             unrar.ExtractionProgress += new ExtractionProgressHandler(EvHandlerExtractionProgress);
-            while (unrar.ReadHeader())
+            Exception toThrow = null;
+            try
             {
-                unrar.ExtractToDirectory(destfolder);
+                while (unrar.ReadHeader())
+                {
+                    unrar.ExtractToDirectory(destfolder);
+                }
             }
-            unrar.Close();
+            catch (Exception ex)
+            {
+                toThrow = ex;
+            }
+            try
+            {
+                unrar.Close();
+            }
+            catch (Exception ex)
+            {
+                ;
+            }
+            if (toThrow != null)
+                throw (toThrow);
         }
 
         void EvHandlerExtractionProgress(object sender, ExtractionProgressEventArgs e)

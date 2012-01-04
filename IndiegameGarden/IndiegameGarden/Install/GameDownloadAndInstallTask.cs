@@ -11,23 +11,50 @@ using MyDownloader.Core;
 
 namespace IndiegameGarden.Install
 {
+
     /// <summary>
     /// a Task to both download and install a game. If game file already exists locally, download is skipped.
     /// If game is already installed locally, install is skipped.
     /// </summary>
-    public class GameDownloadAndInstallTask: GameDownloader
+    public class GameDownloadAndInstallTask: Task
     {
         InstallTask installTask;
-        enum CombinedTaskPhase { CHECK, DOWNLOAD, INSTALL, DONE };
-        CombinedTaskPhase combinedTaskPhase;
+        MyGameDownloader downloadTask;
+        IndieGame game;
+
+        public class MyGameDownloader : GameDownloader
+        {
+            GameDownloadAndInstallTask parent;
+
+            public MyGameDownloader(IndieGame g, GameDownloadAndInstallTask parent)
+                : base(g)
+            {
+                this.parent = parent;
+            }
+
+            public override void OnDownloadEnded(Downloader dl)
+            {
+                if (dl == null || dl.State.Equals(DownloaderState.Ended))
+                {
+                    // if download ready and OK, start install
+                    parent.installTask = new InstallTask(game);
+                    parent.installTask.Start();
+                }
+                else
+                {
+                    // error in downloading process
+                    parent.status = ITaskStatus.FAILED;
+                }
+            }
+        }
 
         /// <summary>
         /// create new Download and Install task
         /// </summary>
         /// <param name="game">info of game to download and install</param>
-        public GameDownloadAndInstallTask(IndieGame game): base(game)
+        public GameDownloadAndInstallTask(IndieGame game)
         {
-            combinedTaskPhase = CombinedTaskPhase.CHECK;
+            this.game = game;
         }
 
         public override void Start()
@@ -36,13 +63,12 @@ namespace IndiegameGarden.Install
             game.Refresh();
             if (game.IsInstalled)
             {
-                combinedTaskPhase = CombinedTaskPhase.DONE;
+                status = ITaskStatus.FINISHED;
                 return;
             }
 
-            // start the download task (my base class)
-            combinedTaskPhase = CombinedTaskPhase.DOWNLOAD;
-            base.Start();
+            // start the download task, which starts own bg thread
+            downloadTask.Start();
         }
 
         public override void Abort()
@@ -103,23 +129,6 @@ namespace IndiegameGarden.Install
             if (installTask == null)
                 return 0;
             return installTask.Progress();
-        }
-
-        // once download ends, start the install task
-        public override void OnDownloadEnded(Downloader dl)
-        {
-            if (dl==null || dl.State.Equals(DownloaderState.Ended))
-            {
-                // if download ready and OK, start install
-                combinedTaskPhase = CombinedTaskPhase.INSTALL;
-                installTask = new InstallTask(game);
-                installTask.Start();
-            }
-            else
-            {
-                // TODO
-                throw new NotImplementedException("check code OnDownloadEnded");
-            }            
         }
 
     }

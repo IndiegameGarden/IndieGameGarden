@@ -39,7 +39,7 @@ namespace IndiegameGarden.Base
         private void LoadJson()
         {
             try{
-                cfg = new JSONStore( StorageConfigFilename );
+                cfg = new JSONStore( ConfigFilesFolder + "\\" + StorageConfigFilename );
             }
             catch(Exception)
             {
@@ -77,14 +77,14 @@ namespace IndiegameGarden.Base
             return ThumbnailsServerURL + "/" + gameID + (alternativeFile ? ".png" : ".jpg");
         }
 
-        public string GetExeFilepath(string gameID, string cdPath, string exeFilename)
+        public string GetExeFilepath(string gameID, int version, string cdPath, string exeFilename)
         {
-            return UnpackedFilesFolder + "\\" + gameID + "\\" + cdPath + "\\" + exeFilename;
+            return GetGameFolder(gameID,version) + "\\" + cdPath + "\\" + exeFilename;
         }
 
-        public string GetGameFolder(string gameID)
+        public string GetGameFolder(string gameID, int version)
         {
-            return UnpackedFilesFolder + "\\" + gameID;
+            return UnpackedFilesFolder + "\\" + gameID + "_v" + version;
         }
 
         public string GetPackedFilepath(string packedGameFile)
