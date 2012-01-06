@@ -30,42 +30,36 @@ namespace IndiegameGarden.Menus
         public GameLauncher(IndieGame g)
         {
             string cwd = System.IO.Directory.GetCurrentDirectory();
-            cdPath = cwd + "\\" + GardenGame.Instance.Config.UnpackedFilesFolder + "\\" + g.GameID + "\\" + g.CdPath;
+            cdPath = cwd + "\\" + GardenGame.Instance.Config.GetGameFolder(g.GameID, g.Version) + "\\" + g.CdPath;
             filePath = g.ExeFile;
         }
 
         public override void Start()
         {
-            status = ITaskStatus.STARTED;
+            status = ITaskStatus.RUNNING;
             try
             {
                 string cwd = System.IO.Directory.GetCurrentDirectory();
                 System.IO.Directory.SetCurrentDirectory(cdPath);
                 Proc = System.Diagnostics.Process.Start(filePath);
                 SetForegroundWindow(Proc.MainWindowHandle.ToInt32());
-                Proc.Exited += new EventHandler(processExitedEvent);
+                Proc.Exited += new EventHandler(EvHandlerProcessExited);
                 Proc.EnableRaisingEvents = true;
                 System.IO.Directory.SetCurrentDirectory(cwd);
             }
             catch (System.ComponentModel.Win32Exception)
             {
-                status = ITaskStatus.FAILED;
+                status = ITaskStatus.FAIL;
             }
             catch (System.ObjectDisposedException)
             {             
-                status = ITaskStatus.FAILED;
+                status = ITaskStatus.FAIL;
             }
             catch (System.IO.FileNotFoundException)
             {             
-                status = ITaskStatus.FAILED;
+                status = ITaskStatus.FAIL;
             }
 
-        }
-
-        public override void Abort()
-        {
-            status = ITaskStatus.FAILED;
-            throw new NotImplementedException("Abort() method");
         }
 
         public override double Progress()
@@ -75,9 +69,14 @@ namespace IndiegameGarden.Menus
             return 0.0;
         }
 
-        private void processExitedEvent(object sender, System.EventArgs e)
+        private void EvHandlerProcessExited(object sender, System.EventArgs e)
         {
-            status = ITaskStatus.FINISHED;
+            status = ITaskStatus.SUCCESS;
+
+            // switch back to our Garden app
+            Process p = Process.GetCurrentProcess();
+            if (p != null)
+                SetForegroundWindow(p.MainWindowHandle.ToInt32());            
         }
 
     }

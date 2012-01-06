@@ -19,9 +19,8 @@ namespace IndiegameGarden.Unpack
         string filename ;
         string destfolder;
         PackedFileType filetype;
-        Unzipper unzipper;
-        Unrarrer unrarrer;
-        
+        UnzipTask unzipTask;
+        UnrarTask unrarTask;        
 
         public UnpackerTask(string filename, string destfolder)
         {
@@ -51,63 +50,55 @@ namespace IndiegameGarden.Unpack
                 filetype = PackedFileType.UNKNOWN;
         }
 
-        /// <summary>
-        /// NOTE: Method blocks until task FINISHED
-        /// </summary>
         public override void Start()
         {
-            status = ITaskStatus.STARTED;         
+            status = ITaskStatus.RUNNING;         
             // TODO error handling e.g. incomplete archives
             try
             {
                 switch (filetype)
                 {
                     case PackedFileType.ZIP:
-                        unzipper = new Unzipper(filename, destfolder);
-                        unzipper.Unzip();
+                        unzipTask = new UnzipTask(filename, destfolder);
+                        unzipTask.Start();
                         break;
                     case PackedFileType.RAR:
-                        unrarrer = new Unrarrer(filename, destfolder);
-                        unrarrer.Unrar();
+                        unrarTask = new UnrarTask(filename, destfolder);
+                        unrarTask.Start();
                         break;
                     default:
                         throw new NotImplementedException("unpackertask filetype");
 
                 }
-                status = ITaskStatus.FINISHED;
+                status = ITaskStatus.SUCCESS;
             }
             catch (Exception ex)
             {
-                status = ITaskStatus.FAILED;
-                msg = ex.ToString();
+                status = ITaskStatus.FAIL;
+                statusMsg = ex.ToString();
             }            
-        }
-
-        public override void Abort()
-        {
-            throw new NotImplementedException();
         }
 
         public override double Progress()
         {
-            if (status == ITaskStatus.IDLE)
+            if (status == ITaskStatus.CREATED)
                 return 0;
-            if (status == ITaskStatus.FINISHED || status == ITaskStatus.FAILED)
+            if (status == ITaskStatus.SUCCESS || status == ITaskStatus.FAIL)
                 return 1;
-            if (status == ITaskStatus.STARTED)
+            if (status == ITaskStatus.RUNNING)
             {
                 switch (filetype)
                 {
                     case PackedFileType.ZIP:
-                        if (unzipper != null)
+                        if (unzipTask != null)
                         {
-                            return unzipper.Progress;
+                            return unzipTask.Progress();
                         }
                         break;
                     case PackedFileType.RAR:
-                        if (unrarrer != null)
+                        if (unrarTask != null)
                         {
-                            return unrarrer.Progress;
+                            return unrarTask.Progress();
                         }
                         break;
                     default:

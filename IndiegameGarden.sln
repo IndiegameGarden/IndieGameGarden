@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDownloader.Core", "..\..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetServ.Net.Json", "..\..\JSON\NetServ.Net.Json\NetServ.Net.Json.csproj", "{95B7294D-230D-4ADA-9330-FF4EBD154A29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndiegameGardenLauncher", "IndiegameGardenLauncher\IndiegameGardenLauncher\IndiegameGardenLauncher.csproj", "{A9878246-C07B-404C-A736-CE9CB8A1DC7E}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "IndiegameGardenLauncherContent", "IndiegameGardenLauncher\IndiegameGardenLauncherContent\IndiegameGardenLauncherContent.contentproj", "{8EE81FA3-3039-40AB-A82C-427C226A8DCC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +71,22 @@ Global
 		{95B7294D-230D-4ADA-9330-FF4EBD154A29}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{95B7294D-230D-4ADA-9330-FF4EBD154A29}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{95B7294D-230D-4ADA-9330-FF4EBD154A29}.Release|x86.ActiveCfg = Release|Any CPU
+		{A9878246-C07B-404C-A736-CE9CB8A1DC7E}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{A9878246-C07B-404C-A736-CE9CB8A1DC7E}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{A9878246-C07B-404C-A736-CE9CB8A1DC7E}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{A9878246-C07B-404C-A736-CE9CB8A1DC7E}.Debug|x86.ActiveCfg = Debug|x86
+		{A9878246-C07B-404C-A736-CE9CB8A1DC7E}.Debug|x86.Build.0 = Debug|x86
+		{A9878246-C07B-404C-A736-CE9CB8A1DC7E}.Release|Any CPU.ActiveCfg = Release|x86
+		{A9878246-C07B-404C-A736-CE9CB8A1DC7E}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{A9878246-C07B-404C-A736-CE9CB8A1DC7E}.Release|Mixed Platforms.Build.0 = Release|x86
+		{A9878246-C07B-404C-A736-CE9CB8A1DC7E}.Release|x86.ActiveCfg = Release|x86
+		{A9878246-C07B-404C-A736-CE9CB8A1DC7E}.Release|x86.Build.0 = Release|x86
+		{8EE81FA3-3039-40AB-A82C-427C226A8DCC}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{8EE81FA3-3039-40AB-A82C-427C226A8DCC}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{8EE81FA3-3039-40AB-A82C-427C226A8DCC}.Debug|x86.ActiveCfg = Debug|x86
+		{8EE81FA3-3039-40AB-A82C-427C226A8DCC}.Release|Any CPU.ActiveCfg = Release|x86
+		{8EE81FA3-3039-40AB-A82C-427C226A8DCC}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{8EE81FA3-3039-40AB-A82C-427C226A8DCC}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

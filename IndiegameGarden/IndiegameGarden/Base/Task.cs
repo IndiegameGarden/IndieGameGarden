@@ -10,38 +10,50 @@ namespace IndiegameGarden.Base
      */
     public abstract class Task: ITask
     {
-        protected ITaskStatus status = ITaskStatus.IDLE;
-        protected string errorMsg = "";
+        protected ITaskStatus status = ITaskStatus.CREATED;
+        protected string statusMsg = "";
 
         public virtual ITaskStatus Status()
         {
             return status;
         }
 
-        /// <summary>
-        /// If task status indicates ITaskStatus.FAILED, the error message can be found here
-        /// </summary>
-        public string ErrorMessage
+        public string StatusMsg()
         {
-            get
-            {
-                return errorMsg;
-            }
+            return statusMsg;
         }
 
         public virtual bool IsStarted()
         {
-            return status != ITaskStatus.IDLE;
+            return status != ITaskStatus.CREATED;
+        }
+
+        public virtual bool IsRunning()
+        {
+            return status == ITaskStatus.RUNNING;
         }
 
         public virtual bool IsFinished()
         {
-            return (status == ITaskStatus.FINISHED) || (status == ITaskStatus.FAILED);
+            return (status == ITaskStatus.SUCCESS) || (status == ITaskStatus.FAIL);
         }
 
-        public abstract double Progress();
+        // default implementation for Tasks that don't support live progress tracking
+        public virtual double Progress()
+        {
+            if (IsFinished())
+                return 1;
+            else
+                return 0;
+        }
+
         public abstract void Start();
-        public abstract void Abort();
+
+        public virtual void Abort()
+        {
+            // to override if wished
+            throw new NotImplementedException("Abort() not implemented for this task");
+        }
 
     }
 }

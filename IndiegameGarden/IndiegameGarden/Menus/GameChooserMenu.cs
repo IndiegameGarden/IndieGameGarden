@@ -174,7 +174,7 @@ namespace IndiegameGarden.Menus
                 {
                     launcher = new GameLauncher(g);
                     gameLastLaunched = panel.SelectedGame;
-                    //launcher.Start();
+                    launcher.Start();
                 }
             }
         }

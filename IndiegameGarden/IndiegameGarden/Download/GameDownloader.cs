@@ -21,12 +21,8 @@ namespace IndiegameGarden.Download
         {
             string fn = game.PackedFileName; 
             string toLocalFolder = GardenGame.Instance.Config.PackedFilesFolder;
-            InternalStartDownload(game.PackedFileURL, fn, toLocalFolder, false, game.PackedFileMirrors);
+            InternalDoDownload(game.PackedFileURL, fn, toLocalFolder, false, game.PackedFileMirrors);
         }
 
-        public override void OnDownloadEnded(Downloader dl)
-        {
-            // TODO
-        }
     }
 }

@@ -21,10 +21,23 @@ namespace IndiegameGarden.Menus
     /// </summary>
     public class GameThumbnail: MovingEffectSpritelet
     {
-        string gameID;
-        string thumbnailFilename ;
-        string thumbnailUrl ;
-        ThumbnailDownloader downl;
+        /// <summary>
+        /// ID of game for which this thumbnail is
+        /// </summary>
+        public string GameID;
+
+        /// <summary>
+        /// actual/intended filename of thumbnail file (the file may or may not exist)
+        /// </summary>
+        public string ThumbnailFilename;
+
+        /// <summary>
+        /// URL where thumbnail file may be retrieved
+        /// </summary>
+        public string ThumbnailUrl;
+
+        //ThumbnailDownloader downl;
+        ITask loaderTask;
         Texture2D updatedTexture;
         Object updateTextureLock = new Object();
         bool isLoaded = false;
@@ -32,16 +45,52 @@ namespace IndiegameGarden.Menus
         // a default texture to use if no thumbnail has been loaded yet
         static Texture2D DefaultTexture;
 
+        /**
+         * internal Task to load a thumbnail from disk, or download it first if not available.
+         * To be called in a separate thread e.g. ThreadedTask.
+         */
+        class GameThumbnailLoadTask : Task
+        {
+            // my parent - where to load for/to
+            GameThumbnail thumbnail;
+
+            public GameThumbnailLoadTask(GameThumbnail th)
+            {
+                thumbnail = th;
+            }
+
+            /// <summary>
+            /// loads image from either file if it exists, or else by download
+            /// </summary>
+            public override void Start()
+            {
+                if (File.Exists(thumbnail.ThumbnailFilename))
+                {
+                    thumbnail.LoadTextureFromFile();
+                }
+                else
+                {
+                    // start a download
+                    ThumbnailDownloader downl = new ThumbnailDownloader(thumbnail.GameID);
+                    downl.Start();
+                    if (File.Exists(thumbnail.ThumbnailFilename))
+                    {
+                        thumbnail.LoadTextureFromFile();
+                    }
+                }
+            }
+        } // class
+
         public GameThumbnail(string gameID)
             : base(DefaultTexture,"GameThumbnail")
         {
             Scale = GardenGamesPanel.THUMBNAIL_SCALE_UNSELECTED;
-            this.gameID = gameID;
+            this.GameID = gameID;
             // TODO methods to construct paths!? incl .png
-            this.thumbnailFilename = GardenGame.Instance.Config.GetThumbnailFilepath(gameID,false); 
-            this.thumbnailUrl = GardenGame.Instance.Config.GetThumbnailURL(gameID,false);
-            Thread t = new Thread(new ThreadStart(StartLoadingProcess));
-            t.Start();
+            this.ThumbnailFilename = GardenGame.Instance.Config.GetThumbnailFilepath(gameID,false); 
+            this.ThumbnailUrl = GardenGame.Instance.Config.GetThumbnailURL(gameID,false);
+            loaderTask = new ThreadedTask(new GameThumbnailLoadTask(this));
+            loaderTask.Start();
         }
 
         protected override void OnInit()
@@ -55,27 +104,10 @@ namespace IndiegameGarden.Menus
             }
         }
 
-        /// <summary>
-        /// loads image from either file or by download
-        /// </summary>
-        void StartLoadingProcess()
-        {
-            if (File.Exists(thumbnailFilename))
-            {
-                LoadTextureFromFile();
-            }
-            else
-            {
-                // start a download
-                downl = new ThumbnailDownloader(gameID, new OnDownloadOK(OnThumbnailDownloaded) );
-                downl.Start();
-            }
-        }
-
         // (re) loads texture from a file and puts in updatedTexture var
         protected void LoadTextureFromFile()
         {
-            FileStream fs = new FileStream(thumbnailFilename, FileMode.Open);
+            FileStream fs = new FileStream(ThumbnailFilename, FileMode.Open);
             Texture2D tex = Texture2D.FromStream(GardenGame.Instance.GraphicsDevice, fs);
             lock (updateTextureLock)
             {
@@ -107,14 +139,5 @@ namespace IndiegameGarden.Menus
                 }
             }
         }
-
-        /// <summary>
-        /// called via a Delegate when thumbnail has been downloaded ok.
-        /// </summary>
-        public void OnThumbnailDownloaded(string gameID)
-        {
-            LoadTextureFromFile();
-        }
-
     }
 }

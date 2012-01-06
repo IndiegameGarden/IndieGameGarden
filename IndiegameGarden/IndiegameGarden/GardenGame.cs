@@ -53,8 +53,8 @@ namespace IndiegameGarden
 
         // --- internal + TTengine related
         GraphicsDeviceManager graphics;
-        int preferredWindowWidth = 1024; //1280; //1440; //1280;
-        int preferredWindowHeight = 768; //720; //900; //720;
+        int preferredWindowWidth = 1440; //1024; //1280; //1440; //1280;
+        int preferredWindowHeight = 900; //768; //720; //900; //720;
         Screenlet toplevelScreen;        
         // treeRoot is a pointer, set to the top-level Gamelet to render
         Gamelet treeRoot;

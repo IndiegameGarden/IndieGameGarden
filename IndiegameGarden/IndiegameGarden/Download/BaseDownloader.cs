@@ -11,7 +11,7 @@ using IndiegameGarden.Base;
 namespace IndiegameGarden.Download
 {
     /**
-     * A base class for various file downloader classes
+     * A base class for various file downloader classes. Wraps a MyDownloader.Downloader as a ITask
      */
     public abstract class BaseDownloader: Task
     {
@@ -24,9 +24,12 @@ namespace IndiegameGarden.Download
             return downloader.Progress;
         }
 
+        /// <summary>
+        /// actual download operations should be put in the Start() method
+        /// </summary>
         public override void Start()
         {
-            status = ITaskStatus.STARTED;
+            throw new NotImplementedException("BaseDownloader subclasses should implement/override Start()");
         }
 
         public override void Abort()
@@ -36,37 +39,37 @@ namespace IndiegameGarden.Download
                 DownloadManager.Instance.RemoveDownload(downloader);
             }
             downloader = null;
-            status = ITaskStatus.FAILED;
+            status = ITaskStatus.FAIL;
         }
 
         /// <summary>
-        /// class-internal method to start a download without mirrors
+        /// class-internal method to perform a download without mirrors
         /// </summary>
         /// <param name="urlPath">full URL gameDirPath of file, optionally leaving out protocol http://</param>
         /// <param name="filename">local name under which to store the file</param>
         /// <param name="toLocalFolder">local folder where to store file</param>
         /// <param name="overwriteExisting">if true, overwrites any existing file 'filename'</param>
-        protected void InternalStartDownload(string urlPath, string filename, string toLocalFolder, bool overwriteExisting)
+        protected void InternalDoDownload(string urlPath, string filename, string toLocalFolder, bool overwriteExisting)
         {
-            InternalStartDownload(urlPath,filename,toLocalFolder, overwriteExisting, new string[] {} );
+            InternalDoDownload(urlPath,filename,toLocalFolder, overwriteExisting, new string[] {} );
         }
 
         /// <summary>
-        /// class-internal method to start a download with mirrors
+        /// class-internal method to perform a download with mirrors
         /// </summary>
         /// <param name="urlPath">full URL gameDirPath of file, optionally leaving out protocol http://</param>
         /// <param name="filename">local name under which to store the file</param>
         /// <param name="toLocalFolder">local folder where to store file</param>
         /// <param name="mirrors">optional set of mirrors for urlPath, may be empty string[] for none</param>
         /// <param name="overwriteExisting">if true, overwrites any existing file 'filename'</param>
-        protected void InternalStartDownload(string urlPath, string filename, string toLocalFolder, bool overwriteExisting, string[] mirrors )
+        protected void InternalDoDownload(string urlPath, string filename, string toLocalFolder, bool overwriteExisting, string[] mirrors )
         {
             // make sure protocol is specified
             if (!urlPath.Contains("://"))
                 urlPath = "http://" + urlPath;
 
             // starts to listen to the event 'DownloadEnded' from DownloadManager
-            DownloadManager.Instance.DownloadEnded += new EventHandler<DownloaderEventArgs>(EvHandleDownloadEnded);
+            //DownloadManager.Instance.DownloadEnded += new EventHandler<DownloaderEventArgs>(EvHandleDownloadEnded);
 
             string localFile = toLocalFolder + "\\" + filename ;
 
@@ -74,8 +77,7 @@ namespace IndiegameGarden.Download
             if (File.Exists(localFile))
             {
                 if (!overwriteExisting)
-                {
-                    OnDownloadEnded(null);
+                {                    
                     return; // we're done! file is there already.
                 }
                 else
@@ -96,9 +98,15 @@ namespace IndiegameGarden.Download
             downloader = DownloadManager.Instance.Add(  ResourceLocation.FromURL(urlPath), 
                                                         ResourceLocation.FromURLArray(mirrors), 
                                                         localFile, 3, true);
-
+            downloader.WaitForConclusion();
+            if (downloader.State.Equals(DownloaderState.EndedWithError))
+                status = ITaskStatus.FAIL;
+            else
+                status = ITaskStatus.SUCCESS;
+            //OnDownloadEnded(e.Downloader);
         }
 
+        /*
         // called by MyDownloader framework upon any download ready/error etc.
         private void EvHandleDownloadEnded(object sender, DownloaderEventArgs e)
         {
@@ -106,20 +114,29 @@ namespace IndiegameGarden.Download
             if (e.Downloader == downloader)
             {
                 if (e.Downloader.State.Equals(DownloaderState.EndedWithError))
-                    status = ITaskStatus.FAILED;
+                    status = ITaskStatus.FAIL;
                 else
-                    status = ITaskStatus.FINISHED;
+                    status = ITaskStatus.SUCCESS;
 
                 OnDownloadEnded(e.Downloader);
             }
         }
+         */
 
+        /*
         /// <summary>
         /// called when download task has ended. Can use dl.State to check state of the finished download (e.g. error, success, etc.)
         /// </summary>
         /// <param name="dl">The Downloader class of the file whose downloading has ended, 
         ///                  or null if no Downloader was used (i.e. file was already there)</param>
-        public abstract void OnDownloadEnded(Downloader dl);
+        public virtual void OnDownloadEnded(Downloader dl)
+        {
+            if (dl.State == DownloaderState.Ended)
+                status = ITaskStatus.SUCCESS;
+            else if (dl.State == DownloaderState.EndedWithError)
+                status = ITaskStatus.FAIL;
+        }
+        */
 
     }
 }

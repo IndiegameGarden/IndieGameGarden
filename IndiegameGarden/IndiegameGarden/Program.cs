@@ -1,6 +1,7 @@
 // (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace IndiegameGarden
 {
@@ -14,6 +15,7 @@ namespace IndiegameGarden
         {
             using (GardenGame game = new GardenGame())
             {
+                game.Window.AllowUserResizing = true;
                 game.Run();
             }
         }

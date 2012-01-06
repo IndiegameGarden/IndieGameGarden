@@ -5,42 +5,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using IndiegameGarden.Base;
 using IndiegameGarden.Download;
 
 namespace IndiegameGarden.Unpack
 {
     /**
-     * a wrapper around Unrar to support progress indication better and offer a 
-     * similar interface as Unzipper.
+     * Task that Unrars a .rar archive using the Unrar class
      */
-    public class Unrarrer
+    public class UnrarTask: Task
     {
         string filename;
         string destfolder;
         double progress = 0;
         Unrar unrar;
 
-        public Unrarrer(string filename, string destfolder)
+        public UnrarTask(string filename, string destfolder)
         {
             this.filename = filename;
             this.destfolder = destfolder;
         }
 
-        public double Progress
+        public override double Progress()
         {
-            get
-            {
-                return progress;
-            }
+            return progress;
         }
 
-        public void Unrar()
+        public override void Start()
         {
             unrar = new Unrar(filename);
             unrar.Open();
-            //unrar.DataAvailable
             unrar.ExtractionProgress += new ExtractionProgressHandler(EvHandlerExtractionProgress);
-            Exception toThrow = null;
             try
             {
                 while (unrar.ReadHeader())
@@ -48,20 +43,16 @@ namespace IndiegameGarden.Unpack
                     unrar.ExtractToDirectory(destfolder);
                 }
             }
-            catch (Exception ex)
-            {
-                toThrow = ex;
+            finally{
+                try
+                {
+                    unrar.Close();
+                }
+                catch (Exception ex)
+                {
+                    ;
+                }
             }
-            try
-            {
-                unrar.Close();
-            }
-            catch (Exception ex)
-            {
-                ;
-            }
-            if (toThrow != null)
-                throw (toThrow);
         }
 
         void EvHandlerExtractionProgress(object sender, ExtractionProgressEventArgs e)

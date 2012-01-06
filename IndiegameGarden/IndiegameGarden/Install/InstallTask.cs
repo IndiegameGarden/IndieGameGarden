@@ -28,47 +28,29 @@ namespace IndiegameGarden.Install
 
         public override void Start()
         {
-            status = ITaskStatus.STARTED;
+            status = ITaskStatus.RUNNING;
             string destFolder = GardenGame.Instance.Config.GetGameFolder(game.GameID, game.Version);
             unpacker = new UnpackerTask(GardenGame.Instance.Config.GetPackedFilepath(game.PackedFileName), 
                                         destFolder );
-            Thread t = new Thread(new ThreadStart(StartInstallingThread));
-            t.Start();
-
-        }
-
-        // entry point for installation thread
-        void StartInstallingThread()
-        {
             if (File.Exists(unpacker.Filename))
             {                
                 unpacker.Start();
                 status = unpacker.Status();
-                errorMsg = unpacker.ErrorMessage;
+                statusMsg = unpacker.StatusMsg();
             }
             else
             {
-                status = ITaskStatus.FAILED;
-                // error, file not there!
-                throw new NotImplementedException("file missing handler");
+                status = ITaskStatus.FAIL;
+                statusMsg = "Missing file " + unpacker.Filename;
             }
             game.Refresh();
         }
 
-        public override void Abort()
-        {
-            status = ITaskStatus.FAILED;
-            throw new NotImplementedException("Abort() not impl in InstallTask()");
-        }
-
         public override double Progress()
         {
-            // TODO more fine grained info
-            if (status == ITaskStatus.IDLE)
+            if (status == ITaskStatus.CREATED)
                 return 0;
-            if (status == ITaskStatus.FINISHED)
-                return 1;
-            if (status == ITaskStatus.FAILED)
+            if (status == ITaskStatus.SUCCESS || status== ITaskStatus.FAIL)
                 return 1;
             if (unpacker == null)
                 return 0;

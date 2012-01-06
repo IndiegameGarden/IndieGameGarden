@@ -3,10 +3,10 @@
 namespace IndiegameGarden.Base
 {
     /// <summary>
-    /// task status indication: IDLE if not yet started, STARTED when started, FINISHED when 
-    /// successfully concluded and FAILED on error/abort/etc.
+    /// task status indication: CREATED if not yet started, RUNNING when started, SUCCESS when 
+    /// successfully concluded and FAIL on error/abort/etc.
     /// </summary>
-    public enum ITaskStatus { IDLE, STARTED, FINISHED, FAILED } 
+    public enum ITaskStatus { CREATED, RUNNING, SUCCESS, FAIL } 
 
     /**
      * <summary>
@@ -19,7 +19,8 @@ namespace IndiegameGarden.Base
         /// Get task progress indication value. IsFinished()==true implies Progress()==1 and vice versa.
         /// IsStarted()==false implies Progress()==0 but not vice versa.
         /// </summary>
-        /// <returns>progress indication between 0...1</returns>
+        /// <returns>progress indication between 0...1. Returns either 0 or 1 without in-between values
+        /// for tasks where progress tracking is not supported.</returns>
         double Progress();
 
         /// <summary>
@@ -29,7 +30,13 @@ namespace IndiegameGarden.Base
         ITaskStatus Status();
 
         /// <summary>
-        /// Start this task. Calling this while the task is started should have no effect.
+        /// an optional user-readable message explaining Status(), such as error message if Status()==ITaskStatus.FAIL
+        /// </summary>
+        /// <returns></returns>
+        string StatusMsg();
+
+        /// <summary>
+        /// Start this task and execute it until finished, error, or aborted.
         /// </summary>
         void Start();
 
@@ -39,15 +46,21 @@ namespace IndiegameGarden.Base
         void Abort();
 
         /// <summary>
-        /// check whether Task is already started or not
+        /// check whether Task is/has already been started or not
         /// </summary>
-        /// <returns>true if started, false otherwise</returns>
+        /// <returns>true if running, completed, or failed, false if not yet started</returns>
         bool IsStarted();
+
+        /// <summary>
+        /// check whether Task is currently running
+        /// </summary>
+        /// <returns>true if status is ITaskStatus.RUNNING</returns>
+        bool IsRunning();
 
         /// <summary>
         /// check whether Task is already finished or not
         /// </summary>
-        /// <returns>true if finished, false otherwise</returns>
+        /// <returns>true if finished (states ITaskStatus.SUCCESS or ITaskStatus.FAIL), false otherwise</returns>
         bool IsFinished();
     }
 }

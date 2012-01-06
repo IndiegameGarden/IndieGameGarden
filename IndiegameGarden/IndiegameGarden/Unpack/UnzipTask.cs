@@ -6,32 +6,31 @@ using System.Linq;
 using System.Text;
 
 using Ionic.Zip;
+using IndiegameGarden.Base;
 
 namespace IndiegameGarden.Unpack
 {
     /**
      * wraps the Ionic.Zip unzipping library to get ease of use and progress indication
      */
-    public class Unzipper
+    public class UnzipTask: Task
     {
         public string zipfile;
         public string destdir;
         double progress = 0;
 
-        public Unzipper(string zipfile, string destdir)
+        public UnzipTask(string zipfile, string destdir)
         {
             this.zipfile = zipfile;
             this.destdir = destdir;
         }
 
-        public double Progress
+        public override double Progress()
         {
-            get{
-                return progress;
-            }
+            return progress;
         }
 
-        public void Unzip()
+        public override void Start()
         {
             try
             {

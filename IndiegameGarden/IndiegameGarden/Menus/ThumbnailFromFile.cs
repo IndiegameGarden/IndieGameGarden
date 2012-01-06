@@ -15,16 +15,16 @@ namespace IndiegameGarden.Menus
     /*
     public class ThumbnailFromFile: Spritelet
     {
-        string thumbnailFilename = null;
+        string ThumbnailFilename = null;
 
         protected ThumbnailFromFile(string fn): base()
         {
-            this.thumbnailFilename = fn;            
+            this.ThumbnailFilename = fn;            
         }
 
-        public static ThumbnailFromFile CreateFromGameID(string gameID)
+        public static ThumbnailFromFile CreateFromGameID(string GameID)
         {
-            string gameDirPath = GardenGame.Instance.Config.ThumbnailsFolder + "\\" + gameID + ".png" ;
+            string gameDirPath = GardenGame.Instance.Config.ThumbnailsFolder + "\\" + GameID + ".png" ;
             return new ThumbnailFromFile(gameDirPath);
         }
 
@@ -41,7 +41,7 @@ namespace IndiegameGarden.Menus
 
         public void LoadTextureFromFile()
         {
-            FileStream fs = new FileStream(thumbnailFilename, FileMode.Open);
+            FileStream fs = new FileStream(ThumbnailFilename, FileMode.Open);
             Texture = Texture2D.FromStream(Screen.graphicsDevice, fs);
         }
 
