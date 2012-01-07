@@ -6,6 +6,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.InteropServices; 
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -53,8 +55,8 @@ namespace IndiegameGarden
 
         // --- internal + TTengine related
         GraphicsDeviceManager graphics;
-        int preferredWindowWidth = 1440; //1024; //1280; //1440; //1280;
-        int preferredWindowHeight = 900; //768; //720; //900; //720;
+        int preferredWindowWidth = 1420; //1024; //1280; //1440; //1280;
+        int preferredWindowHeight = 880; //768; //720; //900; //720;
         Screenlet toplevelScreen;        
         // treeRoot is a pointer, set to the top-level Gamelet to render
         Gamelet treeRoot;
@@ -81,6 +83,7 @@ namespace IndiegameGarden
             graphics.IsFullScreen = false;
 #endif
             this.IsFixedTimeStep = false;
+            
             graphics.SynchronizeWithVerticalRetrace = true;
         }
         #endregion
@@ -90,12 +93,13 @@ namespace IndiegameGarden
             Exception initError = null;
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            toplevelScreen = new Screenlet(1024, 768);
+            toplevelScreen = new Screenlet(preferredWindowWidth, preferredWindowHeight);
             Gamelet physicsModel = new FixedTimestepPhysics();
 
             toplevelScreen.Add(physicsModel);
-            toplevelScreen.Add(new FrameRateCounter(1.0f, 0f));
-            toplevelScreen.Add(new ScreenZoomer());
+            toplevelScreen.Add(new FrameRateCounter(1.0f, 0f)); // TODO
+            toplevelScreen.Add(new ScreenZoomer()); // TODO remove
+            toplevelScreen.DrawColor = Color.Black;
             treeRoot = toplevelScreen;
             gameletsRoot = physicsModel;
 
@@ -136,11 +140,6 @@ namespace IndiegameGarden
             // finally call base to enumnerate all (gfx) Game components to init
             base.Initialize();
 
-        }
-
-        protected override void LoadContent()
-        {
-            base.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)

@@ -29,7 +29,7 @@ namespace IndiegameGarden.Menus
         private void InitComponents()
         {
             dlProgressBar = new ProgressBar();
-            dlProgressBar.Position = new Vector2(0.18f, 0.07f);
+            dlProgressBar.Position = new Vector2(0.4f, 0.07f);
             dlProgressBar.Visible = false;
             Add(dlProgressBar);
 
@@ -56,7 +56,8 @@ namespace IndiegameGarden.Menus
                 string txt = game.Name + "\n\n" + game.Description + "\n";
                 if (game.IsInstalled)
                 {
-                    txt += "Press ENTER to play!\n";
+                    txt += "Installed - Press ENTER to play!\n";
+                    dlProgressBar.Visible = false;
                 }
                 else
                 {
@@ -76,6 +77,7 @@ namespace IndiegameGarden.Menus
 
                     if (game.DlAndInstallTask == null)
                     {
+                        dlProgressBar.Visible = false;
                         txt += "Press ENTER to download this game!\n";
                     }
                 }

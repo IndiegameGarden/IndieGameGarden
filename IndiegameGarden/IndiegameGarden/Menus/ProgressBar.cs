@@ -65,7 +65,7 @@ namespace IndiegameGarden.Menus
         protected override void OnDraw(ref DrawParams p)
         {
             Vector2 pos = DrawPosition;
-            int width = (int) Math.Round(WidthAbs * progressValue );
+            int width = 1 + (int) Math.Round(WidthAbs * progressValue );
             if (width > Texture.Width) width = Texture.Width;
 
             Rectangle srcRect = new Rectangle(0, 0, width, Texture.Height);

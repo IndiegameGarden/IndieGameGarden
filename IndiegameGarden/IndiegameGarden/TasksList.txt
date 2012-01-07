@@ -2,8 +2,7 @@
 
 OPEN  [top issues first]
 
-Put all data in a 'data' directory, hiding the clutter
-Implement and test SetForegroundWindow function used in launching
+Zoom out returning to menu after having played a game
 Version number included in .zip file name and in game folder (to test)
 Test .zip/.rar progress bars for unpacking
 Test launcher in fullscreen mode
@@ -14,7 +13,7 @@ Put loader threads in lower priority
 Allow loading of config from server (where config includes URL/mirror locations etc)
 Add default mirror of own server to all game downloads, where name on server equals the local zipfilename
 Add mirrors to all thumbnail loading
-Add self-downloading of latest IGG code, in different versions. App is always started via a 'bootloader' .exe.
+Add self-downloading of latest IGG code, in different versions. Launcher app finds latest IGG .exe in local datastore.
 Adapt to multiple desktop resolution and check for minimum resolution
 Add TTMusicEngine and one music file
   Music loading from URLs specified in configuration file
@@ -22,8 +21,9 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
-
-2012-01-07 Refactor Tasks to exclude threading and have blocking Start(), add a separate ThreadedTask to provide threading to any ITask
+2012-01-06 Implement and test SetForegroundWindow function used in launching
+2012-01-06 Put all data in a 'data' directory, hiding the clutter - code now allows this. To be tested in final alpha release. Special Launcher app now used as a clutter-free entry point to app.
+2012-01-06 Refactor Tasks to exclude threading and have blocking Start(), add a separate ThreadedTask to provide threading to any ITask
 2012-01-06 Refactor Unzipper/Unrarrer to proper Tasks
 2012-01-04 Fix bug that a game is never launched
 

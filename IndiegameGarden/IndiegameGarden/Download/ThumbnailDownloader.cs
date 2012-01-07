@@ -28,7 +28,7 @@ namespace IndiegameGarden.Download
         {
             string filename = gameID + ".jpg"; // TODO jpg or png or both?
             string url = GardenGame.Instance.Config.ThumbnailsServerURL + filename;
-            InternalDoDownload(url, filename, GardenGame.Instance.Config.ThumbnailsFolder, true);
+            InternalDoDownload(url, filename, GardenGame.Instance.Config.GetFolder(GardenGame.Instance.Config.ThumbnailsFolder), true);
         }
 
     }

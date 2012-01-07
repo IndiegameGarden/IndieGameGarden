@@ -33,6 +33,7 @@ namespace IndiegameGarden.Unpack
 
         public override void Start()
         {
+            status = ITaskStatus.RUNNING;
             unrar = new Unrar(filename);
             unrar.Open();
             unrar.ExtractionProgress += new ExtractionProgressHandler(EvHandlerExtractionProgress);
@@ -42,6 +43,12 @@ namespace IndiegameGarden.Unpack
                 {
                     unrar.ExtractToDirectory(destfolder);
                 }
+                status = ITaskStatus.SUCCESS;
+            }
+            catch (Exception ex)
+            {
+                status = ITaskStatus.FAIL;
+                statusMsg = ex.ToString();
             }
             finally{
                 try
@@ -50,11 +57,13 @@ namespace IndiegameGarden.Unpack
                 }
                 catch (Exception ex)
                 {
-                    ;
+                    status = ITaskStatus.FAIL;
+                    statusMsg = ex.ToString();
                 }
             }
         }
 
+        // called from the Unrar.cs event handler
         void EvHandlerExtractionProgress(object sender, ExtractionProgressEventArgs e)
         {
             double p = e.PercentComplete;

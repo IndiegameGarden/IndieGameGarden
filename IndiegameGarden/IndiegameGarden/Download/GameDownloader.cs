@@ -19,8 +19,9 @@ namespace IndiegameGarden.Download
 
         public override void Start()
         {
+            status = ITaskStatus.RUNNING;
             string fn = game.PackedFileName; 
-            string toLocalFolder = GardenGame.Instance.Config.PackedFilesFolder;
+            string toLocalFolder = GardenGame.Instance.Config.GetFolder(GardenGame.Instance.Config.PackedFilesFolder); 
             InternalDoDownload(game.PackedFileURL, fn, toLocalFolder, false, game.PackedFileMirrors);
         }
 

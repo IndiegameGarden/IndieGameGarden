@@ -22,6 +22,7 @@ namespace IndiegameGarden.Base
 
         private void Init()
         {
+            DataPath = "..\\..\\..\\..\\..";
             ConfigFilesFolder = "config";
             PackedFilesFolder = "zips";
             UnpackedFilesFolder = "games";
@@ -39,7 +40,7 @@ namespace IndiegameGarden.Base
         private void LoadJson()
         {
             try{
-                cfg = new JSONStore( ConfigFilesFolder + "\\" + StorageConfigFilename );
+                cfg = new JSONStore( GetFolder(ConfigFilesFolder) + "\\" + StorageConfigFilename );
             }
             catch(Exception)
             {
@@ -49,6 +50,12 @@ namespace IndiegameGarden.Base
         }
 
         // TODO document the fields below
+
+        /// <summary>
+        /// a folder path, abs or rel, pointing to the location where all below defined data folders are present
+        /// </summary>
+        public string DataPath { get; set; }
+
         public string ConfigFilesFolder { get; set; }
 
         public string PackedFilesFolder { get; set; }
@@ -67,9 +74,19 @@ namespace IndiegameGarden.Base
 
         public string PackedFilesServerURL { get; set; }
 
+        /// <summary>
+        /// prepend the DataPath location to a simple folder name, in order to locate the folder properly
+        /// </summary>
+        /// <param name="folderName">any folder name e.g. ConfigFilesFolder or PackedFilesFolder</param>
+        /// <returns>folderName prepended with the DataPath</returns>
+        public string GetFolder(string folderName)
+        {
+            return DataPath + "\\" + folderName;
+        }
+
         public string GetThumbnailFilepath(string gameID, bool alternativeFile)
         {
-            return ThumbnailsFolder + "\\" + gameID + (alternativeFile ? ".png" : ".jpg");
+            return GetFolder(ThumbnailsFolder) + "\\" + gameID + (alternativeFile ? ".png" : ".jpg");
         }
 
         public string GetThumbnailURL(string gameID, bool alternativeFile)
@@ -84,12 +101,12 @@ namespace IndiegameGarden.Base
 
         public string GetGameFolder(string gameID, int version)
         {
-            return UnpackedFilesFolder + "\\" + gameID + "_v" + version;
+            return GetFolder(UnpackedFilesFolder) + "\\" + gameID + "_v" + version;
         }
 
         public string GetPackedFilepath(string packedGameFile)
         {
-            return PackedFilesFolder + "\\" + packedGameFile;
+            return GetFolder(PackedFilesFolder) + "\\" + packedGameFile;
         }
     }
 }

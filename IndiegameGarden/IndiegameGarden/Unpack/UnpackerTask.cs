@@ -19,8 +19,7 @@ namespace IndiegameGarden.Unpack
         string filename ;
         string destfolder;
         PackedFileType filetype;
-        UnzipTask unzipTask;
-        UnrarTask unrarTask;        
+        ITask unpackTask;
 
         public UnpackerTask(string filename, string destfolder)
         {
@@ -59,18 +58,18 @@ namespace IndiegameGarden.Unpack
                 switch (filetype)
                 {
                     case PackedFileType.ZIP:
-                        unzipTask = new UnzipTask(filename, destfolder);
-                        unzipTask.Start();
+                        unpackTask = new UnzipTask(filename, destfolder);
                         break;
                     case PackedFileType.RAR:
-                        unrarTask = new UnrarTask(filename, destfolder);
-                        unrarTask.Start();
+                        unpackTask = new UnrarTask(filename, destfolder);
                         break;
                     default:
                         throw new NotImplementedException("unpackertask filetype");
 
                 }
-                status = ITaskStatus.SUCCESS;
+                unpackTask.Start();                
+                status = unpackTask.Status();
+                statusMsg = unpackTask.StatusMsg();
             }
             catch (Exception ex)
             {
@@ -86,25 +85,7 @@ namespace IndiegameGarden.Unpack
             if (status == ITaskStatus.SUCCESS || status == ITaskStatus.FAIL)
                 return 1;
             if (status == ITaskStatus.RUNNING)
-            {
-                switch (filetype)
-                {
-                    case PackedFileType.ZIP:
-                        if (unzipTask != null)
-                        {
-                            return unzipTask.Progress();
-                        }
-                        break;
-                    case PackedFileType.RAR:
-                        if (unrarTask != null)
-                        {
-                            return unrarTask.Progress();
-                        }
-                        break;
-                    default:
-                        throw new NotImplementedException("unpackertask filetype");
-                }
-            }
+               return unpackTask.Progress();
             return 0;
         }
 

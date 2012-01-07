@@ -8,11 +8,16 @@ using System.Text;
 
 namespace IndiegameGarden.Base
 {
+    public delegate void TaskEventHandler(object sender);
+
     /**
      * Task that runs a (typically non-threaded) other Task in a background thread
      */
     public class ThreadedTask: Task
     {
+        public event TaskEventHandler TaskSuccessEvent;
+        public event TaskEventHandler TaskFailEvent;
+
         ITask task;
         Thread thread;
 
@@ -37,6 +42,14 @@ namespace IndiegameGarden.Base
             task.Start();
             status = task.Status();
             statusMsg = task.StatusMsg();
+            if (status == ITaskStatus.FAIL && TaskFailEvent != null)
+            {
+                TaskFailEvent(this);
+            }
+            if (status == ITaskStatus.SUCCESS && TaskSuccessEvent != null)
+            {                
+                TaskSuccessEvent(this);
+            }
         }
 
         public override void Abort()

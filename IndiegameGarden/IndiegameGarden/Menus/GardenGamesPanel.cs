@@ -37,7 +37,7 @@ namespace IndiegameGarden.Menus
         public const float THUMBNAIL_SCALE_UNSELECTED = 0.28f; //1.5625f;
         public const float THUMBNAIL_SCALE_SELECTED = 0.35f; //2f;
         public const float THUMBNAIL_SCALE_SELECTED1 = 2.857f;
-        public const float THUMBNAIL_SCALE_SELECTED2 = 6.3f;
+        public const float THUMBNAIL_SCALE_SELECTED2 = 3.5f;
 
         // maximum sizes of grid
         public double GridMaxX=32, GridMaxY=32;

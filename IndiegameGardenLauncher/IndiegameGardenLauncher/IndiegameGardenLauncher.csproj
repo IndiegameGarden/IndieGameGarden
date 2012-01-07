@@ -1,43 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{F325652C-7602-4B74-88ED-02CF2D025261}</ProjectGuid>
+    <ProjectGuid>{A9878246-C07B-404C-A736-CE9CB8A1DC7E}</ProjectGuid>
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IndiegameGarden</RootNamespace>
-    <AssemblyName>IndiegameGarden</AssemblyName>
+    <RootNamespace>IndiegameGardenLauncher</RootNamespace>
+    <AssemblyName>IndiegameGardenLauncher</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
-    <XnaProfile>Reach</XnaProfile>
-    <XnaCrossPlatformGroupID>ff4c9c40-154d-43ca-8ecd-22f2e82e88b2</XnaCrossPlatformGroupID>
+    <XnaProfile>HiDef</XnaProfile>
+    <XnaCrossPlatformGroupID>884159e2-068c-4396-91b3-d13453db93f8</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://www.trancetrance.com/</InstallUrl>
-    <ProductName>Indiegame Garden</ProductName>
-    <PublisherName>IndiegameGarden.com</PublisherName>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
-    <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
-    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -45,7 +39,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\x86\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -65,23 +59,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>39FAC0AD0055C9EF2017C6D7F6E7DA382AC7753C</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>IndiegameGarden_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>true</SignManifests>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Ionic.Zip.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
     </Reference>
@@ -115,9 +93,6 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -132,71 +107,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\ThreadedTask.cs" />
-    <Compile Include="Download\BaseDownloader.cs" />
-    <Compile Include="Download\BaseProtocolProvider.cs" />
-    <Compile Include="Download\ConfigDownloader.cs" />
-    <Compile Include="Download\FtpProtocolProvider.cs" />
-    <Compile Include="Download\GameLibraryDownloader.cs" />
-    <Compile Include="Download\HttpFtpProtocolExtension.cs" />
-    <Compile Include="Download\HttpProtocolProvider.cs" />
-    <Compile Include="Download\IHttpFtpProtocolParameters.cs" />
-    <Compile Include="Base\ITask.cs" />
-    <Compile Include="Download\ProxyParameters.cs" />
-    <Compile Include="Download\GameDownloader.cs" />
-    <Compile Include="Download\ThumbnailDownloader.cs" />
-    <Compile Include="Install\GameDownloadAndInstallTask.cs" />
-    <Compile Include="Install\InstallTask.cs" />
-    <Compile Include="Menus\DodgeSidewaysBehavior.cs" />
-    <Compile Include="Menus\GameInfoBox.cs" />
-    <Compile Include="Base\GameLauncherTask.cs" />
-    <Compile Include="Menus\GamesPanel.cs" />
-    <Compile Include="Menus\GameTextBox.cs" />
-    <Compile Include="Menus\GameThumbnail.cs" />
-    <Compile Include="Menus\GameChooserMenu.cs" />
-    <Compile Include="Menus\GameThumbnailCursor.cs" />
-    <Compile Include="Menus\GardenGamesPanel.cs" />
-    <Compile Include="Menus\MovingEffectSpritelet.cs" />
-    <Compile Include="Menus\ProgressBar.cs" />
-    <Compile Include="Base\GameCollection.cs" />
-    <Compile Include="Base\GameFilter.cs" />
-    <Compile Include="Base\GameLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="GardenGame.cs" />
-    <Compile Include="Base\IndieGame.cs" />
-    <Compile Include="Base\JSONStore.cs" />
-    <Compile Include="Base\GardenConfig.cs" />
-    <Compile Include="Menus\ThumbnailFromFile.cs" />
-    <Compile Include="Base\Task.cs" />
-    <Compile Include="Unpack\UnpackerTask.cs" />
-    <Compile Include="Unpack\Unrar.cs" />
-    <Compile Include="Unpack\UnrarTask.cs" />
-    <Compile Include="Unpack\UnzipTask.cs" />
-    <Compile Include="Util\RandomMath.cs" />
+    <Compile Include="IGGLauncherApp.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
-    <Content Include="TasksList.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\JSON\NetServ.Net.Json\NetServ.Net.Json.csproj">
-      <Project>{95B7294D-230D-4ADA-9330-FF4EBD154A29}</Project>
-      <Name>NetServ.Net.Json</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\MyDownloader\MyDownloader.Core\MyDownloader.Core.csproj">
-      <Project>{E763345E-6696-4C53-8764-47E4ABD67DEF}</Project>
-      <Name>MyDownloader.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\TTengine\TTengine\TTengine.csproj">
-      <Project>{616035D5-3927-44CD-BD41-2EEE846AC3A3}</Project>
-      <Name>TTengine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IndiegameGardenContent\IndiegameGardenContent.contentproj">
-      <Name>IndiegameGardenContent %28Content%29</Name>
+    <ProjectReference Include="..\IndiegameGardenLauncherContent\IndiegameGardenLauncherContent.contentproj">
+      <Name>IndiegameGardenLauncherContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
-      <Project>{1C5413AC-4401-442C-8576-87E9B7B4E0B0}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

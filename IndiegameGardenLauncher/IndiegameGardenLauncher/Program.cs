@@ -1,10 +1,8 @@
 // (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
-using System.Windows.Forms;
-using Microsoft.Xna.Framework.Graphics;
 
-namespace IndiegameGarden
+namespace IndiegameGardenLauncher
 {
 #if WINDOWS || XBOX
     static class Program
@@ -14,10 +12,8 @@ namespace IndiegameGarden
         /// </summary>
         static void Main(string[] args)
         {
-            using (GardenGame game = new GardenGame())
+            using (IGGLauncherApp game = new IGGLauncherApp())
             {
-                Form frm = (Form)Form.FromHandle(game.Window.Handle);
-                frm.FormBorderStyle = FormBorderStyle.None; 
                 game.Run();
             }
         }

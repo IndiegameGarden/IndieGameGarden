@@ -28,7 +28,7 @@ namespace IndiegameGarden.Menus
         double timeEnterIsNotPressed = 9999; // TODO may remove
         int timesEnterPressed = 0;
         // used to launch/start a game and track its state
-        GameLauncher launcher;
+        GameLauncherTask launcher;
         // the game thumbnails or items selection panel
         GamesPanel panel;        
         // box showing info of a game such as title and download progress
@@ -164,7 +164,8 @@ namespace IndiegameGarden.Menus
             if (g.DlAndInstallTask==null && !g.IsInstalled)
             {
                 g.DlAndInstallTask = new GameDownloadAndInstallTask(g);
-                g.DlAndInstallTask.Start();
+                ITask taskThread = new ThreadedTask(g.DlAndInstallTask);
+                taskThread.Start();
             }
 
             if (g.IsInstalled)
@@ -172,11 +173,22 @@ namespace IndiegameGarden.Menus
                 // if installed, then launch it if possible
                 if (launcher == null || launcher.IsFinished() == true)
                 {
-                    launcher = new GameLauncher(g);
+                    this.Visible = false;
+
+                    launcher = new GameLauncherTask(g);
                     gameLastLaunched = panel.SelectedGame;
-                    launcher.Start();
+                    ThreadedTask taskThread = new ThreadedTask(launcher);
+                    taskThread.TaskSuccessEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
+                    taskThread.TaskFailEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
+                    taskThread.Start();
                 }
             }
+        }
+
+        // when a launched process concludes
+        void taskThread_TaskFinishedEvent(object sender)
+        {
+            this.Visible = true; // enable menu again
         }
 
         protected override void OnUpdate(ref UpdateParams p)
@@ -185,6 +197,10 @@ namespace IndiegameGarden.Menus
 
             // check keyboard inputs from user
             KeyboardControls(ref p);
+
+            // TODO
+            if (!Visible)
+                GardenGame.Instance.SuppressDraw();
 
             // update text box with currently selected game info
             infoBox.SetGameInfo(panel.SelectedGame);
