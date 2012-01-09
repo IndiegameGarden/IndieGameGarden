@@ -25,7 +25,6 @@ namespace IndiegameGarden.Menus
         IndieGame gameLastLaunched = null;
         float lastKeypressTime = 0;
         double timeEscapeIsPressed = 0;
-        double timeEnterIsNotPressed = 9999; // TODO may remove
         int timesEnterPressed = 0;
         // used to launch/start a game and track its state
         GameLauncherTask launcher;
@@ -43,8 +42,9 @@ namespace IndiegameGarden.Menus
         /// <summary>
         /// construct new menu
         /// </summary>
-        public GameChooserMenu()
+        public GameChooserMenu(): base(new StateChooserMenu())
         {
+            SetNextState(new StateChooserMenu());
             panel = new GardenGamesPanel();
             panel.Position = new Vector2(0.0f, 0.0f);
 
@@ -92,10 +92,17 @@ namespace IndiegameGarden.Menus
             if (st.IsKeyDown(Keys.Escape))
             {
                 // if escape was pressed...
-                panel.OnUserInput(GamesPanel.UserInput.QUITTING);
+                if (timesEnterPressed < 2)
+                {
+                    panel.OnUserInput(GamesPanel.UserInput.QUITTING);
+                    if (timeEscapeIsPressed > 0.7f)
+                        GardenGame.Instance.Exit();
+                }
+                else
+                {
+                    panel.OnUserInput(GamesPanel.UserInput.SELECT0);
+                }
                 timeEscapeIsPressed += p.dt;
-                if (timeEscapeIsPressed > 0.5f)
-                    GardenGame.Instance.Exit();
             }
             else if (timeEscapeIsPressed > 0f)
             {
@@ -111,17 +118,25 @@ namespace IndiegameGarden.Menus
                 return;
             
             // -- a key is pressed - check all keys and take action(s)
-            if (st.IsKeyDown(Keys.Left))
+            bool navKey = false;
+            if (st.IsKeyDown(Keys.Left)) {
                 panel.OnUserInput(GamesPanel.UserInput.LEFT);
-
-            else if (st.IsKeyDown(Keys.Right))
+                navKey = true;
+            }
+            else if (st.IsKeyDown(Keys.Right)) {
                 panel.OnUserInput(GamesPanel.UserInput.RIGHT);
+                navKey = true;
+            }
 
-            else if (st.IsKeyDown(Keys.Up))
+            else if (st.IsKeyDown(Keys.Up)) {
                 panel.OnUserInput(GamesPanel.UserInput.UP);
+                navKey = true;
+            }
 
-            else if (st.IsKeyDown(Keys.Down))
+            else if (st.IsKeyDown(Keys.Down)){
                 panel.OnUserInput(GamesPanel.UserInput.DOWN);
+                navKey = true;
+            }
 
             if (st.IsKeyDown(Keys.Enter))
             {
@@ -141,9 +156,9 @@ namespace IndiegameGarden.Menus
                 }
 
             }
-            else
+            else if (navKey)
             {
-                // if some key is pressed but not Enter, reset the timesEnter count
+                // if some navigation key is pressed but not Enter, reset the timesEnter count
                 timesEnterPressed = 0;
                 infoBox.Target = INFOBOX_HIDDEN_POSITION;
             }
@@ -151,10 +166,6 @@ namespace IndiegameGarden.Menus
             // (time) bookkeeping for next keypress
             lastKeypressTime = p.simTime;
             gameLastLaunched = null; // reset the memory of last launched upon keypress
-            if (!st.IsKeyDown(Keys.Enter))
-                timeEnterIsNotPressed += p.dt;
-            else
-                timeEnterIsNotPressed = 0f;          
 
         }
 
@@ -173,7 +184,7 @@ namespace IndiegameGarden.Menus
                 // if installed, then launch it if possible
                 if (launcher == null || launcher.IsFinished() == true)
                 {
-                    this.Visible = false;
+                    SetNextState(new StatePlayingGame() );
 
                     launcher = new GameLauncherTask(g);
                     gameLastLaunched = panel.SelectedGame;
@@ -188,7 +199,7 @@ namespace IndiegameGarden.Menus
         // when a launched process concludes
         void taskThread_TaskFinishedEvent(object sender)
         {
-            this.Visible = true; // enable menu again
+            SetNextState(new StateChooserMenu() );
         }
 
         protected override void OnUpdate(ref UpdateParams p)

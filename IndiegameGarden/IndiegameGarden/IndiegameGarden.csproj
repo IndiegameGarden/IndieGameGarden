@@ -132,6 +132,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\State.cs" />
     <Compile Include="Base\ThreadedTask.cs" />
     <Compile Include="Download\BaseDownloader.cs" />
     <Compile Include="Download\BaseProtocolProvider.cs" />

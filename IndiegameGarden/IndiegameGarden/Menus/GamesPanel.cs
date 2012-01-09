@@ -13,7 +13,7 @@ namespace IndiegameGarden.Menus
     /// </summary>
     public abstract class GamesPanel: Gamelet
     {
-        public enum UserInput { LEFT, RIGHT, UP, DOWN, QUITTING, ABORT_QUITTING, SELECT1, SELECT2 };
+        public enum UserInput { LEFT, RIGHT, UP, DOWN, QUITTING, ABORT_QUITTING, SELECT0, SELECT1, SELECT2 };
 
         // stores the current list obtained with OnUpdateList()
         protected GameCollection gl = new GameCollection();

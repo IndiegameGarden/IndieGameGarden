@@ -316,6 +316,20 @@ namespace IndiegameGarden.Menus
                     abortIsQuitting = true;
                     break;
 
+                case UserInput.SELECT0:
+                    if (SelectedGame != null)
+                    {
+                        // zoom in on selected game
+                        GameThumbnail th = thumbnailsCache[SelectedGame.GameID];
+                        if (th != null)
+                        {
+                            ZoomTarget = THUMBNAIL_SCALE_SELECTED;
+                            ZoomCenter = th.PositionAbs;
+                            ZoomSpeed = 0.05f;
+                        }
+                    }
+                    break;
+
                 case UserInput.SELECT1:
                     if (SelectedGame != null)
                     {
