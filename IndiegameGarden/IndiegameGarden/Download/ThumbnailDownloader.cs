@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using MyDownloader.Core;
 
+using IndiegameGarden.Base;
+
 namespace IndiegameGarden.Download
 {
     /**
@@ -13,22 +15,24 @@ namespace IndiegameGarden.Download
      */
     public class ThumbnailDownloader: BaseDownloader
     {
-        string gameID;
+        IndieGame game;
 
         /// <summary>
-        /// construct a new thumbnail downloader for game with given ID. 
+        /// construct a new thumbnail downloader for game; downloading from default server
+        /// location.
         /// </summary>
-        /// <param name="GameID">ID of game to load thumbnail for</param>
-        public ThumbnailDownloader(string gameID)
+        /// <param name="game">the game to download thumbnail for</param>
+        public ThumbnailDownloader(IndieGame game)
         {
-            this.gameID = gameID;            
+            this.game = game;
         }
 
         public override void Start()
         {
-            string filename = gameID + ".jpg"; // TODO jpg or png or both?
-            string url = GardenGame.Instance.Config.ThumbnailsServerURL + filename;
-            InternalDoDownload(url, filename, GardenGame.Instance.Config.GetFolder(GardenGame.Instance.Config.ThumbnailsFolder), true);
+            string filename = GardenGame.Instance.Config.GetThumbnailFilename(game);
+            string urlDl = GardenGame.Instance.Config.GetThumbnailURL(game);
+            string toLocalFolder = GardenGame.Instance.Config.ThumbnailsFolder;
+            InternalDoDownload(urlDl, filename, toLocalFolder, true);
         }
 
     }

@@ -19,7 +19,7 @@ namespace IndiegameGarden.Download
         public override void Start()
         {
             string url = GardenGame.Instance.Config.ConfigFilesServerURL + filename;
-            InternalDoDownload(url, filename, GardenGame.Instance.Config.GetFolder(GardenGame.Instance.Config.ConfigFilesFolder), true);
+            InternalDoDownload(url, filename, GardenGame.Instance.Config.ConfigFilesFolder, true);
         }
     }
 }

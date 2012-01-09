@@ -142,7 +142,7 @@ namespace IndiegameGarden.Menus
                 if (!thumbnailsCache.ContainsKey(g.GameID))
                 {
                     // create now
-                    th = new GameThumbnail(g.GameID);
+                    th = new GameThumbnail(g);
                     Add(th);
                     thumbnailsCache.Add(g.GameID, th);
                     //th.Position = new Vector2(RandomMath.RandomBetween(-0.4f,2.0f), RandomMath.RandomBetween(-0.4f,1.4f) );

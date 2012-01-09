@@ -85,7 +85,8 @@ namespace IndiegameGarden.Base
         }
 
         /// <summary>
-        /// check whether this game is locally installed, if true it is.
+        /// check whether this game is locally installed, if true it is. Use Refresh() to
+        /// perform the installation check again.
         /// </summary>
         public bool IsInstalled
         {
@@ -93,8 +94,8 @@ namespace IndiegameGarden.Base
             {
                 if (installationChanged)
                 {
-                    String gameDirPath = GardenGame.Instance.Config.GetGameFolder(GameID, Version);
-                    String exePath = GardenGame.Instance.Config.GetExeFilepath(GameID, Version, CdPath, ExeFile);
+                    String gameDirPath = GardenGame.Instance.Config.GetGameFolder(this);
+                    String exePath = GardenGame.Instance.Config.GetExeFilepath(this);
                     isInstalled = Directory.Exists(gameDirPath) && File.Exists(exePath);
                     installationChanged = false;
                 }
@@ -108,18 +109,6 @@ namespace IndiegameGarden.Base
         public void Refresh()
         {
             installationChanged = true;
-        }
-
-        /// <summary>
-        /// the name of the packed file (eg .zip or .rar) once it is downloaded. May differ
-        /// from the name of the archive as stored on the web which is included in PackedFileURL.
-        /// </summary>
-        public string PackedFileName
-        {
-            get
-            {
-                return GameID + "_v" + Version + "." + ExtractFileExtension(PackedFileURL);
-            }
         }
 
         /// <summary>
@@ -145,16 +134,6 @@ namespace IndiegameGarden.Base
                 JsonArray am = (JsonArray)j["PackedFileMirrors"];
                 PackedFileMirrors = JSONStore.ToStringArray(am);
             }catch(KeyNotFoundException){;}
-        }
-
-        // extract an extension e.g. "zip" from a full URL http://server/test/name.zip 
-        // <returns>extension after last dot, or empty string if no dot found in 'url'.
-        private string ExtractFileExtension(string url)
-        {
-            int i = url.LastIndexOf('.');
-            if (i == -1)
-                return "";
-            return url.Substring(i + 1);
         }
 
 

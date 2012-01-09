@@ -28,7 +28,7 @@ namespace IndiegameGarden.Base
         /// <exception cref="">various IO exceptions may occur when library file could not be found/loaded</exception>
         public void Load()
         {
-            string fn = GardenGame.Instance.Config.GetFolder(GardenGame.Instance.Config.ConfigFilesFolder) + 
+            string fn = GardenGame.Instance.Config.ConfigFilesFolder + 
                 "\\" + GardenGame.Instance.Config.GameLibraryFilename;
             json = new JSONStore(fn);
             gamesList = new GameCollection();

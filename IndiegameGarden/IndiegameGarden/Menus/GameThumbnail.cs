@@ -27,14 +27,14 @@ namespace IndiegameGarden.Menus
         public string GameID;
 
         /// <summary>
+        /// ref to game for which this thumbnail is
+        /// </summary>
+        public IndieGame Game;
+
+        /// <summary>
         /// actual/intended filename of thumbnail file (the file may or may not exist)
         /// </summary>
         public string ThumbnailFilename;
-
-        /// <summary>
-        /// URL where thumbnail file may be retrieved
-        /// </summary>
-        public string ThumbnailUrl;
 
         //ThumbnailDownloader downl;
         ITask loaderTask;
@@ -71,7 +71,7 @@ namespace IndiegameGarden.Menus
                 else
                 {
                     // start a download
-                    ThumbnailDownloader downl = new ThumbnailDownloader(thumbnail.GameID);
+                    ThumbnailDownloader downl = new ThumbnailDownloader(thumbnail.Game);
                     downl.Start();
                     if (File.Exists(thumbnail.ThumbnailFilename))
                     {
@@ -81,14 +81,13 @@ namespace IndiegameGarden.Menus
             }
         } // class
 
-        public GameThumbnail(string gameID)
+        public GameThumbnail(IndieGame game)
             : base(DefaultTexture,"GameThumbnail")
         {
             Scale = GardenGamesPanel.THUMBNAIL_SCALE_UNSELECTED;
-            this.GameID = gameID;
-            // TODO methods to construct paths!? incl .png
-            this.ThumbnailFilename = GardenGame.Instance.Config.GetThumbnailFilepath(gameID,false); 
-            this.ThumbnailUrl = GardenGame.Instance.Config.GetThumbnailURL(gameID,false);
+            this.GameID = game.GameID;
+            this.Game = game;
+            this.ThumbnailFilename = GardenGame.Instance.Config.GetThumbnailFilepath(game); 
             loaderTask = new ThreadedTask(new GameThumbnailLoadTask(this));
             loaderTask.Start();
         }

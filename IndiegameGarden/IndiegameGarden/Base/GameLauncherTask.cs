@@ -31,7 +31,7 @@ namespace IndiegameGarden.Base
         public GameLauncherTask(IndieGame g)
         {
             string cwd = System.IO.Directory.GetCurrentDirectory();
-            cdPath = cwd + "\\" + GardenGame.Instance.Config.GetGameFolder(g.GameID, g.Version) + "\\" + g.CdPath;
+            cdPath = cwd + "\\" + GardenGame.Instance.Config.GetGameFolder(g) + "\\" + g.CdPath;
             filePath = g.ExeFile;
         }
 

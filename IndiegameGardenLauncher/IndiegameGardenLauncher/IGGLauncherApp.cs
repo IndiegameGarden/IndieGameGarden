@@ -19,7 +19,7 @@ namespace IndiegameGardenLauncher
 
         public void Run()
         {
-            System.IO.Directory.SetCurrentDirectory("Debug");
+            System.IO.Directory.SetCurrentDirectory("data");
             Process proc = System.Diagnostics.Process.Start("IndiegameGarden.exe");
             SetForegroundWindow(proc.MainWindowHandle.ToInt32());
         }

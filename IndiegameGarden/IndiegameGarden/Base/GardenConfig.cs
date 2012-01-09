@@ -8,7 +8,7 @@ using System.Text;
 namespace IndiegameGarden.Base
 {
     /**
-     * configuration data object for the Garden application. Information loaded from JSON.
+     * configuration data object for the Garden application. Information loaded from JSON file.
      */
     public class GardenConfig
     {
@@ -20,13 +20,17 @@ namespace IndiegameGarden.Base
             LoadJson();
         }
 
+        // default values for all fields
         private void Init()
         {
-            DataPath = "..\\..\\..\\..\\..";
-            ConfigFilesFolder = "config";
-            PackedFilesFolder = "zips";
-            UnpackedFilesFolder = "games";
-            ThumbnailsFolder = "thumbs";
+            // NOTE DataPath should be set FIRST of all.
+            DataPath = "..\\..\\..\\..\\.."; // for testing in Visual Studio
+            //DataPath = "."; // for deployment version
+
+            ConfigFilesFolder = GetFolder("config");
+            PackedFilesFolder = GetFolder("zips");
+            UnpackedFilesFolder = GetFolder("games");
+            ThumbnailsFolder = GetFolder("thumbs");
 
             StorageConfigFilename = "config.json";
             GameLibraryFilename = "gamelib.json";
@@ -40,7 +44,7 @@ namespace IndiegameGarden.Base
         private void LoadJson()
         {
             try{
-                cfg = new JSONStore( GetFolder(ConfigFilesFolder) + "\\" + StorageConfigFilename );
+                cfg = new JSONStore( ConfigFilesFolder + "\\" + StorageConfigFilename );
             }
             catch(Exception)
             {
@@ -79,34 +83,86 @@ namespace IndiegameGarden.Base
         /// </summary>
         /// <param name="folderName">any folder name e.g. ConfigFilesFolder or PackedFilesFolder</param>
         /// <returns>folderName prepended with the DataPath</returns>
-        public string GetFolder(string folderName)
+        protected string GetFolder(string folderName)
         {
             return DataPath + "\\" + folderName;
         }
 
-        public string GetThumbnailFilepath(string gameID, bool alternativeFile)
+        public string GetThumbnailFilename(IndieGame g)
         {
-            return GetFolder(ThumbnailsFolder) + "\\" + gameID + (alternativeFile ? ".png" : ".jpg");
+            return g.GameID + "_v" + g.Version + ".jpg";
         }
 
-        public string GetThumbnailURL(string gameID, bool alternativeFile)
+        /// <summary>
+        /// get file path to locally stored thumbnail file for game
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public string GetThumbnailFilepath(IndieGame g)
         {
-            return ThumbnailsServerURL + "/" + gameID + (alternativeFile ? ".png" : ".jpg");
+            return ThumbnailsFolder + "\\" + GetThumbnailFilename(g);
         }
 
-        public string GetExeFilepath(string gameID, int version, string cdPath, string exeFilename)
+        /// <summary>
+        /// get url to remotely stored thumbnail file on default server ThumbnailsServerURL
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public string GetThumbnailURL(IndieGame g)
         {
-            return GetGameFolder(gameID,version) + "\\" + cdPath + "\\" + exeFilename;
+            return ThumbnailsServerURL + "/" + g.GameID + "_v" + g.Version + ".jpg"; 
         }
 
-        public string GetGameFolder(string gameID, int version)
+        /// <summary>
+        /// get full file path from base directory to a game's .exe (to check it's there).
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public string GetExeFilepath(IndieGame g)
         {
-            return GetFolder(UnpackedFilesFolder) + "\\" + gameID + "_v" + version;
+            return GetGameFolder(g) + "\\" + g.CdPath + "\\" + g.ExeFile;
         }
 
-        public string GetPackedFilepath(string packedGameFile)
+        /// <summary>
+        /// get the folder where a game is stored (unpacked)
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public string GetGameFolder(IndieGame g)
         {
-            return GetFolder(PackedFilesFolder) + "\\" + packedGameFile;
+            return UnpackedFilesFolder + "\\" + g.GameID + "_v" + g.Version;
         }
+
+        /// <summary>
+        /// get path to a game's packed file (.zip, .rar)
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public string GetPackedFilepath(IndieGame g)
+        {
+            return PackedFilesFolder + "\\" + GetPackedFileName(g);
+        }
+
+        /// <summary>
+        /// the name of the packed file (eg .zip or .rar) once it is downloaded. May differ
+        /// from the name of the archive as stored on the web which is included in PackedFileURL.
+        /// </summary>
+        public string GetPackedFileName(IndieGame g)
+        {
+            return g.GameID + "_v" + g.Version + "." + ExtractFileExtension(g.PackedFileURL);
+        }
+
+
+        // extract an extension e.g. "zip" from a partial or full URL e.g. http://server/test/name.zip 
+        // <returns>extension after last dot, or empty string if no dot found in 'urlDl'.</returns>
+        private string ExtractFileExtension(string url)
+        {
+            int i = url.LastIndexOf('.');
+            if (i == -1)
+                return "";
+            return url.Substring(i + 1);
+        }
+
+
     }
 }
