@@ -2,6 +2,7 @@
 
 OPEN  [top issues first]
 
+Bug downloading + bar does not disappear after downloading and installing done.
 Only hide gameinfo panel when a cursor key or esc is pressed
 Zoom out returning to menu after having played a game
 Version number included in .zip file name and in game folder (to test)
@@ -22,6 +23,8 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
+2012-01-10 Need refactoring of menu/panel interoperation. Menu should only send UI events to panel and panel keeps state.
+2012-01-10 Fixed threads alive forever issues, added Dispose() to Gamelets
 2012-01-09 Refactoring of file/folder/url/path config in GardenConfig, now cleaner.
 2012-01-06 Implement and test SetForegroundWindow function used in launching
 2012-01-06 Put all data in a 'data' directory, hiding the clutter - code now allows this. To be tested in final alpha release. Special Launcher app now used as a clutter-free entry point to app.

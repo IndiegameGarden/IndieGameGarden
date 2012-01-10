@@ -21,6 +21,8 @@ namespace IndiegameGarden.Menus
     /// </summary>
     public class GameChooserMenu: Gamelet
     {
+        const double MIN_MENU_CHANGE_DELAY = 0.2f; 
+        
         GameCollection gamesList;
 
         float lastKeypressTime = 0;
@@ -29,14 +31,7 @@ namespace IndiegameGarden.Menus
         GameLauncherTask launcher;
         // the game thumbnails or items selection panel
         GamesPanel panel;        
-        // box showing info of a game such as title and download progress
-        GameInfoBox infoBox;
-
-        // below are UI configuration values
-        const double MIN_MENU_CHANGE_DELAY = 0.2f;
-        static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f,0.85f);
-        static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.95f);
-        const float INFOBOX_SPEED_MOVE = 2.8f;
+        ThreadedTask launchGameThread;
 
         /// <summary>
         /// construct new menu
@@ -54,11 +49,6 @@ namespace IndiegameGarden.Menus
             Add(panel);
             panel.OnUpdateList(gamesList);
 
-            // info box
-            infoBox = new GameInfoBox();
-            infoBox.Position = INFOBOX_HIDDEN_POSITION;
-            Add(infoBox);
-
             // background
             Spritelet bg = new Spritelet("flower");
             bg.Position = new Vector2(0.66667f, 0.5f);
@@ -74,7 +64,7 @@ namespace IndiegameGarden.Menus
         }
 
         /// <summary>
-        /// handles all keyboard input into the menu
+        /// handles all keyboard input into the menu, transforming that into events sent to GUI components
         /// </summary>
         /// <param name="p">UpdateParams from TTEngine OnUpdate()</param>
         protected void KeyboardControls(ref UpdateParams p)
@@ -123,48 +113,53 @@ namespace IndiegameGarden.Menus
                 panel.OnUserInput(GamesPanel.UserInput.DOWN);
             }
 
-            if (st.IsKeyDown(Keys.Enter))
+            else if (st.IsKeyDown(Keys.Enter))
             {
                 panel.OnUserInput(GamesPanel.UserInput.SELECT);
-                /*
-                infoBox.Target = INFOBOX_SHOWN_POSITION;
-                infoBox.TargetSpeed = INFOBOX_SPEED_MOVE;
-                infoBox.SetGameInfo(panel.SelectedGame);
-                 */
             }
 
             // (time) bookkeeping for next keypress
             lastKeypressTime = p.simTime;
         }
-
-        /*
-        private void InstallAndLaunchGame(IndieGame g)
+       
+        /// <summary>
+        /// called by a child GUI component to install a game
+        /// </summary>
+        /// <param name="g">game to install</param>
+        public void DownloadAndInstallGame(IndieGame g)
         {
-            // check if download+install needed
-            if (g.DlAndInstallTask==null && !g.IsInstalled)
+            // check if download+install task needs to start or not
+            if (g.DlAndInstallTask==null && g.ThreadedDlAndInstallTask==null && !g.IsInstalled)
             {
                 g.DlAndInstallTask = new GameDownloadAndInstallTask(g);
-                ITask taskThread = new ThreadedTask(g.DlAndInstallTask);
-                taskThread.Start();
+                g.ThreadedDlAndInstallTask = new ThreadedTask(g.DlAndInstallTask);
+                g.ThreadedDlAndInstallTask.Start();
             }
+        }
 
+        /// <summary>
+        /// called by a child GUI component to launch a game
+        /// </summary>
+        /// <param name="g">game to launch</param>
+        public void LaunchGame(IndieGame g)
+        {
             if (g.IsInstalled)
             {
                 // if installed, then launch it if possible
-                if (launcher == null || launcher.IsFinished() == true)
+                if ( (launcher == null || launcher.IsFinished() == true) &&
+                     (launchGameThread == null || launchGameThread.IsFinished()) )
                 {
-                    SetNextState(new StatePlayingGame() );
+                    SetNextState(new StatePlayingGame());
 
                     launcher = new GameLauncherTask(g);
-                    gameLastLaunched = panel.SelectedGame;
-                    ThreadedTask taskThread = new ThreadedTask(launcher);
-                    taskThread.TaskSuccessEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
-                    taskThread.TaskFailEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
-                    taskThread.Start();
+                    launchGameThread = new ThreadedTask(launcher);
+                    launchGameThread.TaskSuccessEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
+                    launchGameThread.TaskFailEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
+                    launchGameThread.Start();
                 }
             }
         }
-         */
+
 
         // when a launched process concludes
         void taskThread_TaskFinishedEvent(object sender)
@@ -182,10 +177,6 @@ namespace IndiegameGarden.Menus
             // TODO
             if (!Visible)
                 GardenGame.Instance.SuppressDraw();
-
-            // update text box with currently selected game info
-            infoBox.SetGameInfo(panel.SelectedGame);
-
         }
 
     }

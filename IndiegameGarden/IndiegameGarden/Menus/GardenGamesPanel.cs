@@ -27,17 +27,24 @@ namespace IndiegameGarden.Menus
         public const float LAYER_DODGING_ITEM = 0.3f;
         public const float LAYER_GRID_ITEMS = 0.9f;
 
-        public const float PANEL_SCALE_REGULAR = 1f; //0.16f;
+        public const float PANEL_ZOOM_REGULAR = 1f; //0.16f;
         public const float PANEL_SCALE_GRID_X = 0.16f;
         public const float PANEL_SCALE_GRID_Y = 0.16f;
         public const float PANEL_SPEED_SHIFT = 2.1f;
         public const float PANEL_SIZE_X = 1.333f;
         public const float PANEL_SIZE_Y = 1.0f;
+        public const float PANEL_ZOOM_TARGET_QUITTING = 0.001f;
+        public const float PANEL_ZOOM_SPEED_QUITTING = 0.005f;
+        public const float PANEL_ZOOM_SPEED_ABORTQUITTING = 0.05f;
+
         public const float CURSOR_SCALE_REGULAR = 0.95f; //5.9375f;
         public const float THUMBNAIL_SCALE_UNSELECTED = 0.28f; //1.5625f;
         public const float THUMBNAIL_SCALE_SELECTED = 0.35f; //2f;
         public const float THUMBNAIL_SCALE_SELECTED1 = 2.857f;
         public const float THUMBNAIL_SCALE_SELECTED2 = 3.5f;
+        static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f, 0.85f);
+        static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.95f);
+        const float INFOBOX_SPEED_MOVE = 2.8f;
 
         // maximum sizes of grid
         public double GridMaxX=32, GridMaxY=32;
@@ -47,12 +54,16 @@ namespace IndiegameGarden.Menus
         public float ZoomSpeed = 0f;
 
         Dictionary<string, GameThumbnail> thumbnailsCache = new Dictionary<string, GameThumbnail>();
-        // cursor is the graphics selection thingy 
+        
+        // cursor is the graphics selection thingy         
         GameThumbnailCursor cursor;
+
+        // box showing info of a game such as title and download progress
+        GameInfoBox infoBox;
+        
         // UI related vars - related to whether user indicates to quit program or user cancelled this
         bool isQuitting = false;
         bool abortIsQuitting = false;
-        float timeSinceUserInput = 0f;
         float timeQuitting = 0f;
         Vector2 PanelShiftPos = Vector2.Zero;
         int selectionLevel = 0;
@@ -61,11 +72,19 @@ namespace IndiegameGarden.Menus
         public GardenGamesPanel(GameChooserMenu parent)
         {
             parentMenu = parent;
+            
+            // cursor
             cursor = new GameThumbnailCursor();
             Add(cursor);
             cursor.Scale = CURSOR_SCALE_REGULAR;
-            Zoom = PANEL_SCALE_REGULAR;
+            Zoom = PANEL_ZOOM_REGULAR;
             //cursor.Visible = false;
+
+            // info box
+            infoBox = new GameInfoBox();
+            infoBox.Position = INFOBOX_HIDDEN_POSITION;
+            parent.Add(infoBox);
+
         }
 
         public override void OnUpdateList(GameCollection gl)
@@ -116,7 +135,9 @@ namespace IndiegameGarden.Menus
         protected override void OnUpdate(ref UpdateParams p)
         {
             base.OnUpdate(ref p);
-            timeSinceUserInput += p.dt;
+
+            // update text box with currently selected game info
+            infoBox.SetGameInfo(SelectedGame);
 
             // handle quitting
             if (isQuitting)
@@ -187,6 +208,18 @@ namespace IndiegameGarden.Menus
                     th.FadeToTarget(1.0f, 4.3f);
                 }
 
+                // displaying selected thumbnails larger
+                if (g == SelectedGame)
+                {
+                    th.ScaleTarget = THUMBNAIL_SCALE_SELECTED;
+                    th.ScaleSpeed = 0.01f;
+                }
+                else
+                {
+                    th.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
+                    th.ScaleSpeed = 0.02f;
+                }
+
                 // coordinate position where to move a game thumbnail to 
                 Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_SCALE_GRID_X,PANEL_SCALE_GRID_Y);
                 th.Target = targetPos;
@@ -196,7 +229,7 @@ namespace IndiegameGarden.Menus
                 cursor.Target = (cursor.GridPosition - PanelShiftPos) * new Vector2(PANEL_SCALE_GRID_X,PANEL_SCALE_GRID_Y);
 
                 // panel shift effect when cursor hits edges of panel
-                Vector2 cp = cursor.Position;
+                Vector2 cp = cursor.PositionAbs;
                 float chw = cursor.WidthAbs / 2.0f; // cursor-half-width
                 float chh = cursor.HeightAbs / 2.0f; // cursor-half-height
                 float dx = PANEL_SPEED_SHIFT * p.dt;
@@ -217,6 +250,7 @@ namespace IndiegameGarden.Menus
                     PanelShiftPos.Y += dx;
                 }
 
+                /*
                 // quitting and selected game behaviour
                 if (!isQuitting)
                 {
@@ -244,11 +278,7 @@ namespace IndiegameGarden.Menus
                     ZoomTarget = 0.001f;
                     ZoomSpeed = 0.005f;
                 }
-
-                if (abortIsQuitting)
-                {
-                    ZoomToNormal();
-                }
+                 */
 
             }
         }
@@ -256,7 +286,7 @@ namespace IndiegameGarden.Menus
         // shorthand method to restore zoom of panel back to normal
         public void ZoomToNormal()
         {
-            ZoomTarget = PANEL_SCALE_REGULAR;
+            ZoomTarget = PANEL_ZOOM_REGULAR;
             //ZoomCenter = Screen.Center; // don't specify - use previous zoomcenter
         }
 
@@ -286,8 +316,6 @@ namespace IndiegameGarden.Menus
 
         public override void OnUserInput(GamesPanel.UserInput inp)
         {
-            timeSinceUserInput = 0f;
-            
             switch (inp)
             {
                 case UserInput.DOWN:
@@ -296,8 +324,6 @@ namespace IndiegameGarden.Menus
                         cursor.GridPosition.Y += 1f;
                         SelectGameBelowCursor();
                     }
-                    ZoomToNormal();
-                    selectionLevel--;
                     break;
                
                 case UserInput.UP:
@@ -306,8 +332,6 @@ namespace IndiegameGarden.Menus
                         cursor.GridPosition.Y -= 1f;
                         SelectGameBelowCursor();
                     }
-                    ZoomToNormal();
-                    selectionLevel--;
                     break;
                 
                 case UserInput.LEFT:
@@ -316,8 +340,6 @@ namespace IndiegameGarden.Menus
                         cursor.GridPosition.X -= 1f;
                         SelectGameBelowCursor();
                     }
-                    ZoomToNormal();
-                    selectionLevel--;
                     break;
                 
                 case UserInput.RIGHT:
@@ -326,19 +348,22 @@ namespace IndiegameGarden.Menus
                         cursor.GridPosition.X += 1f;
                         SelectGameBelowCursor();
                     }
-                    ZoomToNormal();
-                    selectionLevel--;
                     break;
                 
                 case UserInput.QUITTING:
                     isQuitting = true;
                     abortIsQuitting = false;
-                    selectionLevel--;
+                    selectionLevel = 0;
+                    ZoomTarget = PANEL_ZOOM_TARGET_QUITTING ;
+                    ZoomSpeed = PANEL_ZOOM_SPEED_QUITTING ;
                     break;
                 
                 case UserInput.ABORT_QUITTING:
                     isQuitting = false;
                     abortIsQuitting = true;
+                    selectionLevel = 0;
+                    ZoomTarget = PANEL_ZOOM_REGULAR;
+                    ZoomSpeed = PANEL_ZOOM_SPEED_ABORTQUITTING ;
                     break;
 
                 case UserInput.SELECT:
@@ -348,19 +373,31 @@ namespace IndiegameGarden.Menus
                         GameThumbnail th = thumbnailsCache[SelectedGame.GameID];
                         if (th != null)
                         {
-
                             switch (selectionLevel)
                             {
                                 case 1:
-                                    // zoom in on selected game
+                                    // select once - zoom in on selected game
                                     ZoomTarget = THUMBNAIL_SCALE_SELECTED1;
                                     ZoomCenter = th.PositionAbs;
                                     ZoomSpeed = 0.05f;
+                                    infoBox.Target = INFOBOX_SHOWN_POSITION;
+                                    infoBox.TargetSpeed = INFOBOX_SPEED_MOVE;
                                     break;
                                 case 2:
+                                    // select again - install or launch game
                                     ZoomTarget = THUMBNAIL_SCALE_SELECTED2;
                                     ZoomCenter = th.PositionAbs;
                                     ZoomSpeed = 0.05f;
+                                    infoBox.Target = INFOBOX_SHOWN_POSITION;
+                                    infoBox.TargetSpeed = INFOBOX_SPEED_MOVE;
+                                    if (SelectedGame.IsInstalled)
+                                    {
+                                        parentMenu.LaunchGame(SelectedGame);
+                                    }
+                                    else
+                                    {
+                                        parentMenu.DownloadAndInstallGame(SelectedGame);
+                                    }
                                     break;
                             }
 
@@ -369,9 +406,14 @@ namespace IndiegameGarden.Menus
                     }
                     break;
 
+            } // switch(inp)
+
+            if (selectionLevel == 0)
+            {
+                infoBox.Target = INFOBOX_HIDDEN_POSITION;
+                infoBox.TargetSpeed = INFOBOX_SPEED_MOVE;
             }
-            if (selectionLevel < 0)
-                selectionLevel = 0;
+
         }
     }
 }

@@ -72,7 +72,7 @@ namespace IndiegameGarden.Menus
                             txt += "Installing...\n";
                         }
                         dlProgressBar.Visible = true;
-                        dlProgressBar.Progress = (float) game.DlAndInstallTask.Progress();
+                        dlProgressBar.Progress = (float)game.DlAndInstallTask.Progress();
                     }
 
                     if (game.DlAndInstallTask == null)
@@ -83,6 +83,10 @@ namespace IndiegameGarden.Menus
                 }
 
                 textBox.Text = txt;
+            }
+            else
+            {
+                textBox.Text = ""; // no text if no game chosen
             }
         }
 

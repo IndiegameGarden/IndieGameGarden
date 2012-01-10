@@ -110,7 +110,7 @@ namespace IndiegameGarden.Base
         /// <returns></returns>
         public string GetThumbnailURL(IndieGame g)
         {
-            return ThumbnailsServerURL + "/" + g.GameID + "_v" + g.Version + ".jpg"; 
+            return ThumbnailsServerURL + g.GameID + "_v" + g.Version + ".jpg"; 
         }
 
         /// <summary>

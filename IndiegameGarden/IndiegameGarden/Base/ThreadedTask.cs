@@ -11,16 +11,39 @@ namespace IndiegameGarden.Base
     public delegate void TaskEventHandler(object sender);
 
     /**
-     * Task that runs a (typically non-threaded) other Task in a background thread
+     * Task that runs a (typically non-threaded) other Task in a background thread. It provides
+     * event notification upon task success or task failure
      */
     public class ThreadedTask: Task
     {
+        /// <summary>
+        /// event notification when task succeeds
+        /// </summary>
         public event TaskEventHandler TaskSuccessEvent;
+
+        /// <summary>
+        /// event notification when task fails
+        /// </summary>
         public event TaskEventHandler TaskFailEvent;
 
         ITask task;
         Thread thread;
 
+        /// <summary>
+        /// returns the embedded ITask that is being run in a thread
+        /// </summary>
+        public ITask TaskToRun
+        {
+            get
+            {
+                return task;
+            }
+        }
+
+        /// <summary>
+        /// create new task thread which runs taskToRun when Started.
+        /// </summary>
+        /// <param name="taskToRun"></param>
         public ThreadedTask(ITask taskToRun)
         {
             task = taskToRun;
@@ -66,6 +89,7 @@ namespace IndiegameGarden.Base
             }
         }
 
+        // aborts the thread running the task
         public override void Abort()
         {
             if (thread != null)

@@ -75,6 +75,11 @@ namespace IndiegameGarden.Base
         /// </summary>
         public GameDownloadAndInstallTask DlAndInstallTask = null;
 
+        /// <summary>
+        /// A ThreadedTask that wraps DlAndInstallTask, so that download/install happens in own thread.
+        /// </summary>
+        public ThreadedTask ThreadedDlAndInstallTask = null;
+
         //-- private vars
         private bool isInstalled = false;
         private bool installationChanged = true;
@@ -96,7 +101,10 @@ namespace IndiegameGarden.Base
                 {
                     String gameDirPath = GardenGame.Instance.Config.GetGameFolder(this);
                     String exePath = GardenGame.Instance.Config.GetExeFilepath(this);
-                    isInstalled = Directory.Exists(gameDirPath) && File.Exists(exePath);
+                    isInstalled = Directory.Exists(gameDirPath) &&
+                                    File.Exists(exePath) &&
+                                    DlAndInstallTask == null &&
+                                    ThreadedDlAndInstallTask == null;
                     installationChanged = false;
                 }
                 return isInstalled;
