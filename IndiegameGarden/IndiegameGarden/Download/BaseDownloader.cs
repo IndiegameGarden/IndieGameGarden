@@ -17,6 +17,11 @@ namespace IndiegameGarden.Download
     {
         protected Downloader downloader;
 
+        ~BaseDownloader()
+        {
+            Abort();
+        }
+
         public override double Progress()
         {
             if (downloader == null)

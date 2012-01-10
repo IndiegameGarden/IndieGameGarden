@@ -28,6 +28,7 @@ using IndiegameGarden.Base;
 using MyDownloader.Core.Extensions;
 using MyDownloader.Extension;
 using MyDownloader.Extension.Protocols;
+using MyDownloader.Core;
 
 namespace IndiegameGarden
 {
@@ -168,6 +169,27 @@ namespace IndiegameGarden
             // then draw other (if any) game components on the screen
             base.Draw(gameTime);
 
+        }
+
+        public void ExitGame()
+        {
+            this.gameletsRoot.Dispose();
+            this.gameletsRoot = null;
+            System.GC.Collect();
+            /*
+            for (int i = 0; i < DownloadManager.Instance.Downloads.Count; i++)
+                DownloadManager.Instance.RemoveDownload(DownloadManager.Instance.Downloads[i]);
+             */
+            Exit();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                treeRoot.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
     }

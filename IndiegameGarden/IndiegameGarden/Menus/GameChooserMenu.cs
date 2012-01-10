@@ -22,10 +22,9 @@ namespace IndiegameGarden.Menus
     public class GameChooserMenu: Gamelet
     {
         GameCollection gamesList;
-        IndieGame gameLastLaunched = null;
+
         float lastKeypressTime = 0;
         double timeEscapeIsPressed = 0;
-        int timesEnterPressed = 0;
         // used to launch/start a game and track its state
         GameLauncherTask launcher;
         // the game thumbnails or items selection panel
@@ -45,7 +44,7 @@ namespace IndiegameGarden.Menus
         public GameChooserMenu(): base(new StateChooserMenu())
         {
             SetNextState(new StateChooserMenu());
-            panel = new GardenGamesPanel();
+            panel = new GardenGamesPanel(this);
             panel.Position = new Vector2(0.0f, 0.0f);
 
             // get the items to display
@@ -72,10 +71,6 @@ namespace IndiegameGarden.Menus
         protected override void OnDraw(ref DrawParams p)
         {
             base.OnDraw(ref p);
-
-            // DEBUG
-            if (timeEscapeIsPressed > 0)
-                Screen.DebugText(new Vector2(0f, 0.1f), "ESC is pressed");
         }
 
         /// <summary>
@@ -85,28 +80,22 @@ namespace IndiegameGarden.Menus
         protected void KeyboardControls(ref UpdateParams p)
         {
             KeyboardState st = Keyboard.GetState();
+
             // time bookkeeping
             float timeSinceLastKeypress = p.simTime - lastKeypressTime;
 
             // check esc key
             if (st.IsKeyDown(Keys.Escape))
             {
-                // if escape was pressed...
-                if (timesEnterPressed < 2)
+                if (timeEscapeIsPressed == 0f)
                 {
                     panel.OnUserInput(GamesPanel.UserInput.QUITTING);
-                    if (timeEscapeIsPressed > 0.7f)
-                        GardenGame.Instance.Exit();
-                }
-                else
-                {
-                    panel.OnUserInput(GamesPanel.UserInput.SELECT0);
                 }
                 timeEscapeIsPressed += p.dt;
             }
             else if (timeEscapeIsPressed > 0f)
             {
-                // if ESC was released just now... before quitting
+                // if ESC was pressed then released
                 timeEscapeIsPressed = 0f;
                 panel.OnUserInput(GamesPanel.UserInput.ABORT_QUITTING);
             }
@@ -114,61 +103,41 @@ namespace IndiegameGarden.Menus
             // check - only proceed if a key pressed and some minimal delay has passed...            
             if (timeSinceLastKeypress < MIN_MENU_CHANGE_DELAY)
                 return ;
+            // if no keys pressed, skip
             if (st.GetPressedKeys().Length == 0)
                 return;
             
-            // -- a key is pressed - check all keys and take action(s)
-            bool navKey = false;
+            // -- a key is pressed - check all keys and generate action(s)
             if (st.IsKeyDown(Keys.Left)) {
-                panel.OnUserInput(GamesPanel.UserInput.LEFT);
-                navKey = true;
+                panel.OnUserInput(GamesPanel.UserInput.LEFT);                
             }
             else if (st.IsKeyDown(Keys.Right)) {
                 panel.OnUserInput(GamesPanel.UserInput.RIGHT);
-                navKey = true;
             }
 
             else if (st.IsKeyDown(Keys.Up)) {
                 panel.OnUserInput(GamesPanel.UserInput.UP);
-                navKey = true;
             }
 
             else if (st.IsKeyDown(Keys.Down)){
                 panel.OnUserInput(GamesPanel.UserInput.DOWN);
-                navKey = true;
             }
 
             if (st.IsKeyDown(Keys.Enter))
             {
-                timesEnterPressed++;
-                if (timesEnterPressed == 1)
-                {
-                    panel.OnUserInput(GamesPanel.UserInput.SELECT1);
-                    infoBox.Target = INFOBOX_SHOWN_POSITION;
-                    infoBox.TargetSpeed = INFOBOX_SPEED_MOVE;
-                    infoBox.SetGameInfo(panel.SelectedGame);
-                }
-                else if (timesEnterPressed >= 2)
-                {
-                    panel.OnUserInput(GamesPanel.UserInput.SELECT2);
-
-                    InstallAndLaunchGame(panel.SelectedGame);
-                }
-
-            }
-            else if (navKey)
-            {
-                // if some navigation key is pressed but not Enter, reset the timesEnter count
-                timesEnterPressed = 0;
-                infoBox.Target = INFOBOX_HIDDEN_POSITION;
+                panel.OnUserInput(GamesPanel.UserInput.SELECT);
+                /*
+                infoBox.Target = INFOBOX_SHOWN_POSITION;
+                infoBox.TargetSpeed = INFOBOX_SPEED_MOVE;
+                infoBox.SetGameInfo(panel.SelectedGame);
+                 */
             }
 
             // (time) bookkeeping for next keypress
             lastKeypressTime = p.simTime;
-            gameLastLaunched = null; // reset the memory of last launched upon keypress
-
         }
 
+        /*
         private void InstallAndLaunchGame(IndieGame g)
         {
             // check if download+install needed
@@ -195,6 +164,7 @@ namespace IndiegameGarden.Menus
                 }
             }
         }
+         */
 
         // when a launched process concludes
         void taskThread_TaskFinishedEvent(object sender)

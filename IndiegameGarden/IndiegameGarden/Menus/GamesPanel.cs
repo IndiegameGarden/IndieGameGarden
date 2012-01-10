@@ -9,16 +9,18 @@ using IndiegameGarden.Base;
 namespace IndiegameGarden.Menus
 {
     /// <summary>
-    /// a parent class for all panels displaying a list of games selectable by user
+    /// a parent class for any panels displaying a list of games selectable by user
     /// </summary>
     public abstract class GamesPanel: Gamelet
     {
-        public enum UserInput { LEFT, RIGHT, UP, DOWN, QUITTING, ABORT_QUITTING, SELECT0, SELECT1, SELECT2 };
+
+        public enum UserInput { LEFT, RIGHT, UP, DOWN, QUITTING, ABORT_QUITTING, SELECT };
 
         // stores the current list obtained with OnUpdateList()
         protected GameCollection gl = new GameCollection();
 
-        protected IndieGame selectedGame = null;
+        // stores currently selected game
+        private IndieGame selectedGame = null;
 
         /// <summary>
         /// which game did the user last select, note this can be a random jump

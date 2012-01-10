@@ -53,10 +53,14 @@ namespace IndiegameGarden.Menus
         bool isQuitting = false;
         bool abortIsQuitting = false;
         float timeSinceUserInput = 0f;
+        float timeQuitting = 0f;
         Vector2 PanelShiftPos = Vector2.Zero;
+        int selectionLevel = 0;
+        GameChooserMenu parentMenu;
 
-        public GardenGamesPanel()
+        public GardenGamesPanel(GameChooserMenu parent)
         {
+            parentMenu = parent;
             cursor = new GameThumbnailCursor();
             Add(cursor);
             cursor.Scale = CURSOR_SCALE_REGULAR;
@@ -113,6 +117,22 @@ namespace IndiegameGarden.Menus
         {
             base.OnUpdate(ref p);
             timeSinceUserInput += p.dt;
+
+            // handle quitting
+            if (isQuitting)
+            {
+                timeQuitting += p.dt;
+                if (timeQuitting > 0.8f)
+                {
+                    GardenGame.Instance.ExitGame();
+                    isQuitting = false;
+                    return;
+                }
+            }
+            else
+            {
+                timeQuitting = 0f;
+            }
 
             // handle dynamic zooming
             if (Zoom < ZoomTarget && ZoomSpeed > 0f)
@@ -277,6 +297,7 @@ namespace IndiegameGarden.Menus
                         SelectGameBelowCursor();
                     }
                     ZoomToNormal();
+                    selectionLevel--;
                     break;
                
                 case UserInput.UP:
@@ -286,6 +307,7 @@ namespace IndiegameGarden.Menus
                         SelectGameBelowCursor();
                     }
                     ZoomToNormal();
+                    selectionLevel--;
                     break;
                 
                 case UserInput.LEFT:
@@ -295,6 +317,7 @@ namespace IndiegameGarden.Menus
                         SelectGameBelowCursor();
                     }
                     ZoomToNormal();
+                    selectionLevel--;
                     break;
                 
                 case UserInput.RIGHT:
@@ -304,11 +327,13 @@ namespace IndiegameGarden.Menus
                         SelectGameBelowCursor();
                     }
                     ZoomToNormal();
+                    selectionLevel--;
                     break;
                 
                 case UserInput.QUITTING:
                     isQuitting = true;
                     abortIsQuitting = false;
+                    selectionLevel--;
                     break;
                 
                 case UserInput.ABORT_QUITTING:
@@ -316,48 +341,37 @@ namespace IndiegameGarden.Menus
                     abortIsQuitting = true;
                     break;
 
-                case UserInput.SELECT0:
+                case UserInput.SELECT:
                     if (SelectedGame != null)
                     {
-                        // zoom in on selected game
+                        selectionLevel++;
                         GameThumbnail th = thumbnailsCache[SelectedGame.GameID];
                         if (th != null)
                         {
-                            ZoomTarget = THUMBNAIL_SCALE_SELECTED;
-                            ZoomCenter = th.PositionAbs;
-                            ZoomSpeed = 0.05f;
+
+                            switch (selectionLevel)
+                            {
+                                case 1:
+                                    // zoom in on selected game
+                                    ZoomTarget = THUMBNAIL_SCALE_SELECTED1;
+                                    ZoomCenter = th.PositionAbs;
+                                    ZoomSpeed = 0.05f;
+                                    break;
+                                case 2:
+                                    ZoomTarget = THUMBNAIL_SCALE_SELECTED2;
+                                    ZoomCenter = th.PositionAbs;
+                                    ZoomSpeed = 0.05f;
+                                    break;
+                            }
+
+
                         }
                     }
                     break;
 
-                case UserInput.SELECT1:
-                    if (SelectedGame != null)
-                    {
-                        // zoom in on selected game
-                        GameThumbnail th = thumbnailsCache[SelectedGame.GameID];
-                        if (th != null)
-                        {
-                            ZoomTarget = THUMBNAIL_SCALE_SELECTED1;
-                            ZoomCenter = th.PositionAbs;
-                            ZoomSpeed = 0.05f;
-                        }
-                    }
-                    break;
-
-                case UserInput.SELECT2:
-                    if (SelectedGame != null)
-                    {
-                        // zoom in on selected game
-                        GameThumbnail th = thumbnailsCache[SelectedGame.GameID];
-                        if (th != null)
-                        {
-                            ZoomTarget = THUMBNAIL_SCALE_SELECTED2;
-                            ZoomCenter = th.Position;
-                            ZoomSpeed = 0.05f;
-                        }
-                    }
-                    break;
             }
+            if (selectionLevel < 0)
+                selectionLevel = 0;
         }
     }
 }

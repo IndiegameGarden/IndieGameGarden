@@ -92,6 +92,13 @@ namespace IndiegameGarden.Menus
             loaderTask.Start();
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            if (loaderTask != null)
+                loaderTask.Abort();
+        }
+
         protected override void OnInit()
         {
             base.OnInit();
