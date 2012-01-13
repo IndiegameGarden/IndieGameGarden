@@ -18,9 +18,6 @@ namespace IndiegameGarden.Unpack
     {
         public string zipfile;
         public string destdir;
-        double progress = 0;
-        int numberFilesInZip = 1;
-        double progressFilesExtracted = 0;
         long bytesDoneWithinFile = 0;
         long totalSize = 0;
         long doneSize = 0;
