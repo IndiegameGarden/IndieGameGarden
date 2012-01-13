@@ -41,10 +41,11 @@ namespace IndiegameGarden.Menus
         public const float THUMBNAIL_SCALE_UNSELECTED = 0.28f; //1.5625f;
         public const float THUMBNAIL_SCALE_SELECTED = 0.35f; //2f;
         public const float THUMBNAIL_SCALE_SELECTED1 = 2.857f;
-        public const float THUMBNAIL_SCALE_SELECTED2 = 3.5f;
         static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f, 0.85f);
         static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.95f);
         const float INFOBOX_SPEED_MOVE = 2.8f;
+        const float TIME_BEFORE_GAME_LAUNCH = 0.7f;
+        const float TIME_BEFORE_EXIT = 0.9f;
 
         // maximum sizes of grid
         public double GridMaxX=32, GridMaxY=32;
@@ -62,9 +63,10 @@ namespace IndiegameGarden.Menus
         GameInfoBox infoBox;
         
         // UI related vars - related to whether user indicates to quit program or user cancelled this
-        bool isQuitting = false;
-        bool abortIsQuitting = false;
-        float timeQuitting = 0f;
+        bool isExiting = false;
+        bool isGameLaunchOngoing = false;
+        float timeExiting = 0f;
+        float timeLaunching = 0f;
         Vector2 PanelShiftPos = Vector2.Zero;
         int selectionLevel = 0;
         GameChooserMenu parentMenu;
@@ -134,25 +136,53 @@ namespace IndiegameGarden.Menus
 
         protected override void OnUpdate(ref UpdateParams p)
         {
+            GameThumbnail th = null;
+
             base.OnUpdate(ref p);
 
             // update text box with currently selected game info
             infoBox.SetGameInfo(SelectedGame);
 
-            // handle quitting
-            if (isQuitting)
+            // handle download/install/launching of a game
+            if (isGameLaunchOngoing)
             {
-                timeQuitting += p.dt;
-                if (timeQuitting > 0.8f)
+                timeLaunching += p.dt;
+                /*
+                ZoomTarget = THUMBNAIL_SCALE_SELECTED1 * (1+timeLaunching);
+                ZoomCenter = thumbnailsCache[SelectedGame.GameID].PositionAbs;
+                ZoomSpeed = 0.01f;
+                 */
+                th = thumbnailsCache[SelectedGame.GameID];
+                th.ScaleModifier *= (1 + timeLaunching); // blow up size of thumbnail while user requests launch
+
+                if (timeLaunching > TIME_BEFORE_GAME_LAUNCH)
+                {
+                    if (SelectedGame.IsInstalled)
+                    {
+                        parentMenu.ActionLaunchGame(SelectedGame);
+                    }
+                    else
+                    {
+                        parentMenu.ActionDownloadAndInstallGame(SelectedGame);
+                    }
+                    isGameLaunchOngoing = false;
+                }
+            }
+
+            // handle exit key
+            if (isExiting)
+            {
+                timeExiting += p.dt;
+                if (timeExiting > TIME_BEFORE_EXIT)
                 {
                     GardenGame.Instance.ExitGame();
-                    isQuitting = false;
+                    isExiting = false;
                     return;
                 }
             }
             else
             {
-                timeQuitting = 0f;
+                timeExiting = 0f;
             }
 
             // handle dynamic zooming
@@ -173,7 +203,6 @@ namespace IndiegameGarden.Menus
             if (gl == null)
                 return;
             IndieGame g;
-            GameThumbnail th;
             for (int i = 0; i < gl.Count; i++)
             {
                 // fetch that game from list
@@ -250,36 +279,6 @@ namespace IndiegameGarden.Menus
                     PanelShiftPos.Y += dx;
                 }
 
-                /*
-                // quitting and selected game behaviour
-                if (!isQuitting)
-                {
-                    // if selected - size adapt
-                    if (g == SelectedGame)
-                    {
-                        th.ScaleTarget = THUMBNAIL_SCALE_SELECTED;
-                        th.ScaleSpeed = 0.01f;
-                        //th.LayerDepth = LAYER_FRONT;
-                    }
-                    else if (SelectedGame == null)
-                    {
-                        //
-                    }
-                    else
-                    {
-                        th.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
-                        th.ScaleSpeed = 0.02f;
-                    }
-                }
-                else
-                {
-                    // isQuitting
-                    // FIXME out of game loop!
-                    ZoomTarget = 0.001f;
-                    ZoomSpeed = 0.005f;
-                }
-                 */
-
             }
         }
 
@@ -343,60 +342,51 @@ namespace IndiegameGarden.Menus
                     }
                     break;
                 
-                case UserInput.QUITTING:
-                    isQuitting = true;
-                    abortIsQuitting = false;
+                case UserInput.START_EXIT:
+                    isExiting = true;
                     selectionLevel = 0;
                     ZoomTarget = PANEL_ZOOM_TARGET_QUITTING ;
                     ZoomSpeed = PANEL_ZOOM_SPEED_QUITTING ;
                     break;
                 
-                case UserInput.ABORT_QUITTING:
-                    isQuitting = false;
-                    abortIsQuitting = true;
+                case UserInput.STOP_EXIT:
+                    isExiting = false;
                     selectionLevel = 0;
                     ZoomTarget = PANEL_ZOOM_REGULAR;
                     ZoomSpeed = PANEL_ZOOM_SPEED_ABORTQUITTING ;
                     break;
 
-                case UserInput.SELECT:
+                case UserInput.START_SELECT:
                     if (SelectedGame != null)
-                    {
-                        selectionLevel++;
+                    {                        
                         GameThumbnail th = thumbnailsCache[SelectedGame.GameID];
                         if (th != null)
                         {
                             switch (selectionLevel)
                             {
-                                case 1:
+                                case 0:
                                     // select once - zoom in on selected game
                                     ZoomTarget = THUMBNAIL_SCALE_SELECTED1;
                                     ZoomCenter = th.PositionAbs;
                                     ZoomSpeed = 0.05f;
                                     infoBox.Target = INFOBOX_SHOWN_POSITION;
                                     infoBox.TargetSpeed = INFOBOX_SPEED_MOVE;
+                                    selectionLevel++;
                                     break;
-                                case 2:
-                                    // select again - install or launch game
-                                    ZoomTarget = THUMBNAIL_SCALE_SELECTED2;
-                                    ZoomCenter = th.PositionAbs;
-                                    ZoomSpeed = 0.05f;
-                                    infoBox.Target = INFOBOX_SHOWN_POSITION;
-                                    infoBox.TargetSpeed = INFOBOX_SPEED_MOVE;
-                                    if (SelectedGame.IsInstalled)
-                                    {
-                                        parentMenu.ActionLaunchGame(SelectedGame);
-                                    }
-                                    else
-                                    {
-                                        parentMenu.ActionDownloadAndInstallGame(SelectedGame);
-                                    }
+                                case 1:
+                                    // select again - install or launch game if selection key pressed long enough.
+                                    isGameLaunchOngoing = true;
                                     break;
                             }
 
 
                         }
                     }
+                    break;
+
+                case UserInput.STOP_SELECT:
+                    isGameLaunchOngoing = false;
+                    timeLaunching = 0f;
                     break;
 
             } // switch(inp)

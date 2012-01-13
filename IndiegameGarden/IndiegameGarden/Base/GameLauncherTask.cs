@@ -53,7 +53,7 @@ namespace IndiegameGarden.Base
                 while (!IsFinished())
                 {
                     Thread.Sleep(100);
-                    if (n < 5)
+                    if (n < 55)
                     {
                         SetForegroundWindow(Proc.MainWindowHandle.ToInt32());
                         n++;
@@ -80,6 +80,18 @@ namespace IndiegameGarden.Base
             catch (System.IO.FileNotFoundException)
             {             
                 status = ITaskStatus.FAIL;
+            }
+        }
+
+        public override void Abort()
+        {
+            if (!IsFinished())
+            {
+                status = ITaskStatus.FAIL;
+                if (Proc != null)
+                {
+                    // TODO check if we can abort the process
+                }
             }
         }
 

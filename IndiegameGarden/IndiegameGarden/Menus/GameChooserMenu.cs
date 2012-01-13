@@ -26,7 +26,8 @@ namespace IndiegameGarden.Menus
         GameCollection gamesList;
 
         float lastKeypressTime = 0;
-        double timeEscapeIsPressed = 0;
+        bool wasEscPressed = false;
+        bool wasEnterPressed = false;
         // used to launch/start a game and track its state
         GameLauncherTask launcher;
         // the game thumbnails or items selection panel
@@ -74,30 +75,37 @@ namespace IndiegameGarden.Menus
             // time bookkeeping
             float timeSinceLastKeypress = p.simTime - lastKeypressTime;
 
-            // check esc key
-            if (st.IsKeyDown(Keys.Escape))
+            // -- check all relevant key releases
+            if (!st.IsKeyDown(Keys.Escape) && wasEscPressed)
             {
-                if (timeEscapeIsPressed == 0f)
-                {
-                    panel.OnUserInput(GamesPanel.UserInput.QUITTING);
-                }
-                timeEscapeIsPressed += p.dt;
-            }
-            else if (timeEscapeIsPressed > 0f)
-            {
-                // if ESC was pressed then released
-                timeEscapeIsPressed = 0f;
-                panel.OnUserInput(GamesPanel.UserInput.ABORT_QUITTING);
+                wasEscPressed = false;
+                panel.OnUserInput(GamesPanel.UserInput.STOP_EXIT);
             }
 
-            // check - only proceed if a key pressed and some minimal delay has passed...            
+            if (!st.IsKeyDown(Keys.Enter) && wasEnterPressed)
+            {
+                wasEnterPressed = false;
+                panel.OnUserInput(GamesPanel.UserInput.STOP_SELECT);
+            }
+
+            // for new keypresses - only proceed if a key pressed and some minimal delay has passed...            
             if (timeSinceLastKeypress < MIN_MENU_CHANGE_DELAY)
-                return ;
-            // if no keys pressed, skip
+                return;
+            // if no keys pressed, skip further checks
             if (st.GetPressedKeys().Length == 0)
                 return;
-            
-            // -- a key is pressed - check all keys and generate action(s)
+
+            // -- esc key
+            if (st.IsKeyDown(Keys.Escape))
+            {
+                if (!wasEscPressed)
+                {
+                    panel.OnUserInput(GamesPanel.UserInput.START_EXIT);
+                }
+                wasEscPressed = true;
+            }
+
+            // -- a navigation key is pressed - check keys and generate action(s)
             if (st.IsKeyDown(Keys.Left)) {
                 panel.OnUserInput(GamesPanel.UserInput.LEFT);                
             }
@@ -113,9 +121,11 @@ namespace IndiegameGarden.Menus
                 panel.OnUserInput(GamesPanel.UserInput.DOWN);
             }
 
-            else if (st.IsKeyDown(Keys.Enter))
+            if (st.IsKeyDown(Keys.Enter))
             {
-                panel.OnUserInput(GamesPanel.UserInput.SELECT);
+                if (!wasEnterPressed)
+                    panel.OnUserInput(GamesPanel.UserInput.START_SELECT);
+                wasEnterPressed = true;
             }
 
             // (time) bookkeeping for next keypress

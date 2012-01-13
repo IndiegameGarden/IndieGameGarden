@@ -3,7 +3,8 @@
 OPEN  [top issues first]
 
 Mouse should be shown when loading a game.
-No drawing when loading a game.
+No drawing when loading or playing a game.
+Text obstructed by thumbnails.
 Only hide gameinfo panel when a cursor key or esc is pressed
 Zoom out returning to menu after having played a game
 Version number included in .zip file name and in game folder (to test)
@@ -24,6 +25,7 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
+2012-01-13 No further jump-zooming in on selecting game (for download, install or play). Implement subtle zooming if enter held.
 2012-01-13 Fixed multiple progress bar bugs
 2012-01-13 Added Abort() to some download/install tasks
 2012-01-13 Test progress bar width bug
