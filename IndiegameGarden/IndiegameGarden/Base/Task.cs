@@ -38,7 +38,7 @@ namespace IndiegameGarden.Base
             return (status == ITaskStatus.SUCCESS) || (status == ITaskStatus.FAIL);
         }
 
-        // default implementation for Tasks that don't support live progress tracking
+        // default implementation for Tasks that don't support live progressContributionSingleFile tracking
         public virtual double Progress()
         {
             if (IsFinished())

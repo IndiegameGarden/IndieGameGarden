@@ -92,6 +92,11 @@ namespace IndiegameGarden.Base
         // aborts the thread running the task
         public override void Abort()
         {
+            if (task != null)
+            {
+                task.Abort();
+            }
+
             if (thread != null)
             {
                 thread.Abort();
