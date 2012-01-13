@@ -2,7 +2,8 @@
 
 OPEN  [top issues first]
 
-Bug downloading + bar does not disappear after downloading and installing done.
+Mouse should be shown when loading a game.
+No drawing when loading a game.
 Only hide gameinfo panel when a cursor key or esc is pressed
 Zoom out returning to menu after having played a game
 Version number included in .zip file name and in game folder (to test)
@@ -23,6 +24,10 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
+2012-01-13 Fixed multiple progress bar bugs
+2012-01-13 Added Abort() to some download/install tasks
+2012-01-13 Test progress bar width bug
+2012-01-13 Bug downloading + bar does not disappear after downloading and installing done.
 2012-01-10 Need refactoring of menu/panel interoperation. Menu should only send UI events to panel and panel keeps state.
 2012-01-10 Fixed threads alive forever issues, added Dispose() to Gamelets
 2012-01-09 Refactoring of file/folder/url/path config in GardenConfig, now cleaner.

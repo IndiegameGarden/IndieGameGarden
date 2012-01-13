@@ -60,6 +60,28 @@ namespace IndiegameGarden.Install
                 // error in downloading process - no install
                 status = ITaskStatus.FAIL;
             }
+            game.Refresh();
+        }
+
+        public override void Abort()
+        {
+            if (IsDownloading())
+            {
+                downloadTask.Abort();
+                statusMsg = downloadTask.StatusMsg();
+                status = ITaskStatus.FAIL;
+            }
+            else if (IsInstalling())
+            {
+                installTask.Abort();
+                statusMsg = installTask.StatusMsg();
+                status = ITaskStatus.FAIL;
+            }
+            else
+            {
+                if(status == ITaskStatus.CREATED)
+                    status = ITaskStatus.FAIL;
+            }
         }
 
         /// <summary>
@@ -68,7 +90,7 @@ namespace IndiegameGarden.Install
         /// <returns>true if downloading, false otherwise</returns>
         public bool IsDownloading()
         {
-            return (downloadTask != null && downloadTask.IsStarted());
+            return (downloadTask != null && downloadTask.IsStarted() && !downloadTask.IsFinished() );
         }
 
         /// <summary>
@@ -77,7 +99,7 @@ namespace IndiegameGarden.Install
         /// <returns>true if installing, false otherwise</returns>
         public bool IsInstalling()
         {
-            return (installTask != null && installTask.IsStarted());
+            return (installTask != null && installTask.IsStarted() && !installTask.IsFinished() );
         }
 
         public override double Progress()
@@ -86,15 +108,15 @@ namespace IndiegameGarden.Install
                 return ProgressDownload();
             if (IsInstalling())
                 return ProgressInstall();
-            if (installTask != null && (installTask.IsFinished() || installTask.Status() == ITaskStatus.FAIL ) )
+            if (installTask != null && installTask.IsFinished() )
                 return 1;
             return 0;            
         }
 
         /// <summary>
-        /// check progress in downloading task
+        /// check progressContributionSingleFile in downloading task
         /// </summary>
-        /// <returns>progress value 0...1</returns>
+        /// <returns>progressContributionSingleFile value 0...1</returns>
         public double ProgressDownload()
         {
             if (downloadTask == null)
@@ -103,9 +125,9 @@ namespace IndiegameGarden.Install
         }
 
         /// <summary>
-        /// check progress in installing task
+        /// check progressContributionSingleFile in installing task
         /// </summary>
-        /// <returns>progress value 0...1</returns>
+        /// <returns>progressContributionSingleFile value 0...1</returns>
         public double ProgressInstall()
         {
             if (installTask == null)

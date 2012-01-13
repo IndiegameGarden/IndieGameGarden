@@ -48,7 +48,8 @@ namespace IndiegameGarden.Download
         }
 
         /// <summary>
-        /// class-internal method to perform a download without mirrors
+        /// class-internal method to perform a download without mirrors. See description of InternalDoDownload() method
+        /// with mirrors.
         /// </summary>
         /// <param name="urlPath">full URL gameDirPath of file, optionally leaving out protocol http://</param>
         /// <param name="filename">local name under which to store the file</param>
@@ -60,7 +61,8 @@ namespace IndiegameGarden.Download
         }
 
         /// <summary>
-        /// class-internal method to perform a download with mirrors
+        /// class-internal method to perform a download with mirrors. Has blocking wait and sets ITask status
+        /// accordingly to success or failure.
         /// </summary>
         /// <param name="urlPath">full URL gameDirPath of file, optionally leaving out protocol http://</param>
         /// <param name="filename">local name under which to store the file</param>
@@ -108,40 +110,7 @@ namespace IndiegameGarden.Download
                 status = ITaskStatus.FAIL;
             else
                 status = ITaskStatus.SUCCESS;
-            //OnDownloadEnded(e.Downloader);
         }
-
-        /*
-        // called by MyDownloader framework upon any download ready/error etc.
-        private void EvHandleDownloadEnded(object sender, DownloaderEventArgs e)
-        {
-            // check if it is my download
-            if (e.Downloader == downloader)
-            {
-                if (e.Downloader.State.Equals(DownloaderState.EndedWithError))
-                    status = ITaskStatus.FAIL;
-                else
-                    status = ITaskStatus.SUCCESS;
-
-                OnDownloadEnded(e.Downloader);
-            }
-        }
-         */
-
-        /*
-        /// <summary>
-        /// called when download task has ended. Can use dl.State to check state of the finished download (e.g. error, success, etc.)
-        /// </summary>
-        /// <param name="dl">The Downloader class of the file whose downloading has ended, 
-        ///                  or null if no Downloader was used (i.e. file was already there)</param>
-        public virtual void OnDownloadEnded(Downloader dl)
-        {
-            if (dl.State == DownloaderState.Ended)
-                status = ITaskStatus.SUCCESS;
-            else if (dl.State == DownloaderState.EndedWithError)
-                status = ITaskStatus.FAIL;
-        }
-        */
 
     }
 }

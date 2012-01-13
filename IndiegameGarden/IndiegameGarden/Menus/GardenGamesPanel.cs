@@ -58,7 +58,7 @@ namespace IndiegameGarden.Menus
         // cursor is the graphics selection thingy         
         GameThumbnailCursor cursor;
 
-        // box showing info of a game such as title and download progress
+        // box showing info of a game such as title and download progressContributionSingleFile
         GameInfoBox infoBox;
         
         // UI related vars - related to whether user indicates to quit program or user cancelled this
@@ -283,13 +283,6 @@ namespace IndiegameGarden.Menus
             }
         }
 
-        // shorthand method to restore zoom of panel back to normal
-        public void ZoomToNormal()
-        {
-            ZoomTarget = PANEL_ZOOM_REGULAR;
-            //ZoomCenter = Screen.Center; // don't specify - use previous zoomcenter
-        }
-
         protected override void OnDraw(ref DrawParams p)
         {
             base.OnDraw(ref p);
@@ -392,11 +385,11 @@ namespace IndiegameGarden.Menus
                                     infoBox.TargetSpeed = INFOBOX_SPEED_MOVE;
                                     if (SelectedGame.IsInstalled)
                                     {
-                                        parentMenu.LaunchGame(SelectedGame);
+                                        parentMenu.ActionLaunchGame(SelectedGame);
                                     }
                                     else
                                     {
-                                        parentMenu.DownloadAndInstallGame(SelectedGame);
+                                        parentMenu.ActionDownloadAndInstallGame(SelectedGame);
                                     }
                                     break;
                             }

@@ -82,7 +82,7 @@ namespace IndiegameGarden.Base
 
         //-- private vars
         private bool isInstalled = false;
-        private bool installationChanged = true;
+        private bool refreshInstallationStatusNeeded = true;
 
         public IndieGame()
         {
@@ -91,21 +91,21 @@ namespace IndiegameGarden.Base
 
         /// <summary>
         /// check whether this game is locally installed, if true it is. Use Refresh() to
-        /// perform the installation check again.
+        /// enforce the installation check again.
         /// </summary>
         public bool IsInstalled
         {
             get
             {
-                if (installationChanged)
+                if (refreshInstallationStatusNeeded)
                 {
                     String gameDirPath = GardenGame.Instance.Config.GetGameFolder(this);
                     String exePath = GardenGame.Instance.Config.GetExeFilepath(this);
                     isInstalled = Directory.Exists(gameDirPath) &&
                                     File.Exists(exePath) &&
-                                    DlAndInstallTask == null &&
-                                    ThreadedDlAndInstallTask == null;
-                    installationChanged = false;
+                                    (DlAndInstallTask == null || DlAndInstallTask.IsFinished()) &&
+                                    (ThreadedDlAndInstallTask == null || ThreadedDlAndInstallTask.IsFinished());
+                    refreshInstallationStatusNeeded = false;
                 }
                 return isInstalled;
             }
@@ -116,7 +116,7 @@ namespace IndiegameGarden.Base
         /// </summary>
         public void Refresh()
         {
-            installationChanged = true;
+            refreshInstallationStatusNeeded = true;
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,9 @@ namespace IndiegameGarden.Unpack
     {
         string filename;
         string destfolder;
-        double progress = 0;
+        double progressContributionSingleFile = 0;
+        double currentProgressMultiplier = 0;
+        double progressTotal = 0;
         Unrar unrar;
 
         public UnrarTask(string filename, string destfolder)
@@ -28,20 +31,32 @@ namespace IndiegameGarden.Unpack
 
         public override double Progress()
         {
-            return progress;
+            double p = progressTotal + progressContributionSingleFile;
+            // calculation is non-exact, so impose a ceiling to progress [0,1]
+            if (p > 1)
+                p = 1;
+            return p;
         }
 
         public override void Start()
         {
             status = ITaskStatus.RUNNING;
-            unrar = new Unrar(filename);
-            unrar.Open();
-            unrar.ExtractionProgress += new ExtractionProgressHandler(EvHandlerExtractionProgress);
+            unrar = null;
             try
             {
+                FileInfo fi = new FileInfo(filename);
+                long rarBytesTotal = fi.Length;
+                unrar = new Unrar(filename);
+                unrar.Open();
+                unrar.ExtractionProgress += new ExtractionProgressHandler(EvHandlerExtractionProgress);
                 while (unrar.ReadHeader())
                 {
+                    // small 2% compensation for inexact progress calculation
+                    currentProgressMultiplier = ((double)unrar.CurrentFile.PackedSize) / ((double)rarBytesTotal);
                     unrar.ExtractToDirectory(destfolder);
+                    progressContributionSingleFile = 0;
+                    progressTotal += currentProgressMultiplier;
+
                 }
                 status = ITaskStatus.SUCCESS;
             }
@@ -53,7 +68,8 @@ namespace IndiegameGarden.Unpack
             finally{
                 try
                 {
-                    unrar.Close();
+                    if (unrar != null)
+                        unrar.Close();
                 }
                 catch (Exception ex)
                 {
@@ -63,12 +79,13 @@ namespace IndiegameGarden.Unpack
             }
         }
 
+        
         // called from the Unrar.cs event handler
         void EvHandlerExtractionProgress(object sender, ExtractionProgressEventArgs e)
         {
-            double p = e.PercentComplete;
-            progress = p; // TODO
+            progressContributionSingleFile = currentProgressMultiplier * e.PercentComplete / 100;
         }
+        
 
     }
 }

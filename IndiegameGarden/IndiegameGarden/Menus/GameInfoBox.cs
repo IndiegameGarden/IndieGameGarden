@@ -29,7 +29,7 @@ namespace IndiegameGarden.Menus
         private void InitComponents()
         {
             dlProgressBar = new ProgressBar();
-            dlProgressBar.Position = new Vector2(0.4f, 0.07f);
+            dlProgressBar.Position = new Vector2(0.55f, 0.04f);
             dlProgressBar.Visible = false;
             Add(dlProgressBar);
 
@@ -56,30 +56,42 @@ namespace IndiegameGarden.Menus
                 string txt = game.Name + "\n\n" + game.Description + "\n";
                 if (game.IsInstalled)
                 {
-                    txt += "Installed - Press ENTER to play!\n";
+                    txt += "Installed - Hold ENTER to play!\n";
                     dlProgressBar.Visible = false;
                 }
                 else
                 {
-                    if (game.DlAndInstallTask != null)
+                    if (game.DlAndInstallTask == null)
+                    {
+
+                        txt += "Hold ENTER to download this game!\n";
+                    }
+                    else if (game.DlAndInstallTask != null &&
+                        game.ThreadedDlAndInstallTask != null && 
+                        !game.ThreadedDlAndInstallTask.IsFinished())
                     {
                         if (game.DlAndInstallTask.IsDownloading())
                         {
-                            txt += "Downloading...\n";
+                            txt += "Downloading...\n"; // TODO some abort possibility message
                         }
                         else if (game.DlAndInstallTask.IsInstalling())
                         {
                             txt += "Installing...\n";
                         }
-                        dlProgressBar.Visible = true;
-                        dlProgressBar.Progress = (float)game.DlAndInstallTask.Progress();
+                        dlProgressBar.ProgressTarget = (float)game.DlAndInstallTask.Progress();
+                        // make bar visible if not already.
+                        if (dlProgressBar.Visible == false)
+                        {
+                            dlProgressBar.Visible = true;
+                            // instantly reset value to new one, if we just made the bar visible
+                            dlProgressBar.ProgressValue = dlProgressBar.ProgressTarget;
+                        }
                     }
-
-                    if (game.DlAndInstallTask == null)
+                    else
                     {
                         dlProgressBar.Visible = false;
-                        txt += "Press ENTER to download this game!\n";
                     }
+
                 }
 
                 textBox.Text = txt;

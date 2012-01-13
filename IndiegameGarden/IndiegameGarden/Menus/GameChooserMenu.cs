@@ -36,9 +36,9 @@ namespace IndiegameGarden.Menus
         /// <summary>
         /// construct new menu
         /// </summary>
-        public GameChooserMenu(): base(new StateChooserMenu())
+        public GameChooserMenu(): base(new StateBrowsingMenu())
         {
-            SetNextState(new StateChooserMenu());
+            SetNextState(new StateBrowsingMenu());
             panel = new GardenGamesPanel(this);
             panel.Position = new Vector2(0.0f, 0.0f);
 
@@ -126,7 +126,7 @@ namespace IndiegameGarden.Menus
         /// called by a child GUI component to install a game
         /// </summary>
         /// <param name="g">game to install</param>
-        public void DownloadAndInstallGame(IndieGame g)
+        public void ActionDownloadAndInstallGame(IndieGame g)
         {
             // check if download+install task needs to start or not
             if (g.DlAndInstallTask==null && g.ThreadedDlAndInstallTask==null && !g.IsInstalled)
@@ -141,7 +141,7 @@ namespace IndiegameGarden.Menus
         /// called by a child GUI component to launch a game
         /// </summary>
         /// <param name="g">game to launch</param>
-        public void LaunchGame(IndieGame g)
+        public void ActionLaunchGame(IndieGame g)
         {
             if (g.IsInstalled)
             {
@@ -149,6 +149,7 @@ namespace IndiegameGarden.Menus
                 if ( (launcher == null || launcher.IsFinished() == true) &&
                      (launchGameThread == null || launchGameThread.IsFinished()) )
                 {
+                    // set state of menu to 'game playing state'
                     SetNextState(new StatePlayingGame());
 
                     launcher = new GameLauncherTask(g);
@@ -164,7 +165,8 @@ namespace IndiegameGarden.Menus
         // when a launched process concludes
         void taskThread_TaskFinishedEvent(object sender)
         {
-            SetNextState(new StateChooserMenu() );
+            // set menu state back to 'menu viewing' state
+            SetNextState(new StateBrowsingMenu() );
         }
 
         protected override void OnUpdate(ref UpdateParams p)

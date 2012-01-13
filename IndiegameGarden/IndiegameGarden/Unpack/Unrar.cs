@@ -29,7 +29,7 @@ namespace IndiegameGarden.Unpack
     /// </summary>
     public delegate void DataAvailableHandler(object sender, DataAvailableEventArgs e);
     /// <summary>
-    /// Represents the method that will handle extraction progress events
+    /// Represents the method that will handle extraction progressContributionSingleFile events
     /// </summary>
     public delegate void ExtractionProgressHandler(object sender, ExtractionProgressEventArgs e);
     /// <summary>
@@ -284,7 +284,7 @@ namespace IndiegameGarden.Unpack
         /// </summary>
         public event DataAvailableHandler DataAvailable;
         /// <summary>
-        /// Event that is raised to indicate extraction progress
+        /// Event that is raised to indicate extraction progressContributionSingleFile
         /// </summary>
         public event ExtractionProgressHandler ExtractionProgress;
         /// <summary>

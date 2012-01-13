@@ -10,7 +10,7 @@ namespace IndiegameGarden.Base
     /**
      * State of browsing main menu, no active game
      */
-    public class StateChooserMenu: State
+    public class StateBrowsingMenu: State
     {
     }
 

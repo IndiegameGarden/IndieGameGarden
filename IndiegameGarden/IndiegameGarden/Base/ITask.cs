@@ -16,11 +16,11 @@ namespace IndiegameGarden.Base
     public interface ITask
     {
         /// <summary>
-        /// Get task progress indication value. IsFinished()==true implies Progress()==1 and vice versa.
-        /// IsStarted()==false implies Progress()==0 but not vice versa.
+        /// Get task progressContributionSingleFile indication value. IsFinished()==true implies ProgressTarget()==1 and vice versa.
+        /// IsStarted()==false implies ProgressTarget()==0 but not vice versa.
         /// </summary>
-        /// <returns>progress indication between 0...1. Returns either 0 or 1 without in-between values
-        /// for tasks where progress tracking is not supported.</returns>
+        /// <returns>progressContributionSingleFile indication between 0...1. Returns either 0 or 1 without in-between values
+        /// for tasks where progressContributionSingleFile tracking is not supported.</returns>
         double Progress();
 
         /// <summary>

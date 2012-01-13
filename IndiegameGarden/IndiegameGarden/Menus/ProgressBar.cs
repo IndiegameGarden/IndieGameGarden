@@ -12,13 +12,14 @@ using Microsoft.Xna.Framework.Graphics;
 namespace IndiegameGarden.Menus
 {
     /**
-     * a graphical progress bar between 0 and 100% with textual indication on the side
+     * a graphical progressContributionSingleFile bar between 0 and 100% with textual indication on the side.
+     * The bar is configured to move progressContributionSingleFile up only towards a target. The current value
+     * can be reset with ProgressValue if progressContributionSingleFile needs to move down or be reset to 0.
      */
     public class ProgressBar: Spritelet
     {
         float progressValue;
         float progressValueTarget;
-        float progressCatchupSpeed = 50.0f; // TODO make public?
         SpriteFont spriteFont;
         Color textColor = Color.White;
 
@@ -27,10 +28,11 @@ namespace IndiegameGarden.Menus
         {
             progressValue = 0f;
             progressValueTarget = 0f;
+            ProgressCatchupSpeed = 0.6f;
             spriteFont = TTengineMaster.ActiveGame.Content.Load<SpriteFont>("m41_lovebit");
         }
 
-        public float Progress
+        public float ProgressTarget
         {
             get
             {
@@ -42,21 +44,29 @@ namespace IndiegameGarden.Menus
             }
         }
 
+        public float ProgressCatchupSpeed { get; set; }
+
+        public float ProgressValue
+        {
+            get
+            {
+                return progressValue;
+            }
+            set
+            {
+                progressValue = value;
+            }
+        }
+
         protected override void OnUpdate(ref UpdateParams p)
         {
             base.OnUpdate(ref p);
 
-            // move nrg level towards the target
+            // move level towards the target
             if (progressValue < progressValueTarget)
             {
-                progressValue += progressCatchupSpeed * p.dt;
+                progressValue += ProgressCatchupSpeed * p.dt;
                 if (progressValue > progressValueTarget)
-                    progressValue = progressValueTarget;
-            }
-            if (progressValue > progressValueTarget)
-            {
-                progressValue -= progressCatchupSpeed * p.dt;
-                if (progressValue < progressValueTarget)
                     progressValue = progressValueTarget;
             }
 
@@ -65,7 +75,8 @@ namespace IndiegameGarden.Menus
         protected override void OnDraw(ref DrawParams p)
         {
             Vector2 pos = DrawPosition;
-            int width = 1 + (int) Math.Round(WidthAbs * progressValue );
+            double progressValuePercent = 100 * progressValue;
+            int width = 1 + (int) Math.Round(ToPixels(WidthAbs) * progressValue);
             if (width > Texture.Width) width = Texture.Width;
 
             Rectangle srcRect = new Rectangle(0, 0, width, Texture.Height);
@@ -74,7 +85,7 @@ namespace IndiegameGarden.Menus
 
             // plot text percentage
             Vector2 tpos = pos + new Vector2(width, Texture.Height / 2.0f - 10.0f) ;
-            Screen.UseSharedSpritebatch().DrawString(spriteFont, String.Format("{0,3}%", Math.Round(progressValue)), tpos, textColor);
+            Screen.UseSharedSpritebatch().DrawString(spriteFont, String.Format("{0,3}%", Math.Round(progressValuePercent)), tpos, textColor);
         }
 
     }

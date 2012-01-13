@@ -49,12 +49,12 @@ namespace IndiegameGarden.Menus
          * internal Task to load a thumbnail from disk, or download it first if not available.
          * To be called in a separate thread e.g. ThreadedTask.
          */
-        class GameThumbnailLoadTask : Task
+        class GameThumbnailLoadTask : ThumbnailDownloader
         {
             // my parent - where to load for/to
             GameThumbnail thumbnail;
 
-            public GameThumbnailLoadTask(GameThumbnail th)
+            public GameThumbnailLoadTask(GameThumbnail th): base(th.Game)
             {
                 thumbnail = th;
             }
@@ -70,9 +70,7 @@ namespace IndiegameGarden.Menus
                 }
                 else
                 {
-                    // start a download
-                    ThumbnailDownloader downl = new ThumbnailDownloader(thumbnail.Game);
-                    downl.Start();
+                    base.Start();
                     if (File.Exists(thumbnail.ThumbnailFilename))
                     {
                         thumbnail.LoadTextureFromFile();
