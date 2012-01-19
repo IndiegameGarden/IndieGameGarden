@@ -58,10 +58,11 @@ namespace IndiegameGarden
         GraphicsDeviceManager graphics;
         int preferredWindowWidth = 1420; //1024; //1280; //1440; //1280;
         int preferredWindowHeight = 880; //768; //720; //900; //720;
-        Screenlet toplevelScreen;        
-        // treeRoot is a pointer, set to the top-level Gamelet to render
+        // define two screens
+        Screenlet mainScreen;
+        Screenlet loadingScreen;        
+        // treeRoot is the top-level Gamelet
         Gamelet treeRoot;
-        Gamelet gameletsRoot;
         SpriteBatch spriteBatch;
         HttpFtpProtocolExtension myDownloaderProtocol;
 
@@ -94,15 +95,15 @@ namespace IndiegameGarden
             Exception initError = null;
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            toplevelScreen = new Screenlet(preferredWindowWidth, preferredWindowHeight);
-            Gamelet physicsModel = new FixedTimestepPhysics();
+            mainScreen = new Screenlet(preferredWindowWidth, preferredWindowHeight);
+            loadingScreen = new Screenlet(preferredWindowWidth, preferredWindowHeight);
+            TTengineMaster.ActiveScreen = mainScreen;
+            treeRoot = new FixedTimestepPhysics();
 
-            toplevelScreen.Add(physicsModel);
-            toplevelScreen.Add(new FrameRateCounter(1.0f, 0f)); // TODO
-            toplevelScreen.Add(new ScreenZoomer()); // TODO remove
-            toplevelScreen.DrawColor = Color.Black;
-            treeRoot = toplevelScreen;
-            gameletsRoot = physicsModel;
+            treeRoot.Add(mainScreen);
+            mainScreen.Add(new FrameRateCounter(1.0f, 0f)); // TODO
+            mainScreen.Add(new ScreenZoomer()); // TODO remove
+            mainScreen.DrawColor = Color.Black;
 
             // MyDownloader Config
             myDownloaderProtocol = new HttpFtpProtocolExtension();
@@ -135,7 +136,7 @@ namespace IndiegameGarden
             {
                 // game chooser menu
                 GameChooserMenu menu = new GameChooserMenu();
-                gameletsRoot.Add(menu);
+                mainScreen.Add(menu);
             }
 
             // finally call base to enumnerate all (gfx) Game components to init
@@ -161,9 +162,9 @@ namespace IndiegameGarden
             // then buffer drawing on screen at right positions                        
             GraphicsDevice.SetRenderTarget(null); // TODO
             //GraphicsDevice.Clear(Color.Black);
-            Rectangle destRect = new Rectangle(0, 0, toplevelScreen.RenderTarget.Width, toplevelScreen.RenderTarget.Height);
+            Rectangle destRect = new Rectangle(0, 0, mainScreen.RenderTarget.Width, mainScreen.RenderTarget.Height);
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
-            spriteBatch.Draw(toplevelScreen.RenderTarget, destRect, Color.White);
+            spriteBatch.Draw(mainScreen.RenderTarget, destRect, Color.White);
             spriteBatch.End();
 
             // then draw other (if any) game components on the screen

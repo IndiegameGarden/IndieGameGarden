@@ -2,6 +2,8 @@
 
 OPEN  [top issues first]
 
+Fix bug in rendering caused by dual Screenlets new design.
+Add support for direct .exe download and run without unpacking, via property ExeFileURL
 Mouse should be shown when loading a game.
 No drawing when loading or playing a game.
 Text obstructed by thumbnails.

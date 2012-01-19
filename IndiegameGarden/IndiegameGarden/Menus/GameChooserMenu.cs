@@ -186,9 +186,6 @@ namespace IndiegameGarden.Menus
             // check keyboard inputs from user
             KeyboardControls(ref p);
 
-            // TODO
-            if (!Visible)
-                GardenGame.Instance.SuppressDraw();
         }
 
     }

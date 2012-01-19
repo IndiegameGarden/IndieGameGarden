@@ -154,12 +154,12 @@ namespace IndiegameGarden.Base
 
 
         // extract an extension e.g. "zip" from a partial or full URL e.g. http://server/test/name.zip 
-        // <returns>extension after last dot, or empty string if no dot found in 'urlDl'.</returns>
+        // <returns>extension after last dot, or default "zip" if no dot found in 'urlDl'.</returns>
         private string ExtractFileExtension(string url)
         {
             int i = url.LastIndexOf('.');
             if (i == -1)
-                return "";
+                return "zip";
             return url.Substring(i + 1);
         }
 
