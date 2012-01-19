@@ -15,7 +15,7 @@ namespace IndiegameGarden.Unpack
      */
     public class UnpackerTask: Task
     {
-        private enum PackedFileType { RAR, ZIP, UNKNOWN } ;
+        private enum PackedFileType { RAR, ZIP, EXE, UNKNOWN } ;
         string filename ;
         string destfolder;
         PackedFileType filetype;
@@ -41,10 +41,12 @@ namespace IndiegameGarden.Unpack
 
         private void DetectFileType()
         {
-            if (filename.EndsWith(".rar"))
+            if (filename.ToLower().EndsWith(".rar"))
                 filetype = PackedFileType.RAR;
-            else if (filename.EndsWith(".zip"))
+            else if (filename.ToLower().EndsWith(".zip"))
                 filetype = PackedFileType.ZIP;
+            else if (filename.ToLower().EndsWith(".exe"))
+                filetype = PackedFileType.EXE;
             else
                 filetype = PackedFileType.UNKNOWN;
         }
@@ -62,6 +64,9 @@ namespace IndiegameGarden.Unpack
                         break;
                     case PackedFileType.RAR:
                         unpackTask = new UnrarTask(filename, destfolder);
+                        break;
+                    case PackedFileType.EXE:
+                        unpackTask = new CopyFileTask(filename, destfolder);
                         break;
                     default:
                         throw new NotImplementedException("unpackertask filetype");
@@ -84,7 +89,7 @@ namespace IndiegameGarden.Unpack
                 return 0;
             if (status == ITaskStatus.SUCCESS || status == ITaskStatus.FAIL)
                 return 1;
-            if (status == ITaskStatus.RUNNING)
+            if (status == ITaskStatus.RUNNING && unpackTask != null)
                return unpackTask.Progress();
             return 0;
         }

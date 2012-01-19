@@ -170,6 +170,7 @@
     <Compile Include="Base\GardenConfig.cs" />
     <Compile Include="Menus\ThumbnailFromFile.cs" />
     <Compile Include="Base\Task.cs" />
+    <Compile Include="Unpack\CopyFileTask.cs" />
     <Compile Include="Unpack\UnpackerTask.cs" />
     <Compile Include="Unpack\Unrar.cs" />
     <Compile Include="Unpack\UnrarTask.cs" />

@@ -41,6 +41,11 @@ namespace IndiegameGarden.Base
         public string PackedFileURL = "";
 
         /// <summary>
+        /// where a .EXE file can be downloaded from, which needs no unpacking (run straight away)
+        /// </summary>
+        public string ExeFileURL = "";
+
+        /// <summary>
         /// a set of mirrors for PackedFileURL
         /// </summary>
         public string[] PackedFileMirrors = new string[]{};
@@ -103,8 +108,7 @@ namespace IndiegameGarden.Base
                     String exePath = GardenGame.Instance.Config.GetExeFilepath(this);
                     isInstalled = Directory.Exists(gameDirPath) &&
                                     File.Exists(exePath) &&
-                                    (DlAndInstallTask == null || DlAndInstallTask.IsFinished()) &&
-                                    (ThreadedDlAndInstallTask == null || ThreadedDlAndInstallTask.IsFinished());
+                                    (DlAndInstallTask == null || DlAndInstallTask.IsFinished()) ;
                     refreshInstallationStatusNeeded = false;
                 }
                 return isInstalled;

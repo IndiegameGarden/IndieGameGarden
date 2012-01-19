@@ -2,8 +2,6 @@
 
 OPEN  [top issues first]
 
-Fix bug in rendering caused by dual Screenlets new design.
-Add support for direct .exe download and run without unpacking, via property ExeFileURL
 Mouse should be shown when loading a game.
 No drawing when loading or playing a game.
 Text obstructed by thumbnails.
@@ -27,6 +25,8 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
+2012-01-19 Add support for direct .exe download and run without unpacking, via property ExeFileURL
+2012-01-19 Fix bug in rendering caused by dual Screenlets new design.
 2012-01-13 No further jump-zooming in on selecting game (for download, install or play). Implement subtle zooming if enter held.
 2012-01-13 Fixed multiple progress bar bugs
 2012-01-13 Added Abort() to some download/install tasks
