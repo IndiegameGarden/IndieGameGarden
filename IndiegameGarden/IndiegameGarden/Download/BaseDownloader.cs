@@ -96,7 +96,9 @@ namespace IndiegameGarden.Download
                     }
                     catch (Exception)
                     {
-                        // TODO
+                        status = ITaskStatus.FAIL;
+                        statusMsg = "Could not delete " + localFile;
+                        return;
                     }
                 }
             }
