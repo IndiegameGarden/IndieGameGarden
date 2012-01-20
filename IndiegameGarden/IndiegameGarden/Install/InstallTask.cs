@@ -31,7 +31,8 @@ namespace IndiegameGarden.Install
             status = ITaskStatus.RUNNING;
             string destFolder = GardenGame.Instance.Config.GetGameFolder(game);
             unpacker = new UnpackerTask(GardenGame.Instance.Config.GetPackedFilepath(game), 
-                                        destFolder );
+                                        destFolder,
+                                        game.ExeFile);
             if (File.Exists(unpacker.Filename))
             {                
                 unpacker.Start();

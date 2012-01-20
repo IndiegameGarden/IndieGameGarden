@@ -11,20 +11,26 @@ using IndiegameGarden.Download;
 namespace IndiegameGarden.Unpack
 {    
     /**
-     * a task to unpack a packed (.zip, .rar etc) file. Internally uses specific zip/rar/etc. classes.
+     * a task to unpack a packed (.zip, .rar etc) file. Internally uses specific zip/rar/exe/etc. classes.
      */
     public class UnpackerTask: Task
     {
-        private enum PackedFileType { RAR, ZIP, EXE, UNKNOWN } ;
+        private enum PackedFileType { RAR, ZIP, EXE_NOT_PACKED, EXE_SELFEXTRACTING, UNKNOWN } ;
         string filename ;
-        string destfolder;
-        PackedFileType filetype;
+        string destFolder;
+        string exeFile;
+        PackedFileType fileType;
         ITask unpackTask;
 
-        public UnpackerTask(string filename, string destfolder)
+        /// <summary>
+        /// create a new unpacker task for a given file and destination folder to unpack to.
+        /// </summary>
+        /// <param name="gameExeFile">the relative path to the game's .exe file used e.g. to test unpack result</param>
+        public UnpackerTask(string filename, string destFolder, string gameExeFile)
         {
             this.filename = filename;
-            this.destfolder = destfolder;
+            this.destFolder = destFolder;
+            this.exeFile = gameExeFile;
             DetectFileType();
         }
 
@@ -42,13 +48,13 @@ namespace IndiegameGarden.Unpack
         private void DetectFileType()
         {
             if (filename.ToLower().EndsWith(".rar"))
-                filetype = PackedFileType.RAR;
+                fileType = PackedFileType.RAR;
             else if (filename.ToLower().EndsWith(".zip"))
-                filetype = PackedFileType.ZIP;
+                fileType = PackedFileType.ZIP;
             else if (filename.ToLower().EndsWith(".exe"))
-                filetype = PackedFileType.EXE;
+                fileType = PackedFileType.EXE_NOT_PACKED;
             else
-                filetype = PackedFileType.UNKNOWN;
+                fileType = PackedFileType.UNKNOWN;
         }
 
         public override void Start()
@@ -57,19 +63,19 @@ namespace IndiegameGarden.Unpack
             // TODO error handling e.g. incomplete archives
             try
             {
-                switch (filetype)
+                switch (fileType)
                 {
                     case PackedFileType.ZIP:
-                        unpackTask = new UnzipTask(filename, destfolder);
+                        unpackTask = new UnzipTask(filename, destFolder);
                         break;
                     case PackedFileType.RAR:
-                        unpackTask = new UnrarTask(filename, destfolder);
+                        unpackTask = new UnrarTask(filename, destFolder);
                         break;
-                    case PackedFileType.EXE:
-                        unpackTask = new CopyFileTask(filename, destfolder);
+                    case PackedFileType.EXE_NOT_PACKED:
+                        unpackTask = new CopyFileTask(filename, destFolder, exeFile);
                         break;
                     default:
-                        throw new NotImplementedException("unpackertask filetype");
+                        throw new NotImplementedException("unpackertask fileType");
 
                 }
                 unpackTask.Start();                

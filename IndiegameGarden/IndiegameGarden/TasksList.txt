@@ -2,6 +2,8 @@
 
 OPEN  [top issues first]
 
+Bugfix .Exe download process shouldn't rename the file
+Downloader progress for .exe file not showing correct percentages?
 Mouse should be shown when loading a game.
 No drawing when loading or playing a game.
 Text obstructed by thumbnails.

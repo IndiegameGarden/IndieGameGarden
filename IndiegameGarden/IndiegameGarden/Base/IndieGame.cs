@@ -41,7 +41,7 @@ namespace IndiegameGarden.Base
         public string PackedFileURL = "";
 
         /// <summary>
-        /// where a .EXE file can be downloaded from, which needs no unpacking (run straight away)
+        /// where a .EXE_NOT_PACKED file can be downloaded from, which needs no unpacking (run straight away)
         /// </summary>
         public string ExeFileURL = "";
 

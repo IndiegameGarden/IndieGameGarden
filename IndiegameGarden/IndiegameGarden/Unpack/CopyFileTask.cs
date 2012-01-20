@@ -14,24 +14,27 @@ namespace IndiegameGarden.Unpack
     {
 
         string filename;
-        string destfolder;
+        string destFolder;
+        string destFilename;
 
-        public CopyFileTask(string filename, string destfolder)
+        public CopyFileTask(string filename, string destFolder, string destFilename)
         {
             this.filename = filename;
-            this.destfolder = destfolder;
+            this.destFolder = destFolder;
+            this.destFilename = destFilename;
         }
 
         public override void Start()
         {
             
-            FileInfo fi = new FileInfo(filename);
-            string destFile = fi.Name;
-            destFile = Path.Combine(destfolder , destFile);
             try
             {
-                Directory.CreateDirectory(destfolder);
-                File.Copy(filename, destFile);
+                FileInfo fi = new FileInfo(filename);
+                string destFilePath = fi.Name;
+                destFilePath = Path.Combine(destFolder, destFilename);
+                if (!Directory.Exists(destFolder))
+                    Directory.CreateDirectory(destFolder);
+                File.Copy(filename, destFilePath);
                 status = ITaskStatus.SUCCESS;
             }
             catch (Exception ex)
