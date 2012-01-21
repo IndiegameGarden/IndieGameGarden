@@ -63,5 +63,15 @@ namespace IndiegameGarden.Base
         {
             return (JsonArray) json[key];
         }
+
+        /// <summary>
+        /// retrieve a Json string from the store with given name
+        /// </summary>
+        /// <param name="key">name of the JSON string to return</param>
+        /// <returns>the string value stored under the key 'key'</returns>
+        public string GetString(string key)
+        {
+            return ((JsonString)json[key]).ToString();
+        }
     }
 }

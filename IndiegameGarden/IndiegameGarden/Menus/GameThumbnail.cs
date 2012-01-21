@@ -36,7 +36,9 @@ namespace IndiegameGarden.Menus
         /// </summary>
         public string ThumbnailFilename;
 
-        //ThumbnailDownloader downl;
+        /// <summary>
+        /// thumbnail loading task
+        /// </summary>
         ITask loaderTask;
         Texture2D updatedTexture;
         Object updateTextureLock = new Object();
@@ -86,8 +88,6 @@ namespace IndiegameGarden.Menus
             this.GameID = game.GameID;
             this.Game = game;
             this.ThumbnailFilename = GardenGame.Instance.Config.GetThumbnailFilepath(game); 
-            loaderTask = new ThreadedTask(new GameThumbnailLoadTask(this));
-            loaderTask.Start();
         }
 
         public override void Dispose()
@@ -95,8 +95,19 @@ namespace IndiegameGarden.Menus
             base.Dispose();
             if (loaderTask != null)
                 loaderTask.Abort();
+            loaderTask = null;
         }
 
+        public void Enable()
+        {
+            Visible = true;
+            if (loaderTask == null)
+            {
+                loaderTask = new ThreadedTask(new GameThumbnailLoadTask(this));
+                loaderTask.Start();
+            }
+        }
+        
         protected override void OnInit()
         {
             base.OnInit();

@@ -74,7 +74,7 @@ namespace IndiegameGarden.Download
             // make sure protocol is specified
             if (!urlPath.Contains("://"))
                 urlPath = "http://" + urlPath;
-
+            
             // starts to listen to the event 'DownloadEnded' from DownloadManager
             //DownloadManager.Instance.DownloadEnded += new EventHandler<DownloaderEventArgs>(EvHandleDownloadEnded);
 

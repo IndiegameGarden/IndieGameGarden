@@ -53,16 +53,18 @@ namespace IndiegameGarden
         /// configuration and parameters store
         /// </summary>
         public GardenConfig Config;
+        
+        /// <summary>
+        /// the top-level Gamelet
+        /// </summary>
+        public Gamelet TreeRoot;
 
         // --- internal + TTengine related
         GraphicsDeviceManager graphics;
-        int preferredWindowWidth = 1420; //1024; //1280; //1440; //1280;
-        int preferredWindowHeight = 880; //768; //720; //900; //720;
-        // define two screens
+        int preferredWindowWidth = 1280; //1024; //1280; //1440; //1280;
+        int preferredWindowHeight = 768; //768; //720; //900; //720;
         Screenlet mainScreen;
         Screenlet loadingScreen;        
-        // treeRoot is the top-level Gamelet
-        Gamelet treeRoot;
         SpriteBatch spriteBatch;
         HttpFtpProtocolExtension myDownloaderProtocol;
 
@@ -95,12 +97,23 @@ namespace IndiegameGarden
             Exception initError = null;
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            mainScreen = new Screenlet(preferredWindowWidth, preferredWindowHeight);
-            loadingScreen = new Screenlet(preferredWindowWidth, preferredWindowHeight);
-            TTengineMaster.ActiveScreen = mainScreen;
-            treeRoot = new FixedTimestepPhysics();
 
-            treeRoot.Add(mainScreen);
+            // loading screen
+            loadingScreen = new Screenlet(preferredWindowWidth, preferredWindowHeight);
+            TTengineMaster.ActiveScreen = loadingScreen;
+            loadingScreen.ActiveInState = new StatePlayingGame();
+            Gamelet loadingText = new LoadingText();
+            loadingScreen.Add(loadingText);
+
+            // from here on, main screen
+            mainScreen = new Screenlet(preferredWindowWidth, preferredWindowHeight);
+            TTengineMaster.ActiveScreen = mainScreen;
+            mainScreen.ActiveInState = new StateBrowsingMenu();
+            TreeRoot = new FixedTimestepPhysics();
+            TreeRoot.SetNextState(new StateBrowsingMenu()); // set the initial state
+
+            TreeRoot.Add(mainScreen);
+            TreeRoot.Add(loadingScreen);
             mainScreen.Add(new FrameRateCounter(1.0f, 0f)); // TODO
             mainScreen.Add(new ScreenZoomer()); // TODO remove
             mainScreen.DrawColor = Color.Black;
@@ -147,7 +160,7 @@ namespace IndiegameGarden
         protected override void Update(GameTime gameTime)
         {
             // update params, and call the root gamelet to do all.
-            TTengineMaster.Update(gameTime, treeRoot);
+            TTengineMaster.Update(gameTime, TreeRoot);
 
             // update any other XNA components
             base.Update(gameTime);
@@ -157,7 +170,7 @@ namespace IndiegameGarden
         {
             // draw all my gamelet items
             GraphicsDevice.SetRenderTarget(null); // TODO
-            TTengineMaster.Draw(gameTime, treeRoot);
+            TTengineMaster.Draw(gameTime, TreeRoot);
 
             // then buffer drawing on screen at right positions                        
             GraphicsDevice.SetRenderTarget(null); // TODO
@@ -177,10 +190,10 @@ namespace IndiegameGarden
         /// </summary>
         public void ExitGame()
         {
-            if (treeRoot != null)
+            if (TreeRoot != null)
             {
-                treeRoot.Dispose();
-                treeRoot = null;
+                TreeRoot.Dispose();
+                TreeRoot = null;
             }
             System.GC.Collect();
             Exit();
@@ -188,9 +201,9 @@ namespace IndiegameGarden
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && treeRoot != null)
+            if (disposing && TreeRoot != null)
             {
-                treeRoot.Dispose();
+                TreeRoot.Dispose();
             }
             base.Dispose(disposing);
         }

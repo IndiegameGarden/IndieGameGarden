@@ -2,16 +2,16 @@
 
 OPEN  [top issues first]
 
-Bugfix .Exe download process shouldn't rename the file
+No drawing when loading or playing a game.
 Downloader progress for .exe file not showing correct percentages?
 Mouse should be shown when loading a game.
-No drawing when loading or playing a game.
 Text obstructed by thumbnails.
 Only hide gameinfo panel when a cursor key or esc is pressed
 Zoom out returning to menu after having played a game
 Version number included in .zip file name and in game folder (to test)
 Test .zip/.rar progress bars for unpacking
 Test launcher in fullscreen mode
+Download config with unique client id from cloud server
 Add image-display-only thumbnails (that do not execute)
 Display a message when launching starts
   Display a progress bar when launching starts with bar speed set by config file
@@ -19,7 +19,7 @@ Put loader threads in lower priority
 Allow loading of config from server (where config includes URL/mirror locations etc)
 Add default mirror of own server to all game downloads, where name on server equals the local zipfilename
 Add mirrors to all thumbnail loading
-Add self-downloading of latest IGG code, in different versions. Launcher app finds latest IGG .exe in local datastore.
+Add self-downloading of latest IGG code, in different versions. 
 Adapt to multiple desktop resolution and check for minimum resolution
 Add TTMusicEngine and one music file
   Music loading from URLs specified in configuration file
@@ -27,6 +27,10 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
+2012-01-21 Program itself located in a versioned folder in 'games'; Launcher app finds latest IGG .exe in local datastore.
+2012-01-21 Configuration loading from json file (was not impl)
+2012-01-20 Thumbnail downloads: limit to only items displayed at the time; for more even load distribution.
+2012-01-20 Bugfix .Exe download process shouldn't rename the file
 2012-01-19 Add support for direct .exe download and run without unpacking, via property ExeFileURL
 2012-01-19 Fix bug in rendering caused by dual Screenlets new design.
 2012-01-13 No further jump-zooming in on selecting game (for download, install or play). Implement subtle zooming if enter held.

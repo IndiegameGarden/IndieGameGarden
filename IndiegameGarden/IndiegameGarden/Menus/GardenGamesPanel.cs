@@ -232,7 +232,7 @@ namespace IndiegameGarden.Menus
                 // check if thnail visible and in range. If so, start displaying it (fade in)
                 if (!th.Visible && cursor.GameletInRange(th))
                 {
-                    th.Visible = true;
+                    th.Enable();
                     th.Intensity = 0f;
                     th.FadeToTarget(1.0f, 4.3f);
                 }

@@ -16,6 +16,10 @@ namespace IndiegameGarden.Download
     public class ThumbnailDownloader: BaseDownloader
     {
         IndieGame game;
+        /// <summary>
+        /// a lock object to ensure one download at a time takes place.
+        /// </summary>
+        static Object downloadingToken = new Object();
 
         /// <summary>
         /// construct a new thumbnail downloader for game; downloading from default server
@@ -32,7 +36,10 @@ namespace IndiegameGarden.Download
             string filename = GardenGame.Instance.Config.GetThumbnailFilename(game);
             string urlDl = GardenGame.Instance.Config.GetThumbnailURL(game);
             string toLocalFolder = GardenGame.Instance.Config.ThumbnailsFolder;
-            InternalDoDownload(urlDl, filename, toLocalFolder, true);
+            //lock (downloadingToken)
+            {
+                InternalDoDownload(urlDl, filename, toLocalFolder, true);
+            }
         }
 
     }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NetServ.Net.Json;
 
 namespace IndiegameGarden.Base
 {
@@ -25,8 +26,11 @@ namespace IndiegameGarden.Base
         {
             // NOTE DataPath should be set FIRST of all.
             DataPath = "..\\..\\..\\..\\.."; // for testing in Visual Studio
+            //DataPath = "..\\.."; // for deployment version when embedded in games folder
             //DataPath = "."; // for deployment version
 
+            GardenID = "34729384298374238";
+            ServerMsg = "";
             ConfigFilesFolder = GetFolder("config");
             PackedFilesFolder = GetFolder("zips");
             UnpackedFilesFolder = GetFolder("games");
@@ -43,17 +47,28 @@ namespace IndiegameGarden.Base
 
         private void LoadJson()
         {
-            try{
-                cfg = new JSONStore( ConfigFilesFolder + "\\" + StorageConfigFilename );
-            }
-            catch(Exception)
-            {
-                ;
-                // TODO
-            }
+            cfg = new JSONStore( ConfigFilesFolder + "\\" + StorageConfigFilename );
+                
+            // get values from json config
+            try { GameLibraryFilename = cfg.GetString("GameLibraryFilename"); }
+            catch (Exception) { ; };
+            try { ThumbnailsServerURL = cfg.GetString("ThumbnailsServerURL"); }
+            catch (Exception) { ; };
+            try { ConfigFilesServerURL = cfg.GetString("ConfigFilesServerURL"); }
+            catch (Exception) { ; };
+            try { PackedFilesServerURL = cfg.GetString("PackedFilesServerURL"); }
+            catch (Exception) { ; };
+            try { GardenID = cfg.GetString("Garden"); }
+            catch (Exception) { ; };
+            try { ServerMsg = cfg.GetString("ServerMsg"); }
+            catch (Exception) { ; };
         }
 
         // TODO document the fields below
+
+        public string GardenID { get; set; }
+
+        public string ServerMsg { get; set; }
 
         /// <summary>
         /// a folder path, abs or rel, pointing to the location where all below defined data folders are present

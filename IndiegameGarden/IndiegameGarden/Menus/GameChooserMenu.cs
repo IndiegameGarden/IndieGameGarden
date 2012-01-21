@@ -39,7 +39,6 @@ namespace IndiegameGarden.Menus
         /// </summary>
         public GameChooserMenu(): base(new StateBrowsingMenu())
         {
-            SetNextState(new StateBrowsingMenu());
             panel = new GardenGamesPanel(this);
             panel.Position = new Vector2(0.0f, 0.0f);
 
@@ -159,8 +158,8 @@ namespace IndiegameGarden.Menus
                 if ( (launcher == null || launcher.IsFinished() == true) &&
                      (launchGameThread == null || launchGameThread.IsFinished()) )
                 {
-                    // set state of menu to 'game playing state'
-                    SetNextState(new StatePlayingGame());
+                    // set state of game to 'game playing state'
+                    GardenGame.Instance.TreeRoot.SetNextState(new StatePlayingGame());
 
                     launcher = new GameLauncherTask(g);
                     launchGameThread = new ThreadedTask(launcher);
@@ -176,7 +175,7 @@ namespace IndiegameGarden.Menus
         void taskThread_TaskFinishedEvent(object sender)
         {
             // set menu state back to 'menu viewing' state
-            SetNextState(new StateBrowsingMenu() );
+            GardenGame.Instance.TreeRoot.SetNextState(new StateBrowsingMenu() );
         }
 
         protected override void OnUpdate(ref UpdateParams p)

@@ -157,6 +157,7 @@
     <Compile Include="Menus\GameChooserMenu.cs" />
     <Compile Include="Menus\GameThumbnailCursor.cs" />
     <Compile Include="Menus\GardenGamesPanel.cs" />
+    <Compile Include="Menus\LoadingText.cs" />
     <Compile Include="Menus\MovingEffectSpritelet.cs" />
     <Compile Include="Menus\ProgressBar.cs" />
     <Compile Include="Base\GameCollection.cs" />
