@@ -16,7 +16,7 @@ namespace IndiegameGarden.Menus
         public LoadingText()
         {
             tbox = new GameTextBox("Loading...");
-            tbox.Position = new Microsoft.Xna.Framework.Vector2(0.45f, 0.5f);
+            tbox.Position = new Microsoft.Xna.Framework.Vector2(0.15f, 0.15f);
             Add(tbox);
         }
 
@@ -31,7 +31,7 @@ namespace IndiegameGarden.Menus
             else if (!isFirstDraw)
             {
                 // disable text drawing after first draw.
-                //tbox.Active = false; 
+                tbox.Active = false; 
             }
         }
     }

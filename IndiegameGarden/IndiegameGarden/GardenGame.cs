@@ -102,6 +102,7 @@ namespace IndiegameGarden
             loadingScreen = new Screenlet(preferredWindowWidth, preferredWindowHeight);
             TTengineMaster.ActiveScreen = loadingScreen;
             loadingScreen.ActiveInState = new StatePlayingGame();
+            loadingScreen.Alpha = 0f; // set transparent bg
             Gamelet loadingText = new LoadingText();
             loadingScreen.Add(loadingText);
 
@@ -175,9 +176,12 @@ namespace IndiegameGarden
             // then buffer drawing on screen at right positions                        
             GraphicsDevice.SetRenderTarget(null); // TODO
             //GraphicsDevice.Clear(Color.Black);
-            Rectangle destRect = new Rectangle(0, 0, mainScreen.RenderTarget.Width, mainScreen.RenderTarget.Height);
+            Screenlet visibleScreen = mainScreen;
+            if (TreeRoot.IsInState(new StatePlayingGame()))
+                visibleScreen = loadingScreen;
+            Rectangle destRect = new Rectangle(0, 0, visibleScreen.RenderTarget.Width, visibleScreen.RenderTarget.Height);
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
-            spriteBatch.Draw(mainScreen.RenderTarget, destRect, Color.White);
+            spriteBatch.Draw(visibleScreen.RenderTarget, destRect, Color.White);
             spriteBatch.End();
 
             // then draw other (if any) game components on the screen
