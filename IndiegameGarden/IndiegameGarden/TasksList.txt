@@ -2,8 +2,9 @@
 
 OPEN  [top issues first]
 
-No drawing when loading or playing a game.
 Downloader progress for .exe file not showing correct percentages?
+Downloader bar may show current download speed or activity (kB/s?)
+No drawing when loading or playing a game.
 Mouse should be shown when loading a game.
 Text obstructed by thumbnails.
 Only hide gameinfo panel when a cursor key or esc is pressed
