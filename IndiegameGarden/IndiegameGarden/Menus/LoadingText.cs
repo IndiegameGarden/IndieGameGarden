@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 using TTengine.Core;
 
@@ -26,13 +27,15 @@ namespace IndiegameGarden.Menus
 
             if (isFirstDraw)
             {
+                Screen.graphicsDevice.Clear(Color.Black);
                 isFirstDraw = false;
             }
             else if (!isFirstDraw)
             {
                 // disable text drawing after first draw.
-                tbox.Active = false; 
+                //tbox.Active = false; 
             }
         }
+
     }
 }

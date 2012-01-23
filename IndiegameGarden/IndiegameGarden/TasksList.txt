@@ -2,10 +2,7 @@
 
 OPEN  [top issues first]
 
-Downloader progress for .exe file not showing correct percentages?
-Downloader bar may show current download speed or activity (kB/s?)
 No drawing when loading or playing a game.
-Mouse should be shown when loading a game.
 Text obstructed by thumbnails.
 Only hide gameinfo panel when a cursor key or esc is pressed
 Zoom out returning to menu after having played a game
@@ -28,6 +25,9 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
+2012-01-23 Mouse should be shown when loading a game.
+2012-01-23 Graphics/window now sized to cover entire desktop
+2012-01-22 Downloader progress for .exe file not showing correct percentages?
 2012-01-21 Program itself located in a versioned folder in 'games'; Launcher app finds latest IGG .exe in local datastore.
 2012-01-21 Configuration loading from json file (was not impl)
 2012-01-20 Thumbnail downloads: limit to only items displayed at the time; for more even load distribution.

@@ -12,6 +12,10 @@ namespace IndiegameGarden.Base
      */
     public class StateBrowsingMenu: State
     {
+        public override void OnEntry(Gamelet g)
+        {
+            GardenGame.Instance.IsMouseVisible = false;
+        }
     }
 
     /**
@@ -19,6 +23,15 @@ namespace IndiegameGarden.Base
      */
     public class StatePlayingGame : State
     {
+        public override void OnEntry(Gamelet g)
+        {
+            GardenGame.Instance.IsMouseVisible = true;
+        }
+
+        public override void OnExit(Gamelet g)
+        {
+            GardenGame.Instance.IsMouseVisible = false;
+        }
     }
 
 }

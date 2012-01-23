@@ -61,12 +61,12 @@ namespace IndiegameGarden
 
         // --- internal + TTengine related
         GraphicsDeviceManager graphics;
-        int preferredWindowWidth = 1280; //1024; //1280; //1440; //1280;
-        int preferredWindowHeight = 768; //768; //720; //900; //720;
         Screenlet mainScreen;
         Screenlet loadingScreen;        
         SpriteBatch spriteBatch;
         HttpFtpProtocolExtension myDownloaderProtocol;
+        int myWindowWidth = 1280; //1024; //1280; //1440; //1280;
+        int myWindowHeight = 768; //768; //720; //900; //720;
 
         #region Constructors
         public GardenGame()
@@ -79,15 +79,12 @@ namespace IndiegameGarden
 
             // basic XNA graphics init here (before Initialize() and LoadContent() )
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = preferredWindowWidth;
-            graphics.PreferredBackBufferHeight = preferredWindowHeight;            
-#if RELEASE
-            graphics.IsFullScreen = true;
-#else
+            myWindowWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            myWindowHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            graphics.PreferredBackBufferWidth = myWindowWidth;
+            graphics.PreferredBackBufferHeight = myWindowHeight;
             graphics.IsFullScreen = false;
-#endif
-            this.IsFixedTimeStep = false;
-            
+            this.IsFixedTimeStep = false;            
             graphics.SynchronizeWithVerticalRetrace = true;
         }
         #endregion
@@ -96,18 +93,20 @@ namespace IndiegameGarden
         {
             Exception initError = null;
 
+            // more graphics init
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // loading screen
-            loadingScreen = new Screenlet(preferredWindowWidth, preferredWindowHeight);
+            loadingScreen = new Screenlet(myWindowWidth, myWindowHeight);
             TTengineMaster.ActiveScreen = loadingScreen;
             loadingScreen.ActiveInState = new StatePlayingGame();
-            loadingScreen.Alpha = 0f; // set transparent bg
+            //loadingScreen.Alpha = 0f; // set transparent bg
+            loadingScreen.DrawColor = Color.Transparent;
             Gamelet loadingText = new LoadingText();
             loadingScreen.Add(loadingText);
 
             // from here on, main screen
-            mainScreen = new Screenlet(preferredWindowWidth, preferredWindowHeight);
+            mainScreen = new Screenlet(myWindowWidth, myWindowHeight);
             TTengineMaster.ActiveScreen = mainScreen;
             mainScreen.ActiveInState = new StateBrowsingMenu();
             TreeRoot = new FixedTimestepPhysics();
