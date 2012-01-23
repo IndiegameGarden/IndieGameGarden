@@ -100,8 +100,7 @@ namespace IndiegameGarden
             loadingScreen = new Screenlet(myWindowWidth, myWindowHeight);
             TTengineMaster.ActiveScreen = loadingScreen;
             loadingScreen.ActiveInState = new StatePlayingGame();
-            //loadingScreen.Alpha = 0f; // set transparent bg
-            loadingScreen.DrawColor = Color.Transparent;
+            loadingScreen.DrawColor = Color.Black;
             Gamelet loadingText = new LoadingText();
             loadingScreen.Add(loadingText);
 

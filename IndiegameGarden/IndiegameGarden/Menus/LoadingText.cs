@@ -27,13 +27,13 @@ namespace IndiegameGarden.Menus
 
             if (isFirstDraw)
             {
-                Screen.graphicsDevice.Clear(Color.Black);
                 isFirstDraw = false;
             }
             else if (!isFirstDraw)
             {
                 // disable text drawing after first draw.
                 //tbox.Active = false; 
+                GardenGame.Instance.SuppressDraw();
             }
         }
 

@@ -2,17 +2,16 @@
 
 OPEN  [top issues first]
 
-No drawing when loading or playing a game.
 Text obstructed by thumbnails.
 Only hide gameinfo panel when a cursor key or esc is pressed
 Zoom out returning to menu after having played a game
 Version number included in .zip file name and in game folder (to test)
 Test .zip/.rar progress bars for unpacking
-Test launcher in fullscreen mode
+Update loading screen: show title, show an animation, revert to 'playing' after some seconds (if window handle can be found to game??)
+     show igg information. 
 Download config with unique client id from cloud server
 Add image-display-only thumbnails (that do not execute)
-Display a message when launching starts
-  Display a progress bar when launching starts with bar speed set by config file
+Display a progress bar when launching starts with bar speed set by config file
 Put loader threads in lower priority
 Allow loading of config from server (where config includes URL/mirror locations etc)
 Add default mirror of own server to all game downloads, where name on server equals the local zipfilename
@@ -25,8 +24,10 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
+2012-01-23 No drawing when loading or playing a game, use suppressdraw
+2012-01-23 Display a message when launching starts; black background
 2012-01-23 Mouse should be shown when loading a game.
-2012-01-23 Graphics/window now sized to cover entire desktop
+2012-01-23 Graphics/window now sized to cover entire desktop ; Test launcher in fullscreen mode
 2012-01-22 Downloader progress for .exe file not showing correct percentages?
 2012-01-21 Program itself located in a versioned folder in 'games'; Launcher app finds latest IGG .exe in local datastore.
 2012-01-21 Configuration loading from json file (was not impl)
