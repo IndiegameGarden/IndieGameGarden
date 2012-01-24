@@ -37,9 +37,9 @@ namespace IndiegameGarden.Menus
         public const float PANEL_ZOOM_SPEED_QUITTING = 0.005f;
         public const float PANEL_ZOOM_SPEED_ABORTQUITTING = 0.05f;
 
-        public const float CURSOR_SCALE_REGULAR = 0.95f; //5.9375f;
-        public const float THUMBNAIL_SCALE_UNSELECTED = 0.28f; //1.5625f;
-        public const float THUMBNAIL_SCALE_SELECTED = 0.35f; //2f;
+        public const float CURSOR_SCALE_REGULAR = 0.60f; //5.9375f;
+        public const float THUMBNAIL_SCALE_UNSELECTED = 0.54f; //1.5625f;
+        public const float THUMBNAIL_SCALE_SELECTED = 0.65f; //2f;
         public const float THUMBNAIL_SCALE_SELECTED1 = 2.857f;
         static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f, 0.85f);
         static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.95f);
@@ -47,12 +47,13 @@ namespace IndiegameGarden.Menus
         const float TIME_BEFORE_GAME_LAUNCH = 0.7f;
         const float TIME_BEFORE_EXIT = 0.9f;
 
+        /// <summary>
+        /// my motion behavior controls
+        /// </summary>
+        public MotionBehavior MotionB;
+
         // maximum sizes of grid
         public double GridMaxX=32, GridMaxY=32;
-
-        // zoom, scale etc. related vars for panel
-        public float ZoomTarget = 1.0f;
-        public float ZoomSpeed = 0f;
 
         Dictionary<string, GameThumbnail> thumbnailsCache = new Dictionary<string, GameThumbnail>();
         
@@ -74,6 +75,8 @@ namespace IndiegameGarden.Menus
         public GardenGamesPanel(GameChooserMenu parent)
         {
             parentMenu = parent;
+            MotionB = new MotionBehavior();
+            Add(MotionB);
 
             // cursor
             cursor = new GameThumbnailCursor();
@@ -150,7 +153,7 @@ namespace IndiegameGarden.Menus
                 /*
                 ZoomTarget = THUMBNAIL_SCALE_SELECTED1 * (1+timeLaunching);
                 ZoomCenter = thumbnailsCache[SelectedGame.GameID].PositionAbs;
-                ZoomSpeed = 0.01f;
+                MotionB.ZoomSpeed = 0.01f;
                  */
                 th = thumbnailsCache[SelectedGame.GameID];
                 th.Motion.ScaleModifier *= (1 + timeLaunching); // blow up size of thumbnail while user requests launch
@@ -183,20 +186,6 @@ namespace IndiegameGarden.Menus
             else
             {
                 timeExiting = 0f;
-            }
-
-            // handle dynamic zooming
-            if (Motion.Zoom < ZoomTarget && ZoomSpeed > 0f)
-            {
-                Motion.Zoom *= (1.0f + ZoomSpeed);
-                if (Motion.Zoom > ZoomTarget)
-                    Motion.Zoom = ZoomTarget;
-            }
-            else if (Motion.Zoom > ZoomTarget && ZoomSpeed > 0f)
-            {
-                Motion.Zoom /= (1.0f + ZoomSpeed);
-                if (Motion.Zoom < ZoomTarget)
-                    Motion.Zoom = ZoomTarget;
             }
 
             //-- loop all games adapt their display properties where needed
@@ -347,15 +336,15 @@ namespace IndiegameGarden.Menus
                 case UserInput.START_EXIT:
                     isExiting = true;
                     selectionLevel = 0;
-                    ZoomTarget = PANEL_ZOOM_TARGET_QUITTING ;
-                    ZoomSpeed = PANEL_ZOOM_SPEED_QUITTING ;
+                    MotionB.ZoomTarget = PANEL_ZOOM_TARGET_QUITTING ;
+                    MotionB.ZoomSpeed = PANEL_ZOOM_SPEED_QUITTING ;
                     break;
                 
                 case UserInput.STOP_EXIT:
                     isExiting = false;
                     selectionLevel = 0;
-                    ZoomTarget = PANEL_ZOOM_REGULAR;
-                    ZoomSpeed = PANEL_ZOOM_SPEED_ABORTQUITTING ;
+                    MotionB.ZoomTarget = PANEL_ZOOM_REGULAR;
+                    MotionB.ZoomSpeed = PANEL_ZOOM_SPEED_ABORTQUITTING ;
                     break;
 
                 case UserInput.START_SELECT:
@@ -368,9 +357,9 @@ namespace IndiegameGarden.Menus
                             {
                                 case 0:
                                     // select once - zoom in on selected game
-                                    ZoomTarget = THUMBNAIL_SCALE_SELECTED1;
+                                    MotionB.ZoomTarget = THUMBNAIL_SCALE_SELECTED1;
                                     Motion.ZoomCenter = th.Motion.PositionAbs;
-                                    ZoomSpeed = 0.05f;
+                                    MotionB.ZoomSpeed = 0.05f;
                                     infoBox.MotionB.Target = INFOBOX_SHOWN_POSITION;
                                     infoBox.MotionB.TargetSpeed = INFOBOX_SPEED_MOVE;
                                     selectionLevel++;

@@ -2,7 +2,7 @@
 
 OPEN  [top issues first]
 
-Fix all layout bugs introduced by version 2.x TTengine.
+Cursor should have no black interior rectangle
 Text obstructed by thumbnails.
 Loading icon should have no black border.
 Only hide gameinfo panel when a cursor key or esc is pressed
@@ -26,6 +26,7 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
+2012-01-24 Move code to TTengine v2.0 style. Fix all layout bugs introduced by version 2.x TTengine.
 2012-01-23 No drawing when loading or playing a game, use suppressdraw
 2012-01-23 Display a message when launching starts; black background
 2012-01-23 Mouse should be shown when loading a game.

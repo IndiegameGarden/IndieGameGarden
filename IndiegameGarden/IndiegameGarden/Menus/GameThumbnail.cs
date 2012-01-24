@@ -148,7 +148,7 @@ namespace IndiegameGarden.Menus
         {
             base.OnUpdate(ref p);
 
-            Motion.ScaleModifier *= 2.0f;
+            //Motion.ScaleModifier *= 2.0f;
 
             // animation of loading
             if (!isLoaded)

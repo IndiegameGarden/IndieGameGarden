@@ -109,7 +109,7 @@ namespace IndiegameGarden.Download
                                                         ResourceLocation.FromURLArray(mirrors), 
                                                         localFile, 3, true);
             downloader.WaitForConclusion();
-            if (downloader.State.Equals(DownloaderState.EndedWithError))
+            if (downloader==null || downloader.State.Equals(DownloaderState.EndedWithError))
                 status = ITaskStatus.FAIL;
             else
                 status = ITaskStatus.SUCCESS;

@@ -54,7 +54,7 @@ namespace IndiegameGarden.Menus
             Spritelet bg = new Spritelet("flower");
             bg.Motion.Position = new Vector2(0.66667f, 0.5f);
             bg.DrawInfo.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
-            bg.Add(new MyFuncyModifier( delegate(float v) { return v/25.0f; }, "Rotate"));
+            bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/25.0f; }, "Rotate")); // FIXME properties no work
             Add(bg);
 
         }

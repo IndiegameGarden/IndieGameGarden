@@ -35,6 +35,11 @@ namespace IndiegameGarden.Menus
         /// </summary>
         public float ScaleSpeed = 0f;
 
+        // zoom, scale etc. related vars for panel
+        public float ZoomTarget = 1.0f;
+
+        public float ZoomSpeed = 0f;
+
         protected override void OnNewParent()
         {
             base.OnNewParent();
@@ -52,28 +57,54 @@ namespace IndiegameGarden.Menus
             // handle scaling over time
             ScaleToTarget(ScaleTarget, ScaleSpeed, 0.01f);
 
+            // handle dynamic zooming
+            ZoomToTarget();
+        }
+
+        private void ZoomToTarget()
+        {
+            // handle dynamic zooming
+            if (ZoomSpeed > 0f)
+            {
+                if (Motion.Zoom < ZoomTarget)
+                {
+                    Motion.Zoom *= (1.0f + ZoomSpeed);
+                    if (Motion.Zoom > ZoomTarget)
+                        Motion.Zoom = ZoomTarget;
+                }
+                else if (Motion.Zoom > ZoomTarget)
+                {
+                    Motion.Zoom /= (1.0f + ZoomSpeed);
+                    if (Motion.Zoom < ZoomTarget)
+                        Motion.Zoom = ZoomTarget;
+                }
+            }
         }
 
         // scaling logic during OnUpdate()
         private void ScaleToTarget(float targetScale, float spd, float spdMin)
         {
-            if (Motion.Scale < targetScale)
+            if (spd > 0)
             {
-                Motion.Scale += spdMin + spd * (targetScale - Motion.Scale); //*= 1.01f;
-                if (Motion.Scale > targetScale)
-                {
-                    Motion.Scale = targetScale;
-                }
-            }
-            else if (Motion.Scale > targetScale)
-            {
-                Motion.Scale += -spdMin + spd * (targetScale - Motion.Scale); //*= 1.01f;
                 if (Motion.Scale < targetScale)
                 {
-                    Motion.Scale = targetScale;
+                    Motion.Scale += spdMin + spd * (targetScale - Motion.Scale); //*= 1.01f;
+                    if (Motion.Scale > targetScale)
+                    {
+                        Motion.Scale = targetScale;
+                    }
                 }
+                else if (Motion.Scale > targetScale)
+                {
+                    Motion.Scale += -spdMin + spd * (targetScale - Motion.Scale); //*= 1.01f;
+                    if (Motion.Scale < targetScale)
+                    {
+                        Motion.Scale = targetScale;
+                    }
+                }
+                if (DrawInfo != null)
+                    DrawInfo.LayerDepth = 0.8f - Motion.Scale / 1000.0f;
             }
-            DrawInfo.LayerDepth = 0.8f - Motion.Scale / 1000.0f;
         }
 
     }
