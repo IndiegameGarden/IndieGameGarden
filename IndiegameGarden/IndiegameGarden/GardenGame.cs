@@ -100,7 +100,7 @@ namespace IndiegameGarden
             loadingScreen = new Screenlet(myWindowWidth, myWindowHeight);
             TTengineMaster.ActiveScreen = loadingScreen;
             loadingScreen.ActiveInState = new StatePlayingGame();
-            loadingScreen.DrawColor = Color.Black;
+            loadingScreen.DrawInfo.DrawColor = Color.Black;
             Gamelet loadingText = new LoadingText();
             loadingScreen.Add(loadingText);
 
@@ -115,7 +115,7 @@ namespace IndiegameGarden
             TreeRoot.Add(loadingScreen);
             mainScreen.Add(new FrameRateCounter(1.0f, 0f)); // TODO
             mainScreen.Add(new ScreenZoomer()); // TODO remove
-            mainScreen.DrawColor = Color.Black;
+            mainScreen.DrawInfo.DrawColor = Color.Black;
 
             // MyDownloader Config
             myDownloaderProtocol = new HttpFtpProtocolExtension();

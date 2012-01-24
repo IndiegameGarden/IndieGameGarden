@@ -27,7 +27,7 @@ namespace IndiegameGarden.Menus
         protected override void OnNewParent()
         {
             base.OnNewParent();
-            layerDepthOld = Parent.LayerDepth;
+            layerDepthOld = Parent.DrawInfo.LayerDepth;
             //Parent.LayerDepth = layerDepthWhileMoving;
         }
 
@@ -36,7 +36,7 @@ namespace IndiegameGarden.Menus
             base.OnUpdate(ref p);
 
             Vector2 posDelta = new Vector2( ampl * (float)Math.Sin( MathHelper.TwoPi * 0.5f/moveDuration * SimTime ) , 0f);
-            Parent.PositionModifier += posDelta;
+            Parent.Motion.PositionModifier += posDelta;
 
             if (SimTime >= moveDuration)
             {

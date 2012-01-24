@@ -15,14 +15,17 @@ namespace IndiegameGarden.Menus
     /**
      * a cursor hovering over game thumbnails to select them
      */
-    public class GameThumbnailCursor: MovingEffectSpritelet
+    public class GameThumbnailCursor: EffectSpritelet
     {
+        public MotionBehavior MotionB;
         public Vector2 GridPosition = Vector2.Zero;        
 
         public GameThumbnailCursor()
             : base("WhiteTexture","GameThumbnailCursor")
         {
-            LayerDepth = 0f;
+            DrawInfo.LayerDepth = 0f;
+            MotionB = new MotionBehavior();
+            Add(MotionB);
         }
 
         /// <summary>
@@ -32,7 +35,7 @@ namespace IndiegameGarden.Menus
         /// <returns>true if in range</returns>
         public bool GameletInRange(Gamelet g)
         {
-            float d = (g.Position - this.Position).Length();
+            float d = (g.Motion.Position - this.Motion.Position).Length();
             if (d < 0.3)
                 return true;
             return false;
@@ -45,8 +48,8 @@ namespace IndiegameGarden.Menus
         /// <param name="g"></param>
         public void SetToGame(IndieGame g)
         {
-            Target = g.Position;
-            TargetSpeed = 4f;
+            MotionB.Target = g.Position;
+            MotionB.TargetSpeed = 4f;
         }
 
     }

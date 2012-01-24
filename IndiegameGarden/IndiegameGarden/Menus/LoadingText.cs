@@ -9,7 +9,7 @@ using TTengine.Core;
 
 namespace IndiegameGarden.Menus
 {
-    public class LoadingText: Gamelet
+    public class LoadingText: Drawlet
     {
         bool isFirstDraw = true;
         GameTextBox tbox;
@@ -17,7 +17,7 @@ namespace IndiegameGarden.Menus
         public LoadingText()
         {
             tbox = new GameTextBox("Loading...");
-            tbox.Position = new Microsoft.Xna.Framework.Vector2(0.15f, 0.15f);
+            tbox.Motion.Position = new Microsoft.Xna.Framework.Vector2(0.15f, 0.15f);
             Add(tbox);
         }
 

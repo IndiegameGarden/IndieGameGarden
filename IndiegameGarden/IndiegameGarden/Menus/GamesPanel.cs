@@ -11,7 +11,7 @@ namespace IndiegameGarden.Menus
     /// <summary>
     /// a parent class for any panels displaying a list of games selectable by user
     /// </summary>
-    public abstract class GamesPanel: Gamelet
+    public abstract class GamesPanel: Drawlet
     {
 
         public enum UserInput { LEFT, RIGHT, UP, DOWN, START_EXIT, STOP_EXIT, START_SELECT, STOP_SELECT };
@@ -37,6 +37,10 @@ namespace IndiegameGarden.Menus
                     OnChangedSelectedGame(value, selectedGame);
                 selectedGame = value;
             }
+        }
+
+        public GamesPanel()
+        {
         }
 
         /// <summary>

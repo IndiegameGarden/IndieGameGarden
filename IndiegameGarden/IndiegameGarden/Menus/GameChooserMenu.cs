@@ -19,7 +19,7 @@ namespace IndiegameGarden.Menus
     /// <summary>
     /// main menu to choose a game; uses a GamePanel to delegate thumbnail rendering and navigation to
     /// </summary>
-    public class GameChooserMenu: Gamelet
+    public class GameChooserMenu: Drawlet
     {
         const double MIN_MENU_CHANGE_DELAY = 0.2f; 
         
@@ -37,10 +37,11 @@ namespace IndiegameGarden.Menus
         /// <summary>
         /// construct new menu
         /// </summary>
-        public GameChooserMenu(): base(new StateBrowsingMenu())
+        public GameChooserMenu()
         {
+            ActiveInState = new StateBrowsingMenu();
             panel = new GardenGamesPanel(this);
-            panel.Position = new Vector2(0.0f, 0.0f);
+            panel.Motion.Position = new Vector2(0.0f, 0.0f);
 
             // get the items to display
             gamesList = GardenGame.Instance.GameLib.GetList();
@@ -51,8 +52,8 @@ namespace IndiegameGarden.Menus
 
             // background
             Spritelet bg = new Spritelet("flower");
-            bg.Position = new Vector2(0.66667f, 0.5f);
-            bg.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
+            bg.Motion.Position = new Vector2(0.66667f, 0.5f);
+            bg.DrawInfo.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
             bg.Add(new MyFuncyModifier( delegate(float v) { return v/25.0f; }, "Rotate"));
             Add(bg);
 

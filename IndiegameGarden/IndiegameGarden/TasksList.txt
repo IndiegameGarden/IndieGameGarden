@@ -2,7 +2,9 @@
 
 OPEN  [top issues first]
 
+Fix all layout bugs introduced by version 2.x TTengine.
 Text obstructed by thumbnails.
+Loading icon should have no black border.
 Only hide gameinfo panel when a cursor key or esc is pressed
 Zoom out returning to menu after having played a game
 Version number included in .zip file name and in game folder (to test)

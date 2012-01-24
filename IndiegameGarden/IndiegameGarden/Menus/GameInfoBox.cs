@@ -14,8 +14,9 @@ namespace IndiegameGarden.Menus
     /// <summary>
     /// A box showing game information, download status, helpful messages etc.
     /// </summary>
-    public class GameInfoBox: MovingEffectSpritelet
+    public class GameInfoBox: Drawlet
     {
+        public MotionBehavior MotionB;
         ProgressBar dlProgressBar;
         GameTextBox textBox;
         IndieGame game;
@@ -28,13 +29,16 @@ namespace IndiegameGarden.Menus
 
         private void InitComponents()
         {
+            MotionB = new MotionBehavior();
+            Add(MotionB);
+
             dlProgressBar = new ProgressBar();
-            dlProgressBar.Position = new Vector2(0.55f, 0.04f);
+            dlProgressBar.Motion.Position = new Vector2(0.55f, 0.04f);
             dlProgressBar.Visible = false;
             Add(dlProgressBar);
 
             textBox = new GameTextBox("");
-            textBox.Position = new Vector2(0.0f, 0.0f);
+            textBox.Motion.Position = new Vector2(0.0f, 0.0f);
             Add(textBox);
         }
 

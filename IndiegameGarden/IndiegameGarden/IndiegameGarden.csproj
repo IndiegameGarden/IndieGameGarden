@@ -148,6 +148,7 @@
     <Compile Include="Download\ThumbnailDownloader.cs" />
     <Compile Include="Install\GameDownloadAndInstallTask.cs" />
     <Compile Include="Install\InstallTask.cs" />
+    <Compile Include="Menus\ColorChangeBehavior.cs" />
     <Compile Include="Menus\DodgeSidewaysBehavior.cs" />
     <Compile Include="Menus\GameInfoBox.cs" />
     <Compile Include="Base\GameLauncherTask.cs" />
@@ -158,7 +159,7 @@
     <Compile Include="Menus\GameThumbnailCursor.cs" />
     <Compile Include="Menus\GardenGamesPanel.cs" />
     <Compile Include="Menus\LoadingText.cs" />
-    <Compile Include="Menus\MovingEffectSpritelet.cs" />
+    <Compile Include="Menus\MotionBehavior.cs" />
     <Compile Include="Menus\ProgressBar.cs" />
     <Compile Include="Base\GameCollection.cs" />
     <Compile Include="Base\GameFilter.cs" />

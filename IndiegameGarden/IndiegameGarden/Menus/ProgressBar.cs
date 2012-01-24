@@ -74,18 +74,18 @@ namespace IndiegameGarden.Menus
 
         protected override void OnDraw(ref DrawParams p)
         {
-            Vector2 pos = DrawPosition;
+            Vector2 pos = DrawInfo.DrawPosition;
             double progressValuePercent = 100 * progressValue;
-            int width = 1 + (int) Math.Round(ToPixels(WidthAbs) * progressValue);
+            int width = 1 + (int)Math.Round(ToPixels(DrawInfo.WidthAbs) * progressValue);
             if (width > Texture.Width) width = Texture.Width;
 
             Rectangle srcRect = new Rectangle(0, 0, width, Texture.Height);
-            Screen.UseSharedSpritebatch().Draw(Texture, pos, srcRect, DrawColor,
-                    this.RotateAbs, Vector2.Zero, 1.0f, SpriteEffects.None, LayerDepth);
+            MySpriteBatch.Draw(Texture, pos, srcRect, DrawInfo.DrawColor,
+                            Motion.RotateAbs, Vector2.Zero, 1.0f, SpriteEffects.None, DrawInfo.LayerDepth);
 
             // plot text percentage
             Vector2 tpos = pos + new Vector2(width, Texture.Height / 2.0f - 10.0f) ;
-            Screen.UseSharedSpritebatch().DrawString(spriteFont, String.Format("{0,3}%", Math.Round(progressValuePercent)), tpos, textColor);
+            MySpriteBatch.DrawString(spriteFont, String.Format("{0,3}%", Math.Round(progressValuePercent)), tpos, textColor);
         }
 
     }

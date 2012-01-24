@@ -19,8 +19,18 @@ namespace IndiegameGarden.Menus
     /// <summary>
     /// A thumbnail showing a single game, with auto-loading and downloading of image data.
     /// </summary>
-    public class GameThumbnail: MovingEffectSpritelet
+    public class GameThumbnail: EffectSpritelet
     {
+        /// <summary>
+        /// my motion behavior controls
+        /// </summary>
+        public MotionBehavior MotionB;
+
+        /// <summary>
+        /// my color change behavior
+        /// </summary>
+        public ColorChangeBehavior ColorB;
+
         /// <summary>
         /// ID of game for which this thumbnail is
         /// </summary>
@@ -84,7 +94,11 @@ namespace IndiegameGarden.Menus
         public GameThumbnail(IndieGame game)
             : base(DefaultTexture,"GameThumbnail")
         {
-            Scale = GardenGamesPanel.THUMBNAIL_SCALE_UNSELECTED;
+            MotionB = new MotionBehavior();
+            ColorB = new ColorChangeBehavior();
+            Add(MotionB);
+            Add(ColorB);
+            Motion.Scale = GardenGamesPanel.THUMBNAIL_SCALE_UNSELECTED;
             this.GameID = game.GameID;
             this.Game = game;
             this.ThumbnailFilename = GardenGame.Instance.Config.GetThumbnailFilepath(game); 
@@ -134,12 +148,12 @@ namespace IndiegameGarden.Menus
         {
             base.OnUpdate(ref p);
 
-            ScaleModifier *= 2.0f;
+            Motion.ScaleModifier *= 2.0f;
 
             // animation of loading
             if (!isLoaded)
             {
-                RotateModifier += p.simTime;
+                Motion.RotateModifier += p.simTime;
             }
 
             // check if a new texture has been loaded in background
