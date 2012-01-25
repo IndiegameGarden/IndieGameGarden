@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using TTengine.Core;
 
 using IndiegameGarden.Base;
@@ -25,6 +26,7 @@ namespace IndiegameGarden.Menus
             : base()
         {
             InitComponents();
+            MySpriteBatch = new SpriteBatch(Screen.graphicsDevice);
         }
 
         private void InitComponents()

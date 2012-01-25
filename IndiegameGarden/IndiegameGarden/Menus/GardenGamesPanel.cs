@@ -62,7 +62,7 @@ namespace IndiegameGarden.Menus
 
         // box showing info of a game such as title and download progressContributionSingleFile
         GameInfoBox infoBox;
-        
+
         // UI related vars - related to whether user indicates to quit program or user cancelled this
         bool isExiting = false;
         bool isGameLaunchOngoing = false;
@@ -85,11 +85,9 @@ namespace IndiegameGarden.Menus
             Motion.Zoom = PANEL_ZOOM_REGULAR;
             //cursor.Visible = false;
 
-            // info box
+            // info box - will be added to parent upon OnNewParent() event
             infoBox = new GameInfoBox();
             infoBox.Motion.Position = INFOBOX_HIDDEN_POSITION;
-            parent.Add(infoBox);
-
         }
 
         public override void OnUpdateList(GameCollection gl)
@@ -137,6 +135,12 @@ namespace IndiegameGarden.Menus
             SelectedGame = g;                
         }
 
+        protected override void OnNewParent()
+        {
+            base.OnNewParent();
+            Parent.Add(infoBox);
+        }
+
         protected override void OnUpdate(ref UpdateParams p)
         {
             GameThumbnail th = null;
@@ -149,7 +153,7 @@ namespace IndiegameGarden.Menus
             // handle download/install/launching of a game
             if (isGameLaunchOngoing)
             {
-                timeLaunching += p.dt;
+                timeLaunching += p.Dt;
                 /*
                 ZoomTarget = THUMBNAIL_SCALE_SELECTED1 * (1+timeLaunching);
                 ZoomCenter = thumbnailsCache[SelectedGame.GameID].PositionAbs;
@@ -175,7 +179,7 @@ namespace IndiegameGarden.Menus
             // handle exit key
             if (isExiting)
             {
-                timeExiting += p.dt;
+                timeExiting += p.Dt;
                 if (timeExiting > TIME_BEFORE_EXIT)
                 {
                     GardenGame.Instance.ExitGame();
@@ -202,7 +206,7 @@ namespace IndiegameGarden.Menus
                 {
                     // create now
                     th = new GameThumbnail(g);
-                    Add(th);
+                    Add(0,th);
                     thumbnailsCache.Add(g.GameID, th);
                     //th.Position = new Vector2(RandomMath.RandomBetween(-0.4f,2.0f), RandomMath.RandomBetween(-0.4f,1.4f) );
                     //th.Scale = RandomMath.RandomBetween(0.01f, 0.09f); 
@@ -250,7 +254,7 @@ namespace IndiegameGarden.Menus
                 Vector2 cp = cursor.Motion.PositionAbs;
                 float chw = cursor.DrawInfo.WidthAbs / 2.0f; // cursor-half-width
                 float chh = cursor.DrawInfo.HeightAbs / 2.0f; // cursor-half-height
-                float dx = PANEL_SPEED_SHIFT * p.dt;
+                float dx = PANEL_SPEED_SHIFT * p.Dt;
                 const float xMargin = 0.15f; // TODO into gui props
                 const float yMargin = 0.15f;
                 if (cp.X <= chw + xMargin)

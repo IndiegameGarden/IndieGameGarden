@@ -103,6 +103,11 @@ namespace IndiegameGarden.Menus
             Game = game;
             ThumbnailFilename = GardenGame.Instance.Config.GetThumbnailFilepath(game);
             EffectEnabled = false;
+            // first-time texture init
+            if (DefaultTexture == null)
+            {
+                DefaultTexture = GardenGame.Instance.Content.Load<Texture2D>("ball-supernova2");
+            }
         }
 
         public override void Dispose()
@@ -124,17 +129,6 @@ namespace IndiegameGarden.Menus
             }
         }
         
-        protected override void OnInit()
-        {
-            base.OnInit();
-
-            // first-time texture init
-            if (DefaultTexture == null)
-            {
-                DefaultTexture = GardenGame.Instance.Content.Load<Texture2D>("ball-supernova2");
-            }
-        }
-
         // (re) loads texture from a file and puts in updatedTexture var
         protected void LoadTextureFromFile()
         {
@@ -168,6 +162,11 @@ namespace IndiegameGarden.Menus
                     EffectEnabled = true;
                 }
             }
+        }
+
+        protected override void OnDraw(ref DrawParams p)
+        {
+            base.OnDraw(ref p);
         }
     }
 }

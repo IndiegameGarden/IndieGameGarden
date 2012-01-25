@@ -46,16 +46,16 @@ namespace IndiegameGarden.Menus
             // get the items to display
             gamesList = GardenGame.Instance.GameLib.GetList();
 
-            // set my panel and games list
-            Add(panel);
-            panel.OnUpdateList(gamesList);
-
             // background
             Spritelet bg = new Spritelet("flower");
             bg.Motion.Position = new Vector2(0.66667f, 0.5f);
             bg.DrawInfo.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
             bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/25.0f; }, "Rotate")); // FIXME properties no work
             Add(bg);
+
+            // set my panel and games list
+            Add(panel);
+            panel.OnUpdateList(gamesList);
 
         }
 
@@ -73,7 +73,7 @@ namespace IndiegameGarden.Menus
             KeyboardState st = Keyboard.GetState();
 
             // time bookkeeping
-            float timeSinceLastKeypress = p.simTime - lastKeypressTime;
+            float timeSinceLastKeypress = p.SimTime - lastKeypressTime;
 
             // -- check all relevant key releases
             if (!st.IsKeyDown(Keys.Escape) && wasEscPressed)
@@ -129,7 +129,7 @@ namespace IndiegameGarden.Menus
             }
 
             // (time) bookkeeping for next keypress
-            lastKeypressTime = p.simTime;
+            lastKeypressTime = p.SimTime;
         }
        
         /// <summary>

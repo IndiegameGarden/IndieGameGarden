@@ -62,14 +62,14 @@ namespace IndiegameGarden.Menus
             // handle fading over time
             if (FadeTarget > Intensity)
             {
-                Intensity += FadeSpeed * p.dt;
+                Intensity += FadeSpeed * p.Dt;
                 DrawInfo.Alpha = Intensity;
                 if (FadeTarget < Intensity)
                     Intensity = FadeTarget;
             }
             else if (FadeTarget < Intensity)
             {
-                Intensity -= FadeSpeed * p.dt;
+                Intensity -= FadeSpeed * p.Dt;
                 DrawInfo.Alpha = Intensity;
                 if (FadeTarget > Intensity)
                     Intensity = FadeTarget;

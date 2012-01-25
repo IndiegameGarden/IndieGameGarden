@@ -65,7 +65,7 @@ namespace IndiegameGarden.Menus
             // move level towards the target
             if (progressValue < progressValueTarget)
             {
-                progressValue += ProgressCatchupSpeed * p.dt;
+                progressValue += ProgressCatchupSpeed * p.Dt;
                 if (progressValue > progressValueTarget)
                     progressValue = progressValueTarget;
             }
