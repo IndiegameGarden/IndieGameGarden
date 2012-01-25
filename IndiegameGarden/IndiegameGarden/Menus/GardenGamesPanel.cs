@@ -166,11 +166,11 @@ namespace IndiegameGarden.Menus
                 {
                     if (SelectedGame.IsInstalled)
                     {
-                        parentMenu.ActionLaunchGame(SelectedGame);
+                        GardenGame.Instance.ActionLaunchGame(SelectedGame);
                     }
                     else
                     {
-                        parentMenu.ActionDownloadAndInstallGame(SelectedGame);
+                        GardenGame.Instance.ActionDownloadAndInstallGame(SelectedGame);
                     }
                     isGameLaunchOngoing = false;
                 }

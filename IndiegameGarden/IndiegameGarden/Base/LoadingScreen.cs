@@ -1,24 +1,27 @@
-﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework;
-
 using TTengine.Core;
+using IndiegameGarden.Menus;
 
-namespace IndiegameGarden.Menus
+namespace IndiegameGarden.Base
 {
-    public class LoadingText: Drawlet
+    public class LoadingScreen: Screenlet 
     {
-        bool isFirstDraw = true;
         GameTextBox tbox;
+        bool isFirstDraw = true;
 
-        public LoadingText()
-        {
+        public LoadingScreen(int x, int y): base(x,y)
+        {            
             tbox = new GameTextBox("Loading...");
             tbox.Motion.Position = new Microsoft.Xna.Framework.Vector2(0.15f, 0.15f);
             Add(tbox);
+        }
+
+        public void SetGame(IndieGame g)
+        {
+            tbox.Text = "Loading " + g.Name + " ...";
         }
 
         protected override void OnDraw(ref DrawParams p)
@@ -36,6 +39,8 @@ namespace IndiegameGarden.Menus
                 GardenGame.Instance.SuppressDraw();
             }
         }
+
+
 
     }
 }

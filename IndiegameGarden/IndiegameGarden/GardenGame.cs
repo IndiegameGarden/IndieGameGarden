@@ -24,6 +24,7 @@ using IndiegameGarden.Download;
 using IndiegameGarden.Unpack;
 using IndiegameGarden.Menus;
 using IndiegameGarden.Base;
+using IndiegameGarden.Install;
 
 using MyDownloader.Core.Extensions;
 using MyDownloader.Extension;
@@ -60,9 +61,11 @@ namespace IndiegameGarden
         public Gamelet TreeRoot;
 
         // --- internal + TTengine related
+        GameLauncherTask launcher;
+        ThreadedTask launchGameThread;
         GraphicsDeviceManager graphics;
         Screenlet mainScreen;
-        Screenlet loadingScreen;        
+        LoadingScreen loadingScreen;
         SpriteBatch spriteBatch;
         HttpFtpProtocolExtension myDownloaderProtocol;
         int myWindowWidth = 1280; //1024; //1280; //1440; //1280;
@@ -97,12 +100,10 @@ namespace IndiegameGarden
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // loading screen
-            loadingScreen = new Screenlet(myWindowWidth, myWindowHeight);
+            loadingScreen = new LoadingScreen(myWindowWidth, myWindowHeight);
             TTengineMaster.ActiveScreen = loadingScreen;
             loadingScreen.ActiveInState = new StatePlayingGame();
             loadingScreen.DrawInfo.DrawColor = Color.Black;
-            Gamelet loadingText = new LoadingText();
-            loadingScreen.Add(loadingText);
 
             // from here on, main screen
             mainScreen = new Screenlet(myWindowWidth, myWindowHeight);
@@ -209,6 +210,55 @@ namespace IndiegameGarden
             }
             base.Dispose(disposing);
         }
+
+        /// <summary>
+        /// called by a child GUI component to launch a game
+        /// </summary>
+        /// <param name="g">game to launch</param>
+        public void ActionLaunchGame(IndieGame g)
+        {
+            if (g.IsInstalled)
+            {
+                // if installed, then launch it if possible
+                if ((launcher == null || launcher.IsFinished() == true) &&
+                     (launchGameThread == null || launchGameThread.IsFinished()))
+                {
+                    loadingScreen.SetGame(g);
+                    // set state of game to 'game playing state'
+                    TreeRoot.SetNextState(new StatePlayingGame());
+
+                    launcher = new GameLauncherTask(g);
+                    launchGameThread = new ThreadedTask(launcher);
+                    launchGameThread.TaskSuccessEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
+                    launchGameThread.TaskFailEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
+                    launchGameThread.Start();
+                }
+            }
+        }
+
+        // when a launched process concludes
+        void taskThread_TaskFinishedEvent(object sender)
+        {
+            // set menu state back to 'menu viewing' state
+            GardenGame.Instance.TreeRoot.SetNextState(new StateBrowsingMenu());
+        }
+
+        /// <summary>
+        /// called by a child GUI component to install a game
+        /// </summary>
+        /// <param name="g">game to install</param>
+        public void ActionDownloadAndInstallGame(IndieGame g)
+        {
+            // check if download+install task needs to start or not
+            if (g.DlAndInstallTask == null && g.ThreadedDlAndInstallTask == null && !g.IsInstalled)
+            {
+                g.DlAndInstallTask = new GameDownloadAndInstallTask(g);
+                g.ThreadedDlAndInstallTask = new ThreadedTask(g.DlAndInstallTask);
+                g.ThreadedDlAndInstallTask.Start();
+            }
+        }
+
+
 
     }
 }

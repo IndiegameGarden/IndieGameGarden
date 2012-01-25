@@ -28,11 +28,8 @@ namespace IndiegameGarden.Menus
         float lastKeypressTime = 0;
         bool wasEscPressed = false;
         bool wasEnterPressed = false;
-        // used to launch/start a game and track its state
-        GameLauncherTask launcher;
         // the game thumbnails or items selection panel
         GamesPanel panel;        
-        ThreadedTask launchGameThread;
 
         /// <summary>
         /// construct new menu
@@ -132,60 +129,12 @@ namespace IndiegameGarden.Menus
             lastKeypressTime = p.SimTime;
         }
        
-        /// <summary>
-        /// called by a child GUI component to install a game
-        /// </summary>
-        /// <param name="g">game to install</param>
-        public void ActionDownloadAndInstallGame(IndieGame g)
-        {
-            // check if download+install task needs to start or not
-            if (g.DlAndInstallTask==null && g.ThreadedDlAndInstallTask==null && !g.IsInstalled)
-            {
-                g.DlAndInstallTask = new GameDownloadAndInstallTask(g);
-                g.ThreadedDlAndInstallTask = new ThreadedTask(g.DlAndInstallTask);
-                g.ThreadedDlAndInstallTask.Start();
-            }
-        }
-
-        /// <summary>
-        /// called by a child GUI component to launch a game
-        /// </summary>
-        /// <param name="g">game to launch</param>
-        public void ActionLaunchGame(IndieGame g)
-        {
-            if (g.IsInstalled)
-            {
-                // if installed, then launch it if possible
-                if ( (launcher == null || launcher.IsFinished() == true) &&
-                     (launchGameThread == null || launchGameThread.IsFinished()) )
-                {
-                    // set state of game to 'game playing state'
-                    GardenGame.Instance.TreeRoot.SetNextState(new StatePlayingGame());
-
-                    launcher = new GameLauncherTask(g);
-                    launchGameThread = new ThreadedTask(launcher);
-                    launchGameThread.TaskSuccessEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
-                    launchGameThread.TaskFailEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
-                    launchGameThread.Start();
-                }
-            }
-        }
-
-
-        // when a launched process concludes
-        void taskThread_TaskFinishedEvent(object sender)
-        {
-            // set menu state back to 'menu viewing' state
-            GardenGame.Instance.TreeRoot.SetNextState(new StateBrowsingMenu() );
-        }
-
         protected override void OnUpdate(ref UpdateParams p)
         {
             base.OnUpdate(ref p);
 
             // check keyboard inputs from user
             KeyboardControls(ref p);
-
         }
 
     }

@@ -2,12 +2,9 @@
 
 OPEN  [top issues first]
 
-Only hide gameinfo panel when a cursor key or esc is pressed
-Zoom out returning to menu after having played a game
-Version number included in .zip file name and in game folder (to test)
-Test .zip/.rar progress bars for unpacking
 Update loading screen: show title, show an animation, revert to 'playing' after some seconds (if window handle can be found to game??)
      show igg information. 
+Show quickly (with icons?) on one line, the dl and install state of a game
 Download config with unique client id from cloud server
 Add image-display-only thumbnails (that do not execute)
 Display a progress bar when launching starts with bar speed set by config file
@@ -23,6 +20,10 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
+2012-01-25 Test .zip/.rar progress bars for unpacking -> works ok , further testing for alpha-1
+2012-01-25 Version number included in .zip file name and in game folder (to test) -> was done earlier, testing goes into alpha-1 tests later.
+2012-01-25 Only hide gameinfo panel when a cursor key or esc is pressed -> was already done earlier.
+2012-01-25 Zoom out returning to menu after having played a game -> not needed in current layout.
 2012-01-25 Text obstructed by thumbnails. (Get its own spritebatch?)
 2012-01-25 Cursor should have no black interior rectangle
 2012-01-25 Loading icon should have no black border.
