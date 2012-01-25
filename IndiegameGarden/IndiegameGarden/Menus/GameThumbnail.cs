@@ -99,9 +99,10 @@ namespace IndiegameGarden.Menus
             Add(MotionB);
             Add(ColorB);
             Motion.Scale = GardenGamesPanel.THUMBNAIL_SCALE_UNSELECTED;
-            this.GameID = game.GameID;
-            this.Game = game;
-            this.ThumbnailFilename = GardenGame.Instance.Config.GetThumbnailFilepath(game); 
+            GameID = game.GameID;
+            Game = game;
+            ThumbnailFilename = GardenGame.Instance.Config.GetThumbnailFilepath(game);
+            EffectEnabled = false;
         }
 
         public override void Dispose()
@@ -115,6 +116,7 @@ namespace IndiegameGarden.Menus
         public void Enable()
         {
             Visible = true;
+            EffectEnabled = false;
             if (loaderTask == null)
             {
                 loaderTask = new ThreadedTask(new GameThumbnailLoadTask(this));
@@ -148,12 +150,10 @@ namespace IndiegameGarden.Menus
         {
             base.OnUpdate(ref p);
 
-            //Motion.ScaleModifier *= 2.0f;
-
             // animation of loading
             if (!isLoaded)
             {
-                Motion.RotateModifier += p.simTime;
+                Motion.RotateModifier += SimTime / 6.0f;
             }
 
             // check if a new texture has been loaded in background
@@ -165,6 +165,7 @@ namespace IndiegameGarden.Menus
                     Texture = updatedTexture;
                     updatedTexture = null;
                     isLoaded = true;
+                    EffectEnabled = true;
                 }
             }
         }

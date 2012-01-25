@@ -34,7 +34,7 @@ float4 PixelShaderFunction(float2 texCoord : TEXCOORD0) : COLOR0
 	res *= alpha;
 	res.a = alpha;
 
-	
+	/*
 	// check for shadow box bounds
 	if ( texCoord.x < (Center.x + ShadowBoxWidth) &&
 		 texCoord.x > (Center.x - ShadowBoxWidth) &&
@@ -66,7 +66,7 @@ float4 PixelShaderFunction(float2 texCoord : TEXCOORD0) : COLOR0
 			res.a=0;
 		}
 	}
-	
+	*/
 
 	return res;
 
