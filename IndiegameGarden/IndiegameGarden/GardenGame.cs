@@ -60,12 +60,17 @@ namespace IndiegameGarden
         /// </summary>
         public Gamelet TreeRoot;
 
+        /// <summary>
+        /// loading screen with text
+        /// </summary>
+        LoadingDisplay loadingDisplay;
+
         // --- internal + TTengine related
         GameLauncherTask launcher;
         ThreadedTask launchGameThread;
         GraphicsDeviceManager graphics;
-        Screenlet mainScreen;
-        LoadingScreen loadingScreen;
+        Screenlet mainScreenlet, loadingScreenlet;
+        
         SpriteBatch spriteBatch;
         HttpFtpProtocolExtension myDownloaderProtocol;
         int myWindowWidth = 1280; //1024; //1280; //1440; //1280;
@@ -100,23 +105,25 @@ namespace IndiegameGarden
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // loading screen
-            loadingScreen = new LoadingScreen(myWindowWidth, myWindowHeight);
-            TTengineMaster.ActiveScreen = loadingScreen;
-            loadingScreen.ActiveInState = new StatePlayingGame();
-            loadingScreen.DrawInfo.DrawColor = Color.Black;
+            loadingScreenlet = new Screenlet(myWindowWidth, myWindowHeight);
+            TTengineMaster.ActiveScreen = loadingScreenlet;
+            loadingScreenlet.ActiveInState = new StatePlayingGame();
+            loadingScreenlet.DrawInfo.DrawColor = Color.Black;
+            loadingDisplay = new LoadingDisplay();
+            loadingScreenlet.Add(loadingDisplay);
 
             // from here on, main screen
-            mainScreen = new Screenlet(myWindowWidth, myWindowHeight);
-            TTengineMaster.ActiveScreen = mainScreen;
-            mainScreen.ActiveInState = new StateBrowsingMenu();
+            mainScreenlet = new Screenlet(myWindowWidth, myWindowHeight);
+            TTengineMaster.ActiveScreen = mainScreenlet;
+            mainScreenlet.ActiveInState = new StateBrowsingMenu();
             TreeRoot = new FixedTimestepPhysics();
             TreeRoot.SetNextState(new StateBrowsingMenu()); // set the initial state
 
-            TreeRoot.Add(mainScreen);
-            TreeRoot.Add(loadingScreen);
-            mainScreen.Add(new FrameRateCounter(1.0f, 0f)); // TODO
-            mainScreen.Add(new ScreenZoomer()); // TODO remove
-            mainScreen.DrawInfo.DrawColor = Color.Black;
+            TreeRoot.Add(mainScreenlet);
+            TreeRoot.Add(loadingScreenlet);
+            mainScreenlet.Add(new FrameRateCounter(1.0f, 0f)); // TODO
+            mainScreenlet.Add(new ScreenZoomer()); // TODO remove
+            mainScreenlet.DrawInfo.DrawColor = Color.Black;
 
             // MyDownloader Config
             myDownloaderProtocol = new HttpFtpProtocolExtension();
@@ -149,7 +156,7 @@ namespace IndiegameGarden
             {
                 // game chooser menu
                 GameChooserMenu menu = new GameChooserMenu();
-                mainScreen.Add(menu);
+                mainScreenlet.Add(menu);
             }
 
             // finally call base to enumnerate all (gfx) Game components to init
@@ -175,9 +182,9 @@ namespace IndiegameGarden
             // then buffer drawing on screen at right positions                        
             GraphicsDevice.SetRenderTarget(null); // TODO
             //GraphicsDevice.Clear(Color.Black);
-            Screenlet visibleScreen = mainScreen;
+            Screenlet visibleScreen = mainScreenlet;
             if (TreeRoot.IsInState(new StatePlayingGame()))
-                visibleScreen = loadingScreen;
+                visibleScreen = loadingScreenlet;
             Rectangle destRect = new Rectangle(0, 0, visibleScreen.RenderTarget.Width, visibleScreen.RenderTarget.Height);
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
             spriteBatch.Draw(visibleScreen.RenderTarget, destRect, Color.White);
@@ -223,7 +230,7 @@ namespace IndiegameGarden
                 if ((launcher == null || launcher.IsFinished() == true) &&
                      (launchGameThread == null || launchGameThread.IsFinished()))
                 {
-                    loadingScreen.SetGame(g);
+                    loadingDisplay.SetGame(g);
                     // set state of game to 'game playing state'
                     TreeRoot.SetNextState(new StatePlayingGame());
 

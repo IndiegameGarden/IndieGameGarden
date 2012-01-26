@@ -132,7 +132,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\LoadingScreen.cs" />
+    <Compile Include="Menus\LoadingDisplay.cs" />
     <Compile Include="Base\State.cs" />
     <Compile Include="Base\ThreadedTask.cs" />
     <Compile Include="Download\BaseDownloader.cs" />
