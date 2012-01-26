@@ -69,9 +69,7 @@ namespace IndiegameGarden
         GameLauncherTask launcher;
         ThreadedTask launchGameThread;
         GraphicsDeviceManager graphics;
-        Screenlet mainScreenlet, loadingScreenlet;
-        
-        SpriteBatch spriteBatch;
+        Screenlet mainScreenlet, loadingScreenlet;       
         HttpFtpProtocolExtension myDownloaderProtocol;
         int myWindowWidth = 1280; //1024; //1280; //1440; //1280;
         int myWindowHeight = 768; //768; //720; //900; //720;
@@ -92,7 +90,7 @@ namespace IndiegameGarden
             graphics.PreferredBackBufferWidth = myWindowWidth;
             graphics.PreferredBackBufferHeight = myWindowHeight;
             graphics.IsFullScreen = false;
-            this.IsFixedTimeStep = false;            
+            IsFixedTimeStep = false;            
             graphics.SynchronizeWithVerticalRetrace = true;
         }
         #endregion
@@ -100,9 +98,6 @@ namespace IndiegameGarden
         protected override void Initialize()
         {
             Exception initError = null;
-
-            // more graphics init
-            spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // loading screen
             loadingScreenlet = new Screenlet(myWindowWidth, myWindowHeight);
@@ -176,27 +171,14 @@ namespace IndiegameGarden
         protected override void Draw(GameTime gameTime)
         {
             // draw all my gamelet items
-            GraphicsDevice.SetRenderTarget(null); // TODO
             TTengineMaster.Draw(gameTime, TreeRoot);
 
-            // then buffer drawing on screen at right positions                        
-            GraphicsDevice.SetRenderTarget(null); // TODO
-            //GraphicsDevice.Clear(Color.Black);
-            Screenlet visibleScreen = mainScreenlet;
-            if (TreeRoot.IsInState(new StatePlayingGame()))
-                visibleScreen = loadingScreenlet;
-            Rectangle destRect = new Rectangle(0, 0, visibleScreen.RenderTarget.Width, visibleScreen.RenderTarget.Height);
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
-            spriteBatch.Draw(visibleScreen.RenderTarget, destRect, Color.White);
-            spriteBatch.End();
-
-            // then draw other (if any) game components on the screen
+            // then draw other (if any) XNA game components on the screen
             base.Draw(gameTime);
-
         }
 
         /// <summary>
-        /// indicate to game that now we should clean up and exit
+        /// indicate to game that asap we should clean up and exit
         /// </summary>
         public void ExitGame()
         {
@@ -243,7 +225,7 @@ namespace IndiegameGarden
             }
         }
 
-        // when a launched process concludes
+        // called when a launched process concludes
         void taskThread_TaskFinishedEvent(object sender)
         {
             // set menu state back to 'menu viewing' state
