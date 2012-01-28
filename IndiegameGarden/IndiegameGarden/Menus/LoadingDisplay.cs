@@ -13,18 +13,42 @@ namespace IndiegameGarden.Menus
      */
     public class LoadingDisplay: Drawlet 
     {
+        const float TIME_SHOW_PLAYING_MESSAGE = 4.0f;
+
         GameTextBox tbox;
         IndieGame game;
+        float nextStateTimer = -1f;
 
-        class StateLoadingDisplay_Loading : State {
+        /// <summary>
+        /// base class for my state classes
+        /// </summary>
+        class LoadingDisplayState : State
+        {
+            public LoadingDisplay loadingDisplay;
+
+            public LoadingDisplayState(LoadingDisplay parent)
+            {
+                this.loadingDisplay = parent;
+            }
+        }
+
+        /// <summary>
+        /// state where 'loading' message is displayed
+        /// </summary>
+        class StateLoadingDisplay_Loading : LoadingDisplayState {
+
+            public StateLoadingDisplay_Loading(LoadingDisplay parent)
+                : base(parent)
+            { }
+
             public override void OnEntry(Gamelet g)
             {
                 g.SimTime = 0f;
             }
             public override void OnUpdate(Gamelet g)
             {
-                int phase = (int)Math.Round(g.SimTime % 3.0f);
-                string t = "Loading " + ((LoadingDisplay)g).game.Name;
+                int phase = (int)Math.Round((g.SimTime*2f) % 3.0f);
+                string t = "Loading " + loadingDisplay.game.Name;
                 switch (phase)
                 {
                     case 0: t += " .";
@@ -34,18 +58,27 @@ namespace IndiegameGarden.Menus
                     case 2: t += " ...";
                         break;
                 }
-                ((LoadingDisplay)g).tbox.Text = t;
-
-                if (g.SimTime > 4f)
+                loadingDisplay.tbox.Text = t;
+                
+                if (loadingDisplay.nextStateTimer >= 0f && g.SimTime > loadingDisplay.nextStateTimer)
                 {
-                    g.SetNextState(new StateLoadingDisplay_Playing());
+                    loadingDisplay.nextStateTimer = -1f;                    
+                    g.SetNextState(new StateLoadingDisplay_Playing(loadingDisplay));
                 }
 
             }
         }
 
-        class StateLoadingDisplay_Playing : State {
+        /// <summary>
+        /// state where 'playing' is displayed
+        /// </summary>
+        class StateLoadingDisplay_Playing : LoadingDisplayState
+        {
             bool isFirstDraw = true;
+
+            public StateLoadingDisplay_Playing(LoadingDisplay parent)
+                : base(parent)
+            { }
 
             public override void OnEntry(Gamelet g)
             {
@@ -56,45 +89,83 @@ namespace IndiegameGarden.Menus
                 if (isFirstDraw)
                 {
                     isFirstDraw = false;
-                    ((LoadingDisplay)g).tbox.Text = "Playing " + ((LoadingDisplay)g).game.Name;
+                    loadingDisplay.tbox.Text = "Playing " + loadingDisplay.game.Name;
                 }
                 else if (!isFirstDraw)
                 {
                     GardenGame.Instance.SuppressDraw();
                 }
-                if (g.SimTime > 4f)
+                if (g.SimTime > TIME_SHOW_PLAYING_MESSAGE)
                 {
-                    g.SetNextState(new StateLoadingDisplay_Empty());
+                    g.SetNextState(new StateLoadingDisplay_Empty(loadingDisplay));
                 }
 
             }
         }
 
-        class StateLoadingDisplay_Empty   : State {
+        /// <summary>
+        /// state where empty screen is shown
+        /// </summary>
+        class StateLoadingDisplay_Empty : LoadingDisplayState
+        {
+            public StateLoadingDisplay_Empty(LoadingDisplay parent)
+                : base(parent)
+            { }
+
+
             public override void OnEntry(Gamelet g)
             {
-                ((LoadingDisplay)g).tbox.Text = "";
+                loadingDisplay.tbox.Text = ""; 
             }
         }
 
         public LoadingDisplay()
         {
-            SetNextState(new StateLoadingDisplay_Loading());
+            SetNextState(new StateLoadingDisplay_Loading(this));
             tbox = new GameTextBox("Loading ...");
             tbox.Motion.Position = new Microsoft.Xna.Framework.Vector2(0.05f, 0.05f);
             Add(tbox);
         }
 
+        /// <summary>
+        /// set state to loading game and display given game name
+        /// </summary>
+        /// <param name="g">game whose name/info to display while loading</param>
         public void SetLoadingGame(IndieGame g)
         {
-            SetNextState(new StateLoadingDisplay_Loading());
+            SetNextState(new StateLoadingDisplay_Loading(this));
             game = g;
         }
 
-        public void SetPlayingGame()
+        /// <summary>
+        /// use to set display from Loading state to Playing state after specified time in seconds. Works only
+        /// once per state transition.
+        /// </summary>
+        /// <param name="afterTime">after which time from now to change msg from 'loading' to 'playing'</param>
+        public void SetPlayingGame(float afterTime)
         {
-            SetNextState(new StateLoadingDisplay_Playing());
+            if (nextStateTimer < 0f)
+                nextStateTimer = SimTime + afterTime;
         }
+
+        /// <summary>
+        /// check if display is in loading state currently
+        /// </summary>
+        /// <returns>true if loading state</returns>
+        public bool IsLoadingState()
+        {
+            return IsInState(new StateLoadingDisplay_Loading(this));
+        }
+
+        /// <summary>
+        /// check if display is in playing state currently
+        /// </summary>
+        /// <returns>true if playing state</returns>
+        public bool IsPlayingState()
+        {
+            return IsInState(new StateLoadingDisplay_Playing(this));
+        }
+
 
         protected override void OnUpdate(ref UpdateParams p)
         {

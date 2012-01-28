@@ -65,14 +65,18 @@ namespace IndiegameGarden
         /// </summary>
         LoadingDisplay loadingDisplay;
 
-        // --- internal + TTengine related
+        /// <summary>
+        /// launches a game selected by user (one at a time!)
+        /// </summary>
         GameLauncherTask launcher;
         ThreadedTask launchGameThread;
+
         GraphicsDeviceManager graphics;
         Screenlet mainScreenlet, loadingScreenlet;       
         HttpFtpProtocolExtension myDownloaderProtocol;
         int myWindowWidth = 1280; //1024; //1280; //1440; //1280;
         int myWindowHeight = 768; //768; //720; //900; //720;
+        public DebugMessage DebugMsg; // DEBUG
 
         #region Constructors
         public GardenGame()
@@ -154,6 +158,10 @@ namespace IndiegameGarden
                 mainScreenlet.Add(menu);
             }
 
+            // debug
+            DebugMsg = new DebugMessage("debugmsg");
+            loadingScreenlet.Add(DebugMsg);
+
             // finally call base to enumnerate all (gfx) Game components to init
             base.Initialize();
 
@@ -166,6 +174,12 @@ namespace IndiegameGarden
 
             // update any other XNA components
             base.Update(gameTime);
+
+            if (launcher != null && !launcher.IsFinished() && 
+                launcher.IsGameShowingWindow && loadingDisplay.IsLoadingState() )
+            {
+                loadingDisplay.SetPlayingGame(3.0f);
+            }
         }
 
         protected override void Draw(GameTime gameTime)

@@ -2,12 +2,10 @@
 
 OPEN  [top issues first]
 
-Update loading screen: revert to 'playing' after some seconds (if window handle can be found to game??)
-     show igg information. 
+Update loading screen: show igg information. 
 Show quickly (with icons?) on one line, the dl and install state of a game
 Download config with unique client id from cloud server
 Add image-display-only thumbnails (that do not execute)
-Display a progress bar when launching starts with bar speed set by config file
 Put loader threads in lower priority
 Allow loading of config from server (where config includes URL/mirror locations etc)
 Add default mirror of own server to all game downloads, where name on server equals the local zipfilename
@@ -20,6 +18,7 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
+2012-01-28 Update loading screen: revert to 'playing' after some seconds (if window handle can be found to game??)
 2012-01-26 Update loading screen: show title, show an animation
 2012-01-25 Test .zip/.rar progress bars for unpacking -> works ok , further testing for alpha-1
 2012-01-25 Version number included in .zip file name and in game folder (to test) -> was done earlier, testing goes into alpha-1 tests later.
@@ -55,4 +54,5 @@ CLOSED  [date order]
 2012-01-04 Fix bug that a game is never launched
 
 
-C:\dev\TT\IndieGameGarden\IndiegameGarden\IndiegameGarden\bin\x86\Debug
+SKIPPED [date order]
+2012-01-28 Display a progress bar when launching starts with bar speed set by config file

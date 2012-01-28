@@ -18,9 +18,22 @@ namespace IndiegameGarden.Base
     /// </summary>
     public class GameLauncherTask: Task
     {
+        /// <summary>
+        /// the Process associated to a launched game, or null if not yet launched
+        /// </summary>
         public Process Proc = null;
+
+        /// <summary>
+        /// the IndieGame that is to be launched
+        /// </summary>
         public IndieGame Game;
 
+        /// <summary>
+        /// flag set true once the game window shows up during launch
+        /// </summary>
+        public bool IsGameShowingWindow = false;
+
+        // internal
         string filePath;
         string cdPath;
 
@@ -30,9 +43,10 @@ namespace IndiegameGarden.Base
 
         public GameLauncherTask(IndieGame g)
         {
+            this.Game = g;
             string cwd = System.IO.Directory.GetCurrentDirectory();
             cdPath = cwd + "\\" + GardenGame.Instance.Config.GetGameFolder(g) + "\\" + g.CdPath;
-            filePath = g.ExeFile;
+            filePath = g.ExeFile;            
         }
 
         public override void Start()
@@ -44,19 +58,25 @@ namespace IndiegameGarden.Base
                 string cwd = System.IO.Directory.GetCurrentDirectory();
                 System.IO.Directory.SetCurrentDirectory(cdPath);
                 Proc = System.Diagnostics.Process.Start(filePath);
-                SetForegroundWindow(Proc.MainWindowHandle.ToInt32());
                 Proc.Exited += new EventHandler(EvHandlerProcessExited);
                 Proc.EnableRaisingEvents = true;
             
-                // wait until process exits
+                // monitor if process creates window and wait until process exits
                 int n = 0;
+                int gameWindowHandle = 0;
                 while (!IsFinished())
                 {
                     Thread.Sleep(100);
-                    if (n < 55)
+                    if (n < 25 && !IsFinished() )
                     {
-                        SetForegroundWindow(Proc.MainWindowHandle.ToInt32());
-                        n++;
+                        gameWindowHandle = Proc.MainWindowHandle.ToInt32();
+                        if (gameWindowHandle != 0)
+                        {
+                            IsGameShowingWindow = true;
+                            SetForegroundWindow(gameWindowHandle);
+                            //GardenGame.Instance.DebugMsg.Text = "Handle: " + Proc.MainWindowHandle.ToInt32();
+                            n++;
+                        }                        
                     }
                     
                 }
