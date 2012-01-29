@@ -6,7 +6,7 @@ float NoiseLevel = 0.005;
 float Velocity = 0.02;
 float ShadowBoxWidth = 0.7/2;
 float ShadowBoxHeight = 0.7/2;
-float2 ShadowBoxScale = float2(0.7,0.7);
+float2 ShadowBoxScale = float2(0.6,0.6);
 
 // modify the sampler state on the zero texture sampler, used by SpriteBatch
 sampler TextureSampler : register(s0) = 

@@ -16,6 +16,7 @@ namespace IndiegameGarden.Menus
         const float TIME_SHOW_PLAYING_MESSAGE = 4.0f;
 
         GameTextBox tbox;
+        GameTextBox iggNameBox;
         IndieGame game;
         float nextStateTimer = -1f;
 
@@ -125,6 +126,11 @@ namespace IndiegameGarden.Menus
             tbox = new GameTextBox("Loading ...");
             tbox.Motion.Position = new Microsoft.Xna.Framework.Vector2(0.05f, 0.05f);
             Add(tbox);
+
+            iggNameBox = new GameTextBox("Indiegame Garden               Exit game to return!");
+            iggNameBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(0.05f, 0.92f);
+            iggNameBox.Motion.Scale = 0.6f;
+            Add(iggNameBox);
         }
 
         /// <summary>

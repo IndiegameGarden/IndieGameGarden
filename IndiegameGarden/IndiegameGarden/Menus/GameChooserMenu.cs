@@ -44,7 +44,7 @@ namespace IndiegameGarden.Menus
             gamesList = GardenGame.Instance.GameLib.GetList();
 
             // background
-            Spritelet bg = new Spritelet("flower");
+            Spritelet bg = new Spritelet("parc-by-gadl");
             bg.Motion.Position = new Vector2(0.66667f, 0.5f);
             bg.DrawInfo.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
             bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/25.0f; }, "Rotate")); // FIXME properties no work

@@ -2,7 +2,6 @@
 
 OPEN  [top issues first]
 
-Update loading screen: show igg information. 
 Show quickly (with icons?) on one line, the dl and install state of a game
 Download config with unique client id from cloud server
 Add image-display-only thumbnails (that do not execute)
@@ -18,6 +17,8 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
+2012-01-29 Bug Thumbnail is mutilated on display (sides removed)
+2012-01-29 Update loading screen: show igg information. 
 2012-01-28 Update loading screen: revert to 'playing' after some seconds (if window handle can be found to game??)
 2012-01-26 Update loading screen: show title, show an animation
 2012-01-25 Test .zip/.rar progress bars for unpacking -> works ok , further testing for alpha-1

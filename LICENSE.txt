@@ -32,7 +32,7 @@ For
  - RandomMath.cs 
  - Ionic DotNetZip library (http://dotnetzip.codeplex.com/)
 the Microsoft Permissive License applies.
-See file Microsoft_Permissive_License.rtf for conditions.
+See file Microsoft_Permissive_License.txt for conditions.
 
 NOTE: Ionic DotNetZip source not included in the archive. 
 
@@ -51,4 +51,15 @@ is licensed under the The Code Project Open License (CPOL) 1.02. For details
 see CPOL.htm.
 
 NOTE: MyDownloader source code is partially included in this archive.
+
+-------------------------------------------------------------------------------
+
+Content "parc-by-gadl.jpg" by gadl (Alexandre Duret-Lutz) is available from
+http://www.flickr.com/photos/gadl/360929190/
+under a Creative Commons Attribution Share-Alike license,
+http://creativecommons.org/licenses/by-sa/2.0/
+
+The modified version included in this repository is licensed under the
+same conditions.
+
 
