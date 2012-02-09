@@ -4,6 +4,7 @@
 // -> defines set in Visual Studio Profiles: DEBUG, RELEASE
 
 using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices; 
@@ -77,6 +78,7 @@ namespace IndiegameGarden
         int myWindowWidth = 1280; //1024; //1280; //1440; //1280;
         int myWindowHeight = 768; //768; //720; //900; //720;
         public DebugMessage DebugMsg; // DEBUG
+        Exception initError = null;
 
         #region Constructors
         public GardenGame()
@@ -101,8 +103,6 @@ namespace IndiegameGarden
 
         protected override void Initialize()
         {
-            Exception initError = null;
-
             // loading screen
             loadingScreenlet = new Screenlet(myWindowWidth, myWindowHeight);
             TTengineMaster.ActiveScreen = loadingScreenlet;
@@ -124,39 +124,15 @@ namespace IndiegameGarden
             mainScreenlet.Add(new ScreenZoomer()); // TODO remove
             mainScreenlet.DrawInfo.DrawColor = Color.Black;
 
-            // MyDownloader Config
+            // MyDownloader configuration
             myDownloaderProtocol = new HttpFtpProtocolExtension();
 
-            // GardenConfig
-            try
-            {
-                Config = new GardenConfig();
-            }
-            catch (Exception ex)
-            {
-                TTengine.Util.MsgBox.Show("Could not load configuration", "Could not load configuration file."); // TODO
-                initError = ex;
-                Exit();
-            }
+            // load config
+            LoadConfig();
 
-            // game library
-            try
-            {
-                GameLib = new GameLibrary();
-            }
-            catch (Exception ex)
-            {
-                MsgBox.Show("Could not load game library file", "Could not load game library file."); // TODO
-                initError = ex;
-                Exit();
-            }
-
-            if (initError == null)
-            {
-                // game chooser menu
-                GameChooserMenu menu = new GameChooserMenu();
-                mainScreenlet.Add(menu);
-            }
+            // game chooser menu
+            GameChooserMenu menu = new GameChooserMenu();
+            mainScreenlet.Add(menu);
 
             // debug
             DebugMsg = new DebugMessage("debugmsg");
@@ -261,7 +237,84 @@ namespace IndiegameGarden
             }
         }
 
+        /// <summary>
+        /// load, download (if needed) and check the configuration and game library
+        /// Sets initError to exception in case of fatal errors.
+        /// </summary>
+        protected void LoadConfig()
+        {
+            // first try loading from file
+            try
+            {
+                Config = new GardenConfig();
+            }
+            catch (Exception ex)
+            {
+                initError = ex;
+            }
 
+            // download config - if needed or if could not be loaded
+            ConfigDownloader dl = new ConfigDownloader(Config);
+            ThreadedTask dlTask = new ThreadedTask(dl);
+            if (dl.IsDownloadNeeded() || Config==null )
+            {
+                // start the task
+                dlTask.Start();
+                
+                // then wait for a short while until success of the task thread
+                long timer = 0;
+                long blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 3;  // TODO const in config
+                if (Config == null)
+                    blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 30;  // TODO const in config
+                while (dlTask.Status() == ITaskStatus.CREATED)
+                {
+                    // block until in RUNNING state
+                }
+                while (dlTask.Status() == ITaskStatus.RUNNING && timer < blockingWaitPeriodTicks)
+                {
+                    Thread.Sleep(100);
+                    timer += (System.TimeSpan.TicksPerMillisecond * 100);
+                }
+
+                switch (dl.Status())
+                {
+                    case ITaskStatus.SUCCESS:
+                        Config = dl.NewConfig;
+                        break;
+
+                    case ITaskStatus.FAIL:
+                        initError = new Exception( dl.StatusMsg() );
+                        break;
+
+                    case ITaskStatus.CREATED:
+                    case ITaskStatus.RUNNING:
+                        // let the downloading simply finish in the background.
+                        break;
+                }
+            }
+
+            // if still not ok after attempted download, warn the user and exit
+            if (Config==null)
+            {
+                TTengine.Util.MsgBox.Show("Could not load configuration", "Could not load configuration file."); // TODO msg
+                Exit();
+                return;
+            }
+
+            // load game library
+            try
+            {
+                GameLib = new GameLibrary();
+            }
+            catch (Exception ex)
+            {
+                MsgBox.Show("Could not load game library file", "Could not load game library file."); // TODO msg
+                initError = ex;
+                Exit();
+                return;
+            }
+
+        }
 
     }
 }

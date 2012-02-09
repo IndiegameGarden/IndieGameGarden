@@ -62,8 +62,8 @@ namespace IndiegameGarden.Download
         }
 
         /// <summary>
-        /// class-internal method to perform a download with mirrors. Has blocking wait and sets ITask status
-        /// accordingly to success or failure.
+        /// class-internal method to perform a download with mirrors. Has blocking wait and sets ITask status to FAIL
+        /// in case of failure.
         /// </summary>
         /// <param name="urlPath">full URL gameDirPath of file, optionally leaving out protocol http://</param>
         /// <param name="filename">local name under which to store the file</param>
@@ -76,9 +76,6 @@ namespace IndiegameGarden.Download
             if (!urlPath.Contains("://"))
                 urlPath = "http://" + urlPath;
             
-            // starts to listen to the event 'DownloadEnded' from DownloadManager
-            //DownloadManager.Instance.DownloadEnded += new EventHandler<DownloaderEventArgs>(EvHandleDownloadEnded);
-
             string localFile = toLocalFolder + "\\" + filename ;
 
             // check if file already there
@@ -108,11 +105,16 @@ namespace IndiegameGarden.Download
             downloader = DownloadManager.Instance.Add(  ResourceLocation.FromURL(urlPath), 
                                                         ResourceLocation.FromURLArray(mirrors), 
                                                         localFile, 3, true);
-            downloader.WaitForConclusion();
-            if (downloader==null || downloader.State.Equals(DownloaderState.EndedWithError))
-                status = ITaskStatus.FAIL;
+            if (downloader != null)
+            {
+                downloader.WaitForConclusion();
+                if (!downloader.State.Equals(DownloaderState.Ended))
+                    status = ITaskStatus.FAIL;
+            }
             else
-                status = ITaskStatus.SUCCESS;
+            {
+                status = ITaskStatus.FAIL;
+            }
         }
 
     }

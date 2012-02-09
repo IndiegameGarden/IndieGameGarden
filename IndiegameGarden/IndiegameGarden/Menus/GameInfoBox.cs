@@ -19,7 +19,8 @@ namespace IndiegameGarden.Menus
     {
         public MotionBehavior MotionB;
         ProgressBar dlProgressBar;
-        GameTextBox textBox;
+        GameTextBox titleBox;
+        GameTextBox descriptionBox;
         IndieGame game;
 
         public GameInfoBox()
@@ -35,13 +36,18 @@ namespace IndiegameGarden.Menus
             Add(MotionB);
 
             dlProgressBar = new ProgressBar();
-            dlProgressBar.Motion.Position = new Vector2(0.55f, 0.04f);
+            dlProgressBar.Motion.Position = new Vector2(0.55f, 0.0f);
             dlProgressBar.Visible = false;
             Add(dlProgressBar);
 
-            textBox = new GameTextBox("");
-            textBox.Motion.Position = new Vector2(0.0f, 0.0f);
-            Add(textBox);
+            titleBox = new GameTextBox("");
+            titleBox.Motion.Position = new Vector2(0.0f, 0.0f);
+            Add(titleBox);
+
+            descriptionBox = new GameTextBox("");
+            descriptionBox.Motion.Position = new Vector2(0.0f, 0.08f);
+            descriptionBox.Motion.Scale = 0.7f;
+            Add(descriptionBox);
         }
 
         /// <summary>
@@ -59,10 +65,11 @@ namespace IndiegameGarden.Menus
 
             if (game != null)
             {
-                string txt = game.Name + "\n\n" + game.Description + "\n";
+                string title = game.Name; 
+                string desc = game.Description + "\n";
                 if (game.IsInstalled)
                 {
-                    txt += "Installed - Hold ENTER to play!\n";
+                    desc += "Installed: Hold ENTER to play!\n";
                     dlProgressBar.Visible = false;
                 }
                 else
@@ -70,19 +77,19 @@ namespace IndiegameGarden.Menus
                     if (game.DlAndInstallTask == null)
                     {
 
-                        txt += "Hold ENTER to download this game!\n";
+                        desc += "Not Installed: Hold ENTER to download!\n";
                     }
                     else if (game.DlAndInstallTask != null &&
-                        game.ThreadedDlAndInstallTask != null && 
+                        game.ThreadedDlAndInstallTask != null &&
                         !game.ThreadedDlAndInstallTask.IsFinished())
                     {
                         if (game.DlAndInstallTask.IsDownloading())
                         {
-                            txt += "Downloading...\n"; // TODO some abort possibility message
+                            desc += "Downloading...\n"; // TODO some abort possibility message
                         }
                         else if (game.DlAndInstallTask.IsInstalling())
                         {
-                            txt += "Installing...\n";
+                            desc += "Installing...\n";
                         }
                         dlProgressBar.ProgressTarget = (float)game.DlAndInstallTask.Progress();
                         // make bar visible if not already.
@@ -97,14 +104,23 @@ namespace IndiegameGarden.Menus
                     {
                         dlProgressBar.Visible = false;
                     }
-
                 }
 
-                textBox.Text = txt;
+                titleBox.Text = title;
+                descriptionBox.Text = desc;
+                dlProgressBar.Visible = true; // DEBUG
+                float n = ( SimTime/4f ) % 1.1f;
+                if ( n < dlProgressBar.ProgressTarget)
+                {
+                    dlProgressBar.ProgressValue = 0f;
+                }
+                dlProgressBar.ProgressTarget = n;
             }
             else
             {
-                textBox.Text = ""; // no text if no game chosen
+                titleBox.Text = ""; // no text if no game chosen
+                descriptionBox.Text = "";
+                dlProgressBar.Visible = false;
             }
         }
 

@@ -11,57 +11,99 @@ namespace IndiegameGarden.Base
     /**
      * configuration data object for the Garden application. Information loaded from JSON file.
      */
-    public class GardenConfig
+    public class GardenConfig: JSONStore
     {
-        JSONStore cfg;
+        public const string CONFIG_MAGIC_VALUE  = "x";
+        public const string DEFAULT_GARDEN_ID   = "y";     
+        public const string IGG_CLIENT_AUTH_KEY = "z";
 
-        public GardenConfig(): base()
+        public const string DATA_PATH = "..\\..\\..\\..\\.."; // for testing in Visual Studio
+        //public const string DATA_PATH = "..\\.."; // for deployment version when embedded in games folder
+        //public const string DATA_PATH =  "."; // for deployment version
+        public const string DEFAULT_CONFIG_FILEPATH = DATA_PATH + "\\config\\config.json";
+
+        bool hasLoadedFromFileOk = false;
+
+        public GardenConfig()
         {
+            jsonFilePath = DEFAULT_CONFIG_FILEPATH;
+            hasLoadedFromFileOk = true;
+            try
+            {
+                LoadJson();
+            }
+            catch (Exception ex)
+            {
+                //
+                hasLoadedFromFileOk = false;
+            }
             Init();
-            LoadJson();
         }
 
         // default values for all fields
-        private void Init()
+        protected void Init()
         {
             // NOTE DataPath should be set FIRST of all.
-            DataPath = "..\\..\\..\\..\\.."; // for testing in Visual Studio
-            //DataPath = "..\\.."; // for deployment version when embedded in games folder
-            //DataPath = "."; // for deployment version
+            DataPath = DATA_PATH;
 
-            GardenID = "34729384298374238";
+            GardenID = DEFAULT_GARDEN_ID;
             ServerMsg = "";
             ConfigFilesFolder = GetFolder("config");
             PackedFilesFolder = GetFolder("zips");
             UnpackedFilesFolder = GetFolder("games");
             ThumbnailsFolder = GetFolder("thumbs");
 
-            StorageConfigFilename = "config.json";
+            ConfigFilename = "config.json";
             GameLibraryFilename = "gamelib.json";
 
             ThumbnailsServerURL = "http://indie.trancetrance.com/thumbs/";
-            ConfigFilesServerURL = "http://indie.trancetrance.com/config/";
+            ConfigFilesServerURL = "http://indieget.appspot.com/igg/";
             PackedFilesServerURL = "http://indie.trancetrance.com/zips/";
+
+            jsonFilePath = ConfigFilesFolder + "\\" + ConfigFilename;
+
+            // get values from json config
+            try { GameLibraryFilename = GetString("GameLibraryFilename"); }
+            catch (Exception) { ; };
+            try { ThumbnailsServerURL = GetString("ThumbnailsServerURL"); }
+            catch (Exception) { ; };
+            try { ConfigFilesServerURL = GetString("ConfigFilesServerURL"); }
+            catch (Exception) { ; };
+            try { PackedFilesServerURL = GetString("PackedFilesServerURL"); }
+            catch (Exception) { ; };
+            try { GardenID = GetString("Garden"); }
+            catch (Exception) { ; };
+            try { ServerMsg = GetString("ServerMsg"); }
+            catch (Exception) { ; };
 
         }
 
-        private void LoadJson()
+        /// <summary>
+        /// check whether this config is valid e.g. by checking for certain mandatory properties.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsValid()
         {
-            cfg = new JSONStore( ConfigFilesFolder + "\\" + StorageConfigFilename );
-                
-            // get values from json config
-            try { GameLibraryFilename = cfg.GetString("GameLibraryFilename"); }
-            catch (Exception) { ; };
-            try { ThumbnailsServerURL = cfg.GetString("ThumbnailsServerURL"); }
-            catch (Exception) { ; };
-            try { ConfigFilesServerURL = cfg.GetString("ConfigFilesServerURL"); }
-            catch (Exception) { ; };
-            try { PackedFilesServerURL = cfg.GetString("PackedFilesServerURL"); }
-            catch (Exception) { ; };
-            try { GardenID = cfg.GetString("Garden"); }
-            catch (Exception) { ; };
-            try { ServerMsg = cfg.GetString("ServerMsg"); }
-            catch (Exception) { ; };
+            if (!HasKey("Magic") ||
+                !GetString("Magic").Equals(GardenConfig.CONFIG_MAGIC_VALUE))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public override void Reload()
+        {
+            try
+            {
+                base.Reload();
+                hasLoadedFromFileOk = true;
+            }
+            catch (Exception ex)
+            {
+                hasLoadedFromFileOk = false;
+            }
+            Init();
         }
 
         // TODO document the fields below
@@ -83,7 +125,7 @@ namespace IndiegameGarden.Base
 
         public string ThumbnailsFolder { get; set; } 
 
-        public string StorageConfigFilename { get; set; }
+        public string ConfigFilename { get; set; }
 
         public string GameLibraryFilename { get; set; }
 

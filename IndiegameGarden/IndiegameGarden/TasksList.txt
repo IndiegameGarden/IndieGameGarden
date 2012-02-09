@@ -3,7 +3,6 @@
 OPEN  [top issues first]
 
 Show quickly (with icons?) on one line, the dl and install state of a game
-Download config with unique client id from cloud server
 Add image-display-only thumbnails (that do not execute)
 Put loader threads in lower priority
 Allow loading of config from server (where config includes URL/mirror locations etc)
@@ -17,6 +16,7 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
+2012-02-09 Download config with unique client id from cloud server
 2012-01-29 Bug Thumbnail is mutilated on display (sides removed)
 2012-01-29 Update loading screen: show igg information. 
 2012-01-28 Update loading screen: revert to 'playing' after some seconds (if window handle can be found to game??)

@@ -1,5 +1,7 @@
 ﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
+using IndiegameGarden.Base;
+
 namespace IndiegameGarden.Download
 {
     /**
@@ -9,8 +11,8 @@ namespace IndiegameGarden.Download
     {
         const string DEFAULT_GAMELIBCONFIG_FILENAME = "gamelib.json";
 
-        public GameLibraryDownloader()
-            : base(DEFAULT_GAMELIBCONFIG_FILENAME)
+        public GameLibraryDownloader(GardenConfig lastConfig)
+            : base(lastConfig)
         {
         }
     }

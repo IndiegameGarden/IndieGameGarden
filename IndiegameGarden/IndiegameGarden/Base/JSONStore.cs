@@ -14,8 +14,8 @@ namespace IndiegameGarden.Base
      */
     public class JSONStore
     {
-        private string fn = null;
-        JsonObject json = null;
+        protected string jsonFilePath = null;
+        protected JsonObject json = null;
 
         /// <summary>
         /// create new instance from a .json file and load it
@@ -23,8 +23,16 @@ namespace IndiegameGarden.Base
         /// <param name="filename"></param>
         public JSONStore(string filename)
         {
-            fn = filename;
-            Load();
+            jsonFilePath = filename;
+            LoadJson();
+        }
+
+        /// <summary>
+        /// for use by subclasses - create but don't load .json file yet
+        /// </summary>
+        protected JSONStore()
+        {
+            json = new JsonObject();
         }
 
         /// <summary>
@@ -42,16 +50,40 @@ namespace IndiegameGarden.Base
             return s;
         }
 
-
-        protected void Load()
+        protected void LoadJson()
         {
-            TextReader tr = File.OpenText(@fn);
-            JsonParser parser = new JsonParser(tr, true);
-            json = (JsonObject)parser.ParseObject();
-            //JsonString name = (JsonString)obj["Name"];
-            //JsonNumber age = (JsonNumber)obj["Age"];
-            //JsonBoolean hungry = (JsonBoolean)obj["Hungry?"];
+            TextReader tr = null;
+            try
+            {
+                tr = File.OpenText(jsonFilePath);
+                JsonParser parser = new JsonParser(tr, true);
+                json = (JsonObject)parser.ParseObject();
+            }
+            finally
+            {
+                if (tr != null)
+                    tr.Close();
+            }
+        }
 
+        /// <summary>
+        /// reload configuration from .json file on disk, e.g. after file was changed or downloaded again
+        /// </summary>
+        public virtual void Reload()
+        {
+            LoadJson();
+        }
+
+        /// <summary>
+        /// save configuration to .json file, overwriting the old file
+        /// </summary>
+        public virtual void Save()
+        {
+            FileStream ios = File.OpenWrite(jsonFilePath);
+            StreamWriter tw = new StreamWriter(ios);
+            JsonWriter jsonWriter = new JsonWriter(tw,true);
+            json.Write(jsonWriter);
+            tw.Close();
         }
 
         /// <summary>
@@ -72,6 +104,36 @@ namespace IndiegameGarden.Base
         public string GetString(string key)
         {
             return ((JsonString)json[key]).ToString();
+        }
+
+        public double GetValue(string key)
+        {
+            return ((JsonNumber)json[key]).Value;
+        }
+
+        public void PutValue(string key, long value)
+        {
+            PutValue(key, new JsonNumber(value));
+        }
+
+        public void PutValue(string key, double value)
+        {
+            PutValue(key, new JsonNumber(value));
+        }
+
+        public void PutValue(string key, int value)
+        {
+            PutValue(key, new JsonNumber(value));
+        }
+
+        protected void PutValue(string key, JsonNumber value)
+        {
+            json[key] = value;
+        }
+
+        public bool HasKey(string key)
+        {
+            return json.ContainsKey(key);
         }
     }
 }

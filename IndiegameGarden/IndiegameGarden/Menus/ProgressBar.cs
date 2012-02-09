@@ -30,6 +30,7 @@ namespace IndiegameGarden.Menus
             progressValueTarget = 0f;
             ProgressCatchupSpeed = 0.6f;
             spriteFont = TTengineMaster.ActiveGame.Content.Load<SpriteFont>("m41_lovebit");
+            Motion.Scale = 0.8f;
         }
 
         public float ProgressTarget
@@ -76,16 +77,18 @@ namespace IndiegameGarden.Menus
         {
             Vector2 pos = DrawInfo.DrawPosition;
             double progressValuePercent = 100 * progressValue;
+            float drawSc = DrawInfo.DrawScale;
             int width = 1 + (int)Math.Round(ToPixels(DrawInfo.WidthAbs) * progressValue);
             if (width > Texture.Width) width = Texture.Width;
 
             Rectangle srcRect = new Rectangle(0, 0, width, Texture.Height);
             MySpriteBatch.Draw(Texture, pos, srcRect, DrawInfo.DrawColor,
-                            Motion.RotateAbs, Vector2.Zero, 1.0f, SpriteEffects.None, DrawInfo.LayerDepth);
+                            Motion.RotateAbs, Vector2.Zero, drawSc, SpriteEffects.None, DrawInfo.LayerDepth);
 
             // plot text percentage
-            Vector2 tpos = pos + new Vector2(width, Texture.Height / 2.0f - 10.0f) ;
-            MySpriteBatch.DrawString(spriteFont, String.Format("{0,3}%", Math.Round(progressValuePercent)), tpos, textColor);
+            Vector2 tpos = pos + new Vector2(width * drawSc, 0f); //Texture.Height / 2.0f - 10.0f) ;
+            MySpriteBatch.DrawString(spriteFont, String.Format(" {0,3}%", Math.Round(progressValuePercent)), tpos, 
+                                     textColor, 0f, Vector2.Zero, drawSc, SpriteEffects.None, DrawInfo.LayerDepth);
         }
 
     }
