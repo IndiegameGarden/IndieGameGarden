@@ -46,8 +46,9 @@ namespace IndiegameGarden.Menus
             // background
             Spritelet bg = new Spritelet("parc-by-gadl");
             bg.Motion.Position = new Vector2(0.66667f, 0.5f);
-            bg.DrawInfo.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
-            bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/25.0f; }, "Rotate")); // FIXME properties no work
+            //bg.DrawInfo.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
+            // bg color 169, 157, 241
+            bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/35.0f; }, "Rotate")); // FIXME properties no work
             Add(bg);
 
             // set my panel and games list

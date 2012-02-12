@@ -105,7 +105,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="parc-by-gadl.jpg">
+    <Compile Include="birch-progress-bar.png">
+      <Name>birch-progress-bar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="parc-by-gadl.png">
       <Name>parc-by-gadl</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>

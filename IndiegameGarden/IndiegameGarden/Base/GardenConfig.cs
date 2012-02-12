@@ -13,9 +13,9 @@ namespace IndiegameGarden.Base
      */
     public class GardenConfig: JSONStore
     {
-        public const string CONFIG_MAGIC_VALUE  = "x";
-        public const string DEFAULT_GARDEN_ID   = "y";     
-        public const string IGG_CLIENT_AUTH_KEY = "z";
+        public const string CONFIG_MAGIC_VALUE = "f20fj239jf0a9w";
+        public const string DEFAULT_GARDEN_ID = "34729384298378";
+        public const string IGG_CLIENT_AUTH_KEY = "sreqZRVmzJVqdsrKuCwJTnumI";
 
         public const string DATA_PATH = "..\\..\\..\\..\\.."; // for testing in Visual Studio
         //public const string DATA_PATH = "..\\.."; // for deployment version when embedded in games folder
@@ -56,9 +56,9 @@ namespace IndiegameGarden.Base
             ConfigFilename = "config.json";
             GameLibraryFilename = "gamelib.json";
 
-            ThumbnailsServerURL = "http://indie.trancetrance.com/thumbs/";
+            ThumbnailsServerURL = "http://indie.indiegamegarden.com/thumbs/";
             ConfigFilesServerURL = "http://indieget.appspot.com/igg/";
-            PackedFilesServerURL = "http://indie.trancetrance.com/zips/";
+            PackedFilesServerURL = "http://indie.indiegamegarden.com/zips/";
 
             jsonFilePath = ConfigFilesFolder + "\\" + ConfigFilename;
 

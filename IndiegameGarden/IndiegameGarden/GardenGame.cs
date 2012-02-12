@@ -122,7 +122,7 @@ namespace IndiegameGarden
             TreeRoot.Add(loadingScreenlet);
             mainScreenlet.Add(new FrameRateCounter(1.0f, 0f)); // TODO
             mainScreenlet.Add(new ScreenZoomer()); // TODO remove
-            mainScreenlet.DrawInfo.DrawColor = Color.Black;
+            mainScreenlet.DrawInfo.DrawColor = new Color(169 * 2 / 3, 157 * 2 / 3, 241 * 2 / 3); // Color.Black;
 
             // MyDownloader configuration
             myDownloaderProtocol = new HttpFtpProtocolExtension();

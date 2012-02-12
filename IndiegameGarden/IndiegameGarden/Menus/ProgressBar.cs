@@ -24,7 +24,7 @@ namespace IndiegameGarden.Menus
         Color textColor = Color.White;
 
         public ProgressBar()
-            : base("birch-test")
+            : base("birch-progress-bar")
         {
             progressValue = 0f;
             progressValueTarget = 0f;
@@ -79,14 +79,15 @@ namespace IndiegameGarden.Menus
             double progressValuePercent = 100 * progressValue;
             float drawSc = DrawInfo.DrawScale;
             int width = 1 + (int)Math.Round(ToPixels(DrawInfo.WidthAbs) * progressValue);
+            int height = (int) Math.Round(ToPixels(DrawInfo.HeightAbs));
             if (width > Texture.Width) width = Texture.Width;
 
-            Rectangle srcRect = new Rectangle(0, 0, width, Texture.Height);
+            Rectangle srcRect = new Rectangle(0, 0, width, Texture.Height-1);
             MySpriteBatch.Draw(Texture, pos, srcRect, DrawInfo.DrawColor,
                             Motion.RotateAbs, Vector2.Zero, drawSc, SpriteEffects.None, DrawInfo.LayerDepth);
 
             // plot text percentage
-            Vector2 tpos = pos + new Vector2(width * drawSc, 0f); //Texture.Height / 2.0f - 10.0f) ;
+            Vector2 tpos = pos + new Vector2(width * drawSc, height/4); //Texture.Height / 2.0f - 10.0f) ;
             MySpriteBatch.DrawString(spriteFont, String.Format(" {0,3}%", Math.Round(progressValuePercent)), tpos, 
                                      textColor, 0f, Vector2.Zero, drawSc, SpriteEffects.None, DrawInfo.LayerDepth);
         }

@@ -54,7 +54,7 @@ NOTE: MyDownloader source code is partially included in this archive.
 
 -------------------------------------------------------------------------------
 
-Content "parc-by-gadl.jpg" by gadl (Alexandre Duret-Lutz) is available from
+Content "parc-by-gadl.jpg/png" by gadl (Alexandre Duret-Lutz) is available from
 http://www.flickr.com/photos/gadl/360929190/
 under a Creative Commons Attribution Share-Alike license,
 http://creativecommons.org/licenses/by-sa/2.0/
