@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndiegameGardenContent", "I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTengine", "..\TTengine\TTengine\TTengine.csproj", "{616035D5-3927-44CD-BD41-2EEE846AC3A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDownloader.Core", "..\..\MyDownloader\MyDownloader.Core\MyDownloader.Core.csproj", "{E763345E-6696-4C53-8764-47E4ABD67DEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDownloader.Core", "IndiegameGarden\MyDownloader\MyDownloader.Core\MyDownloader.Core.csproj", "{E763345E-6696-4C53-8764-47E4ABD67DEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetServ.Net.Json", "..\..\JSON\NetServ.Net.Json\NetServ.Net.Json.csproj", "{95B7294D-230D-4ADA-9330-FF4EBD154A29}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetServ.Net.Json", "IndiegameGarden\NetServ.Net.Json\NetServ.Net.Json\NetServ.Net.Json.csproj", "{95B7294D-230D-4ADA-9330-FF4EBD154A29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

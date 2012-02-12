@@ -75,7 +75,7 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
@@ -185,14 +185,6 @@
     <Content Include="TasksList.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\JSON\NetServ.Net.Json\NetServ.Net.Json.csproj">
-      <Project>{95B7294D-230D-4ADA-9330-FF4EBD154A29}</Project>
-      <Name>NetServ.Net.Json</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\MyDownloader\MyDownloader.Core\MyDownloader.Core.csproj">
-      <Project>{E763345E-6696-4C53-8764-47E4ABD67DEF}</Project>
-      <Name>MyDownloader.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\TTengine\TTengine\TTengine.csproj">
       <Project>{616035D5-3927-44CD-BD41-2EEE846AC3A3}</Project>
       <Name>TTengine</Name>
@@ -201,6 +193,14 @@
       <Name>IndiegameGardenContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
       <Project>{1C5413AC-4401-442C-8576-87E9B7B4E0B0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\MyDownloader\MyDownloader.Core\MyDownloader.Core.csproj">
+      <Project>{E763345E-6696-4C53-8764-47E4ABD67DEF}</Project>
+      <Name>MyDownloader.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NetServ.Net.Json\NetServ.Net.Json\NetServ.Net.Json.csproj">
+      <Project>{95B7294D-230D-4ADA-9330-FF4EBD154A29}</Project>
+      <Name>NetServ.Net.Json</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

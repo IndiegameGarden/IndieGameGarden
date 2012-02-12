@@ -128,15 +128,16 @@ namespace IndiegameGarden
             myDownloaderProtocol = new HttpFtpProtocolExtension();
 
             // load config
-            LoadConfig();
+            if (LoadConfig())
+            {
+                // game chooser menu
+                GameChooserMenu menu = new GameChooserMenu();
+                mainScreenlet.Add(menu);
 
-            // game chooser menu
-            GameChooserMenu menu = new GameChooserMenu();
-            mainScreenlet.Add(menu);
-
-            // debug
-            DebugMsg = new DebugMessage("debugmsg");
-            loadingScreenlet.Add(DebugMsg);
+                // debug
+                DebugMsg = new DebugMessage("debugmsg");
+                loadingScreenlet.Add(DebugMsg);
+            }
 
             // finally call base to enumnerate all (gfx) Game components to init
             base.Initialize();
@@ -241,7 +242,7 @@ namespace IndiegameGarden
         /// load, download (if needed) and check the configuration and game library
         /// Sets initError to exception in case of fatal errors.
         /// </summary>
-        protected void LoadConfig()
+        protected bool LoadConfig()
         {
             // first try loading from file
             try
@@ -298,7 +299,7 @@ namespace IndiegameGarden
             {
                 TTengine.Util.MsgBox.Show("Could not load configuration", "Could not load configuration file."); // TODO msg
                 Exit();
-                return;
+                return false;
             }
 
             // load game library
@@ -311,9 +312,10 @@ namespace IndiegameGarden
                 MsgBox.Show("Could not load game library file", "Could not load game library file."); // TODO msg
                 initError = ex;
                 Exit();
-                return;
+                return false;
             }
 
+            return true;
         }
 
     }
