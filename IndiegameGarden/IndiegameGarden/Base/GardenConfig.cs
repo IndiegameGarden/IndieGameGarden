@@ -147,7 +147,10 @@ namespace IndiegameGarden.Base
 
         public string GetThumbnailFilename(IndieGame g)
         {
-            return g.GameID + "_v" + g.Version + ".jpg";
+            if (g.Version == 1)
+                return g.GameID + ".jpg";
+            else
+                return g.GameID + "_v" + g.Version + ".jpg";
         }
 
         /// <summary>
@@ -167,7 +170,10 @@ namespace IndiegameGarden.Base
         /// <returns></returns>
         public string GetThumbnailURL(IndieGame g)
         {
-            return ThumbnailsServerURL + g.GameID + "_v" + g.Version + ".jpg"; 
+            if (g.Version ==1 )
+                return ThumbnailsServerURL + g.GameID + ".jpg"; 
+            else
+                return ThumbnailsServerURL + g.GameID + "_v" + g.Version + ".jpg"; 
         }
 
         /// <summary>
@@ -187,7 +193,10 @@ namespace IndiegameGarden.Base
         /// <returns></returns>
         public string GetGameFolder(IndieGame g)
         {
-            return UnpackedFilesFolder + "\\" + g.GameID + "_v" + g.Version;
+            if(g.Version == 1)
+                return UnpackedFilesFolder + "\\" + g.GameID ;
+            else
+                return UnpackedFilesFolder + "\\" + g.GameID + "_v" + g.Version;
         }
 
         /// <summary>
@@ -206,7 +215,10 @@ namespace IndiegameGarden.Base
         /// </summary>
         public string GetPackedFileName(IndieGame g)
         {
-            return g.GameID + "_v" + g.Version + "." + ExtractFileExtension(g.PackedFileURL);
+            if(g.Version == 1)
+                return g.GameID + "." + ExtractFileExtension(g.PackedFileURL);
+            else
+                return g.GameID + "_v" + g.Version + "." + ExtractFileExtension(g.PackedFileURL);
         }
 
 

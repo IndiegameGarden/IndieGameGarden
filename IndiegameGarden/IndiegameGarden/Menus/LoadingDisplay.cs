@@ -14,6 +14,7 @@ namespace IndiegameGarden.Menus
     public class LoadingDisplay: Drawlet 
     {
         const float TIME_SHOW_PLAYING_MESSAGE = 4.0f;
+        const float LEFT_POSITION = 0.10f;
 
         GameTextBox tbox;
         GameTextBox iggNameBox;
@@ -123,12 +124,14 @@ namespace IndiegameGarden.Menus
         public LoadingDisplay()
         {
             SetNextState(new StateLoadingDisplay_Loading(this));
-            tbox = new GameTextBox("Loading ...");
-            tbox.Motion.Position = new Microsoft.Xna.Framework.Vector2(0.05f, 0.05f);
+            tbox = new GameTextBox("m41_lovebit");
+            tbox.Text = "Loading ...";
+            tbox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.05f);
             Add(tbox);
 
-            iggNameBox = new GameTextBox("Indiegame Garden               Exit game to return!");
-            iggNameBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(0.05f, 0.92f);
+            iggNameBox = new GameTextBox("GameDescriptionFont");
+            iggNameBox.Text = "IndiegameGarden.com               Exit this game to return!";
+            iggNameBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.92f);
             iggNameBox.Motion.Scale = 0.6f;
             Add(iggNameBox);
         }

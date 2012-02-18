@@ -129,21 +129,21 @@ namespace IndiegameGarden.Base
         /// <param name="j">the JSON data for one game</param>
         public IndieGame(JsonObject j)
         {
-            try { GameID = j["GameID"].ToString(); }                catch (KeyNotFoundException ex) { throw (ex);  }
+            try { GameID = j["ID"].ToString(); }                catch (KeyNotFoundException ex) { throw (ex);  }
             try { Version = (int) ((JsonNumber)j["Version"]).Value; }     catch (KeyNotFoundException) { ;}
             try { Position.X = (float) ((JsonNumber)j["X"]).Value; }
             catch (KeyNotFoundException) { ;}
             try { Position.Y = (float) ((JsonNumber)j["Y"]).Value; }
             catch (KeyNotFoundException) { ;}
             try { Name = j["Name"].ToString(); }                     catch (KeyNotFoundException) { ; }
-            try { Description = j["Description"].ToString(); }       catch (KeyNotFoundException) { ; }
-            try { ExeFile = j["ExeFile"].ToString(); }            catch (KeyNotFoundException) { ; }
-            try { CdPath   = j["CdPath"].ToString(); }            catch (KeyNotFoundException) { ; }
-            try { PackedFileURL = j["PackedFileURL"].ToString(); }
+            try { Description = j["Descr"].ToString(); }       catch (KeyNotFoundException) { ; }
+            try { ExeFile = j["Exe"].ToString(); }            catch (KeyNotFoundException) { ; }
+            try { CdPath   = j["Cd"].ToString(); }            catch (KeyNotFoundException) { ; }
+            try { PackedFileURL = j["Zip"].ToString(); }
             catch (KeyNotFoundException) { ; }
-            try { DeveloperWebsiteURL = j["DeveloperWebsiteURL"].ToString(); } catch (KeyNotFoundException) { ; }
+            try { DeveloperWebsiteURL = j["Site"].ToString(); } catch (KeyNotFoundException) { ; }
             try { 
-                JsonArray am = (JsonArray)j["PackedFileMirrors"];
+                JsonArray am = (JsonArray)j["ZipMirrors"];
                 PackedFileMirrors = JSONStore.ToStringArray(am);
             }catch(KeyNotFoundException){;}
         }

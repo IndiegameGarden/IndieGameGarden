@@ -20,22 +20,12 @@ namespace IndiegameGarden.Menus
         SpriteFont font;
 
         /// <summary>
-        /// construct a box with initial text. Can be changed later with the Text property.
+        /// construct a box without text yet and given font set
         /// </summary>
-        /// <param name="initialText">initial text to display</param>
-        public GameTextBox(string initialText)
-        {
-            txt = initialText;
-            Init();
-        }
-
-        /// <summary>
-        /// construct a box without text yet (empty)
-        /// </summary>
-        public GameTextBox()
+        public GameTextBox(string fontName)
         {
             txt = "";
-            Init();
+            Init(fontName);
         }
 
         /// <summary>
@@ -53,9 +43,9 @@ namespace IndiegameGarden.Menus
             }
         }
 
-        private void Init()
+        private void Init(string fontName)
         {
-            font = GardenGame.Instance.Content.Load<SpriteFont>("m41_lovebit");
+            font = GardenGame.Instance.Content.Load<SpriteFont>(fontName);
         }
 
         protected override void OnDraw(ref DrawParams p)

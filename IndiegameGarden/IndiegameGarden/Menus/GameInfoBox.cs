@@ -36,17 +36,17 @@ namespace IndiegameGarden.Menus
             Add(MotionB);
 
             dlProgressBar = new ProgressBar();
-            dlProgressBar.Motion.Position = new Vector2(0.55f, 0.0f);
+            dlProgressBar.Motion.Position = new Vector2(1.2f, 0.0f);
             dlProgressBar.Visible = false;
             Add(dlProgressBar);
 
-            titleBox = new GameTextBox("");
+            titleBox = new GameTextBox("m41_lovebit");
             titleBox.Motion.Position = new Vector2(0.0f, 0.0f);
             Add(titleBox);
 
-            descriptionBox = new GameTextBox("");
+            descriptionBox = new GameTextBox("GameDescriptionFont");
             descriptionBox.Motion.Position = new Vector2(0.0f, 0.08f);
-            descriptionBox.Motion.Scale = 0.7f;
+            //descriptionBox.Motion.Scale = 0.7f;
             Add(descriptionBox);
         }
 
@@ -69,7 +69,7 @@ namespace IndiegameGarden.Menus
                 string desc = game.Description + "\n";
                 if (game.IsInstalled)
                 {
-                    desc += "Installed: Hold ENTER to play!\n";
+                    desc += "Fully grown game: Hold ENTER to play!\n";
                     dlProgressBar.Visible = false;
                 }
                 else
@@ -77,7 +77,7 @@ namespace IndiegameGarden.Menus
                     if (game.DlAndInstallTask == null)
                     {
 
-                        desc += "Not Installed: Hold ENTER to download!\n";
+                        desc += "Game seed planted: Hold ENTER to start growing!\n";
                     }
                     else if (game.DlAndInstallTask != null &&
                         game.ThreadedDlAndInstallTask != null &&
@@ -85,11 +85,11 @@ namespace IndiegameGarden.Menus
                     {
                         if (game.DlAndInstallTask.IsDownloading())
                         {
-                            desc += "Downloading...\n"; // TODO some abort possibility message
+                            desc += "Growing seed...\n"; // TODO some abort possibility message
                         }
                         else if (game.DlAndInstallTask.IsInstalling())
                         {
-                            desc += "Installing...\n";
+                            desc += "Growing game...\n";
                         }
                         dlProgressBar.ProgressTarget = (float)game.DlAndInstallTask.Progress();
                         // make bar visible if not already.
@@ -108,6 +108,7 @@ namespace IndiegameGarden.Menus
 
                 titleBox.Text = title;
                 descriptionBox.Text = desc;
+                
                 dlProgressBar.Visible = true; // DEBUG
                 float n = ( SimTime/4f ) % 1.1f;
                 if ( n < dlProgressBar.ProgressTarget)
@@ -115,6 +116,7 @@ namespace IndiegameGarden.Menus
                     dlProgressBar.ProgressValue = 0f;
                 }
                 dlProgressBar.ProgressTarget = n;
+                
             }
             else
             {
