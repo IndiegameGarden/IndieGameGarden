@@ -70,7 +70,8 @@ namespace IndiegameGarden.Menus
                 if (game.IsInstalled)
                 {
                     desc += "Fully grown game: Hold ENTER to play!\n";
-                    dlProgressBar.Visible = false;
+                    dlProgressBar.Visible = true;
+                    dlProgressBar.ProgressTarget = 1.0f;
                 }
                 else
                 {
@@ -85,11 +86,11 @@ namespace IndiegameGarden.Menus
                     {
                         if (game.DlAndInstallTask.IsDownloading())
                         {
-                            desc += "Growing seed...\n"; // TODO some abort possibility message
+                            desc += "Growing branches...\n"; // TODO some abort possibility message
                         }
                         else if (game.DlAndInstallTask.IsInstalling())
                         {
-                            desc += "Growing game...\n";
+                            desc += "Growing leaves...\n";
                         }
                         dlProgressBar.ProgressTarget = (float)game.DlAndInstallTask.Progress();
                         // make bar visible if not already.
@@ -102,13 +103,15 @@ namespace IndiegameGarden.Menus
                     }
                     else
                     {
-                        dlProgressBar.Visible = false;
+                        dlProgressBar.Visible = true;
+                        dlProgressBar.ProgressTarget = 1.0f;
                     }
                 }
 
                 titleBox.Text = title;
                 descriptionBox.Text = desc;
                 
+                /*
                 dlProgressBar.Visible = true; // DEBUG
                 float n = ( SimTime/4f ) % 1.1f;
                 if ( n < dlProgressBar.ProgressTarget)
@@ -116,7 +119,7 @@ namespace IndiegameGarden.Menus
                     dlProgressBar.ProgressValue = 0f;
                 }
                 dlProgressBar.ProgressTarget = n;
-                
+                */
             }
             else
             {

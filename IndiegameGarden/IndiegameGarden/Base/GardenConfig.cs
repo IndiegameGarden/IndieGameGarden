@@ -14,7 +14,7 @@ namespace IndiegameGarden.Base
     public class GardenConfig: JSONStore
     {
         public const string CONFIG_MAGIC_VALUE = "f20fj239jf0a9w";
-        public const string DEFAULT_GARDEN_ID = "34729384298378";
+        public const string DEFAULT_GARDEN_ID = "44729384298378";
         public const string IGG_CLIENT_AUTH_KEY = "sreqZRVmzJVqdsrKuCwJTnumI";
 
         public const string DATA_PATH = "..\\..\\..\\..\\.."; // for testing in Visual Studio

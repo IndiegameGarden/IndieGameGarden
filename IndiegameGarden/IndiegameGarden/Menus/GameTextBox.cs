@@ -53,7 +53,11 @@ namespace IndiegameGarden.Menus
             base.OnDraw(ref p);
 
             Vector2 origin = Vector2.Zero; // new Vector2(2f * txt.Length, 0f);
-            MySpriteBatch.DrawString(font, txt, Motion.DrawPosition, DrawInfo.DrawColor,
+            Vector2 pos = Motion.DrawPosition;
+            // draw shadow
+            MySpriteBatch.DrawString(font, txt, pos + new Vector2(1f,1f), Color.Black,
+                                    Motion.RotateAbs, origin, Motion.ScaleAbs, SpriteEffects.None, DrawInfo.LayerDepth + 0.00001f);
+            MySpriteBatch.DrawString(font, txt, pos, DrawInfo.DrawColor,
                                     Motion.RotateAbs, origin, Motion.ScaleAbs, SpriteEffects.None, DrawInfo.LayerDepth);
         }
     }

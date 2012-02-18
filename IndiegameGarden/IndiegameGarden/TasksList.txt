@@ -3,6 +3,7 @@
 OPEN  [top issues first]
 
 Show quickly (with icons?) on one line, the dl and install state of a game
+Use 90% of progress bar for download and last 10% for install (grow metaphor)
 Game dl/install in one go doesnt work in some cases
 Add image-display-only thumbnails (that do not execute)
 Put loader threads in lower priority
