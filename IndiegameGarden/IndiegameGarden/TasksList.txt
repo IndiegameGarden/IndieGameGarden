@@ -2,15 +2,13 @@
 
 OPEN  [top issues first]
 
-Show quickly (with icons?) on one line, the dl and install state of a game
-Use 90% of progress bar for download and last 10% for install (grow metaphor)
-Game dl/install in one go doesnt work in some cases
 Add image-display-only thumbnails (that do not execute)
 Put loader threads in lower priority
 Allow loading of config from server (where config includes URL/mirror locations etc)
 Add default mirror of own server to all game downloads, where name on server equals the local zipfilename
 Add mirrors to all thumbnail loading
 Allow loading of gamelib new version from server 
+Key/option to abort download or install of a game
 Add self-downloading of latest IGG code, in different versions. 
 Adapt to multiple desktop resolution and check for minimum resolution
 Add TTMusicEngine and one music file
@@ -19,6 +17,10 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
+2012-02-19 Remove (try) downl file if downl was aborted
+2012-02-19 Game dl/install in one go doesnt work in some cases
+2012-02-19 Use 90% of progress bar for download and last 10% for install (grow metaphor)
+2012-02-19 Show quickly (with icons?) on one line, the dl and install state of a game -> use progress bar
 2012-02-18 Remove _v1 for files, only use versions when version > 1 in general.
 2012-02-09 Download config with unique client id from cloud server
 2012-01-29 Bug Thumbnail is mutilated on display (sides removed)

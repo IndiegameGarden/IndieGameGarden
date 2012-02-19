@@ -18,6 +18,11 @@ namespace IndiegameGarden.Install
     /// </summary>
     public class GameDownloadAndInstallTask: Task
     {
+        /// <summary>
+        /// how much of the progress percentage is allocated to downloading (remainder is for installing)
+        /// </summary>
+        const double FRACTION_OF_PROGRESS_FOR_DOWNLOAD = 0.90;
+
         InstallTask installTask;
         GameDownloader downloadTask;
         IndieGame game;
@@ -79,7 +84,11 @@ namespace IndiegameGarden.Install
             }
             else
             {
-                if(status == ITaskStatus.CREATED)
+                if(downloadTask != null)
+                    downloadTask.Abort();
+                if(installTask != null)
+                    installTask.Abort();
+                if (status != ITaskStatus.SUCCESS)
                     status = ITaskStatus.FAIL;
             }
         }
@@ -105,12 +114,12 @@ namespace IndiegameGarden.Install
         public override double Progress()
         {            
             if (IsDownloading())
-                return ProgressDownload();
+                return ProgressDownload() * FRACTION_OF_PROGRESS_FOR_DOWNLOAD;
             if (IsInstalling())
-                return ProgressInstall();
+                return (ProgressInstall() * (1.0 - FRACTION_OF_PROGRESS_FOR_DOWNLOAD) + FRACTION_OF_PROGRESS_FOR_DOWNLOAD);
             if (installTask != null && installTask.IsFinished() )
-                return 1;
-            return 0;            
+                return 1.0;
+            return 0.0;            
         }
 
         /// <summary>

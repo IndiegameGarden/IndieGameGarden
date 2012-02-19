@@ -16,7 +16,9 @@ namespace IndiegameGarden.Download
     public abstract class BaseDownloader: Task
     {
         protected Downloader downloader;
+        protected string localFile;
 
+        // TODO check if allowed/needed
         ~BaseDownloader()
         {
             Abort();
@@ -43,6 +45,16 @@ namespace IndiegameGarden.Download
             if (downloader != null)
             {
                 DownloadManager.Instance.RemoveDownload(downloader);
+                // try to delete file
+                try
+                {
+                    if(localFile != null)
+                        File.Delete(localFile);
+                }
+                catch (Exception)
+                {
+                    ;
+                }
             }
             downloader = null;
             status = ITaskStatus.FAIL;
@@ -76,7 +88,7 @@ namespace IndiegameGarden.Download
             if (!urlPath.Contains("://"))
                 urlPath = "http://" + urlPath;
             
-            string localFile = toLocalFolder + "\\" + filename ;
+            localFile = toLocalFolder + "\\" + filename ;
 
             // check if file already there
             if (File.Exists(localFile))
@@ -110,6 +122,8 @@ namespace IndiegameGarden.Download
                 downloader.WaitForConclusion();
                 if (!downloader.State.Equals(DownloaderState.Ended))
                     status = ITaskStatus.FAIL;
+                else
+                    status = ITaskStatus.SUCCESS;
             }
             else
             {

@@ -47,6 +47,15 @@ namespace IndiegameGarden.Install
             game.Refresh();
         }
 
+        public override void Abort()
+        {
+            if (status == ITaskStatus.SUCCESS || status == ITaskStatus.FAIL)
+                return;
+            if (unpacker != null)
+                unpacker.Abort();
+            status = ITaskStatus.FAIL;
+        }
+
         public override double Progress()
         {
             if (status == ITaskStatus.CREATED)

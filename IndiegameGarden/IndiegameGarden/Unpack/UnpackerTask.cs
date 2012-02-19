@@ -89,6 +89,16 @@ namespace IndiegameGarden.Unpack
             }            
         }
 
+        public override void Abort()
+        {
+            if (status == ITaskStatus.SUCCESS || status == ITaskStatus.FAIL)
+                return;
+            if (unpackTask != null)
+                unpackTask.Abort();
+            status = ITaskStatus.FAIL;
+            statusMsg = "aborted task";
+        }
+
         public override double Progress()
         {
             if (status == ITaskStatus.CREATED)
