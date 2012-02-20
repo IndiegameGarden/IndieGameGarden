@@ -109,6 +109,7 @@ namespace IndiegameGarden.Menus
             {
                 if (SelectedGame == null)
                 {
+                    // TODO remove?
                     SelectedGame = gl[0];
                     cursor.SetToGame(SelectedGame);
                 }

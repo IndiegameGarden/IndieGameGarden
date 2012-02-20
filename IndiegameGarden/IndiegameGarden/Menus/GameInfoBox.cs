@@ -38,6 +38,8 @@ namespace IndiegameGarden.Menus
             dlProgressBar = new ProgressBar();
             dlProgressBar.Motion.Position = new Vector2(1.2f, 0.0f);
             dlProgressBar.Visible = false;
+            dlProgressBar.ProgressValue = 0f;
+            dlProgressBar.ProgressTarget = 0f;
             Add(dlProgressBar);
 
             titleBox = new GameTextBox("m41_lovebit");
@@ -72,6 +74,7 @@ namespace IndiegameGarden.Menus
                     desc += "Fully grown game: Hold ENTER to play!\n";
                     dlProgressBar.Visible = true;
                     dlProgressBar.ProgressTarget = 1.0f;
+                    dlProgressBar.ProgressValue = 1.0f;
                 }
                 else
                 {
@@ -79,6 +82,9 @@ namespace IndiegameGarden.Menus
                     {
 
                         desc += "Game seed planted: Hold ENTER to start growing!\n";
+                        dlProgressBar.Visible = false;
+                        dlProgressBar.ProgressTarget = 0.0f;
+                        dlProgressBar.ProgressValue = 0.0f;
                     }
                     else if (game.DlAndInstallTask != null &&
                         game.ThreadedDlAndInstallTask != null &&
@@ -105,6 +111,7 @@ namespace IndiegameGarden.Menus
                     {
                         dlProgressBar.Visible = true;
                         dlProgressBar.ProgressTarget = 1.0f;
+                        dlProgressBar.ProgressValue = 1.0f;
                     }
                 }
 
@@ -126,6 +133,8 @@ namespace IndiegameGarden.Menus
                 titleBox.Text = ""; // no text if no game chosen
                 descriptionBox.Text = "";
                 dlProgressBar.Visible = false;
+                dlProgressBar.ProgressValue = 0f;
+                dlProgressBar.ProgressTarget = 0f;
             }
         }
 
