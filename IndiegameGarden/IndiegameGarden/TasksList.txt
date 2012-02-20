@@ -2,6 +2,7 @@
 
 OPEN  [top issues first]
 
+Show downloading with an animated something (or a grow speed value :)
 Add image-display-only thumbnails (that do not execute)
 Put loader threads in lower priority
 Allow loading of config from server (where config includes URL/mirror locations etc)
