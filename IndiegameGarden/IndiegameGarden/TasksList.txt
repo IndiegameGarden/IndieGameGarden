@@ -2,6 +2,7 @@
 
 OPEN  [top issues first]
 
+Fix rar download/install
 Show downloading with an animated something (or a grow speed value :)
 Show a text message in loading screen with some help for the player (for windowed games)
 Add image-display-only thumbnails (that do not execute)
