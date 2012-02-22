@@ -74,7 +74,7 @@ namespace IndiegameGarden.Menus
             /// <summary>
             /// loads image from either file if it exists, or else by download
             /// </summary>
-            public override void Start()
+            protected override void StartInternal()
             {
                 if (File.Exists(thumbnail.ThumbnailFilename))
                 {

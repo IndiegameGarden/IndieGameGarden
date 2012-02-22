@@ -19,7 +19,7 @@ namespace IndiegameGarden.Download
             this.game= game;
         }
 
-        public override void Start()
+        protected override void StartInternal()
         {
             status = ITaskStatus.RUNNING;
             string fn = GardenGame.Instance.Config.GetPackedFileName(game);

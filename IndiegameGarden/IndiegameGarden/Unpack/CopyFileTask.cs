@@ -24,9 +24,8 @@ namespace IndiegameGarden.Unpack
             this.destFilename = destFilename;
         }
 
-        public override void Start()
-        {
-            
+        protected override void StartInternal()
+        {            
             try
             {
                 FileInfo fi = new FileInfo(filename);
@@ -44,9 +43,9 @@ namespace IndiegameGarden.Unpack
             }
         }
 
-        public override double Progress()
+        protected override void AbortInternal()
         {
-            return base.Progress();
+            // do nothing, can't abort this task once running.
         }
     }
 }

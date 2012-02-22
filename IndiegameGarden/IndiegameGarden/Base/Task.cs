@@ -38,7 +38,12 @@ namespace IndiegameGarden.Base
             return (status == ITaskStatus.SUCCESS) || (status == ITaskStatus.FAIL);
         }
 
-        // default implementation for Tasks that don't support live progressContributionSingleFile tracking
+        public virtual bool IsSuccess()
+        {
+            return (status == ITaskStatus.SUCCESS);
+        }
+
+        // default implementation for Tasks that don't support live progress tracking
         public virtual double Progress()
         {
             if (IsFinished())
@@ -47,13 +52,29 @@ namespace IndiegameGarden.Base
                 return 0;
         }
 
-        public abstract void Start();
-
-        public virtual void Abort()
+        public void Start()
         {
-            // to override if wished
-            throw new NotImplementedException("Abort() not implemented for this task");
+            if (IsStarted())
+                return;
+            else
+            {
+                status = ITaskStatus.RUNNING;
+                StartInternal();
+            }
         }
+
+        protected abstract void StartInternal();
+       
+        public void Abort()
+        {
+            if (!IsFinished())
+            {
+                status = ITaskStatus.FAIL;
+                AbortInternal();
+            }
+        }
+
+        protected abstract void AbortInternal();
 
     }
 }

@@ -32,17 +32,14 @@ namespace IndiegameGarden.Download
             return downloader.Progress / 100;
         }
 
-        /// <summary>
-        /// actual download operations should be put in the Start() method
-        /// </summary>
-        public override void Start()
+        protected override void StartInternal()
         {
             throw new NotImplementedException("BaseDownloader subclasses should implement/override Start()");
         }
 
-        public override void Abort()
+        protected override void AbortInternal()
         {
-            if (downloader != null)
+            if (downloader != null && IsRunning() )
             {
                 DownloadManager.Instance.RemoveDownload(downloader);
                 // try to delete file

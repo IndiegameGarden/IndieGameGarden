@@ -31,7 +31,7 @@ namespace IndiegameGarden.Download
             this.game = game;
         }
 
-        public override void Start()
+        protected override void StartInternal()
         {
             string filename = GardenGame.Instance.Config.GetThumbnailFilename(game);
             string urlDl = GardenGame.Instance.Config.GetThumbnailURL(game);

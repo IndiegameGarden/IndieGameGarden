@@ -22,6 +22,7 @@ namespace IndiegameGarden.Unpack
         double currentProgressMultiplier = 0;
         double progressTotal = 0;
         Unrar unrar;
+        bool isAborted = false;
 
         public UnrarTask(string filename, string destfolder)
         {
@@ -38,9 +39,8 @@ namespace IndiegameGarden.Unpack
             return p;
         }
 
-        public override void Start()
+        protected override void StartInternal()
         {
-            status = ITaskStatus.RUNNING;
             unrar = null;
             try
             {
@@ -51,12 +51,12 @@ namespace IndiegameGarden.Unpack
                 unrar.ExtractionProgress += new ExtractionProgressHandler(EvHandlerExtractionProgress);
                 while (unrar.ReadHeader())
                 {
-                    // small 2% compensation for inexact progress calculation
                     currentProgressMultiplier = ((double)unrar.CurrentFile.PackedSize) / ((double)rarBytesTotal);
                     unrar.ExtractToDirectory(destfolder);
                     progressContributionSingleFile = 0;
                     progressTotal += currentProgressMultiplier;
-
+                    if (isAborted)
+                        throw new Exception("UnrarTask aborted.");
                 }
                 status = ITaskStatus.SUCCESS;
             }
@@ -79,10 +79,17 @@ namespace IndiegameGarden.Unpack
             }
         }
 
+        protected override void AbortInternal()
+        {
+            isAborted = true;
+        }
         
         // called from the Unrar.cs event handler
         void EvHandlerExtractionProgress(object sender, ExtractionProgressEventArgs e)
         {
+            if (isAborted)
+                throw new Exception("UnrarTask aborted.");
+
             progressContributionSingleFile = currentProgressMultiplier * e.PercentComplete / 100;
         }
         

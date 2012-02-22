@@ -62,5 +62,11 @@ namespace IndiegameGarden.Base
         /// </summary>
         /// <returns>true if finished (states ITaskStatus.SUCCESS or ITaskStatus.FAIL), false otherwise</returns>
         bool IsFinished();
+
+        /// <summary>
+        /// check whether Task has finished successfully.
+        /// </summary>
+        /// <returns>true if finished successfully, false if not (yet).</returns>
+        bool IsSuccess();
     }
 }

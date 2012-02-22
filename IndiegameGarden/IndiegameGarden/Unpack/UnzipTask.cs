@@ -21,7 +21,7 @@ namespace IndiegameGarden.Unpack
         long bytesDoneWithinFile = 0;
         long totalSize = 0;
         long doneSize = 0;
-
+        bool isAborted = false;
 
         public UnzipTask(string zipfile, string destdir)
         {
@@ -37,9 +37,8 @@ namespace IndiegameGarden.Unpack
                 return 0;
         }
 
-        public override void Start()
-        {
-            status = ITaskStatus.RUNNING;
+        protected override void StartInternal()
+        {            
             try
             {
                 // Specifying Console.Out here causes diagnostic msgs to be sent to the Console
@@ -53,6 +52,8 @@ namespace IndiegameGarden.Unpack
                     foreach (ZipEntry ze in zipFiles)
                     {
                         totalSize += ze.UncompressedSize;
+                        if (isAborted)
+                            throw new Exception("UnzipTask aborted.");
                     }
                     
                     zip.ExtractProgress += new EventHandler<ExtractProgressEventArgs>(EvHandlerExtractProgress);
@@ -61,14 +62,9 @@ namespace IndiegameGarden.Unpack
                     {
                         ze.Extract(destdir);
                         doneSize += ze.UncompressedSize;
+                        if (isAborted)
+                            throw new Exception("UnzipTask aborted.");
                     }
-
-                    // This call to ExtractAll() assumes:
-                    //   - none of the entries are password-protected.
-                    //   - want to extract all entries to current working directory
-                    //   - none of the files in the zip already exist in the directory;
-                    //     if they do, the method will throw.
-                    //zip.ExtractAll(destdir);
                 }
                 status = ITaskStatus.SUCCESS;
             }
@@ -77,12 +73,18 @@ namespace IndiegameGarden.Unpack
                 status = ITaskStatus.FAIL;
                 statusMsg = ex1.ToString();
             }
+        }
 
+        protected override void AbortInternal()
+        {
+            isAborted = true;
         }
 
         // called by the ZipFile class progressContributionSingleFile event
         void EvHandlerExtractProgress(object sender, ExtractProgressEventArgs e)
         {
+            if (isAborted)
+                throw new Exception("UnzipTask aborted.");
             try
             {
                 if (e.EventType.Equals(ZipProgressEventType.Extracting_EntryBytesWritten))

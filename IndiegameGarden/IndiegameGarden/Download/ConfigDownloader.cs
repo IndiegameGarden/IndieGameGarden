@@ -42,7 +42,7 @@ namespace IndiegameGarden.Download
             return (timeCurrent > timeLastUpdate + intervalUpdate);
         }
 
-        public override void Start()
+        protected override void StartInternal()
         {
             string filenameOnServer = config.ConfigFilename;
             string filenameLocalSave = "new_" + filenameOnServer;

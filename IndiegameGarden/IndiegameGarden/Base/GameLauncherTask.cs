@@ -49,9 +49,8 @@ namespace IndiegameGarden.Base
             filePath = g.ExeFile;            
         }
 
-        public override void Start()
+        protected override void StartInternal()
         {
-            status = ITaskStatus.RUNNING;
             try
             {
                 //TODO wait until task done, keep setting it to fg a few times.
@@ -103,14 +102,13 @@ namespace IndiegameGarden.Base
             }
         }
 
-        public override void Abort()
+        protected override void AbortInternal()
         {
-            if (!IsFinished())
+            if (IsRunning())
             {
-                status = ITaskStatus.FAIL;
                 if (Proc != null)
                 {
-                    // TODO check if we can abort the process
+                    // FIXME check if we can abort the process
                 }
             }
         }

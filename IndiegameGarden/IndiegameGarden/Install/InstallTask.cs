@@ -26,9 +26,8 @@ namespace IndiegameGarden.Install
             this.game = game;
         }
 
-        public override void Start()
+        protected override void StartInternal()
         {
-            status = ITaskStatus.RUNNING;
             string destFolder = GardenGame.Instance.Config.GetGameFolder(game);
             unpacker = new UnpackerTask(GardenGame.Instance.Config.GetPackedFilepath(game), 
                                         destFolder,
@@ -47,24 +46,22 @@ namespace IndiegameGarden.Install
             game.Refresh();
         }
 
-        public override void Abort()
+        protected override void AbortInternal()
         {
-            if (status == ITaskStatus.SUCCESS || status == ITaskStatus.FAIL)
-                return;
             if (unpacker != null)
                 unpacker.Abort();
-            status = ITaskStatus.FAIL;
         }
 
         public override double Progress()
         {
-            if (status == ITaskStatus.CREATED)
+            if (!IsRunning())
                 return 0;
-            if (status == ITaskStatus.SUCCESS || status== ITaskStatus.FAIL)
+            if (IsFinished())
                 return 1;
             if (unpacker == null)
                 return 0;
-            return unpacker.Progress();
+            else
+                return unpacker.Progress();
         }
 
     }

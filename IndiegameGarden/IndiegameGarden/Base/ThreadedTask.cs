@@ -59,7 +59,7 @@ namespace IndiegameGarden.Base
             return task.Progress();
         }
 
-        public override void Start()
+        protected override void StartInternal()
         {
             thread = new Thread(new ThreadStart(StartTaskBlocking));
             thread.Start();
@@ -90,18 +90,22 @@ namespace IndiegameGarden.Base
         }
 
         // aborts the thread running the task
-        public override void Abort()
+        protected override void AbortInternal()
         {
             if (task != null)
             {
                 task.Abort();
             }
 
+            /*
             if (thread != null)
             {
                 thread.Abort();
                 thread = null;
             }
+             * */
+            if (thread != null)
+                thread.Join();
         }
     }
 }

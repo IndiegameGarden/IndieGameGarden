@@ -57,10 +57,8 @@ namespace IndiegameGarden.Unpack
                 fileType = PackedFileType.UNKNOWN;
         }
 
-        public override void Start()
+        protected override void StartInternal()
         {
-            status = ITaskStatus.RUNNING;         
-            // TODO error handling e.g. incomplete archives
             try
             {
                 switch (fileType)
@@ -89,23 +87,26 @@ namespace IndiegameGarden.Unpack
             }            
         }
 
-        public override void Abort()
+        protected override void AbortInternal()
         {
-            if (status == ITaskStatus.SUCCESS || status == ITaskStatus.FAIL)
-                return;
             if (unpackTask != null)
+            {
                 unpackTask.Abort();
-            status = ITaskStatus.FAIL;
-            statusMsg = "aborted task";
+                statusMsg = unpackTask.StatusMsg();
+            }
+            if(statusMsg.Length == 0)
+            {
+                statusMsg = "UnpackerTask aborted."; // add descriptive msg if none was given by unpackTask.
+            }
         }
 
         public override double Progress()
         {
-            if (status == ITaskStatus.CREATED)
+            if (!IsRunning())
                 return 0;
-            if (status == ITaskStatus.SUCCESS || status == ITaskStatus.FAIL)
+            if (IsFinished())
                 return 1;
-            if (status == ITaskStatus.RUNNING && unpackTask != null)
+            if (IsRunning() && unpackTask != null)
                return unpackTask.Progress();
             return 0;
         }
