@@ -12,7 +12,7 @@ namespace IndiegameGarden.Base
     /**
      * stores a library of game information, parsed from JSON format files
      */
-    public class GameLibrary
+    public class GameLibrary: IDisposable
     {
         JSONStore json;
         GameCollection gamesList;
@@ -33,6 +33,11 @@ namespace IndiegameGarden.Base
             json = new JSONStore(fn);
             gamesList = new GameCollection();
             ParseJson();
+        }
+
+        public void Dispose()
+        {
+            gamesList.Dispose();
         }
 
         // parse all games in the 'json' data

@@ -36,7 +36,7 @@ namespace IndiegameGarden.Download
             string filename = GardenGame.Instance.Config.GetThumbnailFilename(game);
             string urlDl = GardenGame.Instance.Config.GetThumbnailURL(game);
             string toLocalFolder = GardenGame.Instance.Config.ThumbnailsFolder;
-            //lock (downloadingToken)
+            //lock (downloadingToken) // TODO check if locks needed
             {
                 InternalDoDownload(urlDl, filename, toLocalFolder, true);
             }

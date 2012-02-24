@@ -32,7 +32,7 @@ namespace IndiegameGarden.Base
             {
                 LoadJson();
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 //
                 hasLoadedFromFileOk = false;
@@ -99,7 +99,7 @@ namespace IndiegameGarden.Base
                 base.Reload();
                 hasLoadedFromFileOk = true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 hasLoadedFromFileOk = false;
             }

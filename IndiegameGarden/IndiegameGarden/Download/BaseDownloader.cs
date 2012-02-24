@@ -1,6 +1,7 @@
 ﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
+using System.Threading;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,14 +40,19 @@ namespace IndiegameGarden.Download
 
         protected override void AbortInternal()
         {
-            if (downloader != null && IsRunning() )
+            if (downloader != null && (IsRunning() || (IsFinished() && !IsSuccess())) )
             {
                 DownloadManager.Instance.RemoveDownload(downloader);
+                downloader.WaitForConclusion();
                 // try to delete file
                 try
                 {
-                    if(localFile != null)
+                    if (localFile != null)
+                    {
                         File.Delete(localFile);
+                        Thread.Sleep(100);
+                        File.Delete(localFile);
+                    }
                 }
                 catch (Exception)
                 {
@@ -117,7 +123,7 @@ namespace IndiegameGarden.Download
             if (downloader != null)
             {
                 downloader.WaitForConclusion();
-                if (!downloader.State.Equals(DownloaderState.Ended))
+                if (downloader == null || !downloader.State.Equals(DownloaderState.Ended))
                     status = ITaskStatus.FAIL;
                 else
                     status = ITaskStatus.SUCCESS;

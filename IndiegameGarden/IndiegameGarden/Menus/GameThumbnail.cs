@@ -79,13 +79,20 @@ namespace IndiegameGarden.Menus
                 if (File.Exists(thumbnail.ThumbnailFilename))
                 {
                     thumbnail.LoadTextureFromFile();
+                    status = ITaskStatus.SUCCESS;
                 }
                 else
                 {
-                    base.Start();
-                    if (File.Exists(thumbnail.ThumbnailFilename))
+                    // first run the base downloading task now. If that is ok, then load from file.
+                    base.StartInternal();
+                    if (File.Exists(thumbnail.ThumbnailFilename) && status == ITaskStatus.SUCCESS )
                     {
                         thumbnail.LoadTextureFromFile();
+                        status = ITaskStatus.SUCCESS;
+                    }
+                    else
+                    {
+                        status = ITaskStatus.FAIL;
                     }
                 }
             }

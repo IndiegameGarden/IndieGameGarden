@@ -9,8 +9,16 @@ namespace IndiegameGarden.Base
     /**
      * a selected collection/list of games
      */
-    public class GameCollection: List<IndieGame>
+    public class GameCollection: List<IndieGame>, IDisposable
     {
+
+        public void Dispose()
+        {
+            foreach (IndieGame g in this)
+            {
+                g.Dispose();
+            }
+        }
 
         /// <summary>
         /// find the game closest to given position

@@ -16,7 +16,7 @@ namespace IndiegameGarden.Base
     /**
      * <summary>represents all data and status of a game that a user can select, download and start/play</summary>
      */
-    public class IndieGame
+    public class IndieGame: IDisposable
     {
         /// <summary>
         /// internally used string ID for game, no whitespace allowed, only alphanumeric and 
@@ -92,6 +92,14 @@ namespace IndiegameGarden.Base
         public IndieGame()
         {
             throw new NotImplementedException("Constructor");
+        }
+
+        public void Dispose()
+        {
+            if (ThreadedDlAndInstallTask != null)
+            {
+                ThreadedDlAndInstallTask.Abort();
+            }
         }
 
         /// <summary>

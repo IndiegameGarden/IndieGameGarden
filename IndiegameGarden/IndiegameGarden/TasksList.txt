@@ -2,10 +2,6 @@
 
 OPEN  [top issues first]
 
-Fix to call abort on all tasks when exiting (eg from GameLibrary, GameCollection or GardenGame)
-Check thumbs downloading (work?)
-Fix progress bar bug going from 100% to lower %
-Fix rar download/install
 Show downloading with an animated something (or a grow speed value :)
 Show a text message in loading screen with some help for the player (for windowed games)
 Add image-display-only thumbnails (that do not execute)
@@ -23,6 +19,11 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
+2012-02-24 Check thumbs downloading (work?)
+2012-02-24 Fix progress bar bug going from 100% to lower %
+2012-02-24 Fix rar download/install
+2012-02-24 Fix to call abort on all tasks when exiting (eg from GameLibrary, GameCollection or GardenGame)
+2012-02-24 Fix file not deleted on abort while downloading bug; add removedownload not called
 2012-02-22 Fix File.Delete bug on Abort() in basedownloader.
 2012-02-19 Remove (try) downl file if downl was aborted
 2012-02-19 Game dl/install in one go doesnt work in some cases

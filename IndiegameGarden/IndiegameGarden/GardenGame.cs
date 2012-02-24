@@ -176,7 +176,9 @@ namespace IndiegameGarden
             if (TreeRoot != null)
             {
                 TreeRoot.Dispose();
+                GameLib.Dispose();
                 TreeRoot = null;
+                GameLib = null;
             }
             System.GC.Collect();
             Exit();
