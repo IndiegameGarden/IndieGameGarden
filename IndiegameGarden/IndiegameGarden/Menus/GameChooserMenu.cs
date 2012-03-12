@@ -44,8 +44,9 @@ namespace IndiegameGarden.Menus
             gamesList = GardenGame.Instance.GameLib.GetList();
 
             // background
-            Spritelet bg = new Spritelet("parc-by-gadl");
+            Spritelet bg = new Spritelet("parc-by-gadl2");
             bg.Motion.Position = new Vector2(0.66667f, 0.5f);
+            bg.Motion.Scale = 1.5f;
             //bg.DrawInfo.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
             // bg color 169, 157, 241
             bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/70.0f; }, "Rotate")); 
