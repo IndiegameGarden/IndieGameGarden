@@ -33,6 +33,13 @@ namespace IndiegameGarden.Download
             return downloader.Progress / 100;
         }
 
+        public virtual double DownloadSpeed()
+        {
+            if (downloader==null)
+                return 0;
+            return downloader.Rate;
+        }
+
         protected override void StartInternal()
         {
             throw new NotImplementedException("BaseDownloader subclasses should implement/override Start()");

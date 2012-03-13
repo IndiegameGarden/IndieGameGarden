@@ -18,10 +18,13 @@ namespace IndiegameGarden.Menus
      */
     public class ProgressBar: Spritelet
     {
+        bool isPulsing = false;
         float progressValue;
+        float progressSpeed = 0f;
         float progressValueTarget;
         SpriteFont spriteFont;
         Color textColor = Color.White;
+        float textScale = 1f;
 
         public ProgressBar()
             : base("birch-progress-bar")
@@ -33,6 +36,21 @@ namespace IndiegameGarden.Menus
             Motion.Scale = 0.6f;
         }
 
+        /// <summary>
+        /// Pulsing is an animation showing activity eg a download is in progress/active.
+        /// </summary>
+        public bool Pulsing
+        {
+            get
+            {
+                return isPulsing;
+            }
+            set
+            {
+                isPulsing = value;
+            }
+        }
+
         public float ProgressTarget
         {
             get
@@ -42,6 +60,18 @@ namespace IndiegameGarden.Menus
             set
             {
                 progressValueTarget = value;
+            }
+        }
+
+        public float ProgressSpeed
+        {
+            get
+            {
+                return progressSpeed;
+            }
+            set
+            {
+                progressSpeed = value;
             }
         }
 
@@ -71,6 +101,19 @@ namespace IndiegameGarden.Menus
                     progressValue = progressValueTarget;
             }
 
+            // pulsing
+            textScale = 1f;
+            if (isPulsing)
+            {
+                float ampl = 0.273f;
+                float frequency = 0.2f + progressSpeed * 0.0000003f; //0.6243f;
+                if (progressSpeed > 0f)
+                {
+                    int a = 3;
+                }
+                textScale = 1f + ampl * (float)Math.Sin(MathHelper.TwoPi * (double)frequency * SimTime);
+
+            }
         }
 
         protected override void OnDraw(ref DrawParams p)
@@ -88,8 +131,9 @@ namespace IndiegameGarden.Menus
 
             // plot text percentage
             Vector2 tpos = pos + new Vector2(width * drawSc, height/4); //Texture.Height / 2.0f - 10.0f) ;
+            Vector2 origin = new Vector2(15f,6f);
             MySpriteBatch.DrawString(spriteFont, String.Format(" {0,3}%", Math.Round(progressValuePercent)), tpos, 
-                                     textColor, Motion.RotateAbs, Vector2.Zero, drawSc * 1.2f, SpriteEffects.None, DrawInfo.LayerDepth);
+                                     textColor, Motion.RotateAbs, origin, textScale * drawSc * 1.2f, SpriteEffects.None, DrawInfo.LayerDepth);
         }
 
     }

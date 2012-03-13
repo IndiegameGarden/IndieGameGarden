@@ -97,6 +97,14 @@ namespace IndiegameGarden.Install
             return (downloadTask != null && downloadTask.IsRunning() );
         }
 
+        public virtual double DownloadSpeed()
+        {
+            if (downloadTask != null)
+                return downloadTask.DownloadSpeed();
+            return 0;
+        }
+
+
         /// <summary>
         /// check whether currently installing
         /// </summary>

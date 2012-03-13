@@ -2,7 +2,6 @@
 
 OPEN  [top issues first]
 
-Show downloading with an animated something (or a grow speed value :)
 Show a text message in loading screen with some help for the player (for windowed games)
 Add image-display-only thumbnails (that do not execute)
 Put loader threads in lower priority
@@ -19,6 +18,7 @@ Easter egg with sprites from OpenGameArt in menu
 
 
 CLOSED  [date order]
+2012-03-13 Show downloading with an animated something (or a grow speed value :) -> text pulsing shows DL rate.
 2012-02-24 Check thumbs downloading (work?)
 2012-02-24 Fix progress bar bug going from 100% to lower %
 2012-02-24 Fix rar download/install
