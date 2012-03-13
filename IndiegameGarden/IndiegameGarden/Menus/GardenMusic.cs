@@ -23,6 +23,8 @@ namespace IndiegameGarden.Menus
             SampleSoundEvent evSong = new SampleSoundEvent("aurelic.ogg");
             evSong.Amplitude = 0.5f;
             soundScript.AddEvent(1, evSong);
+            rp.Ampl = 0;
+            FadeIn();
         }
 
         protected override void OnUpdate(ref UpdateParams p)

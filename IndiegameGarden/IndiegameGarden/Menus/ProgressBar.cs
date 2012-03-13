@@ -127,7 +127,7 @@ namespace IndiegameGarden.Menus
 
             // plot text percentage
             Vector2 tpos = pos + new Vector2(width * drawSc, height/4); //Texture.Height / 2.0f - 10.0f) ;
-            Vector2 origin = new Vector2(15f,6f);
+            Vector2 origin = new Vector2(10f,6f);
             MySpriteBatch.DrawString(spriteFont, String.Format(" {0,3}%", Math.Round(progressValuePercent)), tpos, 
                                      textColor, Motion.RotateAbs, origin, textScale * drawSc * 1.2f, SpriteEffects.None, DrawInfo.LayerDepth);
         }

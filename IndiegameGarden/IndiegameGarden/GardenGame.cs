@@ -133,8 +133,8 @@ namespace IndiegameGarden
 
             TreeRoot.Add(mainScreenlet);
             TreeRoot.Add(loadingScreenlet);
-            mainScreenlet.Add(new FrameRateCounter(1.0f, 0f)); // TODO
-            mainScreenlet.Add(new ScreenZoomer()); // TODO remove
+            //mainScreenlet.Add(new FrameRateCounter(1.0f, 0f)); // TODO
+            //mainScreenlet.Add(new ScreenZoomer()); // TODO remove
             mainScreenlet.DrawInfo.DrawColor = new Color(169 * 2 / 3, 157 * 2 / 3, 241 * 2 / 3); // Color.Black;
 
             music = new GardenMusic();
