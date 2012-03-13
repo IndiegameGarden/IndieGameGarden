@@ -47,7 +47,7 @@ namespace IndiegameGarden.Menus
             Add(titleBox);
 
             descriptionBox = new GameTextBox("GameDescriptionFont");
-            descriptionBox.Motion.Position = new Vector2(0.0f, 0.08f);
+            descriptionBox.Motion.Position = new Vector2(0.0f, 0.04f);
             //descriptionBox.Motion.Scale = 0.7f;
             Add(descriptionBox);
 
@@ -79,7 +79,7 @@ namespace IndiegameGarden.Menus
                     dlProgressBar.ProgressValue = 1.0f;
                     dlProgressBar.Pulsing = false;
                 }
-                else
+                else if (game.IsPlayable)
                 {
                     if (game.DlAndInstallTask == null)
                     {

@@ -29,7 +29,8 @@ namespace IndiegameGarden.Menus
         bool wasEscPressed = false;
         bool wasEnterPressed = false;
         // the game thumbnails or items selection panel
-        GamesPanel panel;        
+        GamesPanel panel;
+        public GardenMusic music;
 
         /// <summary>
         /// construct new menu
@@ -53,8 +54,20 @@ namespace IndiegameGarden.Menus
             Add(bg);
 
             // music
-            GardenMusic music = new GardenMusic();
+            music = new GardenMusic();
             Add(music);
+
+            // logo
+            Spritelet logo = new Spritelet("igglogo");
+            Add(logo);
+            logo.DrawInfo.Alpha = 0.7f;
+            logo.Motion.Scale = 0.55f;
+            logo.Motion.Position = new Vector2(Screen.AspectRatio - 0.3f, 0.04f);
+            ColorChangeBehavior fadeIn = new ColorChangeBehavior();
+            logo.Add(fadeIn);
+            fadeIn.Intensity = 0f;
+            fadeIn.FadeToTarget(0.9344f, 6f);
+            logo.Motion.Add(new SineModifier("ScaleModifier", 0.03124f, 0.07344f, 1.0f));
 
             // set my panel and games list
             Add(panel);

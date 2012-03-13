@@ -106,11 +106,7 @@ namespace IndiegameGarden.Menus
             if (isPulsing)
             {
                 float ampl = 0.273f;
-                float frequency = 0.2f + progressSpeed * 0.0000003f; //0.6243f;
-                if (progressSpeed > 0f)
-                {
-                    int a = 3;
-                }
+                float frequency = 0.2f;// +progressSpeed * 0.0000001f; //0.6243f;
                 textScale = 1f + ampl * (float)Math.Sin(MathHelper.TwoPi * (double)frequency * SimTime);
 
             }

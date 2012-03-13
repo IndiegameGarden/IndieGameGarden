@@ -13,6 +13,9 @@ namespace IndiegameGarden.Menus
     {
         SoundEvent soundScript;
         RenderParams rp = new RenderParams();
+        bool isFadeOut = false;
+        bool isFadeIn = false;
+        double fadeSpeed = 0.5;
 
         public GardenMusic()
         {
@@ -26,10 +29,40 @@ namespace IndiegameGarden.Menus
         {
             base.OnUpdate(ref p);
 
+            if (isFadeIn)
+            {
+                rp.Ampl += fadeSpeed * p.Dt;
+                if (rp.Ampl >= 1)
+                {
+                    rp.Ampl = 1;
+                    isFadeIn = false;
+                }
+            }
+
+            if (isFadeOut)
+            {
+                rp.Ampl -= fadeSpeed * p.Dt;
+                if (rp.Ampl <= 0)
+                {
+                    rp.Ampl = 0;
+                    isFadeOut = false;
+                }
+            }
+            
             rp.Time = SimTime;
             MusicEngine.GetInstance().Render(soundScript, rp);
+        }
 
+        public void FadeOut()
+        {
+            isFadeOut = true;
+            isFadeIn = false;
+        }
 
+        public void FadeIn()
+        {
+            isFadeOut = false;
+            isFadeIn = true;
         }
     }
 }

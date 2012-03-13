@@ -28,8 +28,8 @@ namespace IndiegameGarden.Menus
         public const float LAYER_GRID_ITEMS = 0.9f;
 
         public const float PANEL_ZOOM_REGULAR = 1f; //0.16f;
-        public const float PANEL_SCALE_GRID_X = 0.16f;
-        public const float PANEL_SCALE_GRID_Y = 0.16f;
+        public const float PANEL_DELTA_GRID_X = 0.16f;
+        public const float PANEL_DELTA_GRID_Y = 0.16f;
         public const float PANEL_SPEED_SHIFT = 2.1f;
         public const float PANEL_SIZE_X = 1.333f;
         public const float PANEL_SIZE_Y = 1.0f;
@@ -38,12 +38,13 @@ namespace IndiegameGarden.Menus
         public const float PANEL_ZOOM_SPEED_ABORTQUITTING = 0.05f;
 
         public const float CURSOR_SCALE_REGULAR = 0.60f; //5.9375f;
+        public const float CURSOR_DISCOVERY_RANGE = 0.60f;
         public const float THUMBNAIL_SCALE_UNSELECTED = 0.6f; //0.54f; //1.5625f;
         public const float THUMBNAIL_SCALE_SELECTED = 0.7f; //0.65f; //2f;
         public const float THUMBNAIL_SCALE_SELECTED1 = 2.857f;
-        static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f, 0.85f);
-        static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.95f);
-        const float INFOBOX_SPEED_MOVE = 2.8f;
+        static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f, 0.895f);
+        static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.96f);
+        const float INFOBOX_SPEED_MOVE = 3.8f;
         const float TIME_BEFORE_GAME_LAUNCH = 0.7f;
         const float TIME_BEFORE_EXIT = 0.9f;
 
@@ -167,6 +168,7 @@ namespace IndiegameGarden.Menus
                 {
                     if (SelectedGame.IsInstalled)
                     {
+                        parentMenu.music.FadeOut();
                         GardenGame.Instance.ActionLaunchGame(SelectedGame);
                     }
                     else
@@ -180,6 +182,7 @@ namespace IndiegameGarden.Menus
             // handle exit key
             if (isExiting)
             {
+                parentMenu.music.FadeOut();
                 timeExiting += p.Dt;
                 if (timeExiting > TIME_BEFORE_EXIT)
                 {
@@ -190,6 +193,7 @@ namespace IndiegameGarden.Menus
             }
             else
             {
+                parentMenu.music.FadeIn(); 
                 timeExiting = 0f;
             }
 
@@ -234,22 +238,22 @@ namespace IndiegameGarden.Menus
                 // displaying selected thumbnails larger
                 if (g == SelectedGame)
                 {
-                    th.MotionB.ScaleTarget = THUMBNAIL_SCALE_SELECTED;
+                    th.MotionB.ScaleTarget = THUMBNAIL_SCALE_SELECTED * g.ScaleIcon;
                     th.MotionB.ScaleSpeed = 0.01f;
                 }
                 else
                 {
-                    th.MotionB.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
+                    th.MotionB.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED * g.ScaleIcon;
                     th.MotionB.ScaleSpeed = 0.02f;
                 }
 
                 // coordinate position where to move a game thumbnail to 
-                Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_SCALE_GRID_X,PANEL_SCALE_GRID_Y);
+                Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X,PANEL_DELTA_GRID_Y);
                 th.MotionB.Target = targetPos;
                 th.MotionB.TargetSpeed = 4f;
 
                 // cursor where to move to
-                cursor.MotionB.Target = (cursor.GridPosition - PanelShiftPos) * new Vector2(PANEL_SCALE_GRID_X, PANEL_SCALE_GRID_Y);
+                cursor.MotionB.Target = (cursor.GridPosition - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
 
                 // panel shift effect when cursor hits edges of panel
                 Vector2 cp = cursor.Motion.PositionAbs;
@@ -296,7 +300,7 @@ namespace IndiegameGarden.Menus
                 GameThumbnail th = thumbnailsCache[oldSel.GameID];
                 if (th != null)
                 {
-                    th.MotionB.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
+                    th.MotionB.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED * oldSel.ScaleIcon;
                     th.MotionB.ScaleSpeed = 0.01f;
                 }
             }

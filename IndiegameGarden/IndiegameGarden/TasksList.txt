@@ -2,23 +2,23 @@
 
 OPEN  [top issues first]
 
-Show a text message in loading screen with some help for the player (for windowed games)
-Add image-display-only thumbnails (that do not execute)
 Put loader threads in lower priority
-Allow loading of config from server (where config includes URL/mirror locations etc)
 Add default mirror of own server to all game downloads, where name on server equals the local zipfilename
 Add mirrors to all thumbnail loading
 Allow loading of gamelib new version from server 
 Key/option to abort download or install of a game
 Add self-downloading of latest IGG code, in different versions. 
 Adapt to multiple desktop resolution and check for minimum resolution
-Add TTMusicEngine and one music file
-  Music loading from URLs specified in configuration file
+Allow to visit the game's website directly from igg
+Music loading from URLs specified in configuration file
 Easter egg with sprites from OpenGameArt in menu
 
-
 CLOSED  [date order]
+2012-03-13 Allow loading of config from server (where config includes URL/mirror locations etc)
+2012-03-13 Add image-display-only thumbnails (that do not execute)
+2012-03-13 Show a text message in loading screen with some help for the player (for windowed games) -> "HelpText" field.
 2012-03-13 Show downloading with an animated something (or a grow speed value :) -> text pulsing shows DL rate.
+2012-03-12 Add TTMusicEngine and one music file
 2012-02-24 Check thumbs downloading (work?)
 2012-02-24 Fix progress bar bug going from 100% to lower %
 2012-02-24 Fix rar download/install

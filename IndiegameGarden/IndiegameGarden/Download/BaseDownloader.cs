@@ -54,6 +54,7 @@ namespace IndiegameGarden.Download
                 // try to delete file
                 try
                 {
+                    downloader.WaitForConclusion();
                     if (localFile != null)
                     {
                         File.Delete(localFile);

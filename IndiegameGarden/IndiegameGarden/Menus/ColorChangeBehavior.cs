@@ -63,16 +63,16 @@ namespace IndiegameGarden.Menus
             if (FadeTarget > Intensity)
             {
                 Intensity += FadeSpeed * p.Dt;
-                DrawInfo.Alpha = Intensity;
                 if (FadeTarget < Intensity)
                     Intensity = FadeTarget;
+                DrawInfo.Alpha = Intensity;
             }
             else if (FadeTarget < Intensity)
             {
                 Intensity -= FadeSpeed * p.Dt;
-                DrawInfo.Alpha = Intensity;
                 if (FadeTarget > Intensity)
                     Intensity = FadeTarget;
+                DrawInfo.Alpha = Intensity;
             }
         }
 

@@ -35,6 +35,11 @@ namespace IndiegameGarden.Base
         public string Description = "";
 
         /// <summary>
+        /// some hints for the player e.g. what the control keys are.
+        /// </summary>
+        public string HelpText = "";
+
+        /// <summary>
         /// where can the packed file (.zip, .rar etc.) be downloaded from.
         /// Optionally without http:// in front.
         /// </summary>
@@ -69,6 +74,11 @@ namespace IndiegameGarden.Base
         /// Latest version of the game packed file which is available
         /// </summary>
         public int Version = 1;
+
+        /// <summary>
+        /// scaling factor of game icon when displayed
+        /// </summary>
+        public float ScaleIcon = 1f;
 
         /// <summary>
         /// where in 2D coordinates this game is positioned
@@ -114,12 +124,25 @@ namespace IndiegameGarden.Base
                 {
                     String gameDirPath = GardenGame.Instance.Config.GetGameFolder(this);
                     String exePath = GardenGame.Instance.Config.GetExeFilepath(this);
-                    isInstalled = Directory.Exists(gameDirPath) &&
+                    isInstalled =   IsPlayable &&
+                                    Directory.Exists(gameDirPath) &&
                                     File.Exists(exePath) &&
                                     (DlAndInstallTask == null || DlAndInstallTask.IsFinished()) ;
                     refreshInstallationStatusNeeded = false;
                 }
                 return isInstalled;
+            }
+        }
+
+        /// <summary>
+        /// check whether this game can be played at all (i.e. grown in the garden).
+        /// Some items may not be played e.g. display-icon-only games or coming-soon items.
+        /// </summary>
+        public bool IsPlayable
+        {
+            get
+            {
+                return ExeFile.Length > 0;
             }
         }
 
@@ -137,23 +160,35 @@ namespace IndiegameGarden.Base
         /// <param name="j">the JSON data for one game</param>
         public IndieGame(JsonObject j)
         {
-            try { GameID = j["ID"].ToString(); }                catch (KeyNotFoundException ex) { throw (ex);  }
-            try { Version = (int) ((JsonNumber)j["Version"]).Value; }     catch (KeyNotFoundException) { ;}
+            try { GameID = j["ID"].ToString(); }
+            catch (Exception ex) { throw (ex); }
+            try { Version = (int)((JsonNumber)j["Version"]).Value; }
+            catch (Exception) { ;}
             try { Position.X = (float) ((JsonNumber)j["X"]).Value; }
-            catch (KeyNotFoundException) { ;}
+            catch (Exception) { ;}
             try { Position.Y = (float) ((JsonNumber)j["Y"]).Value; }
-            catch (KeyNotFoundException) { ;}
-            try { Name = j["Name"].ToString(); }                     catch (KeyNotFoundException) { ; }
-            try { Description = j["Descr"].ToString(); }       catch (KeyNotFoundException) { ; }
-            try { ExeFile = j["Exe"].ToString(); }            catch (KeyNotFoundException) { ; }
-            try { CdPath   = j["Cd"].ToString(); }            catch (KeyNotFoundException) { ; }
+            catch (Exception) { ;}
+            try { ScaleIcon = (float)((JsonNumber)j["Scale"]).Value; }
+            catch (Exception) { ;}
+            try { Name = j["Name"].ToString(); }
+            catch (Exception) { ; }
+            try { Description = j["Descr"].ToString(); }
+            catch (Exception) { ; }
+            try { HelpText = j["Help"].ToString(); }
+            catch (Exception) { ; }
+            try { ExeFile = j["Exe"].ToString(); }
+            catch (Exception) { ; }
+            try { CdPath = j["Cd"].ToString(); }
+            catch (Exception) { ; }
             try { PackedFileURL = j["Zip"].ToString(); }
-            catch (KeyNotFoundException) { ; }
-            try { DeveloperWebsiteURL = j["Site"].ToString(); } catch (KeyNotFoundException) { ; }
+            catch (Exception) { ; }
+            try { DeveloperWebsiteURL = j["Site"].ToString(); }
+            catch (Exception) { ; }
             try { 
                 JsonArray am = (JsonArray)j["ZipMirrors"];
                 PackedFileMirrors = JSONStore.ToStringArray(am);
-            }catch(KeyNotFoundException){;}
+            }
+            catch (Exception) { ;}
         }
 
 

@@ -36,7 +36,7 @@ namespace IndiegameGarden.Menus
         public bool GameletInRange(Gamelet g)
         {
             float d = (g.Motion.Position - this.Motion.Position).Length();
-            if (d < 0.3)
+            if (d <= GardenGamesPanel.CURSOR_DISCOVERY_RANGE)
                 return true;
             return false;
 
