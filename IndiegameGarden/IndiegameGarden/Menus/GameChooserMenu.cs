@@ -29,8 +29,7 @@ namespace IndiegameGarden.Menus
         bool wasEscPressed = false;
         bool wasEnterPressed = false;
         // the game thumbnails or items selection panel
-        GamesPanel panel;
-        public GardenMusic music;
+        GamesPanel panel;        
 
         /// <summary>
         /// construct new menu
@@ -52,10 +51,6 @@ namespace IndiegameGarden.Menus
             // bg color 169, 157, 241
             bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/70.0f; }, "Rotate")); 
             Add(bg);
-
-            // music
-            music = new GardenMusic();
-            Add(music);
 
             // logo
             Spritelet logo = new Spritelet("igglogo");

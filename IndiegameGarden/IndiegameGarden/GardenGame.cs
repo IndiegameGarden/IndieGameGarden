@@ -73,6 +73,9 @@ namespace IndiegameGarden
         /// launches a game selected by user (one at a time!)
         /// </summary>
         GameLauncherTask launcher;
+
+        public GardenMusic music;
+
         ThreadedTask launchGameThread;
 
         GraphicsDeviceManager graphics;
@@ -133,6 +136,9 @@ namespace IndiegameGarden
             mainScreenlet.Add(new FrameRateCounter(1.0f, 0f)); // TODO
             mainScreenlet.Add(new ScreenZoomer()); // TODO remove
             mainScreenlet.DrawInfo.DrawColor = new Color(169 * 2 / 3, 157 * 2 / 3, 241 * 2 / 3); // Color.Black;
+
+            music = new GardenMusic();
+            TreeRoot.Add(music);
 
             // MyDownloader configuration
             myDownloaderProtocol = new HttpFtpProtocolExtension();

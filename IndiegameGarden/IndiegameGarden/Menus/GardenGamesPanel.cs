@@ -168,8 +168,10 @@ namespace IndiegameGarden.Menus
                 {
                     if (SelectedGame.IsInstalled)
                     {
-                        parentMenu.music.FadeOut();
+                        GardenGame.Instance.music.FadeOut();
                         GardenGame.Instance.ActionLaunchGame(SelectedGame);
+                        isGameLaunchOngoing = false;
+                        return;
                     }
                     else
                     {
@@ -182,7 +184,7 @@ namespace IndiegameGarden.Menus
             // handle exit key
             if (isExiting)
             {
-                parentMenu.music.FadeOut();
+                GardenGame.Instance.music.FadeOut();
                 timeExiting += p.Dt;
                 if (timeExiting > TIME_BEFORE_EXIT)
                 {
@@ -193,7 +195,7 @@ namespace IndiegameGarden.Menus
             }
             else
             {
-                parentMenu.music.FadeIn(); 
+                GardenGame.Instance.music.FadeIn(); 
                 timeExiting = 0f;
             }
 

@@ -22,7 +22,7 @@ namespace IndiegameGarden.Menus
             soundScript = new SoundEvent("GardenMusic");
             SampleSoundEvent evSong = new SampleSoundEvent("aurelic.ogg");
             evSong.Amplitude = 0.5f;
-            soundScript.AddEvent(0, evSong);
+            soundScript.AddEvent(1, evSong);
         }
 
         protected override void OnUpdate(ref UpdateParams p)
@@ -49,7 +49,9 @@ namespace IndiegameGarden.Menus
                 }
             }
             
-            rp.Time = SimTime;
+            // advance time only if volume nonzero
+            if (rp.Ampl > 0 )
+                rp.Time += p.Dt;
             MusicEngine.GetInstance().Render(soundScript, rp);
         }
 
