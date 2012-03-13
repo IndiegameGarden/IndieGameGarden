@@ -52,6 +52,10 @@ namespace IndiegameGarden.Menus
             bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/70.0f; }, "Rotate")); 
             Add(bg);
 
+            // music
+            GardenMusic music = new GardenMusic();
+            Add(music);
+
             // set my panel and games list
             Add(panel);
             panel.OnUpdateList(gamesList);

@@ -132,6 +132,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Menus\GardenMusic.cs" />
     <Compile Include="Menus\LoadingDisplay.cs" />
     <Compile Include="Base\State.cs" />
     <Compile Include="Base\ThreadedTask.cs" />
@@ -188,6 +189,10 @@
     <ProjectReference Include="..\..\..\TTengine\TTengine\TTengine.csproj">
       <Project>{616035D5-3927-44CD-BD41-2EEE846AC3A3}</Project>
       <Name>TTengine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\TTMusicEngine\TTMusicEngine\TTMusicEngine.csproj">
+      <Project>{CB99D0C9-FD0E-4B90-91BD-7D5816B38A2C}</Project>
+      <Name>TTMusicEngine</Name>
     </ProjectReference>
     <ProjectReference Include="..\IndiegameGardenContent\IndiegameGardenContent.contentproj">
       <Name>IndiegameGardenContent %28Content%29</Name>

@@ -84,3 +84,19 @@ File "unrar.dll" license from rarlab.com:
 
                                             Alexander L. Roshal
 -------------------------------------------------------------------------------
+
+File "fmodex.dll" is copyrighted:
+FMOD Sound System, copyright © Firelight Technologies Pty, Ltd., 1994-2012.
+Restrictions apply to redistribution.
+See http://fmod.org and http://fmod.org/salespop1.htm 
+
+-------------------------------------------------------------------------------
+
+Content "aurelic.ogg" is the track "Aurelic" from the album "Glitch Piano" by
+Torley. (c) Copyright Torley 2011 and distributed under a Creative 
+Commons (CC) license Attribution, Non-Commercial, Share Alike (BY-NC-SA)
+Buy the complete album at http://music.torley.com/ 
+
+-------------------------------------------------------------------------------
+
+

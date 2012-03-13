@@ -21,6 +21,9 @@ using TTengine.Core;
 using TTengine.Util;
 using TTengine.Modifiers;
 
+using TTMusicEngine;
+using TTMusicEngine.Soundevents;
+
 using IndiegameGarden.Download;
 using IndiegameGarden.Unpack;
 using IndiegameGarden.Menus;
@@ -79,6 +82,7 @@ namespace IndiegameGarden
         int myWindowHeight = 768; //768; //720; //900; //720;
         public DebugMessage DebugMsg; // DEBUG
         Exception initError = null;
+        MusicEngine musicEngine;
 
         #region Constructors
         public GardenGame()
@@ -103,6 +107,12 @@ namespace IndiegameGarden
 
         protected override void Initialize()
         {
+            // music engine
+            musicEngine = MusicEngine.GetInstance();
+            musicEngine.AudioPath = "Content";
+            if (!musicEngine.Initialize())
+                throw new Exception(musicEngine.StatusMsg);
+
             // loading screen
             loadingScreenlet = new Screenlet(myWindowWidth, myWindowHeight);
             TTengineMaster.ActiveScreen = loadingScreenlet;
