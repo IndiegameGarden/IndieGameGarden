@@ -209,6 +209,12 @@ namespace IndiegameGarden
             base.Dispose(disposing);
         }
 
+        public void ActionLaunchWebsite(IndieGame g)
+        {
+            ITask t = new ThreadedTask(new SiteLauncherTask(g));
+            t.Start();
+        }
+
         /// <summary>
         /// called by a child GUI component to launch a game
         /// </summary>

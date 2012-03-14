@@ -29,7 +29,8 @@ namespace IndiegameGarden.Menus
         bool wasEscPressed = false;
         bool wasEnterPressed = false;
         // the game thumbnails or items selection panel
-        GamesPanel panel;        
+        GamesPanel panel;
+        KeyboardState prevKeyboardState = Keyboard.GetState();
 
         /// <summary>
         /// construct new menu
@@ -116,6 +117,12 @@ namespace IndiegameGarden.Menus
                 wasEscPressed = true;
             }
 
+            // -- website launch key
+            if (st.IsKeyDown(Keys.W) && !prevKeyboardState.IsKeyDown(Keys.W))
+            {
+                panel.OnUserInput(GamesPanel.UserInput.LAUNCH_WEBSITE);
+            }
+
             // -- a navigation key is pressed - check keys and generate action(s)
             if (st.IsKeyDown(Keys.Left)) {
                 panel.OnUserInput(GamesPanel.UserInput.LEFT);                
@@ -141,6 +148,7 @@ namespace IndiegameGarden.Menus
 
             // (time) bookkeeping for next keypress
             lastKeypressTime = p.SimTime;
+            prevKeyboardState = st;
         }
        
         protected override void OnUpdate(ref UpdateParams p)

@@ -67,6 +67,7 @@ namespace IndiegameGarden.Menus
         // UI related vars - related to whether user indicates to quit program or user cancelled this
         bool isExiting = false;
         bool isGameLaunchOngoing = false;
+        bool isLaunchWebsite = false;
         float timeExiting = 0f;
         float timeLaunching = 0f;
         Vector2 PanelShiftPos = Vector2.Zero;
@@ -197,6 +198,16 @@ namespace IndiegameGarden.Menus
             {
                 GardenGame.Instance.music.FadeIn(); 
                 timeExiting = 0f;
+            }
+
+            //-- website launch
+            if (isLaunchWebsite)
+            {
+                if (SelectedGame != null)
+                {
+                    GardenGame.Instance.ActionLaunchWebsite(SelectedGame);
+                }
+                isLaunchWebsite = false;
             }
 
             //-- loop all games adapt their display properties where needed
@@ -389,6 +400,10 @@ namespace IndiegameGarden.Menus
                 case UserInput.STOP_SELECT:
                     isGameLaunchOngoing = false;
                     timeLaunching = 0f;
+                    break;
+
+                case UserInput.LAUNCH_WEBSITE:
+                    isLaunchWebsite = true;
                     break;
 
             } // switch(inp)
