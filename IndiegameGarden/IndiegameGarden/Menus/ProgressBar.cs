@@ -12,9 +12,9 @@ using Microsoft.Xna.Framework.Graphics;
 namespace IndiegameGarden.Menus
 {
     /**
-     * a graphical progressContributionSingleFile bar between 0 and 100% with textual indication on the side.
-     * The bar is configured to move progressContributionSingleFile up only towards a target. The current value
-     * can be reset with ProgressValue if progressContributionSingleFile needs to move down or be reset to 0.
+     * a graphical progress bar between 0 and 100% with textual indication on the side.
+     * The bar is configured to move progress up only towards a target. The current value
+     * can be reset with ProgressValue if progress needs to move down or be reset to 0.
      */
     public class ProgressBar: Spritelet
     {
@@ -23,7 +23,6 @@ namespace IndiegameGarden.Menus
         float progressSpeed = 0f;
         float progressValueTarget;
         SpriteFont spriteFont;
-        Color textColor = Color.White;
         float textScale = 1f;
 
         public ProgressBar()
@@ -37,7 +36,7 @@ namespace IndiegameGarden.Menus
         }
 
         /// <summary>
-        /// Pulsing is an animation showing activity eg a download is in progress/active.
+        /// Pulsing is an animation/color showing activity eg a download is in progress/active.
         /// </summary>
         public bool Pulsing
         {
@@ -105,10 +104,20 @@ namespace IndiegameGarden.Menus
             textScale = 1f;
             if (isPulsing)
             {
-                float ampl = 0.273f;
-                float frequency = 0.2f;// +progressSpeed * 0.0000001f; //0.6243f;
-                textScale = 1f + ampl * (float)Math.Sin(MathHelper.TwoPi * (double)frequency * SimTime);
+                // animate percentage text a bit
+                float ampl = 0.043f;
+                float frequency = 0.783f;// +progressSpeed * 0.0000001f; //0.6243f;
+                textScale = 1f + ampl + ampl * (float)Math.Sin(MathHelper.TwoPi * (double)frequency * SimTime);
 
+                // bar color
+                ampl = 0.143f;
+                float v = (1 - ampl) + ampl * (float)Math.Sin(MathHelper.TwoPi * (double)frequency * SimTime);
+                DrawInfo.DrawColor = new Color(1f, v, v, 1f);
+            }
+            else
+            {
+                DrawInfo.DrawColor = Color.White;
+                textScale = 1f;
             }
         }
 
@@ -126,6 +135,7 @@ namespace IndiegameGarden.Menus
                             Motion.RotateAbs, new Vector2(0f,height/4), drawSc, SpriteEffects.None, DrawInfo.LayerDepth);
 
             // plot text percentage
+            Color textColor = DrawInfo.DrawColor;
             Vector2 tpos = pos + new Vector2(width * drawSc, height/4); //Texture.Height / 2.0f - 10.0f) ;
             Vector2 origin = new Vector2(10f,6f);
             MySpriteBatch.DrawString(spriteFont, String.Format(" {0,3}%", Math.Round(progressValuePercent)), tpos, 
