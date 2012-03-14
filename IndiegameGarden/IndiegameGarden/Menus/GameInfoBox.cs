@@ -73,7 +73,7 @@ namespace IndiegameGarden.Menus
                 string desc = game.Description + "\n";
                 if (game.IsInstalled)
                 {
-                    desc += "Fully grown game: Hold ENTER to play!\n";
+                    desc += "This game grows in your garden. Hold ENTER to play!\n";
                     dlProgressBar.Visible = true;
                     dlProgressBar.ProgressTarget = 1.0f;
                     dlProgressBar.ProgressValue = 1.0f;
@@ -84,7 +84,7 @@ namespace IndiegameGarden.Menus
                     if (game.DlAndInstallTask == null)
                     {
 
-                        desc += "Game seed planted: Hold ENTER to start growing!\n";
+                        desc += "This game is not yet in your garden. Hold ENTER to grow it!\n";
                         dlProgressBar.Visible = false;
                         dlProgressBar.ProgressTarget = 0.0f;
                         dlProgressBar.ProgressValue = 0.0f;
@@ -96,12 +96,12 @@ namespace IndiegameGarden.Menus
                     {
                         if (game.DlAndInstallTask.IsDownloading())
                         {
-                            desc += "Growing branches...\n"; // TODO some abort possibility message
+                            desc += "Growing game... please wait.\n"; // TODO some abort possibility message
                             dlProgressBar.Pulsing = true;
                         }
                         else if (game.DlAndInstallTask.IsInstalling())
                         {
-                            desc += "Growing leaves...\n";
+                            desc += "Growing game... almost done.\n";
                             dlProgressBar.Pulsing = true;
                         }
                         else
@@ -129,15 +129,6 @@ namespace IndiegameGarden.Menus
                 titleBox.Text = title;
                 descriptionBox.Text = desc;
                 
-                /*
-                dlProgressBar.Visible = true; // DEBUG
-                float n = ( SimTime/4f ) % 1.1f;
-                if ( n < dlProgressBar.ProgressTarget)
-                {
-                    dlProgressBar.ProgressValue = 0f;
-                }
-                dlProgressBar.ProgressTarget = n;
-                */
             }
             else
             {

@@ -80,6 +80,8 @@ namespace IndiegameGarden.Base
         /// </summary>
         public float ScaleIcon = 1f;
 
+        public bool isPNG = false;
+
         /// <summary>
         /// where in 2D coordinates this game is positioned
         /// </summary>
@@ -146,6 +148,30 @@ namespace IndiegameGarden.Base
             }
         }
 
+        public string ThumbnailFilename
+        {
+            get
+            {
+                if (Version == 1)
+                    return GameID + "." + ThumbnailFiletype;
+                else
+                    return GameID + "_v" + Version + "." + ThumbnailFiletype;
+            }
+        }
+
+        /// <summary>
+        /// thumbnail file type eg "jpg" or "png"
+        /// </summary>
+        public string ThumbnailFiletype
+        {
+            get
+            {
+                if (isPNG)
+                    return "png";
+                return "jpg";
+            }
+        }
+
         /// <summary>
         /// refresh information by reading from local disk (e.g. installation status etc.)
         /// </summary>
@@ -188,6 +214,8 @@ namespace IndiegameGarden.Base
                 JsonArray am = (JsonArray)j["ZipMirrors"];
                 PackedFileMirrors = JSONStore.ToStringArray(am);
             }
+            catch (Exception) { ;}
+            try { isPNG = (((JsonNumber)j["PNG"]).Value > 0 ); }
             catch (Exception) { ;}
         }
 

@@ -12,6 +12,7 @@ Music loading from URLs specified in configuration file
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-03-14 Allow PNG type thumbnails also besides JPG. -> "PNG" field 0/1 in JSON.
 2012-03-14 Put loader threads in lower priority
 2012-03-14 Allow to visit the game's website directly from igg -> SiteLauncherTask class and W key
 2012-03-13 Allow loading of config from server (where config includes URL/mirror locations etc)

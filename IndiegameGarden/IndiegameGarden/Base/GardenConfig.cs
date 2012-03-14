@@ -145,14 +145,6 @@ namespace IndiegameGarden.Base
             return DataPath + "\\" + folderName;
         }
 
-        public string GetThumbnailFilename(IndieGame g)
-        {
-            if (g.Version == 1)
-                return g.GameID + ".jpg";
-            else
-                return g.GameID + "_v" + g.Version + ".jpg";
-        }
-
         /// <summary>
         /// get file path to locally stored thumbnail file for game
         /// </summary>
@@ -160,7 +152,7 @@ namespace IndiegameGarden.Base
         /// <returns></returns>
         public string GetThumbnailFilepath(IndieGame g)
         {
-            return ThumbnailsFolder + "\\" + GetThumbnailFilename(g);
+            return ThumbnailsFolder + "\\" + g.ThumbnailFilename;
         }
 
         /// <summary>
@@ -171,9 +163,9 @@ namespace IndiegameGarden.Base
         public string GetThumbnailURL(IndieGame g)
         {
             if (g.Version ==1 )
-                return ThumbnailsServerURL + g.GameID + ".jpg"; 
+                return ThumbnailsServerURL + g.ThumbnailFilename; 
             else
-                return ThumbnailsServerURL + g.GameID + "_v" + g.Version + ".jpg"; 
+                return ThumbnailsServerURL + g.ThumbnailFilename; 
         }
 
         /// <summary>
