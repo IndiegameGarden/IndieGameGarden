@@ -4,7 +4,6 @@ OPEN  [top issues first]
 
 Add default mirror of own server to all game downloads, where name on server equals the local zipfilename
 Add mirrors to all thumbnail loading
-Allow loading of gamelib new version from server 
 Key/option to abort download or install of a game
 Add self-downloading of latest IGG code, in different versions. 
 Adapt to multiple desktop resolution and check for minimum resolution
@@ -12,6 +11,7 @@ Music loading from URLs specified in configuration file
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-03-14 Allow loading of gamelib new version from server 
 2012-03-14 Allow PNG type thumbnails also besides JPG. -> "PNG" field 0/1 in JSON.
 2012-03-14 Put loader threads in lower priority
 2012-03-14 Allow to visit the game's website directly from igg -> SiteLauncherTask class and W key

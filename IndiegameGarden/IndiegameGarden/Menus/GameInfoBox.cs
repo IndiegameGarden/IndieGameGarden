@@ -73,13 +73,13 @@ namespace IndiegameGarden.Menus
                 string desc = game.Description + "\n";
                 if (game.IsInstalled)
                 {
-                    desc += "This game grows in your garden. Hold ENTER to play!\n";
+                    desc += "This game now lives in your garden. Hold ENTER to play!\n";
                     dlProgressBar.Visible = true;
                     dlProgressBar.ProgressTarget = 1.0f;
                     dlProgressBar.ProgressValue = 1.0f;
                     dlProgressBar.Pulsing = false;
                 }
-                else if (game.IsPlayable)
+                else if (game.IsGrowable)
                 {
                     if (game.DlAndInstallTask == null)
                     {
@@ -96,12 +96,12 @@ namespace IndiegameGarden.Menus
                     {
                         if (game.DlAndInstallTask.IsDownloading())
                         {
-                            desc += "Growing game... please wait.\n"; // TODO some abort possibility message
+                            desc += "Growing game... please wait. Watch the progress bar.\n"; // TODO some abort possibility message
                             dlProgressBar.Pulsing = true;
                         }
                         else if (game.DlAndInstallTask.IsInstalling())
                         {
-                            desc += "Growing game... almost done.\n";
+                            desc += "Growing game... almost playable.\n";
                             dlProgressBar.Pulsing = true;
                         }
                         else

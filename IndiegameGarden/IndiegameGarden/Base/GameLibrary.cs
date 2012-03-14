@@ -16,9 +16,11 @@ namespace IndiegameGarden.Base
     {
         JSONStore json;
         GameCollection gamesList;
+        int version;
 
-        public GameLibrary()
+        public GameLibrary(int version)
         {
+            this.version = version;
             Load();
         }
 
@@ -28,11 +30,12 @@ namespace IndiegameGarden.Base
         /// <exception cref="">various IO exceptions may occur when library file could not be found/loaded</exception>
         public void Load()
         {
-            string fn = GardenGame.Instance.Config.ConfigFilesFolder + 
+            IndieGame g = IndieGame.ConstructGameLib(version);
+            string fn = GardenGame.Instance.Config.GetGameFolder(g) + 
                 "\\" + GardenGame.Instance.Config.GameLibraryFilename;
-            json = new JSONStore(fn);
+            json = new JSONStore(fn); // FIXME use all json files in there?
             gamesList = new GameCollection();
-            ParseJson();
+            ParseJson(json);
         }
 
         public void Dispose()
@@ -41,7 +44,7 @@ namespace IndiegameGarden.Base
         }
 
         // parse all games in the 'json' data
-        private void ParseJson()
+        private void ParseJson(JSONStore json)
         {
             JsonArray gl = (JsonArray)json.GetArray("gameslist");
             foreach( IJsonType g in gl )

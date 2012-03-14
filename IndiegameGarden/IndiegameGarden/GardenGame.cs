@@ -313,7 +313,7 @@ namespace IndiegameGarden
 
                     case ITaskStatus.CREATED:
                     case ITaskStatus.RUNNING:
-                        // let the downloading simply finish in the background.
+                        // let the downloading simply finish in the background. Load it another time.
                         break;
                 }
             }
@@ -329,7 +329,10 @@ namespace IndiegameGarden
             // load game library
             try
             {
-                GameLib = new GameLibrary();
+                //IndieGame glib = IndieGame.ConstructGameLib(2); // TODO
+                GameLibraryDownloader gldl = new GameLibraryDownloader(2);
+                gldl.Start();
+                GameLib = new GameLibrary(2);
             }
             catch (Exception ex)
             {

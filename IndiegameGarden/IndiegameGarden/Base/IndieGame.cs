@@ -101,9 +101,16 @@ namespace IndiegameGarden.Base
         private bool isInstalled = false;
         private bool refreshInstallationStatusNeeded = true;
 
-        public IndieGame()
+        protected IndieGame()
+        {            
+        }
+
+        public static IndieGame ConstructGameLib(int version)
         {
-            throw new NotImplementedException("Constructor");
+            IndieGame g = new IndieGame();
+            g.Version = version;
+            g.GameID = "gamelib";
+            return g;
         }
 
         public void Dispose()
@@ -126,7 +133,7 @@ namespace IndiegameGarden.Base
                 {
                     String gameDirPath = GardenGame.Instance.Config.GetGameFolder(this);
                     String exePath = GardenGame.Instance.Config.GetExeFilepath(this);
-                    isInstalled =   IsPlayable &&
+                    isInstalled =   IsGrowable &&
                                     Directory.Exists(gameDirPath) &&
                                     File.Exists(exePath) &&
                                     (DlAndInstallTask == null || DlAndInstallTask.IsFinished()) ;
@@ -137,10 +144,10 @@ namespace IndiegameGarden.Base
         }
 
         /// <summary>
-        /// check whether this game can be played at all (i.e. grown in the garden).
-        /// Some items may not be played e.g. display-icon-only games or coming-soon items.
+        /// check whether this game can be grown at all (i.e. downloaded).
+        /// Some items may not be growable e.g. display-icon-only games or coming-soon items.
         /// </summary>
-        public bool IsPlayable
+        public bool IsGrowable
         {
             get
             {
@@ -148,6 +155,9 @@ namespace IndiegameGarden.Base
             }
         }
 
+        /// <summary>
+        /// get this game's thumbnail filename
+        /// </summary>
         public string ThumbnailFilename
         {
             get
