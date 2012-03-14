@@ -40,6 +40,10 @@ namespace IndiegameGarden.Menus
 
         public float ZoomSpeed = 0f;
 
+        public float RotateTarget = 0f;
+
+        public float RotateSpeed = 0f;
+
         protected override void OnNewParent()
         {
             base.OnNewParent();
@@ -59,6 +63,9 @@ namespace IndiegameGarden.Menus
 
             // handle dynamic zooming
             ZoomToTarget();
+
+            // rotation
+            RotateToTarget();
         }
 
         private void ZoomToTarget()
@@ -77,6 +84,26 @@ namespace IndiegameGarden.Menus
                     Motion.Zoom /= (1.0f + ZoomSpeed);
                     if (Motion.Zoom < ZoomTarget)
                         Motion.Zoom = ZoomTarget;
+                }
+            }
+        }
+
+        private void RotateToTarget()
+        {
+            // handle dynamic zooming
+            if (RotateSpeed > 0f)
+            {
+                if (Motion.Rotate < RotateTarget)
+                {
+                    Motion.Rotate += (RotateSpeed);
+                    if (Motion.Rotate > RotateTarget)
+                        Motion.Rotate = RotateTarget;
+                }
+                else if (Motion.Rotate > RotateTarget)
+                {
+                    Motion.Rotate -= (RotateSpeed);
+                    if (Motion.Rotate < RotateTarget)
+                        Motion.Rotate = RotateTarget;
                 }
             }
         }

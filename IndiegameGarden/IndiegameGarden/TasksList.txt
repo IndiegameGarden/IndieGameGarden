@@ -2,6 +2,8 @@
 
 OPEN  [top issues first]
 
+Make gamelib loading non-blocking
+Fix problem in gamelib not loading (mirror ok?)
 Add default mirror of own server to all game downloads, where name on server equals the local zipfilename
 Add mirrors to all thumbnail loading
 Key/option to abort download or install of a game

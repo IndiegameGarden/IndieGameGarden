@@ -110,6 +110,7 @@ namespace IndiegameGarden.Base
             IndieGame g = new IndieGame();
             g.Version = version;
             g.GameID = "gamelib";
+            g.ExeFile = "gamelib.json";
             return g;
         }
 
@@ -140,6 +141,24 @@ namespace IndiegameGarden.Base
                     refreshInstallationStatusNeeded = false;
                 }
                 return isInstalled;
+            }
+        }
+
+        public float InstallProgress
+        {
+            get
+            {
+                if (ThreadedDlAndInstallTask != null)
+                {
+                    return (float) ThreadedDlAndInstallTask.Progress();
+                }
+                else
+                {
+                    if (IsInstalled)
+                        return 1f;
+                    else
+                        return 0f;
+                }
             }
         }
 

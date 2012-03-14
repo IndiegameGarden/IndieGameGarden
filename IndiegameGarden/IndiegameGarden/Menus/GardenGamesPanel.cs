@@ -248,6 +248,13 @@ namespace IndiegameGarden.Menus
                     th.ColorB.FadeToTarget(1.0f, 4.3f);
                 }
 
+                // noninstalled games show rotated (DEBUG)
+                if (!g.IsInstalled)
+                {
+                    th.MotionB.RotateTarget = 0.48f * (1f - g.InstallProgress);
+                    th.MotionB.RotateSpeed = 0.12f;
+                }
+
                 // displaying selected thumbnails larger
                 if (g == SelectedGame)
                 {
