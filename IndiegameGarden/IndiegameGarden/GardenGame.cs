@@ -289,7 +289,7 @@ namespace IndiegameGarden
                 // then wait for a short while until success of the task thread
                 long timer = 0;
                 long blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 3;  // TODO const in config
-                if (Config == null)
+                if (Config == null || !Config.IsValid() )
                     blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 30;  // TODO const in config
                 while (dlTask.Status() == ITaskStatus.CREATED)
                 {
@@ -319,9 +319,9 @@ namespace IndiegameGarden
             }
 
             // if still not ok after attempted download, warn the user and exit
-            if (Config==null)
-            {
-                TTengine.Util.MsgBox.Show("Could not load configuration", "Could not load configuration file."); // TODO msg
+            if (Config==null || !Config.IsValid() )
+            { 
+                TTengine.Util.MsgBox.Show("Could not load configuration", "Could not load configuration file. Is it missing or corrupted?"); 
                 Exit();
                 return false;
             }
@@ -329,10 +329,9 @@ namespace IndiegameGarden
             // load game library
             try
             {
-                //IndieGame glib = IndieGame.ConstructGameLib(2); // TODO
-                GameLibraryDownloader gldl = new GameLibraryDownloader(2);
+                GameLibraryDownloader gldl = new GameLibraryDownloader(Config.GameLibraryVersion);
                 gldl.Start();
-                GameLib = new GameLibrary(2);
+                GameLib = new GameLibrary(Config.GameLibraryVersion);
             }
             catch (Exception ex)
             {

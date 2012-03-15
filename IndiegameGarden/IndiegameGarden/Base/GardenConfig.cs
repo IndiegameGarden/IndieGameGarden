@@ -55,6 +55,7 @@ namespace IndiegameGarden.Base
 
             ConfigFilename = "config.json";
             GameLibraryFilename = "gamelib.json";
+            GameLibraryVersion = 2;
 
             ThumbnailsServerURL = "http://indie.indiegamegarden.com/thumbs/";
             ConfigFilesServerURL = "http://indieget.appspot.com/igg/";
@@ -74,6 +75,8 @@ namespace IndiegameGarden.Base
             try { GardenID = GetString("Garden"); }
             catch (Exception) { ; };
             try { ServerMsg = GetString("ServerMsg"); }
+            catch (Exception) { ; };
+            try { GameLibraryVersion = (int) GetValue("GamelibVer"); }
             catch (Exception) { ; };
 
         }
@@ -128,6 +131,8 @@ namespace IndiegameGarden.Base
         public string ConfigFilename { get; set; }
 
         public string GameLibraryFilename { get; set; }
+
+        public int GameLibraryVersion { get; set; }
 
         public string ThumbnailsServerURL { get; set; }
 

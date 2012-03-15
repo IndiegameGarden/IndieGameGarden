@@ -80,6 +80,14 @@ namespace IndiegameGarden.Base
         /// </summary>
         public float ScaleIcon = 1f;
 
+        /// <summary>
+        /// selection of rendering/shading effect for icon rendering. 0 = off.
+        /// </summary>
+        public int FXmode = 1;
+
+        /// <summary>
+        /// PNG icon mode selection (instead of JPG)
+        /// </summary>
         public bool isPNG = false;
 
         /// <summary>
@@ -245,6 +253,8 @@ namespace IndiegameGarden.Base
             }
             catch (Exception) { ;}
             try { isPNG = (((JsonNumber)j["PNG"]).Value > 0 ); }
+            catch (Exception) { ;}
+            try { FXmode = (int) ((JsonNumber)j["FX"]).Value; }
             catch (Exception) { ;}
         }
 

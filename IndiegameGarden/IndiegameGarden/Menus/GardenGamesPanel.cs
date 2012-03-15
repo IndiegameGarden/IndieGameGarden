@@ -39,9 +39,9 @@ namespace IndiegameGarden.Menus
 
         public const float CURSOR_SCALE_REGULAR = 0.60f; //5.9375f;
         public const float CURSOR_DISCOVERY_RANGE = 0.60f;
-        public const float THUMBNAIL_SCALE_UNSELECTED = 0.6f; //0.54f; //1.5625f;
-        public const float THUMBNAIL_SCALE_SELECTED = 0.7f; //0.65f; //2f;
-        public const float THUMBNAIL_SCALE_SELECTED1 = 2.857f;
+        public const float THUMBNAIL_SCALE_UNSELECTED = 0.42f; //0.6f; //0.54f; //1.5625f;
+        public const float THUMBNAIL_SCALE_SELECTED = 0.49f; //0.7f; //0.65f; //2f;
+        public const float THUMBNAIL_SCALE_SELECTED1 = 2f; //2.857f;
         static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f, 0.895f);
         static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.96f);
         const float INFOBOX_SPEED_MOVE = 3.8f;

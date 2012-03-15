@@ -166,9 +166,13 @@ namespace IndiegameGarden.Menus
                     Texture = updatedTexture;
                     updatedTexture = null;
                     isLoaded = true;
-                    EffectEnabled = true;
                 }
             }
+
+            // effect when installed
+            EffectEnabled = isLoaded && (Game.FXmode > 0) && Game.IsInstalled;
+            if (EffectEnabled)
+                Motion.ScaleModifier *= (1f / 0.7f);
         }
 
         protected override void OnDraw(ref DrawParams p)
