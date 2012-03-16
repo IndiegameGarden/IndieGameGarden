@@ -128,7 +128,7 @@ namespace IndiegameGarden.Menus
         public void Enable()
         {
             Visible = true;
-            EffectEnabled = false;
+            EffectEnabled = true;
             if (loaderTask == null)
             {
                 loaderTask = new ThreadedTask(new GameThumbnailLoadTask(this));
@@ -170,7 +170,7 @@ namespace IndiegameGarden.Menus
             }
 
             // effect when installed
-            EffectEnabled = isLoaded && (Game.FXmode > 0) && Game.IsInstalled;
+            EffectEnabled = true; // DEBUG isLoaded && (Game.FXmode > 0) && Game.IsInstalled;
             if (EffectEnabled)
                 Motion.ScaleModifier *= (1f / 0.7f);
         }

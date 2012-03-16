@@ -1,9 +1,15 @@
 // (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
+// variables set from the outside - must be same for all sprites in a batch rendered with this shader.
+// linear time - for animation control
 float Time = 0;
+// center constant
 float2 Center = float2(0.5,0.5);
+// radial motion noise
 float NoiseLevel = 0.005;
+// velocity of the outward running pixels effect
 float Velocity = 0.02;
+// size settings for the 'shadow box' border
 float ShadowBoxWidth = 0.7/2;
 float ShadowBoxHeight = 0.7/2;
 float2 ShadowBoxScale = float2(0.6,0.6);
@@ -16,10 +22,15 @@ sampler_state
     AddressV = Clamp;
 };
 
+// shader uses 'color', the DrawColor, for special effects that are set per sprite:
+// color.a - transparency result 0...1
+// color.r - saturation 0...1 (0=black&white, 1=colored-full)
+// color.g - intensity 0 (dark)...1 (light)
+//
 float4 PixelShaderFunction(float4 color : COLOR0, float2 texCoord : TEXCOORD0) : COLOR0
 {
 	float4 tex = tex2D(TextureSampler, ((texCoord - Center)/ShadowBoxScale+Center) ) ;		  
-	float4 res = float4(0,0,0,0);
+	float4 res ;
 	float alpha ;
 	float2 vDif = texCoord - Center ;
 	float2 vDifNorm = normalize(vDif);
@@ -29,12 +40,11 @@ float4 PixelShaderFunction(float4 color : COLOR0, float2 texCoord : TEXCOORD0) :
 	float t = -Time;
 	float2 vTexSample = Center + (lWarped * vDifNorm) + (Velocity * t * 0.8334 * vDifNorm); 
 	res = tex2D(TextureSampler, vTexSample ) ;		  
-	alpha = 1-2.0*lDif; //*lDif ;//*2.5;
+	alpha = 1-1.95*lDif; //2.0*lDif; //*lDif ;//*2.5;
 	if (alpha < 0)
 		alpha = 0;
 	res *= alpha;
 	res.a = alpha;
-
 	
 	// check for shadow box bounds
 	if ( texCoord.x < (Center.x + ShadowBoxWidth) &&
@@ -56,36 +66,28 @@ float4 PixelShaderFunction(float4 color : COLOR0, float2 texCoord : TEXCOORD0) :
 			d = abs(texCoord.y - (Center.y+ShadowBoxHeight) );
 		float c2 = 1-23*d;
 
-		// rounded corner
-
 		// use the best-case c/c2
 		if (c2<0) c2=0;
 		if (c2>c) c= c2;
 
-		//res.a=0;
 		res = c *res + (1-c) * float4(0,0,0,1); //float4(0.13,0.02,0.042,0);
-		//res.a=1-c;
 		if (c==0)
 		{
-			//float4 bg=res;
-			//res.a=0;
+			// copy the bitmap color as-is.
 			res=tex;
-			/*
-			float rRoundedY = 2*0.1;
-			float rRoundedX = 2*0.0625;
-			float2 cor1 = float2(Center.x-ShadowBoxWidth+rRoundedX, Center.y-ShadowBoxHeight+rRoundedY);
-			if (texCoord.x < cor1.x && texCoord.y < cor1.y )
-			{			
-				d = length( (texCoord - cor1) ); //* float2(0.625 , 1.0) );
-				if (d<rRoundedY)
-					res=float4(1,0,0,0); //bg;
-			}
-			*/
 		}
 	}
 	
-
-	return res * color;
+	// apply saturation technique http://lukhezo.com/2011/03/12/saturationdesaturation-with-hlslpixel-shaders-and-wpf/
+	float alphaBackup = res.a;
+	float3  LuminanceWeights = float3(0.299,0.587,0.114);
+	float    luminance = dot(res,LuminanceWeights);
+	res = lerp(luminance, res, color.r);
+	// apply color fade
+	res *= color.g;
+	//retain the alpha
+	res.a = alphaBackup * color.a;
+	return res ;
 
 }
 

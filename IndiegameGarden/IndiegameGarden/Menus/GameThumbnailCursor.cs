@@ -23,7 +23,7 @@ namespace IndiegameGarden.Menus
         public GameThumbnailCursor()
             : base("WhiteTexture","GameThumbnailCursor")
         {
-            DrawInfo.LayerDepth = 0f;
+            DrawInfo.LayerDepth = 0.95f;
             MotionB = new MotionBehavior();
             Add(MotionB);
         }

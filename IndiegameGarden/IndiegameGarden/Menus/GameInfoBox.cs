@@ -74,7 +74,7 @@ namespace IndiegameGarden.Menus
                 if (game.IsInstalled)
                 {
                     desc += "This game now lives in your garden. Hold ENTER to play!\n";
-                    dlProgressBar.Visible = true;
+                    dlProgressBar.Visible = false;
                     dlProgressBar.ProgressTarget = 1.0f;
                     dlProgressBar.ProgressValue = 1.0f;
                     dlProgressBar.Pulsing = false;
@@ -120,9 +120,16 @@ namespace IndiegameGarden.Menus
                     }
                     else
                     {
-                        dlProgressBar.Visible = true;
+                        dlProgressBar.Visible = false;
+                        dlProgressBar.Pulsing = false;
                         dlProgressBar.ProgressTarget = 1.0f;
                         dlProgressBar.ProgressValue = 1.0f;
+                        if (game.ThreadedDlAndInstallTask != null && 
+                            !game.ThreadedDlAndInstallTask.IsSuccess() && 
+                            game.ThreadedDlAndInstallTask.IsFinished())
+                        {
+                            desc += "Problem during growth: " + game.ThreadedDlAndInstallTask.StatusMsg() ;
+                        }
                     }
                 }
 

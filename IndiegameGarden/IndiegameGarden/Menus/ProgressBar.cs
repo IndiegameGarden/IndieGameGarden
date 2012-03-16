@@ -110,7 +110,7 @@ namespace IndiegameGarden.Menus
                 textScale = 1f + ampl + ampl * (float)Math.Sin(MathHelper.TwoPi * (double)frequency * SimTime);
 
                 // bar color
-                ampl = 0.143f;
+                ampl = 0.103f;
                 float v = (1 - ampl) + ampl * (float)Math.Sin(MathHelper.TwoPi * (double)frequency * SimTime);
                 DrawInfo.DrawColor = new Color(1f, v, v, 1f);
             }

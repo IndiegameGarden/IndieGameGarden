@@ -111,7 +111,6 @@ namespace IndiegameGarden.Menus
             {
                 if (SelectedGame == null)
                 {
-                    // TODO remove?
                     SelectedGame = gl[0];
                     cursor.SetToGame(SelectedGame);
                 }
@@ -157,11 +156,6 @@ namespace IndiegameGarden.Menus
             if (isGameLaunchOngoing)
             {
                 timeLaunching += p.Dt;
-                /*
-                ZoomTarget = THUMBNAIL_SCALE_SELECTED1 * (1+timeLaunching);
-                ZoomCenter = thumbnailsCache[SelectedGame.GameID].PositionAbs;
-                MotionB.ZoomSpeed = 0.01f;
-                 */
                 th = thumbnailsCache[SelectedGame.GameID];
                 th.Motion.ScaleModifier *= (1 + timeLaunching); // blow up size of thumbnail while user requests launch
 
@@ -234,7 +228,6 @@ namespace IndiegameGarden.Menus
                     th.DrawInfo.LayerDepth = LAYER_GRID_ITEMS;
                     th.Visible = false;
                     th.ColorB.Intensity = 0.0f;
-                    th.DrawInfo.Alpha = 0f;
                 }else{
                     // retrieve GameThumbnail from cache
                     th = thumbnailsCache[g.GameID];
@@ -245,14 +238,21 @@ namespace IndiegameGarden.Menus
                 {
                     th.Enable();
                     th.ColorB.Intensity = 0f;
-                    th.ColorB.FadeToTarget(1.0f, 4.3f);
                 }
-
-                // noninstalled games show rotated (DEBUG)
+                            
+                th.ColorB.FadeTarget = (0.65f + 0.35f * g.InstallProgress);
+                th.ColorB.FadeSpeed = 0.15f;// 0.15f;
                 if (!g.IsInstalled)
                 {
-                    th.MotionB.RotateTarget = 0.48f * (1f - g.InstallProgress);
-                    th.MotionB.RotateSpeed = 0.12f;
+                    // noninstalled games show a bit rotated DEBUG    
+                    //th.MotionB.RotateTarget = -0.18f * (1f - g.InstallProgress);
+                    //th.MotionB.RotateSpeed = 0.01f;
+                    //th.ColorB.Intensity = 1.5f;
+                }
+                else
+                {
+                    //th.ColorB.FadeTarget = g.InstallProgress;
+                    //th.ColorB.FadeSpeed = 0.05f;
                 }
 
                 // displaying selected thumbnails larger

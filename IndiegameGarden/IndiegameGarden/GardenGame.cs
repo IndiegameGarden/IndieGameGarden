@@ -77,6 +77,7 @@ namespace IndiegameGarden
         public GardenMusic music;
 
         ThreadedTask launchGameThread;
+        ThreadedTask configDownloadThread;
 
         GraphicsDeviceManager graphics;
         Screenlet mainScreenlet, loadingScreenlet;       
@@ -150,9 +151,9 @@ namespace IndiegameGarden
                 GameChooserMenu menu = new GameChooserMenu();
                 mainScreenlet.Add(menu);
 
-                // debug
-                DebugMsg = new DebugMessage("debugmsg");
-                loadingScreenlet.Add(DebugMsg);
+                // DEBUG
+                //DebugMsg = new DebugMessage("debugmsg");
+                //loadingScreenlet.Add(DebugMsg);
             }
 
             // finally call base to enumnerate all (gfx) Game components to init
@@ -202,6 +203,11 @@ namespace IndiegameGarden
 
         protected override void Dispose(bool disposing)
         {
+            if (configDownloadThread != null)
+            {
+                configDownloadThread.Abort();
+            }
+
             if (disposing && TreeRoot != null)
             {
                 TreeRoot.Dispose();
@@ -280,22 +286,22 @@ namespace IndiegameGarden
 
             // download config - if needed or if could not be loaded
             ConfigDownloader dl = new ConfigDownloader(Config);
-            ThreadedTask dlTask = new ThreadedTask(dl);
+            configDownloadThread = new ThreadedTask(dl);
             if (dl.IsDownloadNeeded() || Config==null )
             {
                 // start the task
-                dlTask.Start();
+                configDownloadThread.Start();
                 
                 // then wait for a short while until success of the task thread
                 long timer = 0;
                 long blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 3;  // TODO const in config
                 if (Config == null || !Config.IsValid() )
                     blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 30;  // TODO const in config
-                while (dlTask.Status() == ITaskStatus.CREATED)
+                while (configDownloadThread.Status() == ITaskStatus.CREATED)
                 {
                     // block until in RUNNING state
                 }
-                while (dlTask.Status() == ITaskStatus.RUNNING && timer < blockingWaitPeriodTicks)
+                while (configDownloadThread.Status() == ITaskStatus.RUNNING && timer < blockingWaitPeriodTicks)
                 {
                     Thread.Sleep(100);
                     timer += (System.TimeSpan.TicksPerMillisecond * 100);
