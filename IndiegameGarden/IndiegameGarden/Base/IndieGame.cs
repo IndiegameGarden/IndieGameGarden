@@ -53,7 +53,15 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// a set of mirrors for PackedFileURL
         /// </summary>
-        public string[] PackedFileMirrors = new string[]{};
+        public string[] PackedFileMirrors
+        {
+            get
+            {
+                return packedFileMirrors.ToArray();
+            }
+        }
+
+        protected List<string> packedFileMirrors = new List<string>();
 
         /// <summary>
         /// URL (optionally without the http:// or www. in front) to game developer's website
@@ -182,6 +190,14 @@ namespace IndiegameGarden.Base
             }
         }
 
+        public bool IsPlayable
+        {
+            get
+            {
+                return ( ExeFile.Length > 0 ) && (ExeFile.ToLower().EndsWith(".exe") );
+            }
+        }
+
         /// <summary>
         /// get this game's thumbnail filename
         /// </summary>
@@ -249,13 +265,16 @@ namespace IndiegameGarden.Base
             catch (Exception) { ; }
             try { 
                 JsonArray am = (JsonArray)j["ZipMirrors"];
-                PackedFileMirrors = JSONStore.ToStringArray(am);
+                packedFileMirrors = JSONStore.ToStringList(am);
             }
             catch (Exception) { ;}
             try { isPNG = (((JsonNumber)j["PNG"]).Value > 0 ); }
             catch (Exception) { ;}
             try { FXmode = (int) ((JsonNumber)j["FX"]).Value; }
             catch (Exception) { ;}
+            
+            // update with default mirror location
+            packedFileMirrors.Add(GardenGame.Instance.Config.PackedFilesServerURL + GardenGame.Instance.Config.GetPackedFileName(this) );
         }
 
 

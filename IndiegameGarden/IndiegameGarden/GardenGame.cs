@@ -134,8 +134,6 @@ namespace IndiegameGarden
 
             TreeRoot.Add(mainScreenlet);
             TreeRoot.Add(loadingScreenlet);
-            //mainScreenlet.Add(new FrameRateCounter(1.0f, 0f)); // TODO
-            //mainScreenlet.Add(new ScreenZoomer()); // TODO remove
             mainScreenlet.DrawInfo.DrawColor = new Color(169 * 2 / 3, 157 * 2 / 3, 241 * 2 / 3); // Color.Black;
 
             music = new GardenMusic();
@@ -147,13 +145,27 @@ namespace IndiegameGarden
             // load config
             if (LoadConfig())
             {
-                // game chooser menu
-                GameChooserMenu menu = new GameChooserMenu();
-                mainScreenlet.Add(menu);
-
-                // DEBUG
-                //DebugMsg = new DebugMessage("debugmsg");
-                //loadingScreenlet.Add(DebugMsg);
+                if (DownloadConfig())
+                {
+                    if (LoadGameLibrary())
+                    {
+                        // game chooser menu
+                        GameChooserMenu menu = new GameChooserMenu();
+                        mainScreenlet.Add(menu);
+                    }
+                    else
+                    {
+                        Exit();
+                    }
+                }
+                else
+                {
+                    Exit();
+                }
+            }
+            else
+            {
+                Exit();
             }
 
             // finally call base to enumnerate all (gfx) Game components to init
@@ -282,8 +294,13 @@ namespace IndiegameGarden
             catch (Exception ex)
             {
                 initError = ex;
+                return false;
             }
+            return true;
+        }
 
+        protected bool DownloadConfig()
+        {
             // download config - if needed or if could not be loaded
             ConfigDownloader dl = new ConfigDownloader(Config);
             configDownloadThread = new ThreadedTask(dl);
@@ -294,7 +311,7 @@ namespace IndiegameGarden
                 
                 // then wait for a short while until success of the task thread
                 long timer = 0;
-                long blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 3;  // TODO const in config
+                long blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 1;  // TODO const in config
                 if (Config == null || !Config.IsValid() )
                     blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 30;  // TODO const in config
                 while (configDownloadThread.Status() == ITaskStatus.CREATED)
@@ -328,10 +345,13 @@ namespace IndiegameGarden
             if (Config==null || !Config.IsValid() )
             { 
                 TTengine.Util.MsgBox.Show("Could not load configuration", "Could not load configuration file. Is it missing or corrupted?"); 
-                Exit();
                 return false;
             }
+            return true;
+        }
 
+        protected bool LoadGameLibrary()
+        {
             // load game library
             try
             {
@@ -343,7 +363,6 @@ namespace IndiegameGarden
             {
                 MsgBox.Show("Could not load game library file", "Could not load game library file."); // TODO msg
                 initError = ex;
-                Exit();
                 return false;
             }
 
