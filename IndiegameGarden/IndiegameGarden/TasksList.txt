@@ -2,12 +2,12 @@
 
 OPEN  [top issues first]
 
-Add mirrors to all thumbnail loading
-Key/option to abort download or install of a game
-Adapt to multiple desktop resolution and check for minimum resolution
 Music loading from URLs specified in configuration file
-Easter egg with sprites from OpenGameArt in menu
 Make gamelib loading non-blocking
+Key/option to abort download or install of a game
+Add mirrors to all thumbnail loading?
+desktop resolution check for minimum resolution?
+Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
 2012-03-16 Add default mirror of own server to all game downloads, where name on server equals the local zipfilename
