@@ -39,8 +39,8 @@ namespace IndiegameGarden.Menus
 
         public const float CURSOR_SCALE_REGULAR = 0.60f; //5.9375f;
         public const float CURSOR_DISCOVERY_RANGE = 0.60f;
-        public const float THUMBNAIL_SCALE_UNSELECTED = 0.42f; //0.6f; //0.54f; //1.5625f;
-        public const float THUMBNAIL_SCALE_SELECTED = 0.49f; //0.7f; //0.65f; //2f;
+        public const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; //0.6f; //0.54f; //1.5625f;
+        public const float THUMBNAIL_SCALE_SELECTED = 0.51f; //0.7f; //0.65f; //2f;
         public const float THUMBNAIL_SCALE_SELECTED1 = 2f; //2.857f;
         static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f, 0.895f);
         static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.96f);
@@ -96,10 +96,10 @@ namespace IndiegameGarden.Menus
 
             // controls help text
             controlsHelpText = new FloatingTextMessage();
-            controlsHelpText.Motion.Position = new Vector2(0.3f, 0.15f);
-            controlsHelpText.Text = "Controls:\n" + 
-                                    "ARROWs = Move cursor     ENTER = Select game   Hold ENTER = Grow game in your garden\n" +
-                                    "Hold ENTER = Play game   ESCAPE = Back         Hold ESCAPE = Quit the garden\n" +
+            controlsHelpText.Motion.Position = new Vector2(0.3f, 0.08f);
+            controlsHelpText.Text = "Welcome in the garden! Controls:\n" + 
+                                    "ARROWs = Move cursor       ENTER = Select game   Hold ENTER = Grow game in your garden\n" +
+                                    "Hold ENTER = Play game      ESCAPE = Back             Hold ESCAPE = Quit the garden\n" +
                                     "W = Launch game's website";
         }
 
@@ -266,9 +266,32 @@ namespace IndiegameGarden.Menus
                 }
                             
                 th.ColorB.FadeTarget = (0.65f + 0.35f * g.InstallProgress);
+                if (g.IsInstalling)
+                {
+                    th.MotionB.ScaleTarget = (0.9f + 0.35f * g.InstallProgress) *
+                                            ((g==SelectedGame)? THUMBNAIL_SCALE_SELECTED: THUMBNAIL_SCALE_UNSELECTED );
+                    th.MotionB.ScaleSpeed = 0.004f;                    
+                }
+                else
+                {
+                    th.MotionB.ScaleTarget = (0.85f + 0.15f * g.InstallProgress);
+                    //th.MotionB.ScaleSpeed = 0.03f;
+                    // displaying selected thumbnails larger
+                    if (g == SelectedGame)
+                    {
+                        th.MotionB.ScaleTarget *= THUMBNAIL_SCALE_SELECTED * g.ScaleIcon;
+                        th.MotionB.ScaleSpeed = 0.007f;
+                    }
+                    else
+                    {
+                        th.MotionB.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED * g.ScaleIcon;
+                        th.MotionB.ScaleSpeed = 0.015f;
+                    }
+                }
                 th.ColorB.FadeSpeed = 0.15f;// 0.15f;
                 if (!g.IsInstalled)
                 {
+                    //th.Motion.ScaleModifier *= 0.9f; // smaller
                     // noninstalled games show a bit rotated DEBUG    
                     //th.MotionB.RotateTarget = -0.18f * (1f - g.InstallProgress);
                     //th.MotionB.RotateSpeed = 0.01f;
@@ -280,17 +303,6 @@ namespace IndiegameGarden.Menus
                     //th.ColorB.FadeSpeed = 0.05f;
                 }
 
-                // displaying selected thumbnails larger
-                if (g == SelectedGame)
-                {
-                    th.MotionB.ScaleTarget = THUMBNAIL_SCALE_SELECTED * g.ScaleIcon;
-                    th.MotionB.ScaleSpeed = 0.01f;
-                }
-                else
-                {
-                    th.MotionB.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED * g.ScaleIcon;
-                    th.MotionB.ScaleSpeed = 0.02f;
-                }
 
                 // coordinate position where to move a game thumbnail to 
                 Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X,PANEL_DELTA_GRID_Y);
@@ -339,7 +351,8 @@ namespace IndiegameGarden.Menus
 
         public override void OnChangedSelectedGame(IndieGame newSel, IndieGame oldSel)
         {
-            // unselect the previous game
+            // unselect the previous game DEBUG
+            /*
             if (oldSel != null)
             {
                 GameThumbnail th = thumbnailsCache[oldSel.GameID];
@@ -349,6 +362,7 @@ namespace IndiegameGarden.Menus
                     th.MotionB.ScaleSpeed = 0.01f;
                 }
             }
+             */
         }
 
         public override void OnUserInput(GamesPanel.UserInput inp)

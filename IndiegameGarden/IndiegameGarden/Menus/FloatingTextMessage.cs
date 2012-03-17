@@ -19,7 +19,7 @@ namespace IndiegameGarden.Menus
             Add(ColorB);
             ColorB.FadeTarget = 0.0f;
             ColorB.Intensity = 0f;
-            ColorB.FadeSpeed = 0.2f;
+            ColorB.FadeSpeed = 0.3f;
         }
 
         public void FadeIn()

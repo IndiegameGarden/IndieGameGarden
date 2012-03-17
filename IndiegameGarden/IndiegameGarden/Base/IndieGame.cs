@@ -160,6 +160,14 @@ namespace IndiegameGarden.Base
             }
         }
 
+        public bool IsInstalling
+        {
+            get
+            {
+                return (ThreadedDlAndInstallTask != null) && (!ThreadedDlAndInstallTask.IsFinished());
+            }
+        }
+
         public float InstallProgress
         {
             get

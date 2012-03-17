@@ -1,8 +1,6 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
-
-Show keyboard controls in message on startup
 Music loading from URLs specified in configuration file
 Make gamelib loading non-blocking
 
@@ -13,6 +11,8 @@ desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-03-17 Icon growth during download
+2012-03-17 Show keyboard controls in message on startup
 2012-03-16 Add default mirror of own server to all game downloads, where name on server equals the local zipfilename
 2012-03-16 Add self-downloading of latest IGG code, in different versions. 
 2012-03-14 Allow loading of gamelib new version from server 
