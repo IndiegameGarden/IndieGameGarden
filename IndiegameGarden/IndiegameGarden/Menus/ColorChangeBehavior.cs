@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 
 namespace IndiegameGarden.Menus
 {
+    /// <summary>
+    /// provides color/intensity fading features to the parent Gamelet
+    /// </summary>
     public class ColorChangeBehavior: Gamelet
     {
         protected float intensity = 1.0f;

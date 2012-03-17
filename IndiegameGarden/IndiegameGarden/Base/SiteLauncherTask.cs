@@ -34,7 +34,7 @@ namespace IndiegameGarden.Base
         public bool IsGameShowingWindow = false;
 
         // internal
-        string filePath;
+        string filePath = "";
 
         //Import the SetForeground API to activate it
         [DllImportAttribute("User32.dll")]
@@ -58,7 +58,13 @@ namespace IndiegameGarden.Base
         {
             try
             {
-                //TODO wait until task done, keep setting it to fg a few times.
+                // check if anything sane needs to be launched.
+                if (filePath.Length == 0)
+                {
+                    status = ITaskStatus.SUCCESS; // no, so done.
+                    return;
+                }
+
                 Proc = System.Diagnostics.Process.Start(filePath);
                 if (Proc == null)
                 {
@@ -88,7 +94,7 @@ namespace IndiegameGarden.Base
 
                     }
 
-
+                    status = ITaskStatus.SUCCESS;
                 }
 
                 // when done switch back to our Garden app

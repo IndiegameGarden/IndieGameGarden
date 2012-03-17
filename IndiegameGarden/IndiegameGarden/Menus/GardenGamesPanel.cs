@@ -64,6 +64,9 @@ namespace IndiegameGarden.Menus
         // box showing info of a game such as title and download progressContributionSingleFile
         GameInfoBox infoBox;
 
+        // textbox showing controls help message
+        FloatingTextMessage controlsHelpText;
+
         // UI related vars - related to whether user indicates to quit program or user cancelled this
         bool isExiting = false;
         bool isGameLaunchOngoing = false;
@@ -90,6 +93,14 @@ namespace IndiegameGarden.Menus
             // info box - will be added to parent upon OnNewParent() event
             infoBox = new GameInfoBox();
             infoBox.Motion.Position = INFOBOX_HIDDEN_POSITION;
+
+            // controls help text
+            controlsHelpText = new FloatingTextMessage();
+            controlsHelpText.Motion.Position = new Vector2(0.3f, 0.15f);
+            controlsHelpText.Text = "Controls:\n" + 
+                                    "ARROWs = Move cursor     ENTER = Select game   Hold ENTER = Grow game in your garden\n" +
+                                    "Hold ENTER = Play game   ESCAPE = Back         Hold ESCAPE = Quit the garden\n" +
+                                    "W = Launch game's website";
         }
 
         public override void OnUpdateList(GameCollection gl)
@@ -140,7 +151,11 @@ namespace IndiegameGarden.Menus
         protected override void OnNewParent()
         {
             base.OnNewParent();
+
+            // some items are part of the parent, to avoid scaling issues in GardenGamesPanel
+            // (which get rescaled/zoomed based on user input).
             Parent.Add(infoBox);
+            Parent.Add(controlsHelpText);
         }
 
         protected override void OnUpdate(ref UpdateParams p)
@@ -202,6 +217,16 @@ namespace IndiegameGarden.Menus
                     GardenGame.Instance.ActionLaunchWebsite(SelectedGame);
                 }
                 isLaunchWebsite = false;
+            }
+
+            //-- helpful controls text
+            if (SelectedGame != null && SelectedGame.GameID.Equals("igg_controls"))
+            {
+                controlsHelpText.FadeIn();
+            }
+            else
+            {
+                controlsHelpText.FadeOut();
             }
 
             //-- loop all games adapt their display properties where needed

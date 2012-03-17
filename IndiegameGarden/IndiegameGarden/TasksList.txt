@@ -2,11 +2,14 @@
 
 OPEN  [top issues first]
 
+Show keyboard controls in message on startup
 Music loading from URLs specified in configuration file
 Make gamelib loading non-blocking
+
+OPTIONAL [when time permits]
 Key/option to abort download or install of a game
 Add mirrors to all thumbnail loading?
-desktop resolution check for minimum resolution?
+desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
