@@ -50,6 +50,7 @@ namespace IndiegameGarden.Menus
         {
             MotionB.Target = g.Position;
             MotionB.TargetSpeed = 4f;
+            GridPosition = g.Position;
         }
 
     }
