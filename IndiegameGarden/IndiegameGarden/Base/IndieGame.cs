@@ -84,6 +84,11 @@ namespace IndiegameGarden.Base
         public int Version = 1;
 
         /// <summary>
+        /// only show this item if client version is below this version number
+        /// </summary>
+        public int ShowBelowClientVersion = 99999999;
+
+        /// <summary>
         /// scaling factor of game icon when displayed
         /// </summary>
         public float ScaleIcon = 1f;
@@ -206,6 +211,14 @@ namespace IndiegameGarden.Base
             }
         }
 
+        public bool IsVisible
+        {
+            get
+            {
+                return (GardenGame.Instance.Config.ClientVersion < ShowBelowClientVersion);
+            }
+        }
+
         /// <summary>
         /// get this game's thumbnail filename
         /// </summary>
@@ -279,6 +292,8 @@ namespace IndiegameGarden.Base
             try { isPNG = (((JsonNumber)j["PNG"]).Value > 0 ); }
             catch (Exception) { ;}
             try { FXmode = (int) ((JsonNumber)j["FX"]).Value; }
+            catch (Exception) { ;}
+            try { ShowBelowClientVersion = (int)((JsonNumber)j["ShowBelowVer"]).Value; }
             catch (Exception) { ;}
             
             // update with default mirror location

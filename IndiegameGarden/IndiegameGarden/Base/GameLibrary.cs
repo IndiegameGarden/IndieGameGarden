@@ -50,6 +50,8 @@ namespace IndiegameGarden.Base
             foreach( IJsonType g in gl )
             {
                 IndieGame ig = new IndieGame( (JsonObject)g );
+                if (!ig.IsVisible)
+                    continue;
                 gamesList.Add(ig);
             }
         }

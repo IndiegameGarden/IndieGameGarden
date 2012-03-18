@@ -124,6 +124,7 @@ namespace IndiegameGarden.Menus
                 {
                     SelectedGame = gl[0];
                     cursor.SetToGame(SelectedGame);
+                    
                 }
                 else
                 {
@@ -172,7 +173,8 @@ namespace IndiegameGarden.Menus
             {
                 timeLaunching += p.Dt;
                 th = thumbnailsCache[SelectedGame.GameID];
-                th.Motion.ScaleModifier *= (1 + timeLaunching); // blow up size of thumbnail while user requests launch
+                th.MotionB.ScaleTarget = THUMBNAIL_SCALE_SELECTED * (1 + timeLaunching); // blow up size of thumbnail while user requests launch
+                th.MotionB.ScaleSpeed = 0.0005f;
 
                 if (timeLaunching > TIME_BEFORE_GAME_LAUNCH)
                 {
@@ -199,7 +201,7 @@ namespace IndiegameGarden.Menus
                 if (timeExiting > TIME_BEFORE_EXIT)
                 {
                     GardenGame.Instance.ExitGame();
-                    isExiting = false;
+                    //isExiting = false;
                     return;
                 }
             }
@@ -223,6 +225,7 @@ namespace IndiegameGarden.Menus
             if (SelectedGame != null && SelectedGame.GameID.Equals("igg_controls"))
             {
                 controlsHelpText.FadeIn();
+                SelectedGame.Name = GardenGame.Instance.Config.ServerMsg;
             }
             else
             {
@@ -247,6 +250,7 @@ namespace IndiegameGarden.Menus
                     thumbnailsCache.Add(g.GameID, th);
                     //th.Position = new Vector2(RandomMath.RandomBetween(-0.4f,2.0f), RandomMath.RandomBetween(-0.4f,1.4f) );
                     //th.Scale = RandomMath.RandomBetween(0.01f, 0.09f); 
+                    // create with new position and scale
                     th.Motion.Position = new Vector2(0.5f, 0.5f);
                     th.Motion.Scale = 0.01f;
 
@@ -266,43 +270,32 @@ namespace IndiegameGarden.Menus
                 }
                             
                 th.ColorB.FadeTarget = (0.65f + 0.35f * g.InstallProgress);
-                if (g.IsInstalling)
+                if (!(isGameLaunchOngoing && g == SelectedGame))
                 {
-                    th.MotionB.ScaleTarget = (0.9f + 0.35f * g.InstallProgress) *
-                                            ((g==SelectedGame)? THUMBNAIL_SCALE_SELECTED: THUMBNAIL_SCALE_UNSELECTED );
-                    th.MotionB.ScaleSpeed = 0.004f;                    
-                }
-                else
-                {
-                    th.MotionB.ScaleTarget = (0.85f + 0.15f * g.InstallProgress);
-                    //th.MotionB.ScaleSpeed = 0.03f;
-                    // displaying selected thumbnails larger
-                    if (g == SelectedGame)
+                    if (g.IsInstalling)
                     {
-                        th.MotionB.ScaleTarget *= THUMBNAIL_SCALE_SELECTED * g.ScaleIcon;
-                        th.MotionB.ScaleSpeed = 0.007f;
+                        th.MotionB.ScaleTarget = (0.9f + 0.35f * g.InstallProgress) *
+                                                ((g == SelectedGame) ? THUMBNAIL_SCALE_SELECTED : THUMBNAIL_SCALE_UNSELECTED);
+                        th.MotionB.ScaleSpeed = 0.0007f;
                     }
                     else
                     {
-                        th.MotionB.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED * g.ScaleIcon;
-                        th.MotionB.ScaleSpeed = 0.015f;
+                        th.MotionB.ScaleTarget = (0.85f + 0.15f * g.InstallProgress);
+                        //th.MotionB.ScaleSpeed = 0.03f;
+                        // displaying selected thumbnails larger
+                        if (g == SelectedGame)
+                        {
+                            th.MotionB.ScaleTarget *= THUMBNAIL_SCALE_SELECTED * g.ScaleIcon;
+                            th.MotionB.ScaleSpeed = 0.0003f;
+                        }
+                        else
+                        {
+                            th.MotionB.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED * g.ScaleIcon;
+                            th.MotionB.ScaleSpeed = 0.0003f;
+                        }
                     }
                 }
                 th.ColorB.FadeSpeed = 0.15f;// 0.15f;
-                if (!g.IsInstalled)
-                {
-                    //th.Motion.ScaleModifier *= 0.9f; // smaller
-                    // noninstalled games show a bit rotated DEBUG    
-                    //th.MotionB.RotateTarget = -0.18f * (1f - g.InstallProgress);
-                    //th.MotionB.RotateSpeed = 0.01f;
-                    //th.ColorB.Intensity = 1.5f;
-                }
-                else
-                {
-                    //th.ColorB.FadeTarget = g.InstallProgress;
-                    //th.ColorB.FadeSpeed = 0.05f;
-                }
-
 
                 // coordinate position where to move a game thumbnail to 
                 Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X,PANEL_DELTA_GRID_Y);

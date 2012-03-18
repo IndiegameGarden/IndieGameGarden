@@ -1,6 +1,11 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
+Fix getting client version (not from server, but in client info itself - built in?)
+Fix bg picture transparency
+Fade out music when exiting
+Add partly transparent garden graphics
+Only show client update when using older client version
 Music loading from URLs specified in configuration file
 Make gamelib loading non-blocking
 
@@ -11,6 +16,7 @@ desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-03-18 Server message shown on screen.
 2012-03-17 Icon growth during download
 2012-03-17 Show keyboard controls in message on startup
 2012-03-16 Add default mirror of own server to all game downloads, where name on server equals the local zipfilename
