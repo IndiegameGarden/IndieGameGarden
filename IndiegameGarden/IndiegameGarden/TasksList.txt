@@ -1,6 +1,7 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
+Remove dependency of igg client updating on gamelib info -> only get client info from config.
 Fix bg picture transparency
 Fade out music when exiting
 Add partly transparent garden graphics

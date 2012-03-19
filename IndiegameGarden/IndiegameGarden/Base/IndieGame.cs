@@ -298,6 +298,13 @@ namespace IndiegameGarden.Base
             
             // update with default mirror location
             packedFileMirrors.Add(GardenGame.Instance.Config.PackedFilesServerURL + GardenGame.Instance.Config.GetPackedFileName(this) );
+
+            // special case: igg, then enter version numbers info from the config
+            if (GameID.Equals("igg"))
+            {
+                ShowBelowClientVersion = GardenGame.Instance.Config.NewestClientVersion;
+                Version = GardenGame.Instance.Config.NewestClientVersion;
+            }
         }
 
 

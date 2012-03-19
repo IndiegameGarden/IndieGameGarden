@@ -12,9 +12,26 @@ namespace IndiegameGarden.Base
      */
     public class GardenConfig: JSONStore
     {
+        /// <summary>
+        /// checking config file integrity (somewhat)
+        /// </summary>
         public const string CONFIG_MAGIC_VALUE = "f20fj239jf0a9w";
+        /// <summary>
+        /// garden ID default when no ID assigned yet by server (this assignment is optional)
+        /// </summary>
         public const string DEFAULT_GARDEN_ID = "44729384298378";
+        /// <summary>
+        /// auth for server communication
+        /// </summary>
         public const string IGG_CLIENT_AUTH_KEY = "sreqZRVmzJVqdsrKuCwJTnumI";
+        /// <summary>
+        /// fixed for a build! update for new version builds.
+        /// </summary>
+        public const int    IGG_CLIENT_VERSION = 1;
+        /// <summary>
+        /// update for a new build -> quick bootstrap to load a known version of gamelib.
+        /// </summary>
+        public const int    KNOWN_GAMELIB_VERSION = 2;
 
         public const string DATA_PATH = "..\\..\\..\\..\\.."; // for testing in Visual Studio
         //public const string DATA_PATH = "..\\.."; // for deployment version when embedded in games folder
@@ -54,8 +71,8 @@ namespace IndiegameGarden.Base
 
             ConfigFilename = "config.json";
             GameLibraryFilename = "gamelib.json";
-            NewestGameLibraryVersion = 2;
-            ClientVersion = 1;
+            NewestGameLibraryVersion = KNOWN_GAMELIB_VERSION;
+            ClientVersion = IGG_CLIENT_VERSION;
 
             ThumbnailsServerURL = "http://indie.indiegamegarden.com/thumbs/";
             ConfigFilesServerURL = "http://indieget.appspot.com/igg/";

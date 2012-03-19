@@ -96,8 +96,8 @@ namespace IndiegameGarden.Menus
 
             // controls help text
             controlsHelpText = new FloatingTextMessage();
-            controlsHelpText.Motion.Position = new Vector2(0.3f, 0.08f);
-            controlsHelpText.Text = "Welcome in the garden! Controls:\n" + 
+            controlsHelpText.Motion.Position = new Vector2(0.3f, 0.04f);
+            controlsHelpText.Text = "Controls:\n\n" + 
                                     "ARROWs = Move cursor       ENTER = Select game   Hold ENTER = Grow game in your garden\n" +
                                     "Hold ENTER = Play game      ESCAPE = Back             Hold ESCAPE = Quit the garden\n" +
                                     "W = Launch game's website";
