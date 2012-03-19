@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using NetServ.Net.Json;
 
@@ -55,7 +54,7 @@ namespace IndiegameGarden.Base
 
             ConfigFilename = "config.json";
             GameLibraryFilename = "gamelib.json";
-            GameLibraryVersion = 2;
+            NewestGameLibraryVersion = 2;
             ClientVersion = 1;
 
             ThumbnailsServerURL = "http://indie.indiegamegarden.com/thumbs/";
@@ -77,9 +76,9 @@ namespace IndiegameGarden.Base
             catch (Exception) { ; };
             try { ServerMsg = GetString("ServerMsg"); }
             catch (Exception) { ; };
-            try { GameLibraryVersion = (int) GetValue("GamelibVer"); }
+            try { NewestGameLibraryVersion = (int)GetValue("GameLibVer"); }
             catch (Exception) { ; };
-            try { ClientVersion = (int)GetValue("ClientVer"); }
+            try { NewestClientVersion = (int)GetValue("ClientVer"); }
             catch (Exception) { ; };
 
         }
@@ -95,7 +94,7 @@ namespace IndiegameGarden.Base
             {
                 return false;
             }
-            return true;
+            return hasLoadedFromFileOk;
         }
 
         public override void Reload()
@@ -112,10 +111,14 @@ namespace IndiegameGarden.Base
             Init();
         }
 
-        // TODO document the fields below
-
+        /// <summary>
+        /// the unique ID of this garden (may be changed by config server, may be unused as well)
+        /// </summary>
         public string GardenID { get; set; }
 
+        /// <summary>
+        /// special message from config server e.g. showing issues or news
+        /// </summary>
         public string ServerMsg { get; set; }
 
         /// <summary>
@@ -123,26 +126,64 @@ namespace IndiegameGarden.Base
         /// </summary>
         public string DataPath { get; set; }
 
+        /// <summary>
+        /// folder name where config files are stored
+        /// </summary>
         public string ConfigFilesFolder { get; set; }
 
+        /// <summary>
+        /// folder name where packed files (zip, rar, etc) of games are stored
+        /// </summary>
         public string PackedFilesFolder { get; set; }
 
+        /// <summary>
+        /// folder name where unpacked folders of games reside
+        /// </summary>
         public string UnpackedFilesFolder { get; set; }
 
+        /// <summary>
+        /// folder name where thumbnails are stored
+        /// </summary>
         public string ThumbnailsFolder { get; set; } 
 
+        /// <summary>
+        /// name of the configuration file (may be updated by server for some reason)
+        /// </summary>
         public string ConfigFilename { get; set; }
 
+        /// <summary>
+        /// name of the game library JSON file
+        /// </summary>
         public string GameLibraryFilename { get; set; }
 
-        public int GameLibraryVersion { get; set; }
+        /// <summary>
+        /// version of the newest game library currently available (obtained from config server)
+        /// </summary>
+        public int NewestGameLibraryVersion { get; set; }
 
-        public int ClientVersion { get; set; }
+        /// <summary>
+        /// returns the version of current running client
+        /// </summary>
+        public int ClientVersion { get; set;  }
 
+        /// <summary>
+        /// returns newest available known client version (obtained from config server)
+        /// </summary>
+        public int NewestClientVersion { get; set; }
+
+        /// <summary>
+        /// url of the thumbnails server (incl path to thumbnails folder if any)
+        /// </summary>
         public string ThumbnailsServerURL { get; set; }
 
+        /// <summary>
+        /// url of the config server (incl path, excl config file name)
+        /// </summary>
         public string ConfigFilesServerURL { get; set; }
 
+        /// <summary>
+        /// url of a mirror server storing packed files (incl path) for all or most games
+        /// </summary>
         public string PackedFilesServerURL { get; set; }
 
         /// <summary>

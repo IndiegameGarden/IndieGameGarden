@@ -73,7 +73,7 @@ namespace IndiegameGarden.Menus
                 string desc = game.Description + "\n";
                 if (game.IsInstalled)
                 {
-                    desc += "This game now lives in your garden. Hold ENTER to play!\n";
+                    desc += "This game now grows in your garden. Hold ENTER to play!\n";
                     dlProgressBar.Visible = false;
                     dlProgressBar.ProgressTarget = 1.0f;
                     dlProgressBar.ProgressValue = 1.0f;
@@ -84,7 +84,7 @@ namespace IndiegameGarden.Menus
                     if (game.DlAndInstallTask == null)
                     {
 
-                        desc += "This game is not yet in your garden. Hold ENTER to grow it!\n";
+                        desc += "This game's not yet in your garden. Hold ENTER to grow it.\n";
                         dlProgressBar.Visible = false;
                         dlProgressBar.ProgressTarget = 0.0f;
                         dlProgressBar.ProgressValue = 0.0f;

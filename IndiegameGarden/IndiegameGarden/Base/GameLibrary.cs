@@ -16,12 +16,27 @@ namespace IndiegameGarden.Base
     {
         JSONStore json;
         GameCollection gamesList;
-        int version;
+        int version = 0;
 
+        /// <summary>
+        /// create new game library of specified version by loading it from disk using the Load() method
+        /// </summary>
+        /// <param name="version">version number is required since there may be multiple gamelib versions on disk to choose from</param>
         public GameLibrary(int version)
         {
             this.version = version;
             Load();
+        }
+
+        /// <summary>
+        /// return version number of this game library
+        /// </summary>
+        public int Version
+        {
+            get
+            {
+                return version;
+            }
         }
 
         /// <summary>
@@ -36,6 +51,8 @@ namespace IndiegameGarden.Base
             json = new JSONStore(fn); // FIXME use all json files in there?
             gamesList = new GameCollection();
             ParseJson(json);
+            // for extra safety, get version nr from the gamelib file and use that from here on.
+            version = (int) json.GetValue("version");
         }
 
         public void Dispose()

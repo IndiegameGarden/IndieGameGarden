@@ -118,7 +118,17 @@ namespace IndiegameGarden.Base
 
         public double GetValue(string key)
         {
-            return ((JsonNumber)json[key]).Value;
+            try
+            {
+                return ((JsonNumber)json[key]).Value;
+            }
+            catch (InvalidCastException ex)
+            {
+                // try parsing from string.
+                string s = GetString(key);
+                double d = Double.Parse(s);
+                return d;
+            }
         }
 
         public void PutValue(string key, long value)

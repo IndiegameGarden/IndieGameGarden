@@ -79,6 +79,7 @@ float4 PixelShaderFunction(float4 color : COLOR0, float2 texCoord : TEXCOORD0) :
 	}
 	
 	// apply saturation technique http://lukhezo.com/2011/03/12/saturationdesaturation-with-hlslpixel-shaders-and-wpf/
+	/*
 	float alphaBackup = res.a;
 	float3  LuminanceWeights = float3(0.299,0.587,0.114);
 	float    luminance = dot(res,LuminanceWeights);
@@ -87,6 +88,9 @@ float4 PixelShaderFunction(float4 color : COLOR0, float2 texCoord : TEXCOORD0) :
 	res *= color.g;
 	//retain the alpha
 	res.a = alphaBackup * color.a;
+	*/
+
+	res *= color;
 	return res ;
 
 }

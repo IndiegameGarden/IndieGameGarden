@@ -355,9 +355,9 @@ namespace IndiegameGarden
             // load game library
             try
             {
-                GameLibraryDownloader gldl = new GameLibraryDownloader(Config.GameLibraryVersion);
+                GameLibraryDownloader gldl = new GameLibraryDownloader(Config.NewestGameLibraryVersion);
                 gldl.Start();
-                GameLib = new GameLibrary(Config.GameLibraryVersion);
+                GameLib = new GameLibrary(Config.NewestGameLibraryVersion);
             }
             catch (Exception ex)
             {
