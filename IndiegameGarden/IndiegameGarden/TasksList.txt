@@ -1,11 +1,11 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
-Remove dependency of igg client updating on gamelib info -> only get client info from config.
 Fix bg picture transparency
-Fade out music when exiting
+Bg picture gradually scales up larger
+Add png written scribbles showing the various garden section
+Fade out music when exiting : do better?
 Add partly transparent garden graphics
-Only show client update when using older client version
 Music loading from URLs specified in configuration file
 Make gamelib loading non-blocking
 
@@ -16,6 +16,8 @@ desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-03-19 Remove dependency of igg client updating on gamelib info -> only get client info from config.
+2012-03-19 Only show client update when using older client version
 2012-03-19 Remove saturation code (check if better)
 2012-03-19 Fix getting client version (not from server, but in client info itself - built in?)
 2012-03-18 Server message shown on screen.
