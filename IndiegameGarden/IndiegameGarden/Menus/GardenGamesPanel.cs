@@ -178,7 +178,7 @@ namespace IndiegameGarden.Menus
 
                 if (timeLaunching > TIME_BEFORE_GAME_LAUNCH)
                 {
-                    if (SelectedGame.IsInstalled && SelectedGame.IsPlayable)
+                    if (SelectedGame.IsInstalled)
                     {
                         GardenGame.Instance.music.FadeOut();
                         GardenGame.Instance.ActionLaunchGame(SelectedGame);

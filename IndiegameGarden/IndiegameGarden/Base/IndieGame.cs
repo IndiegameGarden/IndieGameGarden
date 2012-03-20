@@ -108,6 +108,8 @@ namespace IndiegameGarden.Base
         /// </summary>
         public Vector2 Position = Vector2.Zero;
 
+        public double SoundVolume = 0.5;
+
         /// <summary>
         /// Optionally a download/install task ongoing for this game
         /// </summary>
@@ -203,14 +205,32 @@ namespace IndiegameGarden.Base
             }
         }
 
+        /// <summary>
+        /// checks whether this game can be played (i.e. an .exe file can be launched)
+        /// </summary>
         public bool IsPlayable
         {
             get
             {
-                return ( ExeFile.Length > 0 ) && (ExeFile.ToLower().EndsWith(".exe") );
+                return ExeFile.ToLower().EndsWith(".exe");
             }
         }
 
+        /// <summary>
+        /// checks whether this game item is a music track (.ogg)
+        /// </summary>
+        public bool IsMusic
+        {
+            get
+            {
+                return (ExeFile.ToLower().EndsWith(".ogg"));
+            }
+        }
+
+        /// <summary>
+        /// checks whether this item is visible to the user, depending on a.o. user's 
+        /// client version and other properties of the item
+        /// </summary>
         public bool IsVisible
         {
             get
@@ -294,6 +314,8 @@ namespace IndiegameGarden.Base
             try { FXmode = (int) ((JsonNumber)j["FX"]).Value; }
             catch (Exception) { ;}
             try { ShowBelowClientVersion = (int)((JsonNumber)j["ShowBelowVer"]).Value; }
+            catch (Exception) { ;}
+            try { SoundVolume = (double)((JsonNumber)j["Vol"]).Value; }
             catch (Exception) { ;}
             
             // update with default mirror location

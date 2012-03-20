@@ -113,7 +113,7 @@ namespace IndiegameGarden
         {
             // music engine
             musicEngine = MusicEngine.GetInstance();
-            musicEngine.AudioPath = "Content";
+            musicEngine.AudioPath = ".";
             if (!musicEngine.Initialize())
                 throw new Exception(musicEngine.StatusMsg);
 
@@ -241,19 +241,26 @@ namespace IndiegameGarden
         {
             if (g.IsInstalled)
             {
-                // if installed, then launch it if possible
-                if ((launcher == null || launcher.IsFinished() == true) &&
-                     (launchGameThread == null || launchGameThread.IsFinished()))
-                {                    
-                    loadingDisplay.SetLoadingGame(g);
-                    // set state of game to 'game playing state'
-                    TreeRoot.SetNextState(new StatePlayingGame());
+                if (g.IsPlayable)
+                {
+                    // if installed, then launch it if possible
+                    if ((launcher == null || launcher.IsFinished() == true) &&
+                         (launchGameThread == null || launchGameThread.IsFinished()))
+                    {
+                        loadingDisplay.SetLoadingGame(g);
+                        // set state of game to 'game playing state'
+                        TreeRoot.SetNextState(new StatePlayingGame());
 
-                    launcher = new GameLauncherTask(g);
-                    launchGameThread = new ThreadedTask(launcher);
-                    launchGameThread.TaskSuccessEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
-                    launchGameThread.TaskFailEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
-                    launchGameThread.Start();
+                        launcher = new GameLauncherTask(g);
+                        launchGameThread = new ThreadedTask(launcher);
+                        launchGameThread.TaskSuccessEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
+                        launchGameThread.TaskFailEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
+                        launchGameThread.Start();
+                    }
+                }
+                if (g.IsMusic)
+                {
+                    music.Play(Config.GetExeFilepath(g) , g.SoundVolume );
                 }
             }
         }

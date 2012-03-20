@@ -16,20 +16,30 @@ namespace IndiegameGarden.Menus
         bool isFadeOut = false;
         bool isFadeIn = false;
         double fadeSpeed = 0.5;
+        SampleSoundEvent currentSong = null;
+        SampleSoundEvent oldSong = null;
 
         public GardenMusic()
         {
             soundScript = new SoundEvent("GardenMusic");
-            SampleSoundEvent evSong = new SampleSoundEvent("aurelic.ogg");
-            evSong.Amplitude = 0.5f;
-            soundScript.AddEvent(1, evSong);
             rp.Ampl = 0;
             FadeIn();
+            Play("Content\\aurelic.ogg", 0.5);
         }
 
         protected override void OnUpdate(ref UpdateParams p)
         {
             base.OnUpdate(ref p);
+
+            if (oldSong != null)
+            {
+                oldSong.Amplitude -= fadeSpeed * p.Dt;
+                if (oldSong.Amplitude <= 0)
+                {
+                    oldSong.Active = false;
+                    oldSong = null;
+                }
+            }
 
             if (isFadeIn)
             {
@@ -67,6 +77,21 @@ namespace IndiegameGarden.Menus
         {
             isFadeOut = false;
             isFadeIn = true;
+        }
+
+        /// <summary>
+        /// change music to another music track
+        /// </summary>
+        /// <param name="musicFile">filename of a .wav or .ogg music file to play</param>
+        public void Play(string musicFile, double volume)
+        {
+            if (currentSong != null)  // if needed, fade out a current playing song
+            {
+                oldSong = currentSong;
+            }
+            currentSong = new SampleSoundEvent(musicFile);
+            currentSong.Amplitude = volume;
+            soundScript.AddEvent(rp.Time + 0.3, currentSong);
         }
     }
 }

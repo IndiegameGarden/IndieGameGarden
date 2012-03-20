@@ -14,7 +14,7 @@ using IndiegameGarden.Base;
 namespace IndiegameGarden.Base
 {
     /// <summary>
-    /// launches a game .exe in a separate process and keeps track of when it has finished
+    /// launches a program or game .exe in a separate process and keeps track of when it has finished. 
     /// </summary>
     public class GameLauncherTask: Task
     {
