@@ -172,7 +172,7 @@ namespace IndiegameGarden.Menus
 
             // effect when installed
             if (Texture != DefaultTexture)
-                EffectEnabled = true; // DEBUG isLoaded && (Game.FXmode > 0) && Game.IsInstalled;
+                EffectEnabled = (Game.FXmode > 0); // DEBUG isLoaded && (Game.FXmode > 0) && Game.IsInstalled;
 
             if (EffectEnabled)
                 Motion.ScaleModifier *= (1f / 0.7f);
