@@ -32,7 +32,43 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// short game description to show on screen
         /// </summary>
-        public string Description = "";
+        public string description = "";
+
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+            set
+            {
+                description = value;
+                lineCount = PerformLineCount(description);
+            }
+        }
+
+        int PerformLineCount(string s)
+        {
+            int result = 1;
+            foreach (char c in s)
+            {
+                if (c.Equals('\n'))
+                {
+                  result++;
+                }
+            }
+            return result;
+        }
+
+        protected int lineCount;
+
+        public int DescriptionLineCount
+        {
+            get
+            {
+                return lineCount;
+            }
+        }
 
         /// <summary>
         /// some hints for the player e.g. what the control keys are.

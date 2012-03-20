@@ -146,7 +146,7 @@ namespace IndiegameGarden.Menus
         protected void SelectGameBelowCursor()
         {
             IndieGame g = gl.FindGameAt(cursor.GridPosition);
-            SelectedGame = g;                
+            SelectedGame = g;
         }
 
         protected override void OnNewParent()
@@ -421,8 +421,8 @@ namespace IndiegameGarden.Menus
                                     MotionB.ZoomTarget = THUMBNAIL_SCALE_SELECTED1;
                                     Motion.ZoomCenter = th.Motion.PositionAbs;
                                     MotionB.ZoomSpeed = 0.05f;
-                                    infoBox.MotionB.Target = INFOBOX_SHOWN_POSITION;
-                                    infoBox.MotionB.TargetSpeed = INFOBOX_SPEED_MOVE;
+                                    //infoBox.MotionB.Target = INFOBOX_SHOWN_POSITION - new Vector2(0f,0.05f * (SelectedGame.DescriptionLineCount-1));
+                                    //infoBox.MotionB.TargetSpeed = INFOBOX_SPEED_MOVE;
                                     selectionLevel++;
                                     break;
                                 case 1:
@@ -450,6 +450,17 @@ namespace IndiegameGarden.Menus
             if (selectionLevel == 0)
             {
                 infoBox.MotionB.Target = INFOBOX_HIDDEN_POSITION;
+                infoBox.MotionB.TargetSpeed = INFOBOX_SPEED_MOVE;
+            }
+
+            if (selectionLevel == 1)
+            {
+                int lnCount = 1;
+                if (SelectedGame != null)
+                {
+                    lnCount = SelectedGame.DescriptionLineCount;
+                }
+                infoBox.MotionB.Target = INFOBOX_SHOWN_POSITION - new Vector2(0f, 0.022f * (lnCount - 1));
                 infoBox.MotionB.TargetSpeed = INFOBOX_SPEED_MOVE;
             }
 

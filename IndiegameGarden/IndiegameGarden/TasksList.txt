@@ -1,10 +1,8 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
-Add credits icon with credits text in top menu
-Add png written scribbles showing the various garden section
+Add partly transparent garden graphics: written scribbles showing the various garden sections
 Fade out music when exiting : do better?
-Add partly transparent garden graphics
 Music loading from URLs specified in configuration file
 Make gamelib loading non-blocking
 
@@ -15,6 +13,7 @@ desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-03-20 Add credits icon with credits text in top menu
 2012-03-20 Add music downloading and playing from the game framework
 2012-03-20 Fix bg picture transparency
 2012-03-20 Bg picture gradually scales up larger
