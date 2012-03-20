@@ -1,8 +1,6 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
-Fix bg picture transparency
-Bg picture gradually scales up larger
 Add png written scribbles showing the various garden section
 Fade out music when exiting : do better?
 Add partly transparent garden graphics
@@ -16,6 +14,8 @@ desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-03-20 Fix bg picture transparency
+2012-03-20 Bg picture gradually scales up larger
 2012-03-19 Remove dependency of igg client updating on gamelib info -> only get client info from config.
 2012-03-19 Only show client update when using older client version
 2012-03-19 Remove saturation code (check if better)
