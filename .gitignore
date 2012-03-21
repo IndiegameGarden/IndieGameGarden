@@ -4,6 +4,8 @@ obj
 *.bak
 *.cachefile
 *.suo
+*.pdb
+*.user
 Thumbs.db
 # mstest test results
 TestResults
