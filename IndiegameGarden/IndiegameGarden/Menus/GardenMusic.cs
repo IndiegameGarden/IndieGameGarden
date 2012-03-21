@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using IndiegameGarden.Base;
 using TTengine.Core;
 using TTMusicEngine;
 using TTMusicEngine.Soundevents;
@@ -15,55 +16,114 @@ namespace IndiegameGarden.Menus
         RenderParams rp = new RenderParams();
         bool isFadeOut = false;
         bool isFadeIn = false;
-        double fadeSpeed = 0.5;
+        double fadeSpeed = 0.3;
         SampleSoundEvent currentSong = null;
-        SampleSoundEvent oldSong = null;
+        List<SampleSoundEvent> oldSongs = new List<SampleSoundEvent>();
+        Object songChangeLock = new Object();
 
         public GardenMusic()
         {
-            soundScript = new SoundEvent("GardenMusic");
-            rp.Ampl = 0;
-            FadeIn();
+            soundScript = new SoundEvent("GardenMusic");            
+            rp.Ampl = 1;            
             Play("Content\\aurelic.ogg", 0.5);
+            FadeIn();
+        }
+
+        /// <summary>
+        /// An ITask to load new music from file, in background
+        /// </summary>
+        public class MusicLoader : Task
+        {
+            GardenMusic parent;
+            string musicFile;
+            double volume;
+            bool isAbort = false;
+
+            public MusicLoader(GardenMusic parent, string musicFile, double volume)
+                : base()
+            {
+                this.parent = parent;
+                this.musicFile = musicFile;
+                this.volume = volume;
+            }
+
+            protected override void StartInternal()
+            {
+                if (isAbort) return;
+                SampleSoundEvent ev = new SampleSoundEvent(musicFile);
+                ev.Amplitude = volume;
+                parent.soundScript.AddEvent(parent.rp.Time + 0.3, ev);
+                if (isAbort) return;
+
+                lock (parent.songChangeLock)
+                {
+                    if (parent.currentSong != null)  // if needed, fade out a current playing song
+                    {
+                        parent.oldSongs.Add(parent.currentSong);
+                    }
+                    parent.currentSong = ev;
+                }
+            }
+
+            protected override void AbortInternal()
+            {
+                isAbort = true;
+            }
+
         }
 
         protected override void OnUpdate(ref UpdateParams p)
         {
             base.OnUpdate(ref p);
 
-            if (oldSong != null)
+            lock (songChangeLock)
             {
-                oldSong.Amplitude -= fadeSpeed * p.Dt;
-                if (oldSong.Amplitude <= 0)
+                List<SampleSoundEvent> songsToRemove = new List<SampleSoundEvent>();
+                foreach (SampleSoundEvent ev in oldSongs)
                 {
-                    oldSong.Active = false;
-                    oldSong = null;
+                    ev.Amplitude -= fadeSpeed * p.Dt;
+
+                    // remove songs from list if completely faded out.
+                    if (ev.Amplitude <= 0)
+                    {
+                        ev.Active = false;
+                        songsToRemove.Add(ev);
+                    }
+                }
+                foreach (SampleSoundEvent ev in songsToRemove)
+                {
+                    oldSongs.Remove(ev);
+                }
+
+                if (currentSong != null)
+                {
+
+                    if (isFadeIn)
+                    {
+                        currentSong.Amplitude += fadeSpeed * p.Dt;
+                        if (currentSong.Amplitude >= 1)
+                        {
+                            currentSong.Amplitude = 1;
+                            isFadeIn = false;
+                        }
+                    }
+
+                    if (isFadeOut)
+                    {
+                        currentSong.Amplitude -= fadeSpeed * p.Dt;
+                        if (currentSong.Amplitude <= 0)
+                        {
+                            currentSong.Amplitude = 0;
+                            isFadeOut = false;
+                        }
+                    }
+
+                    // advance time only if volume nonzero
+                    if (currentSong.Amplitude > 0)
+                        rp.Time += p.Dt;
                 }
             }
 
-            if (isFadeIn)
-            {
-                rp.Ampl += fadeSpeed * p.Dt;
-                if (rp.Ampl >= 1)
-                {
-                    rp.Ampl = 1;
-                    isFadeIn = false;
-                }
-            }
-
-            if (isFadeOut)
-            {
-                rp.Ampl -= fadeSpeed * p.Dt;
-                if (rp.Ampl <= 0)
-                {
-                    rp.Ampl = 0;
-                    isFadeOut = false;
-                }
-            }
-            
-            // advance time only if volume nonzero
-            if (rp.Ampl > 0 )
-                rp.Time += p.Dt;
             MusicEngine.GetInstance().Render(soundScript, rp);
         }
 
@@ -85,13 +145,8 @@ namespace IndiegameGarden.Menus
         /// <param name="musicFile">filename of a .wav or .ogg music file to play</param>
         public void Play(string musicFile, double volume)
         {
-            if (currentSong != null)  // if needed, fade out a current playing song
-            {
-                oldSong = currentSong;
-            }
-            currentSong = new SampleSoundEvent(musicFile);
-            currentSong.Amplitude = volume;
-            soundScript.AddEvent(rp.Time + 0.3, currentSong);
+            ITask t = new ThreadedTask(new MusicLoader(this, musicFile, volume));
+            t.Start();
         }
     }
 }

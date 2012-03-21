@@ -1,20 +1,25 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
-Add partly transparent garden graphics: written scribbles showing the various garden sections
+Use lock(graphicsDevice) for the Spritelet runtime texture loading, to prevent mutual collissions.
+Add more scribble graphics denoting garden sections
+Add more games
+Test client install and first run from website
+Test client version update in deployment version
 Fade out music when exiting : do better?
-Music loading from URLs specified in configuration file
 Make gamelib loading non-blocking
 
 OPTIONAL [when time permits]
 Key/option to abort download or install of a game
 Add mirrors to all thumbnail loading?
-desktop resolution: check for minimum resolution?
+Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-03-21 Put new music track loading in a ThreadedTask
+2012-03-21 Add partly transparent garden graphics: written scribbles showing the various garden sections -> solved using nonpremultiplied png load support.
 2012-03-20 Add credits icon with credits text in top menu
-2012-03-20 Add music downloading and playing from the game framework
+2012-03-20 Add music downloading and playing from the game framework; Music loading from URLs specified in configuration file
 2012-03-20 Fix bg picture transparency
 2012-03-20 Bg picture gradually scales up larger
 2012-03-19 Remove dependency of igg client updating on gamelib info -> only get client info from config.

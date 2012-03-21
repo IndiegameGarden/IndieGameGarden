@@ -90,7 +90,9 @@ namespace IndiegameGarden.Base
             }
         }
 
-        // aborts the thread running the task
+        /// <summary>
+        /// aborts the thread running the task in a blocking way 
+        /// </summary>
         protected override void AbortInternal()
         {
             if (task != null)
