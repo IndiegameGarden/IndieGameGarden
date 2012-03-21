@@ -1,6 +1,7 @@
 ﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using NetServ.Net.Json;
@@ -222,7 +223,7 @@ namespace IndiegameGarden.Base
         {
             return ThumbnailsFolder + "\\" + g.ThumbnailFilename;
         }
-
+               
         /// <summary>
         /// get url to remotely stored thumbnail file on default server ThumbnailsServerURL
         /// </summary>

@@ -144,7 +144,15 @@ namespace IndiegameGarden.Base
         /// </summary>
         public Vector2 Position = Vector2.Zero;
 
+        /// <summary>
+        /// Sound volume set for a game (not yet impl), or music playing volume for a music track
+        /// </summary>
         public double SoundVolume = 0.5;
+
+        /// <summary>
+        /// speed of rotation of icon in units p/s, use <0 for left rotation
+        /// </summary>
+        public float RotateSpeed = 0f;
 
         /// <summary>
         /// Optionally a download/install task ongoing for this game
@@ -352,6 +360,8 @@ namespace IndiegameGarden.Base
             try { ShowBelowClientVersion = (int)((JsonNumber)j["ShowBelowVer"]).Value; }
             catch (Exception) { ;}
             try { SoundVolume = (double)((JsonNumber)j["Vol"]).Value; }
+            catch (Exception) { ;}
+            try { RotateSpeed = (float)((JsonNumber)j["RotSpeed"]).Value; }
             catch (Exception) { ;}
             
             // update with default mirror location

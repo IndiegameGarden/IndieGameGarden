@@ -109,6 +109,7 @@ namespace IndiegameGarden.Menus
             GameID = game.GameID;
             Game = game;
             ThumbnailFilename = GardenGame.Instance.Config.GetThumbnailFilepath(game);
+            // effect is still off if no bitmap loaded yet
             EffectEnabled = false;
             // first-time texture init
             if (DefaultTexture == null)
@@ -140,8 +141,7 @@ namespace IndiegameGarden.Menus
         // (re) loads texture from a file and puts in updatedTexture var
         protected void LoadTextureFromFile()
         {
-            FileStream fs = new FileStream(ThumbnailFilename, FileMode.Open);
-            Texture2D tex = Texture2D.FromStream(GardenGame.Instance.GraphicsDevice, fs);
+            Texture2D tex = LoadBitmap(ThumbnailFilename, "" , true);
             lock (updateTextureLock)
             {
                 updatedTexture = tex;
@@ -158,6 +158,12 @@ namespace IndiegameGarden.Menus
                 Motion.RotateModifier += SimTime / 6.0f;
             }
 
+            // rotate thumbnail if specified
+            if (Game.RotateSpeed != 0f)
+            {
+                Motion.RotateModifier += SimTime * Game.RotateSpeed;
+            }
+
             // check if a new texture has been loaded in background
             if (updatedTexture != null)
             {
@@ -170,8 +176,8 @@ namespace IndiegameGarden.Menus
                 }
             }
 
-            // effect when installed
-            if (Texture != DefaultTexture)
+            // effect on when FX mode says so, and thnail is loaded
+            if (isLoaded)
                 EffectEnabled = (Game.FXmode > 0); // DEBUG isLoaded && (Game.FXmode > 0) && Game.IsInstalled;
 
             if (EffectEnabled)
