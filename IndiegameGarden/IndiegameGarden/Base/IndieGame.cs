@@ -47,6 +47,16 @@ namespace IndiegameGarden.Base
             }
         }
 
+        public string ItemName
+        {
+            get
+            {
+                if (IsPlayable)   return "game";
+                if (IsMusic)      return "music";
+                return "item";
+            }
+        }
+
         int PerformLineCount(string s)
         {
             int result = 1;
