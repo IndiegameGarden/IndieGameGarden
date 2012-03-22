@@ -46,7 +46,9 @@ namespace IndiegameGarden.Download
         {
             string filenameOnServer = config.ConfigFilename;
             string filenameLocalSave = "new_" + filenameOnServer;
-            string url = config.ConfigFilesServerURL + filenameOnServer + "?auth=" + GardenConfig.IGG_CLIENT_AUTH_KEY + "&clid="+config.GardenID ;
+            string url = config.ConfigFilesServerURL + filenameOnServer + 
+                    "?auth=" + GardenConfig.IGG_CLIENT_AUTH_KEY + "&clid="+config.GardenID +
+                    "&clver=" + config.ClientVersion ;
             string downloadedConfigPath = config.ConfigFilesFolder + "\\" + filenameLocalSave;
             
             // delete any leftover local file

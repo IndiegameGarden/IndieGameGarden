@@ -460,7 +460,7 @@ namespace IndiegameGarden.Menus
                 {
                     lnCount = SelectedGame.DescriptionLineCount;
                 }
-                infoBox.MotionB.Target = INFOBOX_SHOWN_POSITION - new Vector2(0f, 0.022f * (lnCount - 1));
+                infoBox.MotionB.Target = INFOBOX_SHOWN_POSITION - new Vector2(0f, 0.029f * (lnCount - 1));
                 infoBox.MotionB.TargetSpeed = INFOBOX_SPEED_MOVE;
             }
 
