@@ -1,6 +1,7 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
+Client uses client version nr in config request url.
 Add more scribble graphics denoting garden sections
 Add more games
 Test client install and first run from website
@@ -15,6 +16,7 @@ Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-03-22 Recursive game sections in json game lib 
 2012-03-21 Use lock(graphicsDevice) for the Spritelet init-time texture loading, to prevent mutual collissions.
 2012-03-21 Put new music track loading in a ThreadedTask
 2012-03-21 Add partly transparent garden graphics: written scribbles showing the various garden sections -> solved using nonpremultiplied png load support.

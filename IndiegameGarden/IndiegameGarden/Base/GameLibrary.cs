@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using NetServ.Net.Json;
+using Microsoft.Xna.Framework;
 
 namespace IndiegameGarden.Base
 {
@@ -64,12 +65,48 @@ namespace IndiegameGarden.Base
         private void ParseJson(JSONStore json)
         {
             JsonArray gl = (JsonArray)json.GetArray("gameslist");
-            foreach( IJsonType g in gl )
+            ParseJson(gl,Vector2.Zero);
+        }
+
+        /// <summary>
+        /// parse a JsonArray (array of items) or JsonObject (single game/item)
+        /// </summary>
+        /// <param name="j"></param>
+        private void ParseJson(IJsonType j, Vector2 posOffset)
+        {
+            if (j is JsonArray)
             {
-                IndieGame ig = new IndieGame( (JsonObject)g );
-                if (!ig.IsVisible)
-                    continue;
-                gamesList.Add(ig);
+                JsonArray ja = j as JsonArray;
+                bool offsetKnown = false;
+                Vector2 offset = posOffset;
+                foreach (IJsonType g2 in ja)
+                {
+                    // first item contains the offset for all items
+                    if (!offsetKnown && (g2 is JsonObject) )
+                    {
+                        JsonObject jo = (JsonObject)g2;
+                        if (jo.ContainsKey("SectionID"))
+                        {
+                            offset += new Vector2((float)(jo["X"] as JsonNumber).Value, (float)(jo["Y"] as JsonNumber).Value);
+                            offsetKnown = true;
+                        }
+                        else
+                        {
+                            ParseJson(g2, offset);
+                        }
+                    }
+                    else
+                    {
+                        ParseJson(g2, offset);
+                    }
+                }
+            }
+            else
+            {
+                IndieGame ig = new IndieGame((JsonObject) j);
+                ig.Position += posOffset;
+                if (ig.IsVisible)
+                    gamesList.Add(ig);
             }
         }
 

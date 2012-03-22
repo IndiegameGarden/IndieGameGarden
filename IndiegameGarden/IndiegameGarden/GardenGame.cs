@@ -368,7 +368,7 @@ namespace IndiegameGarden
             }
             catch (Exception ex)
             {
-                MsgBox.Show("Could not load game library file", "Could not load game library file."); // TODO msg
+                MsgBox.Show("Could not load game library file", "Could not load game library file. Technical:\n"+ex.Message+";\n"+ex.StackTrace); 
                 initError = ex;
                 return false;
             }
