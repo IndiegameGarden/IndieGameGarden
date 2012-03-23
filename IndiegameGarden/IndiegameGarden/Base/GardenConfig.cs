@@ -277,21 +277,11 @@ namespace IndiegameGarden.Base
         public string GetPackedFileName(IndieGame g)
         {
             if(g.Version == 1)
-                return g.GameID + "." + ExtractFileExtension(g.PackedFileURL);
+                return g.GameID + "." + g.PackedFileExtension;
             else
-                return g.GameID + "_v" + g.Version + "." + ExtractFileExtension(g.PackedFileURL);
+                return g.GameID + "_v" + g.Version + "." + g.PackedFileExtension;
         }
 
-
-        // extract an extension e.g. "zip" from a partial or full URL e.g. http://server/test/name.zip 
-        // <returns>extension after last dot, or default "zip" if no dot found in 'urlDl'.</returns>
-        private string ExtractFileExtension(string url)
-        {
-            int i = url.LastIndexOf('.');
-            if (i == -1)
-                return "zip";
-            return url.Substring(i + 1);
-        }
 
 
     }
