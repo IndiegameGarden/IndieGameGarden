@@ -1,8 +1,8 @@
 ﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
+using System.IO;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using NetServ.Net.Json;
 
@@ -13,9 +13,26 @@ namespace IndiegameGarden.Base
      */
     public class GardenConfig: JSONStore
     {
+        /// <summary>
+        /// checking config file integrity (somewhat)
+        /// </summary>
         public const string CONFIG_MAGIC_VALUE = "f20fj239jf0a9w";
+        /// <summary>
+        /// garden ID default when no ID assigned yet by server (this assignment is optional)
+        /// </summary>
         public const string DEFAULT_GARDEN_ID = "44729384298378";
+        /// <summary>
+        /// auth for server communication
+        /// </summary>
         public const string IGG_CLIENT_AUTH_KEY = "sreqZRVmzJVqdsrKuCwJTnumI";
+        /// <summary>
+        /// fixed for a build! update for new version builds.
+        /// </summary>
+        public const int    IGG_CLIENT_VERSION = 1;
+        /// <summary>
+        /// update for a new build -> quick bootstrap to load a known version of gamelib.
+        /// </summary>
+        public const int    KNOWN_GAMELIB_VERSION = 2;
 
         public const string DATA_PATH = "..\\..\\..\\..\\.."; // for testing in Visual Studio
         //public const string DATA_PATH = "..\\.."; // for deployment version when embedded in games folder
@@ -55,6 +72,8 @@ namespace IndiegameGarden.Base
 
             ConfigFilename = "config.json";
             GameLibraryFilename = "gamelib.json";
+            NewestGameLibraryVersion = KNOWN_GAMELIB_VERSION;
+            ClientVersion = IGG_CLIENT_VERSION;
 
             ThumbnailsServerURL = "http://indie.indiegamegarden.com/thumbs/";
             ConfigFilesServerURL = "http://indieget.appspot.com/igg/";
@@ -75,6 +94,10 @@ namespace IndiegameGarden.Base
             catch (Exception) { ; };
             try { ServerMsg = GetString("ServerMsg"); }
             catch (Exception) { ; };
+            try { NewestGameLibraryVersion = (int)GetValue("GameLibVer"); }
+            catch (Exception) { ; };
+            try { NewestClientVersion = (int)GetValue("ClientVer"); }
+            catch (Exception) { ; };
 
         }
 
@@ -89,7 +112,7 @@ namespace IndiegameGarden.Base
             {
                 return false;
             }
-            return true;
+            return hasLoadedFromFileOk;
         }
 
         public override void Reload()
@@ -106,10 +129,14 @@ namespace IndiegameGarden.Base
             Init();
         }
 
-        // TODO document the fields below
-
+        /// <summary>
+        /// the unique ID of this garden (may be changed by config server, may be unused as well)
+        /// </summary>
         public string GardenID { get; set; }
 
+        /// <summary>
+        /// special message from config server e.g. showing issues or news
+        /// </summary>
         public string ServerMsg { get; set; }
 
         /// <summary>
@@ -117,22 +144,64 @@ namespace IndiegameGarden.Base
         /// </summary>
         public string DataPath { get; set; }
 
+        /// <summary>
+        /// folder name where config files are stored
+        /// </summary>
         public string ConfigFilesFolder { get; set; }
 
+        /// <summary>
+        /// folder name where packed files (zip, rar, etc) of games are stored
+        /// </summary>
         public string PackedFilesFolder { get; set; }
 
+        /// <summary>
+        /// folder name where unpacked folders of games reside
+        /// </summary>
         public string UnpackedFilesFolder { get; set; }
 
+        /// <summary>
+        /// folder name where thumbnails are stored
+        /// </summary>
         public string ThumbnailsFolder { get; set; } 
 
+        /// <summary>
+        /// name of the configuration file (may be updated by server for some reason)
+        /// </summary>
         public string ConfigFilename { get; set; }
 
+        /// <summary>
+        /// name of the game library JSON file
+        /// </summary>
         public string GameLibraryFilename { get; set; }
 
+        /// <summary>
+        /// version of the newest game library currently available (obtained from config server)
+        /// </summary>
+        public int NewestGameLibraryVersion { get; set; }
+
+        /// <summary>
+        /// returns the version of current running client
+        /// </summary>
+        public int ClientVersion { get; set;  }
+
+        /// <summary>
+        /// returns newest available known client version (obtained from config server)
+        /// </summary>
+        public int NewestClientVersion { get; set; }
+
+        /// <summary>
+        /// url of the thumbnails server (incl path to thumbnails folder if any)
+        /// </summary>
         public string ThumbnailsServerURL { get; set; }
 
+        /// <summary>
+        /// url of the config server (incl path, excl config file name)
+        /// </summary>
         public string ConfigFilesServerURL { get; set; }
 
+        /// <summary>
+        /// url of a mirror server storing packed files (incl path) for all or most games
+        /// </summary>
         public string PackedFilesServerURL { get; set; }
 
         /// <summary>
@@ -145,14 +214,6 @@ namespace IndiegameGarden.Base
             return DataPath + "\\" + folderName;
         }
 
-        public string GetThumbnailFilename(IndieGame g)
-        {
-            if (g.Version == 1)
-                return g.GameID + ".jpg";
-            else
-                return g.GameID + "_v" + g.Version + ".jpg";
-        }
-
         /// <summary>
         /// get file path to locally stored thumbnail file for game
         /// </summary>
@@ -160,9 +221,9 @@ namespace IndiegameGarden.Base
         /// <returns></returns>
         public string GetThumbnailFilepath(IndieGame g)
         {
-            return ThumbnailsFolder + "\\" + GetThumbnailFilename(g);
+            return ThumbnailsFolder + "\\" + g.ThumbnailFilename;
         }
-
+               
         /// <summary>
         /// get url to remotely stored thumbnail file on default server ThumbnailsServerURL
         /// </summary>
@@ -171,9 +232,9 @@ namespace IndiegameGarden.Base
         public string GetThumbnailURL(IndieGame g)
         {
             if (g.Version ==1 )
-                return ThumbnailsServerURL + g.GameID + ".jpg"; 
+                return ThumbnailsServerURL + g.ThumbnailFilename; 
             else
-                return ThumbnailsServerURL + g.GameID + "_v" + g.Version + ".jpg"; 
+                return ThumbnailsServerURL + g.ThumbnailFilename; 
         }
 
         /// <summary>

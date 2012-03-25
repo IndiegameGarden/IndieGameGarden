@@ -50,6 +50,16 @@ namespace IndiegameGarden.Base
             return s;
         }
 
+        public static List<string> ToStringList(JsonArray j)
+        {
+            List<string> s = new List<string>();
+            for (int i = 0; i < j.Count ; i++)
+            {
+                s.Add( ((JsonString)j[i]).ToString() );
+            }
+            return s;
+        }
+
         protected void LoadJson()
         {
             TextReader tr = null;
@@ -108,7 +118,17 @@ namespace IndiegameGarden.Base
 
         public double GetValue(string key)
         {
-            return ((JsonNumber)json[key]).Value;
+            try
+            {
+                return ((JsonNumber)json[key]).Value;
+            }
+            catch (InvalidCastException ex)
+            {
+                // try parsing from string.
+                string s = GetString(key);
+                double d = Double.Parse(s);
+                return d;
+            }
         }
 
         public void PutValue(string key, long value)

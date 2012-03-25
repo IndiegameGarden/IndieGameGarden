@@ -62,6 +62,7 @@ namespace IndiegameGarden.Base
         protected override void StartInternal()
         {
             thread = new Thread(new ThreadStart(StartTaskBlocking));
+            thread.Priority = ThreadPriority.BelowNormal;
             thread.Start();
         }
 
@@ -89,7 +90,9 @@ namespace IndiegameGarden.Base
             }
         }
 
-        // aborts the thread running the task
+        /// <summary>
+        /// aborts the thread running the task in a blocking way 
+        /// </summary>
         protected override void AbortInternal()
         {
             if (task != null)

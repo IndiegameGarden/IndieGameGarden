@@ -14,9 +14,9 @@ using IndiegameGarden.Base;
 namespace IndiegameGarden.Base
 {
     /// <summary>
-    /// launches a program or game .exe in a separate process and keeps track of when it has finished. 
+    /// launches a game .exe in a separate process and keeps track of when it has finished
     /// </summary>
-    public class GameLauncherTask: Task
+    public class SiteLauncherTask: Task
     {
         /// <summary>
         /// the Process associated to a launched game, or null if not yet launched
@@ -34,59 +34,73 @@ namespace IndiegameGarden.Base
         public bool IsGameShowingWindow = false;
 
         // internal
-        string filePath;
-        string cdPath;
+        string filePath = "";
 
         //Import the SetForeground API to activate it
         [DllImportAttribute("User32.dll")]
         private static extern IntPtr SetForegroundWindow(int hWnd);
 
-        public GameLauncherTask(IndieGame g)
+        public SiteLauncherTask(IndieGame g)
         {
             this.Game = g;
-            string cwd = System.IO.Directory.GetCurrentDirectory();
-            cdPath = cwd + "\\" + GardenGame.Instance.Config.GetGameFolder(g) + "\\" + g.CdPath;
-            filePath = g.ExeFile;            
+            string url = g.DeveloperWebsiteURL;
+            if (url.Length > 0)
+            {
+                if (!url.ToLower().StartsWith("http://"))
+                {
+                    url = "http://" + url;
+                }
+                filePath = url;            
+            }            
         }
 
         protected override void StartInternal()
         {
             try
             {
-                //TODO wait until task done, keep setting it to fg a few times.
-                string cwd = System.IO.Directory.GetCurrentDirectory();
-                System.IO.Directory.SetCurrentDirectory(cdPath);
-                Proc = System.Diagnostics.Process.Start(filePath);
-                Proc.Exited += new EventHandler(EvHandlerProcessExited);
-                Proc.EnableRaisingEvents = true;
-            
-                // monitor if process creates window and wait until process exits
-                int n = 0;
-                int gameWindowHandle = 0;
-                while (!IsFinished())
+                // check if anything sane needs to be launched.
+                if (filePath.Length == 0)
                 {
-                    Thread.Sleep(100);
-                    if (n < 25 && !IsFinished() )
-                    {
-                        gameWindowHandle = Proc.MainWindowHandle.ToInt32();
-                        if (gameWindowHandle != 0)
-                        {
-                            IsGameShowingWindow = true;
-                            SetForegroundWindow(gameWindowHandle);
-                            //GardenGame.Instance.DebugMsg.Text = "Handle: " + Proc.MainWindowHandle.ToInt32();
-                            n++;
-                        }                        
-                    }
-                    
+                    status = ITaskStatus.SUCCESS; // no, so done.
+                    return;
                 }
 
-                // set previous dir back
-                System.IO.Directory.SetCurrentDirectory(cwd);
+                Proc = System.Diagnostics.Process.Start(filePath);
+                if (Proc == null)
+                {
+                    status = ITaskStatus.SUCCESS;
+                }
+                else
+                {
+                    Proc.Exited += new EventHandler(EvHandlerProcessExited);
+                    Proc.EnableRaisingEvents = true;
+                    // monitor if process creates window and wait until process exits
+                    int n = 0;
+                    int gameWindowHandle = 0;
+                    while (!IsFinished())
+                    {
+                        Thread.Sleep(100);
+                        if (n < 25 && !IsFinished())
+                        {
+                            gameWindowHandle = Proc.MainWindowHandle.ToInt32();
+                            if (gameWindowHandle != 0)
+                            {
+                                IsGameShowingWindow = true;
+                                SetForegroundWindow(gameWindowHandle);
+                                //GardenGame.Instance.DebugMsg.Text = "Handle: " + Proc.MainWindowHandle.ToInt32();
+                                n++;
+                            }
+                        }
+
+                    }
+
+                    status = ITaskStatus.SUCCESS;
+                }
 
                 // when done switch back to our Garden app
-                Process p = Process.GetCurrentProcess();
-                if (p != null)
-                    SetForegroundWindow(p.MainWindowHandle.ToInt32());
+                //Process p = Process.GetCurrentProcess();
+                //if (p != null)
+                //    SetForegroundWindow(p.MainWindowHandle.ToInt32());
             }
             catch (System.ComponentModel.Win32Exception)
             {

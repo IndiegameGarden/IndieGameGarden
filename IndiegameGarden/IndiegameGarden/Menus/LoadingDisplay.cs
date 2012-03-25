@@ -18,6 +18,7 @@ namespace IndiegameGarden.Menus
 
         GameTextBox tbox;
         GameTextBox iggNameBox;
+        GameTextBox helpTextBox;
         IndieGame game;
         float nextStateTimer = -1f;
 
@@ -67,6 +68,8 @@ namespace IndiegameGarden.Menus
                     loadingDisplay.nextStateTimer = -1f;                    
                     g.SetNextState(new StateLoadingDisplay_Playing(loadingDisplay));
                 }
+
+                loadingDisplay.helpTextBox.Text = loadingDisplay.game.HelpText;
 
             }
         }
@@ -130,10 +133,16 @@ namespace IndiegameGarden.Menus
             Add(tbox);
 
             iggNameBox = new GameTextBox("GameDescriptionFont");
-            iggNameBox.Text = "IndiegameGarden.com               Exit this game to return!";
+            iggNameBox.Text = "Indiegame Garden              Exit this game to return to the garden!";
             iggNameBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.92f);
-            iggNameBox.Motion.Scale = 0.6f;
+            iggNameBox.Motion.Scale = 0.8f;
             Add(iggNameBox);
+
+            helpTextBox = new GameTextBox("GameDescriptionFont");
+            helpTextBox.Text = "";
+            helpTextBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.7f);
+            helpTextBox.Motion.Scale = 1.0f;
+            Add(helpTextBox);
         }
 
         /// <summary>

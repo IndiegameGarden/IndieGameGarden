@@ -7,7 +7,7 @@ using IndiegameGarden.Base;
 namespace IndiegameGarden.Download
 {
     /**
-     * a downloader to download a game file such as .zip / .rar
+     * a downloader to download a game file such as .zip / .rar / .exe but also .ogg (for music tracks)
      * If file already exists, this ITask finishes successfully.
      */
     public class GameDownloader: BaseDownloader
@@ -24,7 +24,7 @@ namespace IndiegameGarden.Download
             status = ITaskStatus.RUNNING;
             string fn = GardenGame.Instance.Config.GetPackedFileName(game);
             string toLocalFolder = GardenGame.Instance.Config.PackedFilesFolder;
-            string filePath = toLocalFolder + "\\" + fn;
+            string filePath = Path.Combine(toLocalFolder , fn);
             if (File.Exists(filePath))
             {
                 // skip download step

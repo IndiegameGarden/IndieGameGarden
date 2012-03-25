@@ -1,24 +1,47 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
+Client uses client version nr in config request url.
+Add more scribble graphics denoting garden sections
+Add more games
+Test client install and first run from website
+Test client version update in deployment version
+Fade out music when exiting : do better?
+Make gamelib loading non-blocking
 
-Show downloading with an animated something (or a grow speed value :)
-Show a text message in loading screen with some help for the player (for windowed games)
-Add image-display-only thumbnails (that do not execute)
-Put loader threads in lower priority
-Allow loading of config from server (where config includes URL/mirror locations etc)
-Add default mirror of own server to all game downloads, where name on server equals the local zipfilename
-Add mirrors to all thumbnail loading
-Allow loading of gamelib new version from server 
+OPTIONAL [when time permits]
 Key/option to abort download or install of a game
-Add self-downloading of latest IGG code, in different versions. 
-Adapt to multiple desktop resolution and check for minimum resolution
-Add TTMusicEngine and one music file
-  Music loading from URLs specified in configuration file
+Add mirrors to all thumbnail loading?
+Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
-
 CLOSED  [date order]
+2012-03-22 Recursive game sections in json game lib 
+2012-03-21 Use lock(graphicsDevice) for the Spritelet init-time texture loading, to prevent mutual collissions.
+2012-03-21 Put new music track loading in a ThreadedTask
+2012-03-21 Add partly transparent garden graphics: written scribbles showing the various garden sections -> solved using nonpremultiplied png load support.
+2012-03-20 Add credits icon with credits text in top menu
+2012-03-20 Add music downloading and playing from the game framework; Music loading from URLs specified in configuration file
+2012-03-20 Fix bg picture transparency
+2012-03-20 Bg picture gradually scales up larger
+2012-03-19 Remove dependency of igg client updating on gamelib info -> only get client info from config.
+2012-03-19 Only show client update when using older client version
+2012-03-19 Remove saturation code (check if better)
+2012-03-19 Fix getting client version (not from server, but in client info itself - built in?)
+2012-03-18 Server message shown on screen.
+2012-03-17 Icon growth during download
+2012-03-17 Show keyboard controls in message on startup
+2012-03-16 Add default mirror of own server to all game downloads, where name on server equals the local zipfilename
+2012-03-16 Add self-downloading of latest IGG code, in different versions. 
+2012-03-14 Allow loading of gamelib new version from server 
+2012-03-14 Allow PNG type thumbnails also besides JPG. -> "PNG" field 0/1 in JSON.
+2012-03-14 Put loader threads in lower priority
+2012-03-14 Allow to visit the game's website directly from igg -> SiteLauncherTask class and W key
+2012-03-13 Allow loading of config from server (where config includes URL/mirror locations etc)
+2012-03-13 Add image-display-only thumbnails (that do not execute)
+2012-03-13 Show a text message in loading screen with some help for the player (for windowed games) -> "HelpText" field.
+2012-03-13 Show downloading with an animated something (or a grow speed value :) -> text pulsing shows DL rate.
+2012-03-12 Add TTMusicEngine and one music file
 2012-02-24 Check thumbs downloading (work?)
 2012-02-24 Fix progress bar bug going from 100% to lower %
 2012-02-24 Fix rar download/install

@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 
 namespace IndiegameGarden.Menus
 {
+    /// <summary>
+    /// provides color/intensity fading features to the parent Gamelet
+    /// </summary>
     public class ColorChangeBehavior: Gamelet
     {
         protected float intensity = 1.0f;
@@ -33,7 +36,7 @@ namespace IndiegameGarden.Menus
             set
             {
                 intensity = value;
-                DrawInfo.DrawColor = new Color(intensity, intensity, intensity, DrawInfo.DrawColor.A);
+                DrawInfo.DrawColor = new Color(intensity, intensity, intensity, intensity); //DrawInfo.DrawColor.A);
             }
 
         }
@@ -63,16 +66,16 @@ namespace IndiegameGarden.Menus
             if (FadeTarget > Intensity)
             {
                 Intensity += FadeSpeed * p.Dt;
-                DrawInfo.Alpha = Intensity;
                 if (FadeTarget < Intensity)
                     Intensity = FadeTarget;
+                DrawInfo.Alpha = Intensity;
             }
             else if (FadeTarget < Intensity)
             {
                 Intensity -= FadeSpeed * p.Dt;
-                DrawInfo.Alpha = Intensity;
                 if (FadeTarget > Intensity)
                     Intensity = FadeTarget;
+                DrawInfo.Alpha = Intensity;
             }
         }
 

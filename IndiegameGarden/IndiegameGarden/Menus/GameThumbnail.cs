@@ -99,7 +99,7 @@ namespace IndiegameGarden.Menus
         } // class
 
         public GameThumbnail(IndieGame game)
-            : base(DefaultTexture,"GameThumbnail")
+            : base( (Texture2D) null,"GameThumbnail")
         {
             MotionB = new MotionBehavior();
             ColorB = new ColorChangeBehavior();
@@ -109,12 +109,14 @@ namespace IndiegameGarden.Menus
             GameID = game.GameID;
             Game = game;
             ThumbnailFilename = GardenGame.Instance.Config.GetThumbnailFilepath(game);
+            // effect is still off if no bitmap loaded yet
             EffectEnabled = false;
             // first-time texture init
             if (DefaultTexture == null)
             {
                 DefaultTexture = GardenGame.Instance.Content.Load<Texture2D>("ball-supernova2");
             }
+            Texture = DefaultTexture;
         }
 
         public override void Dispose()
@@ -128,7 +130,7 @@ namespace IndiegameGarden.Menus
         public void Enable()
         {
             Visible = true;
-            EffectEnabled = false;
+            EffectEnabled = (Texture != DefaultTexture);
             if (loaderTask == null)
             {
                 loaderTask = new ThreadedTask(new GameThumbnailLoadTask(this));
@@ -139,8 +141,7 @@ namespace IndiegameGarden.Menus
         // (re) loads texture from a file and puts in updatedTexture var
         protected void LoadTextureFromFile()
         {
-            FileStream fs = new FileStream(ThumbnailFilename, FileMode.Open);
-            Texture2D tex = Texture2D.FromStream(GardenGame.Instance.GraphicsDevice, fs);
+            Texture2D tex = LoadBitmap(ThumbnailFilename, "" , true);
             lock (updateTextureLock)
             {
                 updatedTexture = tex;
@@ -157,6 +158,12 @@ namespace IndiegameGarden.Menus
                 Motion.RotateModifier += SimTime / 6.0f;
             }
 
+            // rotate thumbnail if specified
+            if (Game.RotateSpeed != 0f)
+            {
+                Motion.RotateModifier += SimTime * Game.RotateSpeed;
+            }
+
             // check if a new texture has been loaded in background
             if (updatedTexture != null)
             {
@@ -166,9 +173,15 @@ namespace IndiegameGarden.Menus
                     Texture = updatedTexture;
                     updatedTexture = null;
                     isLoaded = true;
-                    EffectEnabled = true;
                 }
             }
+
+            // effect on when FX mode says so, and thnail is loaded
+            if (isLoaded)
+                EffectEnabled = (Game.FXmode > 0); // DEBUG isLoaded && (Game.FXmode > 0) && Game.IsInstalled;
+
+            if (EffectEnabled)
+                Motion.ScaleModifier *= (1f / 0.7f);
         }
 
         protected override void OnDraw(ref DrawParams p)

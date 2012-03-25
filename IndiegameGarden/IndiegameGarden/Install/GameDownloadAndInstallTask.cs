@@ -57,12 +57,13 @@ namespace IndiegameGarden.Install
                 installTask = new InstallTask(game);
                 installTask.Start();
                 status = installTask.Status();
+                statusMsg = installTask.StatusMsg();
             }
             else
             {
                 // error in downloading process - no install
                 status = ITaskStatus.FAIL;
-                statusMsg = "Download failed: " + downloadTask.StatusMsg();
+                statusMsg = downloadTask.StatusMsg();
             }
             game.Refresh();
         }
@@ -96,6 +97,14 @@ namespace IndiegameGarden.Install
         {
             return (downloadTask != null && downloadTask.IsRunning() );
         }
+
+        public virtual double DownloadSpeed()
+        {
+            if (downloadTask != null)
+                return downloadTask.DownloadSpeed();
+            return 0;
+        }
+
 
         /// <summary>
         /// check whether currently installing

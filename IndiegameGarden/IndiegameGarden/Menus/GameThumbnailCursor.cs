@@ -23,7 +23,7 @@ namespace IndiegameGarden.Menus
         public GameThumbnailCursor()
             : base("WhiteTexture","GameThumbnailCursor")
         {
-            DrawInfo.LayerDepth = 0f;
+            DrawInfo.LayerDepth = 0.95f;
             MotionB = new MotionBehavior();
             Add(MotionB);
         }
@@ -36,7 +36,7 @@ namespace IndiegameGarden.Menus
         public bool GameletInRange(Gamelet g)
         {
             float d = (g.Motion.Position - this.Motion.Position).Length();
-            if (d < 0.3)
+            if (d <= GardenGamesPanel.CURSOR_DISCOVERY_RANGE)
                 return true;
             return false;
 
@@ -50,6 +50,7 @@ namespace IndiegameGarden.Menus
         {
             MotionB.Target = g.Position;
             MotionB.TargetSpeed = 4f;
+            GridPosition = g.Position;
         }
 
     }

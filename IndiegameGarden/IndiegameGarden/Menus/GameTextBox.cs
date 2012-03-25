@@ -12,7 +12,7 @@ using IndiegameGarden.Base;
 namespace IndiegameGarden.Menus
 {
     /**
-     * a box showing a text (which can be changed/updated)
+     * a box showing a text (which can be changed/updated) with a shadow border effect
      */
     public class GameTextBox: Drawlet
     {
@@ -55,7 +55,9 @@ namespace IndiegameGarden.Menus
             Vector2 origin = Vector2.Zero; // new Vector2(2f * txt.Length, 0f);
             Vector2 pos = Motion.DrawPosition;
             // draw shadow
-            MySpriteBatch.DrawString(font, txt, pos + new Vector2(1f,1f), Color.Black,
+            Color shadowDrawColor = Color.Black;
+            shadowDrawColor.A = DrawInfo.DrawColor.A;
+            MySpriteBatch.DrawString(font, txt, pos + new Vector2(1f,1f), shadowDrawColor,
                                     Motion.RotateAbs, origin, Motion.ScaleAbs, SpriteEffects.None, DrawInfo.LayerDepth + 0.00001f);
             MySpriteBatch.DrawString(font, txt, pos, DrawInfo.DrawColor,
                                     Motion.RotateAbs, origin, Motion.ScaleAbs, SpriteEffects.None, DrawInfo.LayerDepth);

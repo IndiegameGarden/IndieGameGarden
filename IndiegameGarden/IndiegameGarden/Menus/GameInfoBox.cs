@@ -19,7 +19,6 @@ namespace IndiegameGarden.Menus
     {
         public MotionBehavior MotionB;
         ProgressBar dlProgressBar;
-        SineModifier pulsing;
         GameTextBox titleBox;
         GameTextBox descriptionBox;
         IndieGame game;
@@ -37,7 +36,7 @@ namespace IndiegameGarden.Menus
             Add(MotionB);
 
             dlProgressBar = new ProgressBar();
-            dlProgressBar.Motion.Position = new Vector2(1.2f, 0.0f);
+            dlProgressBar.Motion.Position = new Vector2(0.85f, 0.0f);
             dlProgressBar.Visible = false;
             dlProgressBar.ProgressValue = 0f;
             dlProgressBar.ProgressTarget = 0f;
@@ -48,13 +47,11 @@ namespace IndiegameGarden.Menus
             Add(titleBox);
 
             descriptionBox = new GameTextBox("GameDescriptionFont");
-            descriptionBox.Motion.Position = new Vector2(0.0f, 0.08f);
+            descriptionBox.Motion.Position = new Vector2(0.0f, 0.04f);
             //descriptionBox.Motion.Scale = 0.7f;
             Add(descriptionBox);
 
-            pulsing = new SineModifier("RotateModifier", 0.05f, 0.232f, 0.0f);
-            dlProgressBar.Motion.Add(pulsing);
-            pulsing.Active = false;
+            dlProgressBar.Pulsing = false; 
         }
 
         /// <summary>
@@ -76,22 +73,22 @@ namespace IndiegameGarden.Menus
                 string desc = game.Description + "\n";
                 if (game.IsInstalled)
                 {
-                    desc += "Fully grown game: Hold ENTER to play!\n";
-                    dlProgressBar.Visible = true;
+                    desc += "This game now grows in your garden. Hold ENTER to play!\n";
+                    dlProgressBar.Visible = false;
                     dlProgressBar.ProgressTarget = 1.0f;
                     dlProgressBar.ProgressValue = 1.0f;
-                    pulsing.Active = false;
+                    dlProgressBar.Pulsing = false;
                 }
-                else
+                else if (game.IsGrowable)
                 {
                     if (game.DlAndInstallTask == null)
                     {
 
-                        desc += "Game seed planted: Hold ENTER to start growing!\n";
+                        desc += "This game's not yet in your garden. Hold ENTER to grow it.\n";
                         dlProgressBar.Visible = false;
                         dlProgressBar.ProgressTarget = 0.0f;
                         dlProgressBar.ProgressValue = 0.0f;
-                        pulsing.Active = false;
+                        dlProgressBar.Pulsing = false;
                     }
                     else if (game.DlAndInstallTask != null &&
                         game.ThreadedDlAndInstallTask != null &&
@@ -99,19 +96,20 @@ namespace IndiegameGarden.Menus
                     {
                         if (game.DlAndInstallTask.IsDownloading())
                         {
-                            desc += "Growing branches...\n"; // TODO some abort possibility message
-                            pulsing.Active = true;
+                            desc += "Growing game... please wait. Watch the progress bar.\n"; // TODO some abort possibility message
+                            dlProgressBar.Pulsing = true;
                         }
                         else if (game.DlAndInstallTask.IsInstalling())
                         {
-                            desc += "Growing leaves...\n";
-                            pulsing.Active = true;
+                            desc += "Growing game... almost playable.\n";
+                            dlProgressBar.Pulsing = true;
                         }
                         else
                         {
-                            pulsing.Active = false;
+                            dlProgressBar.Pulsing = false;
                         }
                         dlProgressBar.ProgressTarget = (float)game.DlAndInstallTask.Progress();
+                        dlProgressBar.ProgressSpeed = (float)game.DlAndInstallTask.DownloadSpeed();
                         // make bar visible if not already. Or if value needs to go down from a previous selected game's value.
                         if (dlProgressBar.Visible == false  || dlProgressBar.ProgressValue > dlProgressBar.ProgressTarget )
                         {
@@ -122,24 +120,22 @@ namespace IndiegameGarden.Menus
                     }
                     else
                     {
-                        dlProgressBar.Visible = true;
+                        dlProgressBar.Visible = false;
+                        dlProgressBar.Pulsing = false;
                         dlProgressBar.ProgressTarget = 1.0f;
                         dlProgressBar.ProgressValue = 1.0f;
+                        if (game.ThreadedDlAndInstallTask != null && 
+                            !game.ThreadedDlAndInstallTask.IsSuccess() && 
+                            game.ThreadedDlAndInstallTask.IsFinished())
+                        {
+                            desc += "Problem during growth: " + game.ThreadedDlAndInstallTask.StatusMsg() ;
+                        }
                     }
                 }
 
                 titleBox.Text = title;
                 descriptionBox.Text = desc;
                 
-                /*
-                dlProgressBar.Visible = true; // DEBUG
-                float n = ( SimTime/4f ) % 1.1f;
-                if ( n < dlProgressBar.ProgressTarget)
-                {
-                    dlProgressBar.ProgressValue = 0f;
-                }
-                dlProgressBar.ProgressTarget = n;
-                */
             }
             else
             {
@@ -148,7 +144,7 @@ namespace IndiegameGarden.Menus
                 dlProgressBar.Visible = false;
                 dlProgressBar.ProgressValue = 0f;
                 dlProgressBar.ProgressTarget = 0f;
-                pulsing.Active = false;
+                dlProgressBar.Pulsing = false;
             }
         }
 

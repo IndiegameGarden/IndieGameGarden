@@ -14,7 +14,9 @@ using IndiegameGarden.Unpack;
 namespace IndiegameGarden.Install
 {
     /// <summary>
-    /// a task to install a game or program from a compressed file format
+    /// a task to install a game, program or content item typically from a compressed file format.
+    /// If there's only one file to install (which is equal to the downloaded file) then the
+    /// decompression step is replaced by mere copying.
     /// </summary>
     public class InstallTask: Task
     {

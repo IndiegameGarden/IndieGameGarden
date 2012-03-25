@@ -21,6 +21,9 @@ using TTengine.Core;
 using TTengine.Util;
 using TTengine.Modifiers;
 
+using TTMusicEngine;
+using TTMusicEngine.Soundevents;
+
 using IndiegameGarden.Download;
 using IndiegameGarden.Unpack;
 using IndiegameGarden.Menus;
@@ -70,7 +73,11 @@ namespace IndiegameGarden
         /// launches a game selected by user (one at a time!)
         /// </summary>
         GameLauncherTask launcher;
+
+        public GardenMusic music;
+
         ThreadedTask launchGameThread;
+        ThreadedTask configDownloadThread;
 
         GraphicsDeviceManager graphics;
         Screenlet mainScreenlet, loadingScreenlet;       
@@ -79,6 +86,7 @@ namespace IndiegameGarden
         int myWindowHeight = 768; //768; //720; //900; //720;
         public DebugMessage DebugMsg; // DEBUG
         Exception initError = null;
+        MusicEngine musicEngine;
 
         #region Constructors
         public GardenGame()
@@ -103,6 +111,12 @@ namespace IndiegameGarden
 
         protected override void Initialize()
         {
+            // music engine
+            musicEngine = MusicEngine.GetInstance();
+            musicEngine.AudioPath = ".";
+            if (!musicEngine.Initialize())
+                throw new Exception(musicEngine.StatusMsg);
+
             // loading screen
             loadingScreenlet = new Screenlet(myWindowWidth, myWindowHeight);
             TTengineMaster.ActiveScreen = loadingScreenlet;
@@ -120,9 +134,10 @@ namespace IndiegameGarden
 
             TreeRoot.Add(mainScreenlet);
             TreeRoot.Add(loadingScreenlet);
-            mainScreenlet.Add(new FrameRateCounter(1.0f, 0f)); // TODO
-            mainScreenlet.Add(new ScreenZoomer()); // TODO remove
             mainScreenlet.DrawInfo.DrawColor = new Color(169 * 2 / 3, 157 * 2 / 3, 241 * 2 / 3); // Color.Black;
+
+            music = new GardenMusic();
+            TreeRoot.Add(music);
 
             // MyDownloader configuration
             myDownloaderProtocol = new HttpFtpProtocolExtension();
@@ -130,13 +145,27 @@ namespace IndiegameGarden
             // load config
             if (LoadConfig())
             {
-                // game chooser menu
-                GameChooserMenu menu = new GameChooserMenu();
-                mainScreenlet.Add(menu);
-
-                // debug
-                DebugMsg = new DebugMessage("debugmsg");
-                loadingScreenlet.Add(DebugMsg);
+                if (DownloadConfig())
+                {
+                    if (LoadGameLibrary())
+                    {
+                        // game chooser menu
+                        GameChooserMenu menu = new GameChooserMenu();
+                        mainScreenlet.Add(menu);
+                    }
+                    else
+                    {
+                        Exit();
+                    }
+                }
+                else
+                {
+                    Exit();
+                }
+            }
+            else
+            {
+                Exit();
             }
 
             // finally call base to enumnerate all (gfx) Game components to init
@@ -186,11 +215,22 @@ namespace IndiegameGarden
 
         protected override void Dispose(bool disposing)
         {
+            if (configDownloadThread != null)
+            {
+                configDownloadThread.Abort();
+            }
+
             if (disposing && TreeRoot != null)
             {
                 TreeRoot.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public void ActionLaunchWebsite(IndieGame g)
+        {
+            ITask t = new ThreadedTask(new SiteLauncherTask(g));
+            t.Start();
         }
 
         /// <summary>
@@ -201,19 +241,26 @@ namespace IndiegameGarden
         {
             if (g.IsInstalled)
             {
-                // if installed, then launch it if possible
-                if ((launcher == null || launcher.IsFinished() == true) &&
-                     (launchGameThread == null || launchGameThread.IsFinished()))
+                if (g.IsPlayable)
                 {
-                    loadingDisplay.SetLoadingGame(g);
-                    // set state of game to 'game playing state'
-                    TreeRoot.SetNextState(new StatePlayingGame());
+                    // if installed, then launch it if possible
+                    if ((launcher == null || launcher.IsFinished() == true) &&
+                         (launchGameThread == null || launchGameThread.IsFinished()))
+                    {
+                        loadingDisplay.SetLoadingGame(g);
+                        // set state of game to 'game playing state'
+                        TreeRoot.SetNextState(new StatePlayingGame());
 
-                    launcher = new GameLauncherTask(g);
-                    launchGameThread = new ThreadedTask(launcher);
-                    launchGameThread.TaskSuccessEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
-                    launchGameThread.TaskFailEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
-                    launchGameThread.Start();
+                        launcher = new GameLauncherTask(g);
+                        launchGameThread = new ThreadedTask(launcher);
+                        launchGameThread.TaskSuccessEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
+                        launchGameThread.TaskFailEvent += new TaskEventHandler(taskThread_TaskFinishedEvent);
+                        launchGameThread.Start();
+                    }
+                }
+                if (g.IsMusic)
+                {
+                    music.Play(Config.GetExeFilepath(g) , g.SoundVolume );
                 }
             }
         }
@@ -254,26 +301,31 @@ namespace IndiegameGarden
             catch (Exception ex)
             {
                 initError = ex;
+                return false;
             }
+            return true;
+        }
 
+        protected bool DownloadConfig()
+        {
             // download config - if needed or if could not be loaded
             ConfigDownloader dl = new ConfigDownloader(Config);
-            ThreadedTask dlTask = new ThreadedTask(dl);
+            configDownloadThread = new ThreadedTask(dl);
             if (dl.IsDownloadNeeded() || Config==null )
             {
                 // start the task
-                dlTask.Start();
+                configDownloadThread.Start();
                 
                 // then wait for a short while until success of the task thread
                 long timer = 0;
-                long blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 3;  // TODO const in config
-                if (Config == null)
+                long blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 1;  // TODO const in config
+                if (Config == null || !Config.IsValid() )
                     blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 30;  // TODO const in config
-                while (dlTask.Status() == ITaskStatus.CREATED)
+                while (configDownloadThread.Status() == ITaskStatus.CREATED)
                 {
                     // block until in RUNNING state
                 }
-                while (dlTask.Status() == ITaskStatus.RUNNING && timer < blockingWaitPeriodTicks)
+                while (configDownloadThread.Status() == ITaskStatus.RUNNING && timer < blockingWaitPeriodTicks)
                 {
                     Thread.Sleep(100);
                     timer += (System.TimeSpan.TicksPerMillisecond * 100);
@@ -291,29 +343,33 @@ namespace IndiegameGarden
 
                     case ITaskStatus.CREATED:
                     case ITaskStatus.RUNNING:
-                        // let the downloading simply finish in the background.
+                        // let the downloading simply finish in the background. Load it another time.
                         break;
                 }
             }
 
             // if still not ok after attempted download, warn the user and exit
-            if (Config==null)
-            {
-                TTengine.Util.MsgBox.Show("Could not load configuration", "Could not load configuration file."); // TODO msg
-                Exit();
+            if (Config==null || !Config.IsValid() )
+            { 
+                TTengine.Util.MsgBox.Show("Could not load configuration", "Could not load configuration file. Is it missing or corrupted?"); 
                 return false;
             }
+            return true;
+        }
 
+        protected bool LoadGameLibrary()
+        {
             // load game library
             try
             {
-                GameLib = new GameLibrary();
+                GameLibraryDownloader gldl = new GameLibraryDownloader(Config.NewestGameLibraryVersion);
+                gldl.Start();
+                GameLib = new GameLibrary(Config.NewestGameLibraryVersion);
             }
             catch (Exception ex)
             {
-                MsgBox.Show("Could not load game library file", "Could not load game library file."); // TODO msg
+                MsgBox.Show("Could not load game library file", "Could not load game library file. Technical:\n"+ex.Message+";\n"+ex.StackTrace); 
                 initError = ex;
-                Exit();
                 return false;
             }
 

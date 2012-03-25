@@ -29,7 +29,8 @@ namespace IndiegameGarden.Menus
         bool wasEscPressed = false;
         bool wasEnterPressed = false;
         // the game thumbnails or items selection panel
-        GamesPanel panel;        
+        GamesPanel panel;
+        KeyboardState prevKeyboardState = Keyboard.GetState();
 
         /// <summary>
         /// construct new menu
@@ -44,13 +45,31 @@ namespace IndiegameGarden.Menus
             gamesList = GardenGame.Instance.GameLib.GetList();
 
             // background
-            Spritelet bg = new Spritelet("parc-by-gadl2");
-            bg.Motion.Position = new Vector2(0.66667f, 0.5f);
-            bg.Motion.Scale = 1.5f;
+            Spritelet bg = new Spritelet("parc-by-gadl.png");
+            bg.Motion.Position = new Vector2(0.66667f, 0.6f);
+            bg.Motion.Scale = 0.5f;
+            bg.DrawInfo.LayerDepth = 1f;
             //bg.DrawInfo.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
             // bg color 169, 157, 241
-            bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/70.0f; }, "Rotate")); 
+            bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/70.0f; }, "Rotate"));
+            bg.Motion.Add(new MyFuncyModifier(delegate(float v) { return (0.7f + 0.5f * (float) Math.Sqrt(v/90.0)); }, "Scale"));
+            MotionBehavior bgMotionB = new MotionBehavior();
+            bg.Add(bgMotionB);
+            bgMotionB.Target = new Vector2(0.66667f, 0.5f);
+            bgMotionB.TargetSpeed = 0.003f;
             Add(bg);
+
+            // logo
+            Spritelet logo = new Spritelet("igglogo");
+            Add(logo);
+            logo.DrawInfo.Alpha = 0.7f;
+            logo.Motion.Scale = 0.55f;
+            logo.Motion.Position = new Vector2(Screen.AspectRatio - 0.3f, 0.04f);
+            ColorChangeBehavior fadeIn = new ColorChangeBehavior();
+            logo.Add(fadeIn);
+            fadeIn.Intensity = 0f;
+            fadeIn.FadeToTarget(0.9344f, 6f);
+            logo.Motion.Add(new SineModifier("ScaleModifier", 0.03124f, 0.07344f, 1.0f));
 
             // set my panel and games list
             Add(panel);
@@ -104,6 +123,12 @@ namespace IndiegameGarden.Menus
                 wasEscPressed = true;
             }
 
+            // -- website launch key
+            if (st.IsKeyDown(Keys.W) && !prevKeyboardState.IsKeyDown(Keys.W))
+            {
+                panel.OnUserInput(GamesPanel.UserInput.LAUNCH_WEBSITE);
+            }
+
             // -- a navigation key is pressed - check keys and generate action(s)
             if (st.IsKeyDown(Keys.Left)) {
                 panel.OnUserInput(GamesPanel.UserInput.LEFT);                
@@ -129,6 +154,7 @@ namespace IndiegameGarden.Menus
 
             // (time) bookkeeping for next keypress
             lastKeypressTime = p.SimTime;
+            prevKeyboardState = st;
         }
        
         protected override void OnUpdate(ref UpdateParams p)

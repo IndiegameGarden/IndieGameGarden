@@ -32,7 +32,48 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// short game description to show on screen
         /// </summary>
-        public string Description = "";
+        public string description = "";
+
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+            set
+            {
+                description = value;
+                lineCount = PerformLineCount(description);
+            }
+        }
+
+        int PerformLineCount(string s)
+        {
+            int result = 1;
+            foreach (char c in s)
+            {
+                if (c.Equals('\n'))
+                {
+                  result++;
+                }
+            }
+            return result;
+        }
+
+        protected int lineCount;
+
+        public int DescriptionLineCount
+        {
+            get
+            {
+                return lineCount;
+            }
+        }
+
+        /// <summary>
+        /// some hints for the player e.g. what the control keys are.
+        /// </summary>
+        public string HelpText = "";
 
         /// <summary>
         /// where can the packed file (.zip, .rar etc.) be downloaded from.
@@ -48,7 +89,15 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// a set of mirrors for PackedFileURL
         /// </summary>
-        public string[] PackedFileMirrors = new string[]{};
+        public string[] PackedFileMirrors
+        {
+            get
+            {
+                return packedFileMirrors.ToArray();
+            }
+        }
+
+        protected List<string> packedFileMirrors = new List<string>();
 
         /// <summary>
         /// URL (optionally without the http:// or www. in front) to game developer's website
@@ -71,9 +120,39 @@ namespace IndiegameGarden.Base
         public int Version = 1;
 
         /// <summary>
+        /// only show this item if client version is below this version number
+        /// </summary>
+        public int ShowBelowClientVersion = 99999999;
+
+        /// <summary>
+        /// scaling factor of game icon when displayed
+        /// </summary>
+        public float ScaleIcon = 1f;
+
+        /// <summary>
+        /// selection of rendering/shading effect for icon rendering. 0 = off.
+        /// </summary>
+        public int FXmode = 1;
+
+        /// <summary>
+        /// PNG icon mode selection (instead of JPG)
+        /// </summary>
+        public bool isPNG = false;
+
+        /// <summary>
         /// where in 2D coordinates this game is positioned
         /// </summary>
         public Vector2 Position = Vector2.Zero;
+
+        /// <summary>
+        /// Sound volume set for a game (not yet impl), or music playing volume for a music track
+        /// </summary>
+        public double SoundVolume = 0.5;
+
+        /// <summary>
+        /// speed of rotation of icon in units p/s, use <0 for left rotation
+        /// </summary>
+        public float RotateSpeed = 0f;
 
         /// <summary>
         /// Optionally a download/install task ongoing for this game
@@ -89,9 +168,17 @@ namespace IndiegameGarden.Base
         private bool isInstalled = false;
         private bool refreshInstallationStatusNeeded = true;
 
-        public IndieGame()
+        protected IndieGame()
+        {            
+        }
+
+        public static IndieGame ConstructGameLib(int version)
         {
-            throw new NotImplementedException("Constructor");
+            IndieGame g = new IndieGame();
+            g.Version = version;
+            g.GameID = "gamelib";
+            g.ExeFile = "gamelib.json";
+            return g;
         }
 
         public void Dispose()
@@ -114,12 +201,112 @@ namespace IndiegameGarden.Base
                 {
                     String gameDirPath = GardenGame.Instance.Config.GetGameFolder(this);
                     String exePath = GardenGame.Instance.Config.GetExeFilepath(this);
-                    isInstalled = Directory.Exists(gameDirPath) &&
+                    isInstalled =   IsGrowable &&
+                                    Directory.Exists(gameDirPath) &&
                                     File.Exists(exePath) &&
                                     (DlAndInstallTask == null || DlAndInstallTask.IsFinished()) ;
                     refreshInstallationStatusNeeded = false;
                 }
                 return isInstalled;
+            }
+        }
+
+        public bool IsInstalling
+        {
+            get
+            {
+                return (ThreadedDlAndInstallTask != null) && (!ThreadedDlAndInstallTask.IsFinished());
+            }
+        }
+
+        public float InstallProgress
+        {
+            get
+            {
+                if (ThreadedDlAndInstallTask != null)
+                {
+                    return (float) ThreadedDlAndInstallTask.Progress();
+                }
+                else
+                {
+                    if (IsInstalled)
+                        return 1f;
+                    else
+                        return 0f;
+                }
+            }
+        }
+
+        /// <summary>
+        /// check whether this game can be grown at all (i.e. downloaded).
+        /// Some items may not be growable e.g. display-icon-only games or coming-soon items.
+        /// </summary>
+        public bool IsGrowable
+        {
+            get
+            {
+                return ExeFile.Length > 0;
+            }
+        }
+
+        /// <summary>
+        /// checks whether this game can be played (i.e. an .exe file can be launched)
+        /// </summary>
+        public bool IsPlayable
+        {
+            get
+            {
+                return ExeFile.ToLower().EndsWith(".exe");
+            }
+        }
+
+        /// <summary>
+        /// checks whether this game item is a music track (.ogg)
+        /// </summary>
+        public bool IsMusic
+        {
+            get
+            {
+                return (ExeFile.ToLower().EndsWith(".ogg"));
+            }
+        }
+
+        /// <summary>
+        /// checks whether this item is visible to the user, depending on a.o. user's 
+        /// client version and other properties of the item
+        /// </summary>
+        public bool IsVisible
+        {
+            get
+            {
+                return (GardenGame.Instance.Config.ClientVersion < ShowBelowClientVersion);
+            }
+        }
+
+        /// <summary>
+        /// get this game's thumbnail filename
+        /// </summary>
+        public string ThumbnailFilename
+        {
+            get
+            {
+                if (Version == 1)
+                    return GameID + "." + ThumbnailFiletype;
+                else
+                    return GameID + "_v" + Version + "." + ThumbnailFiletype;
+            }
+        }
+
+        /// <summary>
+        /// thumbnail file type eg "jpg" or "png"
+        /// </summary>
+        public string ThumbnailFiletype
+        {
+            get
+            {
+                if (isPNG)
+                    return "png";
+                return "jpg";
             }
         }
 
@@ -137,23 +324,55 @@ namespace IndiegameGarden.Base
         /// <param name="j">the JSON data for one game</param>
         public IndieGame(JsonObject j)
         {
-            try { GameID = j["ID"].ToString(); }                catch (KeyNotFoundException ex) { throw (ex);  }
-            try { Version = (int) ((JsonNumber)j["Version"]).Value; }     catch (KeyNotFoundException) { ;}
+            try { GameID = j["ID"].ToString(); }
+            catch (Exception ex) { throw (ex); }
+            try { Version = (int)((JsonNumber)j["Version"]).Value; }
+            catch (Exception) { ;}
             try { Position.X = (float) ((JsonNumber)j["X"]).Value; }
-            catch (KeyNotFoundException) { ;}
+            catch (Exception) { ;}
             try { Position.Y = (float) ((JsonNumber)j["Y"]).Value; }
-            catch (KeyNotFoundException) { ;}
-            try { Name = j["Name"].ToString(); }                     catch (KeyNotFoundException) { ; }
-            try { Description = j["Descr"].ToString(); }       catch (KeyNotFoundException) { ; }
-            try { ExeFile = j["Exe"].ToString(); }            catch (KeyNotFoundException) { ; }
-            try { CdPath   = j["Cd"].ToString(); }            catch (KeyNotFoundException) { ; }
+            catch (Exception) { ;}
+            try { ScaleIcon = (float)((JsonNumber)j["Scale"]).Value; }
+            catch (Exception) { ;}
+            try { Name = j["Name"].ToString(); }
+            catch (Exception) { ; }
+            try { Description = j["Descr"].ToString(); }
+            catch (Exception) { ; }
+            try { HelpText = j["Help"].ToString(); }
+            catch (Exception) { ; }
+            try { ExeFile = j["Exe"].ToString(); }
+            catch (Exception) { ; }
+            try { CdPath = j["Cd"].ToString(); }
+            catch (Exception) { ; }
             try { PackedFileURL = j["Zip"].ToString(); }
-            catch (KeyNotFoundException) { ; }
-            try { DeveloperWebsiteURL = j["Site"].ToString(); } catch (KeyNotFoundException) { ; }
+            catch (Exception) { ; }
+            try { DeveloperWebsiteURL = j["Site"].ToString(); }
+            catch (Exception) { ; }
             try { 
                 JsonArray am = (JsonArray)j["ZipMirrors"];
-                PackedFileMirrors = JSONStore.ToStringArray(am);
-            }catch(KeyNotFoundException){;}
+                packedFileMirrors = JSONStore.ToStringList(am);
+            }
+            catch (Exception) { ;}
+            try { isPNG = (((JsonNumber)j["PNG"]).Value > 0 ); }
+            catch (Exception) { ;}
+            try { FXmode = (int) ((JsonNumber)j["FX"]).Value; }
+            catch (Exception) { ;}
+            try { ShowBelowClientVersion = (int)((JsonNumber)j["ShowBelowVer"]).Value; }
+            catch (Exception) { ;}
+            try { SoundVolume = (double)((JsonNumber)j["Vol"]).Value; }
+            catch (Exception) { ;}
+            try { RotateSpeed = (float)((JsonNumber)j["RotSpeed"]).Value; }
+            catch (Exception) { ;}
+            
+            // update with default mirror location
+            packedFileMirrors.Add(GardenGame.Instance.Config.PackedFilesServerURL + GardenGame.Instance.Config.GetPackedFileName(this) );
+
+            // special case: igg, then enter version numbers info from the config
+            if (GameID.Equals("igg"))
+            {
+                ShowBelowClientVersion = GardenGame.Instance.Config.NewestClientVersion;
+                Version = GardenGame.Instance.Config.NewestClientVersion;
+            }
         }
 
 
