@@ -244,20 +244,7 @@ namespace IndiegameGarden.Base
         /// <returns></returns>
         public string GetExeFilepath(IndieGame g)
         {
-            return GetGameFolder(g) + "\\" + g.CdPath + "\\" + g.ExeFile;
-        }
-
-        /// <summary>
-        /// get the folder where a game is stored (unpacked)
-        /// </summary>
-        /// <param name="g"></param>
-        /// <returns></returns>
-        public string GetGameFolder(IndieGame g)
-        {
-            if(g.Version == 1)
-                return UnpackedFilesFolder + "\\" + g.GameID ;
-            else
-                return UnpackedFilesFolder + "\\" + g.GameID + "_v" + g.Version;
+            return g.GameFolder + "\\" + g.CdPath + "\\" + g.ExeFile;
         }
 
         /// <summary>

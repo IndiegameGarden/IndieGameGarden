@@ -45,7 +45,7 @@ namespace IndiegameGarden.Base
         {
             this.Game = g;
             string cwd = System.IO.Directory.GetCurrentDirectory();
-            cdPath = cwd + "\\" + GardenGame.Instance.Config.GetGameFolder(g) + "\\" + g.CdPath;
+            cdPath = cwd + "\\" + g.GameFolder + "\\" + g.CdPath;
             filePath = g.ExeFile;            
         }
 

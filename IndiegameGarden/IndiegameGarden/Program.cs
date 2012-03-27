@@ -3,6 +3,7 @@
 using System;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Graphics;
+using TTengine.Util;
 
 namespace IndiegameGarden
 {
@@ -14,11 +15,17 @@ namespace IndiegameGarden
         /// </summary>
         static void Main(string[] args)
         {
-            using (GardenGame game = new GardenGame())
+            try
             {
-                Form frm = (Form)Form.FromHandle(game.Window.Handle);
-                frm.FormBorderStyle = FormBorderStyle.None; 
-                game.Run();
+                using (GardenGame game = new GardenGame())
+                {
+                    Form frm = (Form)Form.FromHandle(game.Window.Handle);
+                    frm.FormBorderStyle = FormBorderStyle.None;
+                    game.Run();
+                }
+            }
+            catch(Exception ex) {
+                MessageBox.Show("Critical error - sorry! " + ex.Message + "\n" + ex.ToString(), "IndiegameGarden: critical error (well, I'm just an ALPHA version!)");
             }
         }
     }

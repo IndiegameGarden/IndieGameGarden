@@ -47,8 +47,7 @@ namespace IndiegameGarden.Base
         public void Load()
         {
             IndieGame g = IndieGame.ConstructGameLib(version);
-            string fn = GardenGame.Instance.Config.GetGameFolder(g) + 
-                "\\" + GardenGame.Instance.Config.GameLibraryFilename;
+            string fn = g.GameFolder + "\\" + GardenGame.Instance.Config.GameLibraryFilename;
             json = new JSONStore(fn); // FIXME use all json files in there?
             gamesList = new GameCollection();
             ParseJson(json);

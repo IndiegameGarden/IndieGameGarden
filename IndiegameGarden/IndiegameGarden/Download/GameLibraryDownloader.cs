@@ -10,8 +10,6 @@ namespace IndiegameGarden.Download
      */
     public class GameLibraryDownloader: GameDownloadAndInstallTask
     {
-        //const string DEFAULT_GAMELIBCONFIG_FILENAME = "gamelib.json";
-
         public GameLibraryDownloader(int version)
             : base(IndieGame.ConstructGameLib(version))
         {

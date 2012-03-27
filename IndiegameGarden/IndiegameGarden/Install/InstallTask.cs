@@ -30,7 +30,7 @@ namespace IndiegameGarden.Install
 
         protected override void StartInternal()
         {
-            string destFolder = GardenGame.Instance.Config.GetGameFolder(game);
+            string destFolder = game.GameFolder;
             unpacker = new UnpackerTask(GardenGame.Instance.Config.GetPackedFilepath(game), 
                                         destFolder,
                                         game.ExeFile);

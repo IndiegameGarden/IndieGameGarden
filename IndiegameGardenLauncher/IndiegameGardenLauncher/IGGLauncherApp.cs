@@ -37,6 +37,8 @@ namespace IndiegameGardenLauncher
                 for (v = 1; v < 999999; v++)
                 {
                     string dir = "igg_v" + v;
+                    if (v == 1)
+                        dir = "igg";
                     if (!System.IO.Directory.Exists(dir))
                     {
                         v--;
@@ -45,7 +47,10 @@ namespace IndiegameGardenLauncher
                 }
                 if (v == 0)
                     return false;
-                System.IO.Directory.SetCurrentDirectory("igg_v" + v);
+                if (v== 1)
+                    System.IO.Directory.SetCurrentDirectory("igg");
+                else
+                    System.IO.Directory.SetCurrentDirectory("igg_v" + v);
                 return true;
             }
             catch (Exception)

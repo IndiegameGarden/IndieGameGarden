@@ -186,7 +186,7 @@ namespace IndiegameGarden.Base
         {
             IndieGame g = new IndieGame();
             g.Version = version;
-            g.GameID = "gamelib";
+            g.GameID = "igg_gamelib";
             g.ExeFile = "gamelib.json";
             return g;
         }
@@ -209,7 +209,7 @@ namespace IndiegameGarden.Base
             {
                 if (refreshInstallationStatusNeeded)
                 {
-                    String gameDirPath = GardenGame.Instance.Config.GetGameFolder(this);
+                    String gameDirPath = GameFolder;
                     String exePath = GardenGame.Instance.Config.GetExeFilepath(this);
                     isInstalled =   IsGrowable &&
                                     Directory.Exists(gameDirPath) &&
@@ -281,6 +281,14 @@ namespace IndiegameGarden.Base
             }
         }
 
+        public bool IsSystemPackage
+        {
+            get
+            {
+                return GameID.StartsWith("igg");
+            }
+        }
+
         /// <summary>
         /// checks whether this item is visible to the user, depending on a.o. user's 
         /// client version and other properties of the item
@@ -326,6 +334,27 @@ namespace IndiegameGarden.Base
             {
                 string s = ExtractFileExtension(PackedFileURL);
                 return s;
+            }
+        }
+
+        /// <summary>
+        /// get the folder where a game/item is stored (unpacked)
+        /// </summary>
+        /// <returns></returns>
+        public string GameFolder
+        {
+            get
+            {
+                string folder = GardenGame.Instance.Config.UnpackedFilesFolder;
+                // if system package (starts with "igg") then located in config files folder
+                if (IsSystemPackage)
+                {
+                    folder = GardenGame.Instance.Config.ConfigFilesFolder;
+                }
+                if (Version == 1)
+                    return folder + "\\" + GameID;
+                else
+                    return folder + "\\" + GameID + "_v" + Version;
             }
         }
 

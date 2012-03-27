@@ -115,7 +115,7 @@ namespace IndiegameGarden
             musicEngine = MusicEngine.GetInstance();
             musicEngine.AudioPath = ".";
             if (!musicEngine.Initialize())
-                throw new Exception(musicEngine.StatusMsg);
+                throw new Exception(musicEngine.StatusMsg); // FIXME display error box
 
             // loading screen
             loadingScreenlet = new Screenlet(myWindowWidth, myWindowHeight);
