@@ -147,6 +147,8 @@ namespace IndiegameGarden.Menus
         {
             IndieGame g = gl.FindGameAt(cursor.GridPosition);
             SelectedGame = g;
+            if (g!= null)
+                g.Refresh();
         }
 
         protected override void OnNewParent()
@@ -421,6 +423,7 @@ namespace IndiegameGarden.Menus
                                     MotionB.ZoomTarget = THUMBNAIL_SCALE_SELECTED1;
                                     Motion.ZoomCenter = th.Motion.PositionAbs;
                                     MotionB.ZoomSpeed = 0.05f;
+                                    SelectedGame.Refresh();
                                     //infoBox.MotionB.Target = INFOBOX_SHOWN_POSITION - new Vector2(0f,0.05f * (SelectedGame.DescriptionLineCount-1));
                                     //infoBox.MotionB.TargetSpeed = INFOBOX_SPEED_MOVE;
                                     selectionLevel++;

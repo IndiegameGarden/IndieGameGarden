@@ -1,8 +1,6 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
-Game icon
-After reselecting game, realtime testing if folder/zip still exists.
 Delete a zip after a failed unzip attempt.
 Add more scribble graphics denoting garden sections
 Add more games
@@ -18,6 +16,8 @@ Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-03-27 After reselecting game, realtime testing if folder/zip still exists.
+2012-03-27 Game icon
 2012-03-27 Allow multiple game directories, one for downloaded games, one for system files, maybe one for music
 2012-03-27 Complete music credits
 2012-03-22 Item names should be more accurate - not only 'game'
