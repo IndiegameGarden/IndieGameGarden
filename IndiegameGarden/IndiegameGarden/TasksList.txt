@@ -1,7 +1,6 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
-Delete a zip after a failed unzip attempt.
 Add more scribble graphics denoting garden sections
 Add more games
 Test client install and first run from website
@@ -16,6 +15,7 @@ Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-03-27 Delete a zip after a failed unzip attempt.
 2012-03-27 After reselecting game, realtime testing if folder/zip still exists.
 2012-03-27 Game icon
 2012-03-27 Allow multiple game directories, one for downloaded games, one for system files, maybe one for music
