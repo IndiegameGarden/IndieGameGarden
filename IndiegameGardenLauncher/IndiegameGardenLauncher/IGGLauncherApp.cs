@@ -9,6 +9,28 @@ namespace IndiegameGardenLauncher
 {    
     public class IGGLauncherApp : IDisposable
     {
+        /// <summary>
+        /// where does all data, games, zips etc reside
+        /// </summary>
+        const string DATA_DIR = "IndiegameGarden_data";
+
+        /// <summary>
+        /// where do IndiegameGarden installs (igg* folders) reside inside the data dir?
+        /// </summary>
+        const string IGG_DIR = "config";
+
+        const string IGG_PATH = DATA_DIR + "\\" + IGG_DIR ;
+
+        /// <summary>
+        /// what is the IndiegameGarden executable within the igg* folders ?
+        /// </summary>
+        const string IGG_EXECUTABLE = "IndiegameGarden.exe";
+
+        /// <summary>
+        /// title of any error message box
+        /// </summary>
+        const string ERROR_BOX_TITLE = "IndiegameGarden Fatal Error (Sorry, but it's an Alpha version!)";
+
         //Import the SetForeground API to activate it
         [DllImportAttribute("User32.dll")]
         private static extern IntPtr SetForegroundWindow(int hWnd);
@@ -19,45 +41,101 @@ namespace IndiegameGardenLauncher
 
         public void Run()
         {
-            //System.IO.Directory.SetCurrentDirectory("data");
-            if (FindMostRecentIGGDirectory())
+            try
             {
-                Process proc = System.Diagnostics.Process.Start("IndiegameGarden.exe");
-                if (proc != null)
-                    SetForegroundWindow(proc.MainWindowHandle.ToInt32());
+                string iggDir = FindMostRecentIGGDirectory();
+                if (iggDir != null)
+                {
+                    System.IO.Directory.SetCurrentDirectory(IGG_PATH);
+                    System.IO.Directory.SetCurrentDirectory(iggDir);
+                    Process proc = System.Diagnostics.Process.Start(IGG_EXECUTABLE);
+                    if (proc != null)
+                        SetForegroundWindow(proc.MainWindowHandle.ToInt32());
+                }else{
+                    MsgBox.Show(ERROR_BOX_TITLE, "IndiegameGarden's executable not found in " + IGG_PATH + ";\nlikely a damaged installation.");
+                }
+            }catch(Exception ex){
+                 MsgBox.Show(ERROR_BOX_TITLE, ex.Message + "\n" + ex.StackTrace);
             }
         }
 
-        bool FindMostRecentIGGDirectory()
+        /// <summary>
+        /// finds most recent directory that looks like IndiegameGarden
+        /// </summary>
+        /// <returns>relative path to most recent IGG directory or null if nothing found</returns>
+        string FindMostRecentIGGDirectory()
         {
-            try
+            string[] dirs = Directory.GetDirectories(IGG_PATH);
+            string dirFound = null;
+
+            // check the dirs, are they igg, and which one's most recent
+            int versionFound = -1;
+            for(int i=0; i < dirs.Length; i++)
             {
-                System.IO.Directory.SetCurrentDirectory("data\\games");
-                int v = 1;
-                for (v = 1; v < 999999; v++)
+                //string d = dirs[i];
+                DirectoryInfo di = new DirectoryInfo(dirs[i]);
+                if (di.Name.StartsWith("igg"))
                 {
-                    string dir = "igg_v" + v;
-                    if (v == 1)
-                        dir = "igg";
-                    if (!System.IO.Directory.Exists(dir))
-                    {
-                        v--;
-                        break;
+                    // check if exe file's in there
+                    if (File.Exists( Path.Combine( dirs[i] , IGG_EXECUTABLE ) )) {
+                        int v = ExtractVersionNumber(di.Name);
+                        if ( v > versionFound) {
+                            dirFound = di.Name;
+                            versionFound = v;
+                        }
                     }
                 }
-                if (v == 0)
-                    return false;
-                if (v== 1)
-                    System.IO.Directory.SetCurrentDirectory("igg");
-                else
-                    System.IO.Directory.SetCurrentDirectory("igg_v" + v);
-                return true;
             }
-            catch (Exception)
+
+            return dirFound;
+
+            /*
+            int v = 1;
+            const int V_MAX = 499; // how many versions to try? that should be enough for a while.
+            int highestVersionFound = -1;
+            for (v = 1; v <= V_MAX; v++)
             {
-                // TODO a message box?
+                string dir ;
+                if (v == 1) // special case for v1
+                    dir = "igg";
+                else
+                    dir = "igg_v" + v;
+                dir = Path.Combine(iggPath, dir);
+
+                if (System.IO.Directory.Exists(dir))
+                    highestVersionFound = v;
+
+            }
+                
+            if (v < 1 || v >= V_MAX ) // oops
+            {
+                MsgBox.Show(ERROR_BOX_TITLE, "IndiegameGarden's executable not found in " + iggPath + ";\nlikely a damaged installation.");
                 return false;
             }
+
+            if (v== 1)
+                System.IO.Directory.SetCurrentDirectory("igg");
+            else
+                System.IO.Directory.SetCurrentDirectory("igg_v" + v);
+            return true;
+             */
+        }
+
+        /// <summary>
+        /// extract version number info from igg folder name e.g. "igg" or "igg_v23"
+        /// </summary>
+        /// <param name="dirName"></param>
+        /// <returns>version number or -1 if failed</returns>
+        int ExtractVersionNumber(string dirName)
+        {
+            int idx = dirName.LastIndexOf("_v");
+            if (idx == -1) {
+                if(dirName.Equals("igg"))  // version 1 is a special case
+                    return 1;
+                return -1;
+            }
+            // check version nr
+            return int.Parse(dirName.Substring(idx+2));
         }
 
         public void Dispose()

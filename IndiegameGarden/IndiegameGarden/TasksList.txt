@@ -1,7 +1,7 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
-Add more scribble graphics denoting garden sections
+upd foxaliens to new zip; add zips of all games in mirror
 Add more games
 Test client install and first run from website
 Test client version update in deployment version
@@ -9,12 +9,16 @@ Fade out music when exiting : do better?
 Make gamelib loading non-blocking
 
 OPTIONAL [when time permits]
+Report exceptions to server for collecting debug info from the field
 Key/option to abort download or install of a game
 Add mirrors to all thumbnail loading?
 Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-03-27 bugfix in launcher. Now works to find highest version no matter what other versions are available.
+2012-03-27 change 'data' dir from launcher into less generic, recognizable name + use now 'config' for igg launches
+2012-03-27 Add more scribble graphics denoting garden sections
 2012-03-27 Delete a zip after a failed unzip attempt.
 2012-03-27 After reselecting game, realtime testing if folder/zip still exists.
 2012-03-27 Game icon
