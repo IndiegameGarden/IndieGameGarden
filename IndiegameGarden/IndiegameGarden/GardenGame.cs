@@ -141,6 +141,7 @@ namespace IndiegameGarden
 
             // MyDownloader configuration
             myDownloaderProtocol = new HttpFtpProtocolExtension();
+            Settings.Default.MaxRetries = 0;
 
             // load config
             if (LoadConfig())
@@ -209,7 +210,7 @@ namespace IndiegameGarden
                 TreeRoot = null;
                 GameLib = null;
             }
-            System.GC.Collect();
+            DownloadManager.Instance.PauseAll();
             Exit();
         }
 

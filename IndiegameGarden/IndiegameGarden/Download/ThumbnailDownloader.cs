@@ -11,34 +11,43 @@ using IndiegameGarden.Base;
 namespace IndiegameGarden.Download
 {
     /**
-     * A downloader task for a thumbnail
+     * A downloader task for a thumbnail that selects either PNG or JPG depending on what's available
      */
     public class ThumbnailDownloader: BaseDownloader
     {
         IndieGame game;
+
         /// <summary>
         /// a lock object to ensure one download at a time takes place.
         /// </summary>
-        static Object downloadingToken = new Object();
+        //static Object downloadingToken = new Object();
 
         /// <summary>
         /// construct a new thumbnail downloader for game; downloading from default server
         /// location.
         /// </summary>
-        /// <param name="game">the game to download thumbnail for</param>
-        public ThumbnailDownloader(IndieGame game)
+        public ThumbnailDownloader(IndieGame g)
         {
-            this.game = game;
+            this.game = g;
         }
 
         protected override void StartInternal()
         {
-            string filename = game.ThumbnailFilename;
-            string urlDl = GardenGame.Instance.Config.GetThumbnailURL(game);
+            string filename = game.GameIDwithVersion + ".jpg";
+            string urlDl = GardenGame.Instance.Config.GetThumbnailURL(filename);
             string toLocalFolder = GardenGame.Instance.Config.ThumbnailsFolder;
-            //lock (downloadingToken) // TODO check if locks needed
+            //lock (downloadingToken) // TODO check if sequentializing locks needed
             {
                 InternalDoDownload(urlDl, filename, toLocalFolder, true);
+
+                // if jpg not ok, try the png
+                if (IsFinished() && !IsSuccess() && !doAbort )
+                {
+                    filename = game.GameIDwithVersion + ".png";
+                    urlDl = GardenGame.Instance.Config.GetThumbnailURL(filename);
+                    InternalDoDownload(urlDl, filename, toLocalFolder, true);
+                    // status may have become successful by now.
+                }
             }
         }
 

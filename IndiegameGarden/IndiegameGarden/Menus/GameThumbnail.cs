@@ -32,11 +32,6 @@ namespace IndiegameGarden.Menus
         public ColorChangeBehavior ColorB;
 
         /// <summary>
-        /// ID of game for which this thumbnail is
-        /// </summary>
-        public string GameID;
-
-        /// <summary>
         /// ref to game for which this thumbnail is
         /// </summary>
         public IndieGame Game;
@@ -44,7 +39,13 @@ namespace IndiegameGarden.Menus
         /// <summary>
         /// actual/intended filename of thumbnail file (the file may or may not exist)
         /// </summary>
-        public string ThumbnailFilename;
+        public string ThumbnailFilename
+        {
+            get
+            {
+                return GardenGame.Instance.Config.GetThumbnailFilepath(Game);
+            }
+        }
 
         /// <summary>
         /// thumbnail loading task
@@ -66,7 +67,8 @@ namespace IndiegameGarden.Menus
             // my parent - where to load for/to
             GameThumbnail thumbnail;
 
-            public GameThumbnailLoadTask(GameThumbnail th): base(th.Game)
+            public GameThumbnailLoadTask(GameThumbnail th): 
+                base(th.Game)
             {
                 thumbnail = th;
             }
@@ -83,8 +85,9 @@ namespace IndiegameGarden.Menus
                 }
                 else
                 {
-                    // first run the base downloading task now. If that is ok, then load from file.
+                    // first run the base downloading task now. If that is ok, then load from file downloaded.
                     base.StartInternal();
+
                     if (File.Exists(thumbnail.ThumbnailFilename) && status == ITaskStatus.SUCCESS )
                     {
                         thumbnail.LoadTextureFromFile();
@@ -106,9 +109,7 @@ namespace IndiegameGarden.Menus
             Add(MotionB);
             Add(ColorB);
             Motion.Scale = GardenGamesPanel.THUMBNAIL_SCALE_UNSELECTED;
-            GameID = game.GameID;
             Game = game;
-            ThumbnailFilename = GardenGame.Instance.Config.GetThumbnailFilepath(game);
             // effect is still off if no bitmap loaded yet
             EffectEnabled = false;
             // first-time texture init
@@ -116,6 +117,7 @@ namespace IndiegameGarden.Menus
             {
                 DefaultTexture = GardenGame.Instance.Content.Load<Texture2D>("ball-supernova2");
             }
+            // use default texture as long as thumbnail not loaded yet
             Texture = DefaultTexture;
         }
 

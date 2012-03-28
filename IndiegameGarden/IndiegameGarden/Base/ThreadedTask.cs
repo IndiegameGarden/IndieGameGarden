@@ -107,7 +107,7 @@ namespace IndiegameGarden.Base
                 thread = null;
             }
              * */
-            if (thread != null)
+            if (thread != null && !task.IsFinished() )
                 thread.Join();
         }
     }

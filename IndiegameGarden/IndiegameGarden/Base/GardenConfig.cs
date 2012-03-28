@@ -218,23 +218,27 @@ namespace IndiegameGarden.Base
         /// get file path to locally stored thumbnail file for game
         /// </summary>
         /// <param name="g"></param>
-        /// <returns></returns>
+        /// <returns>by default a .jpg thumbnail for a game (whether file exists or not)
+        /// but if a .png thumbnail exists, it has preference.</returns>
         public string GetThumbnailFilepath(IndieGame g)
         {
-            return ThumbnailsFolder + "\\" + g.ThumbnailFilename;
+            string p1 = ThumbnailsFolder + "\\" + g.GameIDwithVersion;
+            string p2 = p1;
+            p1 += ".jpg";
+            p2 += ".png";
+            if (File.Exists(p2))
+                return p2;
+            else
+                return p1;
         }
                
         /// <summary>
         /// get url to remotely stored thumbnail file on default server ThumbnailsServerURL
         /// </summary>
-        /// <param name="g"></param>
         /// <returns></returns>
-        public string GetThumbnailURL(IndieGame g)
+        public string GetThumbnailURL(string thumbnailFilename)
         {
-            if (g.Version ==1 )
-                return ThumbnailsServerURL + g.ThumbnailFilename; 
-            else
-                return ThumbnailsServerURL + g.ThumbnailFilename; 
+            return ThumbnailsServerURL + thumbnailFilename; 
         }
 
         /// <summary>
@@ -263,10 +267,7 @@ namespace IndiegameGarden.Base
         /// </summary>
         public string GetPackedFileName(IndieGame g)
         {
-            if(g.Version == 1)
-                return g.GameID + "." + g.PackedFileExtension;
-            else
-                return g.GameID + "_v" + g.Version + "." + g.PackedFileExtension;
+            return g.GameIDwithVersion + "." + g.PackedFileExtension;
         }
 
 

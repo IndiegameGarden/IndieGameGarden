@@ -18,12 +18,7 @@ namespace IndiegameGarden.Download
     {
         protected Downloader downloader;
         protected string localFile;
-
-        // TODO check if allowed/needed
-        ~BaseDownloader()
-        {
-            Abort();
-        }
+        protected int segmentsUsedInDownload = 1;
 
         public override double Progress()
         {
@@ -47,24 +42,31 @@ namespace IndiegameGarden.Download
 
         protected override void AbortInternal()
         {
-            if (downloader != null && (IsRunning() || (IsFinished() && !IsSuccess())) )
+            if (downloader != null )
             {
-                DownloadManager.Instance.RemoveDownload(downloader);
-                downloader.WaitForConclusion();
-                // try to delete file
-                try
+                if (IsRunning())
                 {
+                    DownloadManager.Instance.RemoveDownload(downloader);
                     downloader.WaitForConclusion();
-                    if (localFile != null)
-                    {
-                        File.Delete(localFile);
-                        Thread.Sleep(100);
-                        File.Delete(localFile);
-                    }
                 }
-                catch (Exception)
+
+                // try to delete file if an error occurred in download
+                if (IsFinished() && !IsSuccess())
                 {
-                    ;
+                    try
+                    {
+                        downloader.WaitForConclusion();
+                        if (localFile != null && File.Exists(localFile))
+                        {
+                            File.Delete(localFile);
+                            Thread.Sleep(100);
+                            File.Delete(localFile);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        ;
+                    }
                 }
             }
             downloader = null;
@@ -126,8 +128,8 @@ namespace IndiegameGarden.Download
 
             // TODO check segments count
             downloader = DownloadManager.Instance.Add(  ResourceLocation.FromURL(urlPath), 
-                                                        ResourceLocation.FromURLArray(mirrors), 
-                                                        localFile, 3, true);
+                                                        ResourceLocation.FromURLArray(mirrors),
+                                                        localFile, segmentsUsedInDownload, true);            
             if (downloader != null)
             {
                 downloader.WaitForConclusion();

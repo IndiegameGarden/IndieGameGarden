@@ -12,6 +12,7 @@ namespace IndiegameGarden.Base
     {
         protected ITaskStatus status = ITaskStatus.CREATED;
         protected string statusMsg = "";
+        protected bool doAbort = false;
 
         public virtual ITaskStatus Status()
         {
@@ -70,6 +71,7 @@ namespace IndiegameGarden.Base
             if (!IsFinished())
             {
                 status = ITaskStatus.FAIL;
+                doAbort = true;
                 AbortInternal();
             }
         }

@@ -17,6 +17,7 @@ namespace IndiegameGarden.Download
         public GameDownloader(IndieGame game): base()
         {
             this.game= game;
+            this.segmentsUsedInDownload = 3;
         }
 
         protected override void StartInternal()

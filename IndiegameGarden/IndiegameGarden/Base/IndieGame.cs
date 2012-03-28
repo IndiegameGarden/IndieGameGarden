@@ -24,6 +24,17 @@ namespace IndiegameGarden.Base
         /// </summary>
         public string GameID = "";
 
+        public string GameIDwithVersion
+        {
+            get
+            {
+                if (Version == 1)
+                    return GameID;
+                else
+                    return GameID + "_v" + Version;
+            }
+        }
+
         /// <summary>
         /// Name of game
         /// </summary>
@@ -143,11 +154,6 @@ namespace IndiegameGarden.Base
         /// selection of rendering/shading effect for icon rendering. 0 = off.
         /// </summary>
         public int FXmode = 1;
-
-        /// <summary>
-        /// PNG icon mode selection (instead of JPG)
-        /// </summary>
-        public bool isPNG = false;
 
         /// <summary>
         /// where in 2D coordinates this game is positioned
@@ -301,33 +307,6 @@ namespace IndiegameGarden.Base
             }
         }
 
-        /// <summary>
-        /// get this game's thumbnail filename
-        /// </summary>
-        public string ThumbnailFilename
-        {
-            get
-            {
-                if (Version == 1)
-                    return GameID + "." + ThumbnailFiletype;
-                else
-                    return GameID + "_v" + Version + "." + ThumbnailFiletype;
-            }
-        }
-
-        /// <summary>
-        /// thumbnail file type eg "jpg" or "png"
-        /// </summary>
-        public string ThumbnailFiletype
-        {
-            get
-            {
-                if (isPNG)
-                    return "png";
-                return "jpg";
-            }
-        }
-
         public string PackedFileExtension
         {
             get
@@ -351,10 +330,7 @@ namespace IndiegameGarden.Base
                 {
                     folder = GardenGame.Instance.Config.ConfigFilesFolder;
                 }
-                if (Version == 1)
-                    return folder + "\\" + GameID;
-                else
-                    return folder + "\\" + GameID + "_v" + Version;
+                return folder + "\\" + GameIDwithVersion;
             }
         }
 
@@ -416,8 +392,6 @@ namespace IndiegameGarden.Base
                 JsonArray am = (JsonArray)j["ZipMirrors"];
                 packedFileMirrors = JSONStore.ToStringList(am);
             }
-            catch (Exception) { ;}
-            try { isPNG = (((JsonNumber)j["PNG"]).Value > 0 ); }
             catch (Exception) { ;}
             try { FXmode = (int) ((JsonNumber)j["FX"]).Value; }
             catch (Exception) { ;}
