@@ -1,7 +1,13 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
-upd foxaliens to new zip; add zips of all games in mirror
+Avoid JPG/PNG selection, just try both in thumbs downloader.
+If "Zip" field not defined, use default mirror location
+Optionally avoid .exe / cd-path in database, default is try first .exe found or first folder found with a .exe
+Coordinates idea: if X/Y not given, use default DX=1/DY=0. Explicit DX/DY can be given also, relative to previous.
+Coordinates idea: section ID has width (DX) parameter. If width full, jumps to next row.
+Check starman directx 8
+Check all FIXMEs in code
 Add more games
 Test client install and first run from website
 Test client version update in deployment version
@@ -9,13 +15,14 @@ Fade out music when exiting : do better?
 Make gamelib loading non-blocking
 
 OPTIONAL [when time permits]
-Report exceptions to server for collecting debug info from the field
+Report exceptions to server; for collecting good debug info from the field
 Key/option to abort download or install of a game
 Add mirrors to all thumbnail loading?
 Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-03-27 upd foxaliens to new zip; add zips of all games in mirror
 2012-03-27 bugfix in launcher. Now works to find highest version no matter what other versions are available.
 2012-03-27 change 'data' dir from launcher into less generic, recognizable name + use now 'config' for igg launches
 2012-03-27 Add more scribble graphics denoting garden sections
