@@ -2,6 +2,7 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,13 +55,14 @@ namespace IndiegameGarden.Install
 
             if (downloadTask.IsSuccess() )
             {
+                Thread.Sleep(100);
                 // if download ready and OK, start install
                 installTask = new InstallTask(game);
                 installTask.Start();
                 status = installTask.Status();
                 statusMsg = installTask.StatusMsg();
 
-                // install failed? remove the zip file
+                // install failed? remove the zip file and the game dir
                 if (status == ITaskStatus.FAIL)
                 {
                     string fn = GardenGame.Instance.Config.GetPackedFilepath(game);
@@ -72,7 +74,19 @@ namespace IndiegameGarden.Install
                         }
                         catch (Exception)
                         {
-                            ;
+                            ; // TODO?
+                        }
+                    }
+                    fn = game.GameFolder;
+                    if (fn != null && fn.Length > 0)
+                    {
+                        try
+                        {
+                            Directory.Delete(fn,true);
+                        }
+                        catch (Exception)
+                        {
+                            ; // TODO?
                         }
                     }
                 }

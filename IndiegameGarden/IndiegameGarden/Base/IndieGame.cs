@@ -98,9 +98,26 @@ namespace IndiegameGarden.Base
 
         /// <summary>
         /// where can the packed file (.zip, .rar etc.) be downloaded from.
-        /// Optionally without http:// in front.
+        /// Optionally without http:// in front. Optionally may set it without
+        /// any server URL, then it is prepended with default file server URL
+        /// automagically.
         /// </summary>
-        public string PackedFileURL = "";
+        public string PackedFileURL
+        {
+            get
+            {
+                return packedFileURL;
+            }
+            set
+            {
+                if (!value.Contains("/"))
+                    packedFileURL = GardenGame.Instance.Config.PackedFilesServerURL + value;
+                else
+                    packedFileURL = value;
+            }
+        }
+
+        protected string packedFileURL = "";
 
         /// <summary>
         /// where a .EXE_NOT_PACKED file can be downloaded from, which needs no unpacking (run straight away)
@@ -402,12 +419,18 @@ namespace IndiegameGarden.Base
             try { RotateSpeed = (float)((JsonNumber)j["RotSpeed"]).Value; }
             catch (Exception) { ;}
             
-            // update with default mirror location
-            packedFileMirrors.Add(GardenGame.Instance.Config.PackedFilesServerURL + GardenGame.Instance.Config.GetPackedFileName(this) );
+            // update with default mirror location, only if a main location is defined
+            // if no main location is given, use default location as main DL location which assumes a .zip file type too.
+            string defaultDownloadLoc = GardenGame.Instance.Config.PackedFilesServerURL + GardenGame.Instance.Config.GetPackedFileName(this);
+            if (PackedFileURL.Length > 0)
+                packedFileMirrors.Add( defaultDownloadLoc );
+            else
+                PackedFileURL = defaultDownloadLoc;
 
-            // special case: igg, then enter version numbers info from the config
+            // special case: igg, the IndiegameGarden client itself, then enter version numbers info from the config
             if (GameID.Equals("igg"))
             {
+                // make the item conditionally show - only if user has a lower version of the client!
                 ShowBelowClientVersion = GardenGame.Instance.Config.NewestClientVersion;
                 Version = GardenGame.Instance.Config.NewestClientVersion;
             }

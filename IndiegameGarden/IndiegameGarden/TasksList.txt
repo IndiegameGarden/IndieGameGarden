@@ -1,7 +1,6 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
-If "Zip" field not defined, use default mirror location
 Optionally avoid .exe / cd-path in database, default is try first .exe found or first folder found with a .exe
 Coordinates idea: if X/Y not given, use default DX=1/DY=0. Explicit DX/DY can be given also, relative to previous.
 Coordinates idea: section ID has width (DX) parameter. If width full, jumps to next row.
@@ -22,6 +21,9 @@ Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-03-28 Delete game folder after a failed install (not only ZIP)
+2012-03-28 If no site specified in "Zip" field (i.e. slashes missing), prepend default DL location
+2012-03-28 If "Zip" field not defined, use default mirror location
 2012-03-28 Avoid JPG/PNG selection, just try both in thumbs downloader.
 2012-03-27 upd foxaliens to new zip; add zips of all games in mirror
 2012-03-27 bugfix in launcher. Now works to find highest version no matter what other versions are available.
