@@ -63,6 +63,14 @@ namespace IndiegameGarden.Menus
             game = g;
         }
 
+        /// <summary>
+        /// clears the progress bar (temporarily, until auto re-activated)
+        /// </summary>
+        public void ClearProgressBar()
+        {
+            dlProgressBar.Visible = false;
+        }
+
         protected override void OnUpdate(ref UpdateParams p)
         {
             base.OnUpdate(ref p);
@@ -74,7 +82,7 @@ namespace IndiegameGarden.Menus
                 if (game.IsInstalled)
                 {
                     desc += "This "+game.ItemName+" now grows in your garden. Hold ENTER to play!\n";
-                    dlProgressBar.Visible = false;
+                    //dlProgressBar.Visible = false;
                     dlProgressBar.ProgressTarget = 1.0f;
                     dlProgressBar.ProgressValue = 1.0f;
                     dlProgressBar.Pulsing = false;

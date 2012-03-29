@@ -147,6 +147,7 @@ namespace IndiegameGarden.Menus
         {
             IndieGame g = gl.FindGameAt(cursor.GridPosition);
             SelectedGame = g;
+            infoBox.ClearProgressBar();
             if (g!= null)
                 g.Refresh();
         }

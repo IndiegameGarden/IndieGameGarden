@@ -78,35 +78,32 @@ namespace IndiegameGarden.Base
                 JsonArray ja = j as JsonArray;
                 bool offsetKnown = false;
                 Vector2 offset = posOffset;
-                foreach (IJsonType g2 in ja)
+                foreach (IJsonType jChild in ja)
                 {
                     // first item contains the offset for all items
-                    if (!offsetKnown && (g2 is JsonObject) )
+                    if (!offsetKnown && (jChild is JsonObject))
                     {
-                        JsonObject jo = (JsonObject)g2;
-                        if (jo.ContainsKey("SectionID"))
+                        JsonObject jChildObj = (JsonObject)jChild;
+                        if (jChildObj.ContainsKey("SectionID"))
                         {
-                            offset += new Vector2((float)(jo["X"] as JsonNumber).Value, (float)(jo["Y"] as JsonNumber).Value);
+                            offset += new Vector2((float)(jChildObj["X"] as JsonNumber).Value, (float)(jChildObj["Y"] as JsonNumber).Value);
                             offsetKnown = true;
-                        }
-                        else
-                        {
-                            ParseJson(g2, offset);
+                            continue;
                         }
                     }
-                    else
-                    {
-                        ParseJson(g2, offset);
-                    }
+                    ParseJson(jChild, offset);
                 }
             }
-            else
+            else if (j is JsonObject)
             {
-                IndieGame ig = new IndieGame((JsonObject) j);
+                // process single leaf item
+                IndieGame ig = new IndieGame((JsonObject)j);
                 ig.Position += posOffset;
                 if (ig.IsVisible)
                     gamesList.Add(ig);
             }
+            else
+                throw new NotImplementedException("Unknown JSON type " + j + " found.");
         }
 
         /// <summary>
