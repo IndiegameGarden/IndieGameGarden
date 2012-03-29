@@ -70,37 +70,63 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// parse a JsonArray (array of items) or JsonObject (single game/item)
         /// </summary>
-        /// <param name="j"></param>
-        private void ParseJson(IJsonType j, Vector2 posOffset)
+        protected IndieGame ParseJson(IJsonType j, Vector2 posOffset)
         {
             if (j is JsonArray)
             {
                 JsonArray ja = j as JsonArray;
-                bool offsetKnown = false;
-                Vector2 offset = posOffset;
+                Vector2 childPosOffset = posOffset;
+                Vector2 posPrevious = Vector2.Zero;
+                //Vector2 childPosPrevious = Vector2.Zero;
+                Vector2 sectionWidthHeight = new Vector2(999f, 999f);
+                IndieGame ig = null;
+                
                 foreach (IJsonType jChild in ja)
                 {
-                    // first item contains the offset for all items
-                    if (!offsetKnown && (jChild is JsonObject))
+                    // parse each subitem and add to gamelist
+                    ig = ParseJson(jChild, childPosOffset);
+                    if (ig == null)
+                        continue;
+
+                    // optional first SectionID item of a JsonArray may contain position offset info for all items
+                    if (ig.GameID.StartsWith("section_"))
                     {
-                        JsonObject jChildObj = (JsonObject)jChild;
-                        if (jChildObj.ContainsKey("SectionID"))
+                        childPosOffset += ig.Position;
+                        // WARNING mis-use the posdelta field for section width/height!!
+                        sectionWidthHeight = ig.PositionDelta;
+                        //childPosPrevious = Vector2.Zero;
+                        posPrevious = Vector2.Zero;
+                        continue;
+                    }                    
+
+                    // calculate correct item position
+                    if (!ig.IsPositionGiven)
+                    {
+                        ig.Position = posPrevious + ig.PositionDelta;
+                        // checking the automatic calculated game position with section width
+                        if (ig.Position.X >= sectionWidthHeight.X)
                         {
-                            offset += new Vector2((float)(jChildObj["X"] as JsonNumber).Value, (float)(jChildObj["Y"] as JsonNumber).Value);
-                            offsetKnown = true;
-                            continue;
+                            ig.Position.Y += 1.0f;
+                            ig.Position.X = 0f;
                         }
-                    }
-                    ParseJson(jChild, offset);
+                    }                    
+
+                    // update prev item position 
+                    posPrevious = ig.Position;
+
+                    // apply the section position offset
+                    ig.Position += childPosOffset;
+
                 }
+                return null; // indicate array was last item.
             }
             else if (j is JsonObject)
             {
                 // process single leaf item
                 IndieGame ig = new IndieGame((JsonObject)j);
-                ig.Position += posOffset;
-                if (ig.IsVisible)
+                if (ig.IsVisible && ig.GameID.Length > 0)
                     gamesList.Add(ig);
+                return ig;
             }
             else
                 throw new NotImplementedException("Unknown JSON type " + j + " found.");

@@ -24,6 +24,11 @@ namespace IndiegameGarden.Base
         /// </summary>
         public string GameID = "";
 
+        /// <summary>
+        /// default visibility for user status 1 (yes) or 0 (no)
+        /// </summary>
+        public int VisibilityLabel = 1;
+
         public string GameIDwithVersion
         {
             get
@@ -58,12 +63,18 @@ namespace IndiegameGarden.Base
             }
         }
 
+        /// <summary>
+        /// returns a human-readable string name for this item
+        /// </summary>
         public string ItemName
         {
             get
             {
+                if (VisibilityLabel == 0) return "invisible-item";
                 if (IsPlayable)   return "game";
                 if (IsMusic)      return "music";
+                if (IsSystemPackage) return "system-package";
+
                 return "item";
             }
         }
@@ -173,9 +184,19 @@ namespace IndiegameGarden.Base
         public int FXmode = 1;
 
         /// <summary>
-        /// where in 2D coordinates this game is positioned
+        /// where in 2D coordinates this game is positioned. Zero means non-specified.
         /// </summary>
         public Vector2 Position = Vector2.Zero;
+
+        /// <summary>
+        /// in case a 2D Position is not given, this specifies a wished position delta of game w.r.t. previous game in the library.
+        /// </summary>
+        public Vector2 PositionDelta = Vector2.UnitX;
+
+        /// <summary>
+        /// check whether a 2D coordinate position for game is given, or not
+        /// </summary>
+        public bool IsPositionGiven = false;
 
         /// <summary>
         /// Sound volume set for a game (not yet impl), or music playing volume for a music track
@@ -312,6 +333,18 @@ namespace IndiegameGarden.Base
             }
         }
 
+
+        /// <summary>
+        /// checks for item of type SectionID.
+        /// </summary>
+        public bool IsSectionId
+        {
+            get
+            {
+                return GameID.StartsWith("section_");
+            }
+        }
+
         /// <summary>
         /// checks whether this item is visible to the user, depending on a.o. user's 
         /// client version and other properties of the item
@@ -320,7 +353,7 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                return (GardenGame.Instance.Config.ClientVersion < ShowBelowClientVersion);
+                return (GardenGame.Instance.Config.ClientVersion < ShowBelowClientVersion) && (VisibilityLabel > 0);
             }
         }
 
@@ -385,9 +418,15 @@ namespace IndiegameGarden.Base
             catch (Exception ex) { throw (ex); }
             try { Version = (int)((JsonNumber)j["Version"]).Value; }
             catch (Exception) { ;}
-            try { Position.X = (float) ((JsonNumber)j["X"]).Value; }
+            try { VisibilityLabel = (int)((JsonNumber)j["Visible"]).Value; }
             catch (Exception) { ;}
-            try { Position.Y = (float) ((JsonNumber)j["Y"]).Value; }
+            try { Position.X = (float)((JsonNumber)j["X"]).Value; IsPositionGiven = true; }
+            catch (Exception) { ;}
+            try { Position.Y = (float)((JsonNumber)j["Y"]).Value; IsPositionGiven = true; }
+            catch (Exception) { ;}
+            try { PositionDelta.X = (float)((JsonNumber)j["DX"]).Value; }
+            catch (Exception) { ;}
+            try { PositionDelta.Y = (float)((JsonNumber)j["DY"]).Value; }
             catch (Exception) { ;}
             try { ScaleIcon = (float)((JsonNumber)j["Scale"]).Value; }
             catch (Exception) { ;}

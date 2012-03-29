@@ -2,10 +2,9 @@
 
 OPEN  [top issues first]
 Optionally avoid .exe / cd-path in database, default is try first .exe found or first folder found with a .exe
-Coordinates idea: if X/Y not given, use default DX=1/DY=0. Explicit DX/DY can be given also, relative to previous.
-Coordinates idea: section ID has width (DX) parameter. If width full, jumps to next row.
 Check starman directx 8
 Check all FIXMEs in code
+Mystery game icon
 Test on 4:3 resolution for item visibility
 Faster thumbs downloading thread abortion on exit
 Add more games
@@ -22,6 +21,8 @@ Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-03-29 Coordinates idea: if X/Y not given, use default DX=1/DY=0. Explicit DX/DY can be given also, relative to previous.
+2012-03-29 Coordinates idea: section ID has width (DX) parameter. If width full, jumps to next row.
 2012-03-29 Progress bars keeps showing just after an install. Cleared upon next keypress.
 2012-03-28 Delete game folder after a failed install (not only ZIP)
 2012-03-28 If no site specified in "Zip" field (i.e. slashes missing), prepend default DL location
