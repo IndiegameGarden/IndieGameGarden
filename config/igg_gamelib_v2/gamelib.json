@@ -1,0 +1,215 @@
+{
+	"version": 2,
+	"Xmax": 13,
+	"Ymax": 13,
+	"gameslist":
+		[
+	  	{
+	  	 	"ID": "igg_controls",
+	  		"Name": "",
+	  		"Scale": 2.7,
+	  		"RotSpeed": 0.16,
+	  		"FX": 0,
+	  		"X": 3, "Y": 2
+	  	},
+	  	{
+	  		"ID": "igg_credits",
+	  		"Name": "Credits",
+	  		"Descr": "Music from album Glitch Piano (c) by Torley (torley.com), CC by-nc-sa licensed. Nice album!\nMusic track \"Sublime\" (c) by Space Explorer(s), CC-by licensed.\nBackground photo: Parc departemental du Val-de-Marne (c) by gadl, CC by-sa licensed. Great stuff!\nFMOD Sound System, copyright (c) Firelight Technologies Pty, Ltd., 1994-2012.\nFont M41_LOVEBIT by Miffies (mfs.jp.org). Source code (c) IndiegameGarden.com and others,\nsee LICENSE.txt for code license details.\nBig thanks to all game authors who (involuntarily) contributed to filling this garden! Twitter: @IndiegameGarden",
+	  		"FX": 0,
+	  		"X": 3, "Y": 0
+	  	},
+	  	{
+	  	  "ID": "igg",
+	  	  "Name": "Update Indiegame Garden!",
+	  	  "Descr": "Hold ENTER to update Indiegame Garden client. Once installed, restart this client to get the new version.",
+	  	  "Site": "indiegamegarden.com",
+	  	  "Exe": "TTengine.dll",
+	  	  "X": 4, "Y": 0
+	  	},
+	  	[
+	  		{ "ID": "section_music",
+	  			"X": 6, "Y": 0, "DX": 10
+	  		},
+		  	{
+		  	 	"ID": "igg_iconmusic",
+		  		"Name": "",
+		  		"Scale": 0.7,
+		  		"X": -1, "Y": -1,
+		  		"FX": 0
+		  	},
+		  	{
+		  		"ID": "Torley_Aurelic",
+		  		"Name": "Indie music: \"Aurelic\" by Torley",
+		  		"Descr": "Track from the album \"Glitch Piano\". Hit \"W\" for Torley's website with more music.\nCreative Commons by-nc-sa licensed.",
+		  		"Zip": "Torley_Aurelic.ogg",
+		  		"Exe": "Torley_Aurelic.ogg",
+		  		"Site": "music.torley.com",
+		  		"Scale": 0.7,
+		  		"X": 0, "Y": 0
+		  	},
+		  	{
+		  		"ID": "Torley_Zalgone",
+		  		"Name": "Indie music: \"Zalgone\" by Torley",
+		  		"Descr": "Track from the album \"Glitch Piano\". Hit \"W\" for Torley's website with more music.\nCreative Commons by-nc-sa licensed.",
+		  		"Zip": "Torley_Zalgone.ogg",
+		  		"Exe": "Torley_Zalgone.ogg",
+		  		"Site": "music.torley.com",
+		  		"Scale": 0.7
+		  	},
+		  	{
+		  		"ID": "Space-Explorers_Sublime",
+		  		"Name": "Indie music: \"Sublime\" by Space Explorer(s)",
+		  		"Descr": "Hit \"W\" for the Space Explorer(s) website with more music. Creative Commons attribution license.",
+		  		"Zip": "Space-Explorers_Sublime.ogg",
+		  		"Exe": "Space-Explorers_Sublime.ogg",
+		  		"Site": "spaceexplorers.bandcamp.com",
+		  		"Scale": 0.7
+		  	}
+		  ],
+
+			[
+				{ "ID": "section_general"
+					"X": 0, "Y": 1, "DX": 2
+				},
+		  	{
+		  	 	"ID": "honeyblaster",
+		  		"Name": "HoneyBlaster",
+		  		"Descr": "Classic action shoot'em up game, where the player is not a spaceship but a... bumble-bee.\nTAKE CARE: McAfee on-demand virus scan deletes ezip.dll claiming a virus, breaking the game.",
+		  		"Zip": "lowfuel.melnicek.cz/honeyblaster/data/lf-honeyblaster-demo.zip",
+		  		"Site": "lowfuel.melnicek.cz/honeyblaster",
+		  		"Exe": "lf-hb.exe"
+		  	},
+		  	{
+		  	 	"ID": "dwarffortress",
+		  		"Name": "Dwarf Fortress 0.34.02",
+		  		"Descr": "Single-player fantasy game set in a randomly generated, persistent world. Amazingly, all visuals are ASCII.",
+		  		"Help": "You can maximize the window to see a larger map area during the game.",
+		  		"Zip": "www.bay12games.com/dwarves/df_34_02_win.zip",
+		  		"ZipMirrors": ["b12.wimbli.com/df_34_02_win.zip", "df.nucleardog.com/df_34_02_win.zip"],
+		  		"Site": "www.bay12games.com/dwarves/",
+		  		"Exe": "Dwarf Fortress.exe"
+		  	},
+		  	{
+		  	 	"ID": "foxaliens",
+		  		"Name": "Fox aliens from space invade a planet within space",
+		  		"Descr": "\"jump as mr zuper hero dude, stop em aliens, bring their ships down destroy dem walkers.\"\nPress \"W\" to go to the great YoYoGames website for this game. Lawyers or YoYoGames people: if it's illegal to link\nto the game like this please let us know @IndiegameGarden and we'll remove it.",
+		  		"ZipOrigin": "http://sandbox.yoyogames.com/games/196253-fox-aliens-from-space-invade-a-planet-within-space/send_download?code=113999adfa054f80141a43cc8f58f5cd2f70a5b1",
+		  		"Site": "http://sandbox.yoyogames.com/games/196253-fox-aliens-from-space-invade-a-planet-within-space#",
+		  		"Exe": "FOXLZRS.exe",
+		  		"Cd": "FOXLZRS",
+		  		"Version": 2,
+		  		"Scale": 0.5
+		  	},
+		  	{
+		  	 	"ID": "wither",
+		  		"Name": "Wither",
+		  		"Descr": "Short RPG made in old gameboy style. Press \"W\" to visit the rpgmaker.net site for this game!",
+		  		"Zip": "wither.rar",
+		  		"Site": "http://rpgmaker.net/games/3434/",
+		  		"Exe": "RPG_RT.exe",
+		  		"Cd": "Wither"
+		  	},
+		  	{
+		  	 	"ID": "YCPEMTDT2",
+		  		"Name": "You Can't Possibly Expect Me To Do That! 2",
+		  		"Descr": "The Space Station Catalyst Planet Exploration Crew is recruiting new members! If you can complete\nthe training exercise, you will become a member of the crew. Discover 5(erm, 4, or maybe 3) planets of\nvarying terrain, from firey tempests to temples overrun with foliage!",
+		  		"Zip": "http://64digits.com/games/5356/YCPEMTDT2_-_IHDUYATDMTO_v1.0.exe.zip",
+		  		"Exe": "YCPEMTDT2 - IHDUYATDMTO v1.0.exe",
+		  		"Site": "64digits.com/games/index.php?cmd=view_game&id=5356"
+		  	}
+		  ],	  	
+	  	[
+	  		{
+	  			"ID": "section_dutch",
+	  			"X": 7, "Y": 2, "DX": 3
+	  		},
+		  	{
+		  		"ID": "igg_icondutch",
+		  		"Name": "",
+		  		"Scale": 0.7,
+		  		"FX": 0,
+		  		"X": -1, "Y": 0,
+		  		"Site": "www.dutchgamegarden.nl"
+		  	},
+	      {
+		  		"ID": "supercratebox",
+		  		"Name": "Super Crate Box",
+		  		"Descr": "Prepare for an arcade delight with tight controls, refreshing game mechanics, cracking retro art and a terribly hip chiptune soundtrack.",
+		  		"Exe": "supercratebox.exe",
+		  		"Zip": "www.supercratebox.com/download/supercratebox.rar",
+		  		"Site": "www.supercratebox.com",
+		  		"X": 0, "Y": 0
+		  	},
+		    {
+		  		"ID": "yetihunter",
+		  		"Name": "Yeti Hunter",
+		  		"Descr": "a Vlambeer game about hunting yetis - music by Kozilek",
+		  		"Help": "mouse=look, WASD=move, rmb=scope, lmb=shoot, SHIFT=run,\nR=restart, CTRL=duck/climb down trees, walk up a tree to climb",
+		  		"Exe": "YETI HUNTER.exe",
+		  		"Zip": "yetihunter.vlambeer.com/download.rar",
+		  		"Site": "yetihunter.vlambeer.com"
+		  	},
+		  	{
+		  	 	"ID": "mythicdefence",
+		  		"Name": "Mythic Defence - The rise of evil",
+		  		"Descr": "Tower defence with 25 waves of onslaught with 6 different races; over 30 different towers to choose from. Can you hold your line?",
+		  		"Zip": "www.creativegamechallenge.nl/games2009/cgc09025/cgc09025.zip",
+		  		"Site": "www.creativegamechallenge.nl/allegamescgc2009.php",
+		  		"Exe": "Mythic Defence - The rise of evil.exe"
+		  	}
+	  	],
+	  	[
+	  		{
+	  			"ID": "section_experimental",
+	  			"Visible": 0,
+	  			"X": 3, "Y": 3, "DX": 3
+	  		},
+  	    {
+		  		"ID": "gametitle",
+		  		"Name": "Game Title",
+		  		"Descr": "\"a zelda-esque dungeon crawler, but you only have one hit point, various weapons are hidden to ease the difficulty\"",
+		  		"Cd": "Game Title",
+		  		"Exe": "Game Title.exe",
+		  		"Zip": "www.glorioustrainwrecks.com/files/Game%20Title%20-%202012-02-22b.zip",
+		  		"Site": "www.glorioustrainwrecks.com/node/2258"
+		  	},
+  	    {
+		  		"ID": "gametitle_lostlevels",
+		  		"Name": "Game Title: Lost Levels",
+		  		"Descr": "This is a sort of sequel to Game Title, inspired a bug that came up. It is very difficult to complete it.\nIt is possible to complete it. It is possible to get stuck.\nIf you're not absolutely certain that you're stuck, you're probably not stuck. Sorry.",
+		  		"Cd": "Game Title - Lost Levels",
+		  		"Exe": "Game Title - Lost Levels.exe",
+		  		"Zip": "www.glorioustrainwrecks.com/files/Game%20Title%20-%20Lost%20Levels%20-%202012-02-23.zip",
+		  		"Site": "www.glorioustrainwrecks.com/node/2268"
+		  	},
+  	    {
+		  		"ID": "minestein3d",
+		  		"Name": "Minestein 3D",
+		  		"Descr": "A mashup of Wolfenstein 3D and Minecraft. You can hit Enter/PageUp/KeypadEnter at any time to switch between editor\nmode and action mode. It's sort of a Wolf3D construction kit. (If the default level takes a while to load, that's normal.)",
+		  		"Cd": "minestein3D",
+		  		"Exe": "Minestein3D.exe",
+		  		"Zip": "www.glorioustrainwrecks.com/files/minestein3d_0.rar",
+		  		"Site": "http://www.glorioustrainwrecks.com/node/3041"
+		  	},
+		  	{
+		  		"ID": "starman",
+		  		"Name": "Starman",
+		  		"Descr": "Jump on the goomba!",
+		  		"Cd": "starman",
+		  		"Exe": "starman.exe",
+		  		"Zip": "klikscene.com/games/Radix_starman.rar",
+		  		"Site": "klikscene.com/2009/starman/"
+		  	},
+		  	{
+		  		"ID": "spacemass",
+		  		"Name": "Space Mass",
+		  		"Descr": "Blocks, nothing but blocks... destroy blocks, use your grappling hook, collect the key, find the exit door.",
+		  		"Help": "Hint: you can zoom out to an overall map by pressing 'v'",
+		  		"Exe": "spacemass.exe",
+		  		"Zip": "http://dl.dropbox.com/u/3536006/forumz/spacemass.exe",
+		  		"Site": "www.darshell.co.nr"
+		  	}		  	
+	  	]   	
+		]
+}
