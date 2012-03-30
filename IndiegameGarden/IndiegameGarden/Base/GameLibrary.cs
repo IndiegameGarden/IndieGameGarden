@@ -48,7 +48,7 @@ namespace IndiegameGarden.Base
         {
             GardenItem g = GardenItem.ConstructGameLib(version);
             string fn = g.GameFolder + "\\" + GardenGame.Instance.Config.GameLibraryFilename;
-            json = new JSONStore(fn); // FIXME use all json files in there?
+            json = new JSONStore(fn); // TODO use all json files in there?
             gamesList = new GameCollection();
             ParseJson(json);
             // for extra safety, get version nr from the gamelib file and use that from here on.

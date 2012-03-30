@@ -118,13 +118,7 @@ namespace IndiegameGarden.Base
 
         protected override void AbortInternal()
         {
-            if (IsRunning())
-            {
-                if (Proc != null)
-                {
-                    // FIXME check if we can abort the process
-                }
-            }
+            // site launcher does not abort the website launching.
         }
 
         public override double Progress()

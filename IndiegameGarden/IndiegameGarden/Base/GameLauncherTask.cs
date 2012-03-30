@@ -105,7 +105,8 @@ namespace IndiegameGarden.Base
             {
                 if (Proc != null)
                 {
-                    // FIXME check if we can abort the process
+                    // games are not aborted currently, user should do it.
+                    // TODO check if we can abort the process
                 }
             }
         }
