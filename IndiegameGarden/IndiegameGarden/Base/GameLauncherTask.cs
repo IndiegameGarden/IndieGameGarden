@@ -33,10 +33,6 @@ namespace IndiegameGarden.Base
         /// </summary>
         public bool IsGameShowingWindow = false;
 
-        // internal
-        string filePath;
-        string cdPath;
-
         //Import the SetForeground API to activate it
         [DllImportAttribute("User32.dll")]
         private static extern IntPtr SetForegroundWindow(int hWnd);
@@ -44,9 +40,6 @@ namespace IndiegameGarden.Base
         public GameLauncherTask(GardenItem g)
         {
             this.Game = g;
-            string cwd = System.IO.Directory.GetCurrentDirectory();
-            cdPath = cwd + "\\" + g.GameFolder + "\\" + g.CdPath;
-            filePath = g.ExeFile;            
         }
 
         protected override void StartInternal()
@@ -55,8 +48,12 @@ namespace IndiegameGarden.Base
             {
                 //TODO wait until task done, keep setting it to fg a few times.
                 string cwd = System.IO.Directory.GetCurrentDirectory();
-                System.IO.Directory.SetCurrentDirectory(cdPath);
-                Proc = System.Diagnostics.Process.Start(filePath);
+                System.IO.Directory.SetCurrentDirectory(Game.GameFolder);
+                if (Game.CdPath.Length > 0) // if given
+                {
+                    System.IO.Directory.SetCurrentDirectory(Game.CdPath);
+                }
+                Proc = System.Diagnostics.Process.Start(Game.ExeFile);
                 Proc.Exited += new EventHandler(EvHandlerProcessExited);
                 Proc.EnableRaisingEvents = true;
             

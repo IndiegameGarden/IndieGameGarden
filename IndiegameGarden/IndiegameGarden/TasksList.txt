@@ -1,13 +1,12 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
-Optionally avoid .exe / cd-path in database, default is try first .exe found or first folder found with a .exe
-Check starman directx 8
 Check all FIXMEs in code
 Mystery game icon
 Test on 4:3 resolution for item visibility
 Faster thumbs downloading thread abortion on exit
 Add more games
+Check starman directx 8
 Test client install and first run from website
 Test client version update in deployment version
 Fade out music when exiting : do better?
@@ -117,3 +116,4 @@ CLOSED  [date order]
 
 SKIPPED [date order]
 2012-01-28 Display a progress bar when launching starts with bar speed set by config file
+2012-03-30 Optionally avoid .exe / cd-path in database, default is try first .exe found or first folder found with a .exe -> creates issue with install state check
