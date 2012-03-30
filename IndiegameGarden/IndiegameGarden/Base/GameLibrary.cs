@@ -89,7 +89,7 @@ namespace IndiegameGarden.Base
                         continue;
 
                     // optional first SectionID item of a JsonArray may contain position offset info for all items
-                    if (ig.GameID.StartsWith("section_"))
+                    if (ig.IsSectionId)
                     {
                         childPosOffset += ig.Position;
                         // WARNING mis-use the posdelta field for section width/height!!
@@ -124,7 +124,7 @@ namespace IndiegameGarden.Base
             {
                 // process single leaf item
                 GardenItem ig = new GardenItem((JsonObject)j);
-                if (ig.IsVisible && ig.GameID.Length > 0)
+                if (ig.IsVisible )
                     gamesList.Add(ig);
                 return ig;
             }

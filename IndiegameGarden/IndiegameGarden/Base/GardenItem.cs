@@ -353,7 +353,9 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                return (GardenGame.Instance.Config.ClientVersion < ShowBelowClientVersion) && (VisibilityLabel > 0);
+                return  (!IsSectionId) && 
+                        (GardenGame.Instance.Config.ClientVersion < ShowBelowClientVersion) && 
+                        (VisibilityLabel > 0);
             }
         }
 
