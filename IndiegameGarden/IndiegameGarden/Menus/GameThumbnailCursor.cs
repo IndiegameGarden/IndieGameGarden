@@ -21,7 +21,7 @@ namespace IndiegameGarden.Menus
         public Vector2 GridPosition = Vector2.Zero;        
 
         public GameThumbnailCursor()
-            : base("WhiteTexture","GameThumbnailCursor")
+            : base("cursor","GameThumbnailCursor")
         {
             DrawInfo.LayerDepth = 0.95f;
             MotionB = new MotionBehavior();
