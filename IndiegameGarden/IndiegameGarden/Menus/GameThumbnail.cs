@@ -108,7 +108,7 @@ namespace IndiegameGarden.Menus
             ColorB = new ColorChangeBehavior();
             Add(MotionB);
             Add(ColorB);
-            Motion.Scale = GardenGamesPanel.THUMBNAIL_SCALE_UNSELECTED;
+            Motion.Scale = GardenGamesPanel.THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED;
             Game = game;
             // effect is still off if no bitmap loaded yet
             EffectEnabled = false;

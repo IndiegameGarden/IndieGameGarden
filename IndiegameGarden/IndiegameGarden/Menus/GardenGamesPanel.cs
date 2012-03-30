@@ -39,6 +39,7 @@ namespace IndiegameGarden.Menus
 
         public const float CURSOR_SCALE_REGULAR = 0.60f; //5.9375f;
         public const float CURSOR_DISCOVERY_RANGE = 0.60f;
+        public const float THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED = 0.18f;
         public const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; //0.6f; //0.54f; //1.5625f;
         public const float THUMBNAIL_SCALE_SELECTED = 0.51f; //0.7f; //0.65f; //2f;
         public const float THUMBNAIL_SCALE_SELECTED1 = 2f; //2.857f;
@@ -177,7 +178,7 @@ namespace IndiegameGarden.Menus
                 timeLaunching += p.Dt;
                 th = thumbnailsCache[SelectedGame.GameID];
                 th.MotionB.ScaleTarget = THUMBNAIL_SCALE_SELECTED * (1 + timeLaunching); // blow up size of thumbnail while user requests launch
-                th.MotionB.ScaleSpeed = 0.0005f;
+                th.MotionB.ScaleSpeed = 0.0004f;
 
                 if (timeLaunching > TIME_BEFORE_GAME_LAUNCH)
                 {
@@ -279,22 +280,25 @@ namespace IndiegameGarden.Menus
                     {
                         th.MotionB.ScaleTarget = (0.9f + 0.35f * g.InstallProgress) *
                                                 ((g == SelectedGame) ? THUMBNAIL_SCALE_SELECTED : THUMBNAIL_SCALE_UNSELECTED);
-                        th.MotionB.ScaleSpeed = 0.0007f;
+                        th.MotionB.ScaleSpeed = 0.00007f;
                     }
                     else
                     {
-                        th.MotionB.ScaleTarget = (0.85f + 0.15f * g.InstallProgress);
+                        th.MotionB.ScaleTarget = 1f; // (0.85f + 0.15f * g.InstallProgress);
                         //th.MotionB.ScaleSpeed = 0.03f;
                         // displaying selected thumbnails larger
                         if (g == SelectedGame)
                         {
                             th.MotionB.ScaleTarget *= THUMBNAIL_SCALE_SELECTED * g.ScaleIcon;
-                            th.MotionB.ScaleSpeed = 0.0003f;
+                            th.MotionB.ScaleSpeed = 0.00003f;
                         }
                         else
                         {
-                            th.MotionB.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED * g.ScaleIcon;
-                            th.MotionB.ScaleSpeed = 0.0003f;
+                            if (g.IsInstalled || !g.IsGrowable)
+                                th.MotionB.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED * g.ScaleIcon;
+                            else
+                                th.MotionB.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED * g.ScaleIcon;
+                            th.MotionB.ScaleSpeed = 0.00003f;
                         }
                     }
                 }
