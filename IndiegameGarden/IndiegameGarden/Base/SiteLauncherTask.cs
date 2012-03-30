@@ -24,9 +24,9 @@ namespace IndiegameGarden.Base
         public Process Proc = null;
 
         /// <summary>
-        /// the IndieGame that is to be launched
+        /// the game whose website that is to be launched
         /// </summary>
-        public IndieGame Game;
+        public GardenItem Game;
 
         /// <summary>
         /// flag set true once the game window shows up during launch
@@ -40,7 +40,7 @@ namespace IndiegameGarden.Base
         [DllImportAttribute("User32.dll")]
         private static extern IntPtr SetForegroundWindow(int hWnd);
 
-        public SiteLauncherTask(IndieGame g)
+        public SiteLauncherTask(GardenItem g)
         {
             this.Game = g;
             string url = g.DeveloperWebsiteURL;

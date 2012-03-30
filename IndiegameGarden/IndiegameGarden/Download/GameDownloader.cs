@@ -12,9 +12,9 @@ namespace IndiegameGarden.Download
      */
     public class GameDownloader: BaseDownloader
     {
-        protected IndieGame game;
+        protected GardenItem game;
 
-        public GameDownloader(IndieGame game): base()
+        public GameDownloader(GardenItem game): base()
         {
             this.game= game;
             this.segmentsUsedInDownload = 3;

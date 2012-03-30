@@ -108,7 +108,7 @@ namespace IndiegameGarden.Menus
             // first process old list - start fading away of items
             for (int i = 0; i < gl.Count; i++)
             {
-                IndieGame g = gl[i];
+                GardenItem g = gl[i];
                 if (thumbnailsCache.ContainsKey(g.GameID))
                 {
                     GameThumbnail th = thumbnailsCache[g.GameID];
@@ -145,7 +145,7 @@ namespace IndiegameGarden.Menus
         // shorthand method to select the game currently indicated by cursor
         protected void SelectGameBelowCursor()
         {
-            IndieGame g = gl.FindGameAt(cursor.GridPosition);
+            GardenItem g = gl.FindGameAt(cursor.GridPosition);
             SelectedGame = g;
             infoBox.ClearProgressBar();
             if (g!= null)
@@ -238,7 +238,7 @@ namespace IndiegameGarden.Menus
             //-- loop all games adapt their display properties where needed
             if (gl == null)
                 return;
-            IndieGame g;
+            GardenItem g;
             for (int i = 0; i < gl.Count; i++)
             {
                 // fetch that game from list
@@ -345,7 +345,7 @@ namespace IndiegameGarden.Menus
             //Screen.DebugText(0f, 0.1f, "Zoom: " + Motion.Zoom);
         }
 
-        public override void OnChangedSelectedGame(IndieGame newSel, IndieGame oldSel)
+        public override void OnChangedSelectedGame(GardenItem newSel, GardenItem oldSel)
         {
             // unselect the previous game DEBUG
             /*

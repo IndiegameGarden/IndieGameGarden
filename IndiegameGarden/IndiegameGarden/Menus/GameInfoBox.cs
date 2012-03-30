@@ -21,7 +21,7 @@ namespace IndiegameGarden.Menus
         ProgressBar dlProgressBar;
         GameTextBox titleBox;
         GameTextBox descriptionBox;
-        IndieGame game;
+        GardenItem game;
 
         public GameInfoBox()
             : base()
@@ -58,7 +58,7 @@ namespace IndiegameGarden.Menus
         /// specify which game the info box should show status/info of
         /// </summary>
         /// <param name="g"></param>
-        public void SetGameInfo(IndieGame g)
+        public void SetGameInfo(GardenItem g)
         {
             game = g;
         }

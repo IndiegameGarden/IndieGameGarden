@@ -46,7 +46,7 @@ namespace IndiegameGarden.Base
         /// <exception cref="">various IO exceptions may occur when library file could not be found/loaded</exception>
         public void Load()
         {
-            IndieGame g = IndieGame.ConstructGameLib(version);
+            GardenItem g = GardenItem.ConstructGameLib(version);
             string fn = g.GameFolder + "\\" + GardenGame.Instance.Config.GameLibraryFilename;
             json = new JSONStore(fn); // FIXME use all json files in there?
             gamesList = new GameCollection();
@@ -70,7 +70,7 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// parse a JsonArray (array of items) or JsonObject (single game/item)
         /// </summary>
-        protected IndieGame ParseJson(IJsonType j, Vector2 posOffset)
+        protected GardenItem ParseJson(IJsonType j, Vector2 posOffset)
         {
             if (j is JsonArray)
             {
@@ -79,7 +79,7 @@ namespace IndiegameGarden.Base
                 Vector2 posPrevious = Vector2.Zero;
                 //Vector2 childPosPrevious = Vector2.Zero;
                 Vector2 sectionWidthHeight = new Vector2(999f, 999f);
-                IndieGame ig = null;
+                GardenItem ig = null;
                 
                 foreach (IJsonType jChild in ja)
                 {
@@ -123,7 +123,7 @@ namespace IndiegameGarden.Base
             else if (j is JsonObject)
             {
                 // process single leaf item
-                IndieGame ig = new IndieGame((JsonObject)j);
+                GardenItem ig = new GardenItem((JsonObject)j);
                 if (ig.IsVisible && ig.GameID.Length > 0)
                     gamesList.Add(ig);
                 return ig;

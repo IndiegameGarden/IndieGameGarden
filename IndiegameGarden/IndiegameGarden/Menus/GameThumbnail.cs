@@ -34,7 +34,7 @@ namespace IndiegameGarden.Menus
         /// <summary>
         /// ref to game for which this thumbnail is
         /// </summary>
-        public IndieGame Game;
+        public GardenItem Game;
 
         /// <summary>
         /// actual/intended filename of thumbnail file (the file may or may not exist)
@@ -101,7 +101,7 @@ namespace IndiegameGarden.Menus
             }
         } // class
 
-        public GameThumbnail(IndieGame game)
+        public GameThumbnail(GardenItem game)
             : base( (Texture2D) null,"GameThumbnail")
         {
             MotionB = new MotionBehavior();

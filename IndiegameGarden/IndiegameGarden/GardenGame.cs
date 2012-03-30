@@ -228,7 +228,7 @@ namespace IndiegameGarden
             base.Dispose(disposing);
         }
 
-        public void ActionLaunchWebsite(IndieGame g)
+        public void ActionLaunchWebsite(GardenItem g)
         {
             ITask t = new ThreadedTask(new SiteLauncherTask(g));
             t.Start();
@@ -238,7 +238,7 @@ namespace IndiegameGarden
         /// called by a child GUI component to launch a game
         /// </summary>
         /// <param name="g">game to launch</param>
-        public void ActionLaunchGame(IndieGame g)
+        public void ActionLaunchGame(GardenItem g)
         {
             if (g.IsInstalled)
             {
@@ -277,7 +277,7 @@ namespace IndiegameGarden
         /// called by a child GUI component to install a game
         /// </summary>
         /// <param name="g">game to install</param>
-        public void ActionDownloadAndInstallGame(IndieGame g)
+        public void ActionDownloadAndInstallGame(GardenItem g)
         {
             // check if download+install task needs to start or not
             if (g.DlAndInstallTask == null && g.ThreadedDlAndInstallTask == null && !g.IsInstalled)

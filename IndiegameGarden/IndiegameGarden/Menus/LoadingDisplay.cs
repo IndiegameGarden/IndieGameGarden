@@ -19,7 +19,7 @@ namespace IndiegameGarden.Menus
         GameTextBox tbox;
         GameTextBox iggNameBox;
         GameTextBox helpTextBox;
-        IndieGame game;
+        GardenItem game;
         float nextStateTimer = -1f;
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace IndiegameGarden.Menus
         /// set state to loading game and display given game name
         /// </summary>
         /// <param name="g">game whose name/info to display while loading</param>
-        public void SetLoadingGame(IndieGame g)
+        public void SetLoadingGame(GardenItem g)
         {
             SetNextState(new StateLoadingDisplay_Loading(this));
             game = g;

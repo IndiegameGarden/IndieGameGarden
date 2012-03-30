@@ -27,13 +27,13 @@ namespace IndiegameGarden.Install
 
         InstallTask installTask;
         GameDownloader downloadTask;
-        IndieGame game;
+        GardenItem game;
 
         /// <summary>
         /// create new Download and Install task
         /// </summary>
         /// <param name="game">info of game to download and install</param>
-        public GameDownloadAndInstallTask(IndieGame game)
+        public GameDownloadAndInstallTask(GardenItem game)
         {
             this.game = game;
             status = ITaskStatus.CREATED;

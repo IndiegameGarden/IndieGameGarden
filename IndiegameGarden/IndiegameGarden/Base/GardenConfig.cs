@@ -220,7 +220,7 @@ namespace IndiegameGarden.Base
         /// <param name="g"></param>
         /// <returns>by default a .jpg thumbnail for a game (whether file exists or not)
         /// but if a .png thumbnail exists, it has preference.</returns>
-        public string GetThumbnailFilepath(IndieGame g)
+        public string GetThumbnailFilepath(GardenItem g)
         {
             string p1 = ThumbnailsFolder + "\\" + g.GameIDwithVersion;
             string p2 = p1;
@@ -246,7 +246,7 @@ namespace IndiegameGarden.Base
         /// </summary>
         /// <param name="g"></param>
         /// <returns></returns>
-        public string GetExeFilepath(IndieGame g)
+        public string GetExeFilepath(GardenItem g)
         {
             return g.GameFolder + "\\" + g.CdPath + "\\" + g.ExeFile;
         }
@@ -256,7 +256,7 @@ namespace IndiegameGarden.Base
         /// </summary>
         /// <param name="g"></param>
         /// <returns></returns>
-        public string GetPackedFilepath(IndieGame g)
+        public string GetPackedFilepath(GardenItem g)
         {
             return PackedFilesFolder + "\\" + GetPackedFileName(g);
         }
@@ -265,7 +265,7 @@ namespace IndiegameGarden.Base
         /// the name of the packed file (eg .zip or .rar) once it is downloaded. May differ
         /// from the name of the archive as stored on the web which is included in PackedFileURL.
         /// </summary>
-        public string GetPackedFileName(IndieGame g)
+        public string GetPackedFileName(GardenItem g)
         {
             return g.GameIDwithVersion + "." + g.PackedFileExtension;
         }

@@ -9,12 +9,12 @@ namespace IndiegameGarden.Base
     /**
      * a selected collection/list of games
      */
-    public class GameCollection: List<IndieGame>, IDisposable
+    public class GameCollection: List<GardenItem>, IDisposable
     {
 
         public void Dispose()
         {
-            foreach (IndieGame g in this)
+            foreach (GardenItem g in this)
             {
                 g.Dispose();
             }
@@ -25,12 +25,12 @@ namespace IndiegameGarden.Base
         /// </summary>
         /// <param name="pos">index position (x,y)</param>
         /// <returns>found IndieGame or null if none are found near</returns>
-        public IndieGame FindGameAt(Vector2 pos)
+        public GardenItem FindGameAt(Vector2 pos)
         {
-            IndieGame sel = null;
+            GardenItem sel = null;
             float bestD = 999999;
 
-            foreach (IndieGame g in this)
+            foreach (GardenItem g in this)
             {
                 Vector2 v = pos - g.Position;
                 float d = v.Length();

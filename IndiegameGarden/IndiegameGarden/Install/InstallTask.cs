@@ -20,10 +20,10 @@ namespace IndiegameGarden.Install
     /// </summary>
     public class InstallTask: Task
     {
-        IndieGame game;
+        GardenItem game;
         UnpackerTask unpacker;
 
-        public InstallTask(IndieGame game)
+        public InstallTask(GardenItem game)
         {
             this.game = game;
         }

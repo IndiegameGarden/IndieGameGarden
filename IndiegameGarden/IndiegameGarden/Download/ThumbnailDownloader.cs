@@ -15,7 +15,7 @@ namespace IndiegameGarden.Download
      */
     public class ThumbnailDownloader: BaseDownloader
     {
-        IndieGame game;
+        GardenItem game;
 
         /// <summary>
         /// a lock object to ensure one download at a time takes place.
@@ -26,7 +26,7 @@ namespace IndiegameGarden.Download
         /// construct a new thumbnail downloader for game; downloading from default server
         /// location.
         /// </summary>
-        public ThumbnailDownloader(IndieGame g)
+        public ThumbnailDownloader(GardenItem g)
         {
             this.game = g;
         }

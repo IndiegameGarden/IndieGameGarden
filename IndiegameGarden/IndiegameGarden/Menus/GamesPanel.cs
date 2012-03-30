@@ -21,12 +21,12 @@ namespace IndiegameGarden.Menus
         protected GameCollection gl = new GameCollection();
 
         // stores currently selected game
-        private IndieGame selectedGame = null;
+        private GardenItem selectedGame = null;
 
         /// <summary>
         /// which game did the user last select, note this can be a random jump
         /// </summary>
-        public IndieGame SelectedGame
+        public GardenItem SelectedGame
         {
             get
             {
@@ -55,7 +55,7 @@ namespace IndiegameGarden.Menus
         /// </summary>
         /// <param name="newSel">previously selected game</param>
         /// <param name="oldSel">newly selected game</param>
-        public abstract void OnChangedSelectedGame(IndieGame newSel, IndieGame oldSel);
+        public abstract void OnChangedSelectedGame(GardenItem newSel, GardenItem oldSel);
 
         /// <summary>
         /// user input to the panel is directed to this method

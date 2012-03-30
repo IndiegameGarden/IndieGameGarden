@@ -170,7 +170,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="GardenGame.cs" />
-    <Compile Include="Base\IndieGame.cs" />
+    <Compile Include="Base\GardenItem.cs" />
     <Compile Include="Base\JSONStore.cs" />
     <Compile Include="Base\GardenConfig.cs" />
     <Compile Include="Menus\ThumbnailFromFile.cs" />

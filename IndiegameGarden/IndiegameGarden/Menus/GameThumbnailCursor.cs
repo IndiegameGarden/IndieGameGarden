@@ -46,7 +46,7 @@ namespace IndiegameGarden.Menus
         /// set cursor to select a given game. It will move there in next Update()s.
         /// </summary>
         /// <param name="g"></param>
-        public void SetToGame(IndieGame g)
+        public void SetToGame(GardenItem g)
         {
             MotionB.Target = g.Position;
             MotionB.TargetSpeed = 4f;
