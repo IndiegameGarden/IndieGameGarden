@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using IndiegameGarden.Util;
 
 namespace IndiegameGarden.Base
 {
@@ -45,5 +46,17 @@ namespace IndiegameGarden.Base
                 return null;
             return sel;
         }
+
+        public GardenItem GetRandomInstalledGame()
+        {
+            GardenItem g = null;
+            do
+            {
+                int n = (int)RandomMath.RandomBetween(0, this.Count - 1.0f);
+                g = this[n];
+            } while (g.IsSystemPackage || !g.IsGrowable || !g.IsInstalled || !g.IsPlayable);
+            return g;
+        }
+    
     }
 }

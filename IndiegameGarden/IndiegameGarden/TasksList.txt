@@ -1,7 +1,6 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
-Mystery game icon
 Test on 4:3 resolution for item visibility
 Faster thumbs downloading thread abortion on exit
 Add more games
@@ -12,6 +11,7 @@ Fade out music when exiting : do better?
 Make gamelib loading non-blocking
 
 OPTIONAL [when time permits]
+Mystery game icon
 Report exceptions to server; for collecting good debug info from the field
 Key/option to abort download or install of a game
 Add mirrors to all thumbnail loading?

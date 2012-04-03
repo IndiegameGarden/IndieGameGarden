@@ -27,6 +27,12 @@
 	  	  "Exe": "TTengine.dll",
 	  	  "X": 4, "Y": 0
 	  	},
+	  	{
+	  		"ID": "igg_mysterygame",
+	  		"Name": "*Mystery Game*",
+	  		"Descr": "Hold ENTER to start the Mystery Game. Play something, play anything."
+	  		"X": 5, "Y": 0
+	  	},
 	  	[
 	  		{ "ID": "section_music",
 	  			"X": 6, "Y": 0, "DX": 10
