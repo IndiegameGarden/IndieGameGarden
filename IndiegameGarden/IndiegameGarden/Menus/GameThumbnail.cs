@@ -140,14 +140,30 @@ namespace IndiegameGarden.Menus
             }
         }
         
-        // (re) loads texture from a file and puts in updatedTexture var
-        protected void LoadTextureFromFile()
+        /// <summary>
+        /// (re) loads texture from a file and puts in updatedTexture var 
+        /// </summary>
+        /// <returns>true if loaded ok, false if failed (e.g. no file or invalid file)</returns>
+        protected bool LoadTextureFromFile()
         {
-            Texture2D tex = LoadBitmap(ThumbnailFilename, "" , true);
+            Texture2D tex = null;
+            try
+            {
+                tex = LoadBitmap(ThumbnailFilename, "", true);
+            }
+            catch (InvalidOperationException)
+            {
+                return false;
+            }
+            catch (FileNotFoundException)
+            {
+                return false;
+            }
             lock (updateTextureLock)
             {
                 updatedTexture = tex;
             }
+            return true;
         }
 
         protected override void OnUpdate(ref UpdateParams p)
