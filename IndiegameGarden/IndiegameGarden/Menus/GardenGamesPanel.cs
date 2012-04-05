@@ -37,7 +37,7 @@ namespace IndiegameGarden.Menus
         public const float PANEL_ZOOM_SPEED_QUITTING = 0.005f;
         public const float PANEL_ZOOM_SPEED_ABORTQUITTING = 0.05f;
 
-        public const float CURSOR_SCALE_REGULAR = 1.1f; //5.9375f;
+        public const float CURSOR_SCALE_REGULAR = 0.8f; //5.9375f;
         public const float CURSOR_DISCOVERY_RANGE = 0.55f;
         public const float THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED = 0.18f;
         public const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; //0.6f; //0.54f; //1.5625f;
@@ -97,10 +97,11 @@ namespace IndiegameGarden.Menus
 
             // controls help text
             controlsHelpText = new FloatingTextMessage();
-            controlsHelpText.Motion.Position = new Vector2(0.3f, 0.04f);
-            controlsHelpText.Text = "Controls:\n\n" + 
-                                    "ARROWs = Move cursor         ENTER = Select game     Hold ENTER = Grow game in your garden\n" +
-                                    "Hold ENTER = Play game        ESCAPE = Back               Hold ESCAPE = Quit the garden\n" +
+            controlsHelpText.Motion.Position = new Vector2(0.04f, 0.04f);
+            controlsHelpText.Text = "CONTROLS:\n\n" + 
+                                    "ARROWs = Move cursor          ENTER = Select game\n" +
+                                    "ESCAPE = Back                       Hold ESCAPE = Quit the garden\n" +
+                                    "Hold ENTER = Grow game in your garden / Play game\n" +
                                     "W = Launch game's website";
         }
 

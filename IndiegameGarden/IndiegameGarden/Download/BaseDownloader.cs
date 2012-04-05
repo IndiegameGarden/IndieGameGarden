@@ -135,7 +135,10 @@ namespace IndiegameGarden.Download
                 downloader.WaitForConclusion();
                 if (!downloader.State.Equals(DownloaderState.Ended))
                 {
-                    statusMsg = downloader.LastError.Message;
+                    if (downloader.LastError != null)
+                        statusMsg = downloader.LastError.Message;
+                    else
+                        statusMsg = "Download aborted";
                     status = ITaskStatus.FAIL;
                 }
                 else
