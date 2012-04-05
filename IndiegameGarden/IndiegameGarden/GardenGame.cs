@@ -144,25 +144,11 @@ namespace IndiegameGarden
             Settings.Default.MaxRetries = 0;
 
             // load config
-            if (LoadConfig())
+            if (LoadConfig() && DownloadConfig() &&  LoadGameLibrary())
             {
-                if (DownloadConfig())
-                {
-                    if (LoadGameLibrary())
-                    {
-                        // game chooser menu
-                        GameChooserMenu menu = new GameChooserMenu();
-                        mainScreenlet.Add(menu);
-                    }
-                    else
-                    {
-                        Exit();
-                    }
-                }
-                else
-                {
-                    Exit();
-                }
+                // game chooser menu
+                GameChooserMenu menu = new GameChooserMenu();
+                mainScreenlet.Add(menu);
             }
             else
             {
