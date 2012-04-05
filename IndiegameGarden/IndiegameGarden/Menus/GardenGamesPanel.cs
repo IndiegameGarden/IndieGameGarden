@@ -47,7 +47,8 @@ namespace IndiegameGarden.Menus
         static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.96f);
         const float INFOBOX_SPEED_MOVE = 3.8f;
         const float TIME_BEFORE_GAME_LAUNCH = 0.7f;
-        const float TIME_BEFORE_EXIT = 0.9f;
+        const float TIME_BEFORE_EXIT = 1.2f;
+        const float TIME_BEFORE_EXIT_CONTINUES = 0.6f;
 
         /// <summary>
         /// my motion behavior controls
@@ -424,10 +425,13 @@ namespace IndiegameGarden.Menus
                     break;
                 
                 case UserInput.STOP_EXIT:
-                    isExiting = false;
-                    selectionLevel = 0;
-                    MotionB.ZoomTarget = PANEL_ZOOM_REGULAR;
-                    MotionB.ZoomSpeed = PANEL_ZOOM_SPEED_ABORTQUITTING ;
+                    if (timeExiting < TIME_BEFORE_EXIT_CONTINUES)
+                    {
+                        isExiting = false;
+                        selectionLevel = 0;
+                        MotionB.ZoomTarget = PANEL_ZOOM_REGULAR;
+                        MotionB.ZoomSpeed = PANEL_ZOOM_SPEED_ABORTQUITTING;
+                    }
                     break;
 
                 case UserInput.START_SELECT:

@@ -87,6 +87,7 @@ namespace IndiegameGarden
         public DebugMessage DebugMsg; // DEBUG
         Exception initError = null;
         MusicEngine musicEngine;
+        bool isExiting = false;
 
         #region Constructors
         public GardenGame()
@@ -173,6 +174,11 @@ namespace IndiegameGarden
             {
                 loadingDisplay.SetPlayingGame(3.0f);
             }
+
+            if (isExiting && !music.IsPlaying)
+            {
+                Exit(); // finally exit XNA if music is faded out.
+            }
         }
 
         protected override void Draw(GameTime gameTime)
@@ -189,15 +195,23 @@ namespace IndiegameGarden
         /// </summary>
         public void ExitGame()
         {
-            if (TreeRoot != null)
-            {
-                TreeRoot.Dispose();
-                GameLib.Dispose();
-                TreeRoot = null;
-                GameLib = null;
-            }
+            isExiting = true;
+
             DownloadManager.Instance.PauseAll();
-            Exit();
+
+            if (GameLib != null)
+                GameLib.Dispose();
+
+            if (mainScreenlet != null && TreeRoot != null)
+            {
+                TreeRoot.Remove(mainScreenlet);
+                mainScreenlet.Dispose();
+            }
+            if (loadingScreenlet != null && TreeRoot != null)
+            {
+                TreeRoot.Remove(loadingScreenlet);
+                loadingScreenlet.Dispose();
+            }
         }
 
         protected override void Dispose(bool disposing)

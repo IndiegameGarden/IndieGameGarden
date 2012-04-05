@@ -29,6 +29,13 @@ namespace IndiegameGarden.Menus
             FadeIn();
         }
 
+        public bool IsPlaying
+        {
+            get
+            {
+                return (currentSong != null) && (currentSong.Amplitude > 0);
+            }
+        }
         /// <summary>
         /// An ITask to load new music from file, in background
         /// </summary>
@@ -95,6 +102,7 @@ namespace IndiegameGarden.Menus
                     oldSongs.Remove(ev);
                 }
 
+                // check if current song is still on list
                 if (currentSong != null)
                 {
 
@@ -124,7 +132,8 @@ namespace IndiegameGarden.Menus
                 }
             }
 
-            MusicEngine.GetInstance().Render(soundScript, rp);
+            if (currentSong != null && currentSong.Amplitude > 0)
+                MusicEngine.GetInstance().Render(soundScript, rp);  
         }
 
         public void FadeOut()
