@@ -62,7 +62,7 @@ namespace IndiegameGarden.Base
         protected override void StartInternal()
         {
             thread = new Thread(new ThreadStart(StartTaskBlocking));
-            thread.Priority = ThreadPriority.BelowNormal;
+            //thread.Priority = ThreadPriority.BelowNormal;
             thread.Start();
         }
 

@@ -279,8 +279,11 @@ namespace IndiegameGarden
         /// <param name="g">game to install</param>
         public void ActionDownloadAndInstallGame(GardenItem g)
         {
-            // check if download+install task needs to start or not
-            if (g.DlAndInstallTask == null && g.ThreadedDlAndInstallTask == null && !g.IsInstalled)
+            // check if download+install task needs to start or not. Can start if not already started before (and game's not installed)
+            // OR if the previous install attempt failed.
+            if ( (g.ThreadedDlAndInstallTask == null && !g.IsInstalled) ||
+                 (g.ThreadedDlAndInstallTask != null && g.ThreadedDlAndInstallTask.IsFinished() && !g.ThreadedDlAndInstallTask.IsSuccess())
+                )
             {
                 g.DlAndInstallTask = new GameDownloadAndInstallTask(g);
                 g.ThreadedDlAndInstallTask = new ThreadedTask(g.DlAndInstallTask);

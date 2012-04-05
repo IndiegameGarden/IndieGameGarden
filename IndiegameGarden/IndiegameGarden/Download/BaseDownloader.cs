@@ -133,14 +133,18 @@ namespace IndiegameGarden.Download
             if (downloader != null)
             {
                 downloader.WaitForConclusion();
-                if (downloader == null || !downloader.State.Equals(DownloaderState.Ended))
+                if (!downloader.State.Equals(DownloaderState.Ended))
+                {
+                    statusMsg = downloader.LastError.Message;
                     status = ITaskStatus.FAIL;
+                }
                 else
                     status = ITaskStatus.SUCCESS;
             }
             else
             {
                 status = ITaskStatus.FAIL;
+                statusMsg = "failed to create downloader by DownloadManager.";
             }
         }
 

@@ -1,6 +1,10 @@
 ﻿IndiegameGarden Tasks List
 
 OPEN  [top issues first]
+Loading websites - long delay
+Change text "exit this game to return to garden" when loading
+Fix bouncy behavior at startup with cursor
+Loading from server file corruptions?
 Test on 4:3 resolution for item visibility
 Faster thumbs downloading thread abortion on exit
 Add more games
@@ -19,7 +23,10 @@ Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
-2012-04-05 corrupt image loading fix
+2012-04-05 Option to restart failed installs in same session
+2012-04-05 "Problem during growth" with empty error message (file not found? should retry?) if no netw conn.
+2012-04-05 Beautify cursor image
+2012-04-04 corrupt image loading fix
 2012-03-30 Check all FIXMEs in code
 2012-03-29 Coordinates idea: if X/Y not given, use default DX=1/DY=0. Explicit DX/DY can be given also, relative to previous.
 2012-03-29 Coordinates idea: section ID has width (DX) parameter. If width full, jumps to next row.
