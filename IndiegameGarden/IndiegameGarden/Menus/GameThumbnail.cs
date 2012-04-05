@@ -54,6 +54,7 @@ namespace IndiegameGarden.Menus
         Texture2D updatedTexture;
         Object updateTextureLock = new Object();
         bool isLoaded = false;
+        float HaloTime = 0f;
 
         // a default texture to use if no thumbnail has been loaded yet
         static Texture2D DefaultTexture;
@@ -199,12 +200,31 @@ namespace IndiegameGarden.Menus
                 EffectEnabled = (Game.FXmode > 0); // DEBUG isLoaded && (Game.FXmode > 0) && Game.IsInstalled;
 
             if (EffectEnabled)
+            {
                 Motion.ScaleModifier *= (1f / 0.7f);
+                HaloTime += p.Dt; // move the 'halo' of the icon onwards as long as it's visible.
+            }
         }
 
         protected override void OnDraw(ref DrawParams p)
         {
-            base.OnDraw(ref p);
+            if (timeParam != null)
+                timeParam.SetValue(SimTime);
+            if (positionParam != null)
+                positionParam.SetValue(Motion.Position);
+
+            Color col = DrawInfo.DrawColor;
+            if (EffectEnabled)
+            {
+                int t = (int) (HaloTime * 256);
+                int c3 = t % 256;
+                int c2 = ((t - c3)/256) % 256;
+                int c1 = ((t - c2 - c3)/65536) % 256;
+                col = new Color(c1, c2, c3, col.A);
+            }
+            MySpriteBatch.Draw(Texture, DrawInfo.DrawPosition, null, col,
+                   Motion.RotateAbs, DrawInfo.DrawCenter, DrawInfo.DrawScale, SpriteEffects.None, DrawInfo.LayerDepth);
+
         }
     }
 }

@@ -23,6 +23,7 @@ Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-04-05 game icon halo effect and fading fixed
 2012-04-05 Option to restart failed installs in same session
 2012-04-05 "Problem during growth" with empty error message (file not found? should retry?) if no netw conn.
 2012-04-05 Beautify cursor image
