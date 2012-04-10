@@ -1,0 +1,7 @@
+﻿IndiegameGarden description of "Non-Unit" tests
+These tests can't be performed automatically at this moment.
+
+NETWORK TESTS
+- try game install without network connection
+- try game install with main URL not responding, while mirror site is available
+- abort network connection during a download
