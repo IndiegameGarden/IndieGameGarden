@@ -59,7 +59,7 @@ namespace IndiegameGarden.Menus
             Motion.Velocity = (Target - Motion.Position) * TargetSpeed;
 
             // handle scaling over time
-            ScaleToTarget(ScaleTarget, ScaleSpeed, 0.01f);
+            ScaleToTarget(ScaleTarget, ScaleSpeed, ScaleSpeed * 0.01f);
 
             // handle dynamic zooming
             ZoomToTarget();

@@ -54,6 +54,7 @@ namespace IndiegameGarden.Menus
         Texture2D updatedTexture;
         Object updateTextureLock = new Object();
         bool isLoaded = false;
+        
         float HaloTime = 0f;
 
         // a default texture to use if no thumbnail has been loaded yet
