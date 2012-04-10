@@ -1,7 +1,11 @@
 ﻿IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
+Fix the exit bug popup
 Option to mute music
+Music skip bug due to TTengine sample tracking
+Add for certain games that loading takes a while.
+Bug of background garbled after certain games
 Loading websites - long delay
 Change text "exit this game to return to garden" when loading
 Fix bouncy behavior at startup with cursor
@@ -25,6 +29,7 @@ Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-04-10 Show game thumbnail in loading screen (center)
 2012-04-05 game icon halo effect and fading fixed
 2012-04-05 Option to restart failed installs in same session
 2012-04-05 "Problem during growth" with empty error message (file not found? should retry?) if no netw conn.

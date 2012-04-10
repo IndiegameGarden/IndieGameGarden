@@ -238,7 +238,7 @@ namespace IndiegameGarden
         /// called by a child GUI component to launch a game
         /// </summary>
         /// <param name="g">game to launch</param>
-        public void ActionLaunchGame(GardenItem g)
+        public void ActionLaunchGame(GardenItem g, GameThumbnail thumb)
         {
             if (g.IsInstalled)
             {
@@ -248,7 +248,7 @@ namespace IndiegameGarden
                     if ((launcher == null || launcher.IsFinished() == true) &&
                          (launchGameThread == null || launchGameThread.IsFinished()))
                     {
-                        loadingDisplay.SetLoadingGame(g);
+                        loadingDisplay.SetLoadingGame(g, thumb);
                         // set state of game to 'game playing state'
                         TreeRoot.SetNextState(new StatePlayingGame());
 

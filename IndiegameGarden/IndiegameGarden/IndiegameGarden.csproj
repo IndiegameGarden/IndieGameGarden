@@ -186,6 +186,7 @@
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
     <Content Include="TasksList.txt" />
+    <Content Include="Tests.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\TTengine\TTengine\TTengine.csproj">

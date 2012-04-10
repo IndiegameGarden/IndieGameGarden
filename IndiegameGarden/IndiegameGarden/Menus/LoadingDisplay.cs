@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+
 using TTengine.Core;
 using IndiegameGarden.Base;
 
@@ -20,6 +21,8 @@ namespace IndiegameGarden.Menus
         GameTextBox iggNameBox;
         GameTextBox helpTextBox;
         GardenItem game;
+        GameThumbnail gameIcon;
+        Spritelet gameIconDisplayed;
         float nextStateTimer = -1f;
 
         /// <summary>
@@ -143,16 +146,23 @@ namespace IndiegameGarden.Menus
             helpTextBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.7f);
             helpTextBox.Motion.Scale = 1.0f;
             Add(helpTextBox);
+
+            gameIconDisplayed = new Spritelet();
+            gameIconDisplayed.Motion.Position = new Vector2( Screen.Width/2f , 0.5f);
+            Add(gameIconDisplayed);
         }
 
         /// <summary>
         /// set state to loading game and display given game name
         /// </summary>
         /// <param name="g">game whose name/info to display while loading</param>
-        public void SetLoadingGame(GardenItem g)
+        public void SetLoadingGame(GardenItem g, GameThumbnail thumb)
         {
             SetNextState(new StateLoadingDisplay_Loading(this));
             game = g;
+            gameIcon = thumb;
+            gameIconDisplayed.Texture = gameIcon.Texture;
+
         }
 
         /// <summary>

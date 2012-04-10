@@ -122,7 +122,7 @@ namespace IndiegameGarden.Base
             {
                 return ((JsonNumber)json[key]).Value;
             }
-            catch (InvalidCastException ex)
+            catch (InvalidCastException)
             {
                 // try parsing from string.
                 string s = GetString(key);

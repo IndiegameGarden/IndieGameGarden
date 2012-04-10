@@ -5,3 +5,7 @@ NETWORK TESTS
 - try game install without network connection
 - try game install with main URL not responding, while mirror site is available
 - abort network connection during a download
+
+CLIENT UPDATE TESTS
+- updated client version becomes available
+- updated gamelib version becomes available

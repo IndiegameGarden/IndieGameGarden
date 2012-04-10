@@ -21,31 +21,32 @@ namespace IndiegameGarden.Menus
     public class GardenGamesPanel: GamesPanel
     {
         // below: UI constants
-        public const float LAYER_BACK = 1.0f;
-        public const float LAYER_FRONT = 0.0f;
-        public const float LAYER_ZOOMING_ITEM = 0.1f;
-        public const float LAYER_DODGING_ITEM = 0.3f;
-        public const float LAYER_GRID_ITEMS = 0.9f;
+        const float LAYER_BACK = 1.0f;
+        const float LAYER_FRONT = 0.0f;
+        const float LAYER_ZOOMING_ITEM = 0.1f;
+        const float LAYER_DODGING_ITEM = 0.3f;
+        const float LAYER_GRID_ITEMS = 0.9f;
 
-        public const float PANEL_ZOOM_REGULAR = 1f; //0.16f;
-        public const float PANEL_DELTA_GRID_X = 0.16f;
-        public const float PANEL_DELTA_GRID_Y = 0.12f;
-        public const float PANEL_SPEED_SHIFT = 2.1f;
-        public const float PANEL_SIZE_X = 1.333f;
-        public const float PANEL_SIZE_Y = 1.0f;
-        public const float PANEL_ZOOM_TARGET_QUITTING = 0.001f;
-        public const float PANEL_ZOOM_SPEED_QUITTING = 0.005f;
-        public const float PANEL_ZOOM_SPEED_ABORTQUITTING = 0.05f;
-        public const float PANEL_ZOOM_DETAILED_VIEW = 2f; //2.857f;
+        const float PANEL_ZOOM_REGULAR = 0.5f; //0.16f;
+        const float PANEL_DELTA_GRID_X = 0.16f;
+        const float PANEL_DELTA_GRID_Y = 0.12f;
+        const float PANEL_SPEED_SHIFT = 2.1f;
+        const float PANEL_SIZE_X = 1.333f;
+        const float PANEL_SIZE_Y = 1.0f;
+        const float PANEL_ZOOM_TARGET_QUITTING = 0.001f;
+        const float PANEL_ZOOM_SPEED_QUITTING = 0.005f;
+        const float PANEL_ZOOM_SPEED_REGULAR = 0.005f;
+        const float PANEL_ZOOM_SPEED_ABORTQUITTING = 0.05f;
+        const float PANEL_ZOOM_DETAILED_VIEW = 1f; //2.857f;
 
-        public const float CURSOR_SCALE_REGULAR = 0.8f; //5.9375f;
+        const float CURSOR_SCALE_REGULAR = 0.8f; //5.9375f;
         public const float CURSOR_DISCOVERY_RANGE = 0.35f;
-        public const float CURSOR_MARGIN_X = 0.15f;
-        public const float CURSOR_MARGIN_Y = 0.15f;
+        const float CURSOR_MARGIN_X = 0.15f;
+        const float CURSOR_MARGIN_Y = 0.15f;
 
         public const float THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED = 0.44f;
-        public const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; //0.6f; //0.54f; //1.5625f;
-        public const float THUMBNAIL_SCALE_SELECTED = 0.51f; //0.7f; //0.65f; //2f;
+        const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; //0.6f; //0.54f; //1.5625f;
+        const float THUMBNAIL_SCALE_SELECTED = 0.51f; //0.7f; //0.65f; //2f;
         
         static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f, 0.895f);
         static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.96f);
@@ -81,7 +82,7 @@ namespace IndiegameGarden.Menus
         float timeExiting = 0f;
         float timeLaunching = 0f;
         Vector2 PanelShiftPos = Vector2.Zero;
-        int selectionLevel = 0;
+        int selectionLevel = 1;
         GameChooserMenu parentMenu;
 
         public GardenGamesPanel(GameChooserMenu parent)
@@ -109,6 +110,10 @@ namespace IndiegameGarden.Menus
                                     "ESCAPE = Back                       Hold ESCAPE = Quit the garden\n" +
                                     "Hold ENTER = Grow game in your garden / Play game\n" +
                                     "W = Launch game's website";
+
+            // default zoom
+            MotionB.ZoomTarget = PANEL_ZOOM_DETAILED_VIEW;
+            MotionB.ZoomSpeed = PANEL_ZOOM_SPEED_REGULAR;
         }
 
         public override void OnUpdateList(GameCollection gl)
@@ -198,7 +203,8 @@ namespace IndiegameGarden.Menus
                         GameCollection lib = GardenGame.Instance.GameLib.GetList();
                         GardenItem grnd = lib.GetRandomInstalledGame();
                         GardenGame.Instance.music.FadeOut();
-                        GardenGame.Instance.ActionLaunchGame(grnd);
+                        GameThumbnail thumb = thumbnailsCache[grnd.GameID];
+                        GardenGame.Instance.ActionLaunchGame(grnd, thumb);
                         isGameLaunchOngoing = false;
                         return;
 
@@ -208,7 +214,8 @@ namespace IndiegameGarden.Menus
                         if (SelectedGame.IsInstalled)
                         {
                             GardenGame.Instance.music.FadeOut();
-                            GardenGame.Instance.ActionLaunchGame(SelectedGame);
+                            GameThumbnail thumb = thumbnailsCache[SelectedGame.GameID];
+                            GardenGame.Instance.ActionLaunchGame(SelectedGame, thumb);
                             isGameLaunchOngoing = false;
                             return;
                         }
