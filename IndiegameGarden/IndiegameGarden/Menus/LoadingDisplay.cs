@@ -21,8 +21,7 @@ namespace IndiegameGarden.Menus
         GameTextBox iggNameBox;
         GameTextBox helpTextBox;
         GardenItem game;
-        GameThumbnail gameIcon;
-        Spritelet gameIconDisplayed;
+        Spritelet gameIcon;
         float nextStateTimer = -1f;
 
         /// <summary>
@@ -147,9 +146,9 @@ namespace IndiegameGarden.Menus
             helpTextBox.Motion.Scale = 1.0f;
             Add(helpTextBox);
 
-            gameIconDisplayed = new Spritelet();
-            gameIconDisplayed.Motion.Position = new Vector2( Screen.Width/2f , 0.5f);
-            Add(gameIconDisplayed);
+            gameIcon = new Spritelet();
+            gameIcon.Motion.Position = new Vector2( Screen.Width/2f , 0.5f);
+            Add(gameIcon);
         }
 
         /// <summary>
@@ -160,8 +159,7 @@ namespace IndiegameGarden.Menus
         {
             SetNextState(new StateLoadingDisplay_Loading(this));
             game = g;
-            gameIcon = thumb;
-            gameIconDisplayed.Texture = gameIcon.Texture;
+            gameIcon.Texture = thumb.Texture;
 
         }
 
