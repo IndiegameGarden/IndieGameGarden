@@ -199,19 +199,17 @@ namespace IndiegameGarden
 
             DownloadManager.Instance.PauseAll();
 
+            // call dispose to abort all threads/activity for entire game library (GardenItems)
             if (GameLib != null)
                 GameLib.Dispose();
 
-            if (mainScreenlet != null && TreeRoot != null)
-            {
-                TreeRoot.Remove(mainScreenlet);
+            /*
+            if (mainScreenlet != null)
                 mainScreenlet.Dispose();
-            }
-            if (loadingScreenlet != null && TreeRoot != null)
-            {
-                TreeRoot.Remove(loadingScreenlet);
+            
+            if (loadingScreenlet != null)
                 loadingScreenlet.Dispose();
-            }
+            */
         }
 
         protected override void Dispose(bool disposing)
