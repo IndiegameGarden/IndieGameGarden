@@ -92,8 +92,10 @@ namespace IndiegameGarden.Menus
                 // handle zoom center moving
                 if (!Motion.ZoomCenter.Equals(ZoomCenterTarget))
                 {
-                    float vel = ZoomSpeed;
                     Vector2 vdif = ZoomCenterTarget - Motion.ZoomCenter;
+                    float vel = 1000.0f * ZoomSpeed * vdif.Length();
+                    if (vel < ZoomSpeed * 100.0f)
+                        vel = ZoomSpeed * 100.0f;
                     Vector2 vmove = vdif;
                     vmove.Normalize();
                     vmove *= vel * p.Dt;

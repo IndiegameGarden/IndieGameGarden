@@ -97,6 +97,8 @@ namespace IndiegameGarden.Menus
             Add(cursor);
             cursor.Motion.Scale = CURSOR_SCALE_REGULAR;
             Motion.Zoom = PANEL_ZOOM_REGULAR;
+            MotionB.ZoomTarget = PANEL_ZOOM_REGULAR;
+            MotionB.ZoomCenterTarget = cursor.Motion.PositionAbs;
             //cursor.Visible = false;
 
             // info box - will be added to parent upon OnNewParent() event
