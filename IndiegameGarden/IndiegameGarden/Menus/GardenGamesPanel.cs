@@ -33,7 +33,7 @@ namespace IndiegameGarden.Menus
         const float PANEL_SPEED_SHIFT = 2.1f;
         const float PANEL_SIZE_X = 1.333f;
         const float PANEL_SIZE_Y = 1.0f;
-        const float PANEL_ZOOM_TARGET_QUITTING = 0.001f;
+        const float PANEL_ZOOM_TARGET_QUITTING = 0.01f;
         const float PANEL_ZOOM_SPEED_QUITTING = 0.005f;
         const float PANEL_ZOOM_SPEED_REGULAR = 0.005f;
         const float PANEL_ZOOM_SPEED_ABORTQUITTING = 0.05f;
@@ -77,6 +77,7 @@ namespace IndiegameGarden.Menus
 
         // UI related vars - related to whether user indicates to quit program or user cancelled this
         bool isExiting = false;
+        bool isExitingUnstoppable = false;
         bool isGameLaunchOngoing = false;
         bool isLaunchWebsite = false;
         float timeExiting = 0f;
@@ -114,6 +115,7 @@ namespace IndiegameGarden.Menus
             // default zoom
             MotionB.ZoomTarget = PANEL_ZOOM_DETAILED_VIEW;
             MotionB.ZoomSpeed = PANEL_ZOOM_SPEED_REGULAR;
+            MotionB.ZoomCenterTarget = cursor.Motion.PositionAbs;
         }
 
         public override void OnUpdateList(GameCollection gl)
@@ -235,8 +237,12 @@ namespace IndiegameGarden.Menus
                 timeExiting += p.Dt;
                 if (timeExiting > TIME_BEFORE_EXIT)
                 {
-                    GardenGame.Instance.ExitGame();
-                    //isExiting = false;
+                    parentMenu.background.Motion.ScaleModifier = 1f / (1f + (timeExiting-TIME_BEFORE_EXIT) / 3f);
+                    if (!isExitingUnstoppable)
+                    {
+                        GardenGame.Instance.ExitGame();
+                        isExitingUnstoppable = true;
+                    }
                     return;
                 }
             }
@@ -436,9 +442,10 @@ namespace IndiegameGarden.Menus
                 
                 case UserInput.START_EXIT:
                     isExiting = true;
-                    selectionLevel = 0;
+                    //selectionLevel = 0;
                     MotionB.ZoomTarget = PANEL_ZOOM_TARGET_QUITTING ;
                     MotionB.ZoomSpeed = PANEL_ZOOM_SPEED_QUITTING ;
+                    MotionB.ZoomCenterTarget = cursor.Motion.PositionAbs;
                     break;
                 
                 case UserInput.STOP_EXIT:
@@ -448,6 +455,7 @@ namespace IndiegameGarden.Menus
                         selectionLevel = 0;
                         MotionB.ZoomTarget = PANEL_ZOOM_REGULAR;
                         MotionB.ZoomSpeed = PANEL_ZOOM_SPEED_ABORTQUITTING;
+                        MotionB.ZoomCenterTarget = cursor.Motion.PositionAbs;
                     }
                     break;
 
@@ -462,7 +470,7 @@ namespace IndiegameGarden.Menus
                                 case 0:
                                     // select once - zoom in on selected game
                                     MotionB.ZoomTarget = PANEL_ZOOM_DETAILED_VIEW;
-                                    Motion.ZoomCenter = th.Motion.PositionAbs;
+                                    MotionB.ZoomCenterTarget = th.Motion.PositionAbs;
                                     MotionB.ZoomSpeed = 0.01f; // TODO const
                                     SelectedGame.Refresh();
                                     //infoBox.MotionB.Target = INFOBOX_SHOWN_POSITION - new Vector2(0f,0.05f * (SelectedGame.DescriptionLineCount-1));

@@ -21,6 +21,11 @@ namespace IndiegameGarden.Menus
     /// </summary>
     public class GameChooserMenu: Drawlet
     {
+        public Spritelet background;
+
+        /// <summary>
+        /// UI constants
+        /// </summary>
         const double MIN_MENU_CHANGE_DELAY = 0.2f; 
         
         GameCollection gamesList;
@@ -58,6 +63,7 @@ namespace IndiegameGarden.Menus
             bgMotionB.Target = new Vector2(0.66667f, 0.5f);
             bgMotionB.TargetSpeed = 0.003f;
             Add(bg);
+            background = bg;
 
             // logo
             Spritelet logo = new Spritelet("igglogo");
