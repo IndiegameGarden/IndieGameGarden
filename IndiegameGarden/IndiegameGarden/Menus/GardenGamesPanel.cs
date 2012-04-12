@@ -30,7 +30,7 @@ namespace IndiegameGarden.Menus
         const float PANEL_ZOOM_REGULAR = 0.5f; //0.16f;
         const float PANEL_DELTA_GRID_X = 0.16f;
         const float PANEL_DELTA_GRID_Y = 0.12f;
-        const float PANEL_SPEED_SHIFT = 0.5f; //2.1f;
+        const float PANEL_SPEED_SHIFT = 2.7f;
         const float PANEL_SIZE_X = 1.333f;
         const float PANEL_SIZE_Y = 1.0f;
         const float PANEL_ZOOM_TARGET_QUITTING = 0.01f;
@@ -243,8 +243,11 @@ namespace IndiegameGarden.Menus
             }
             else
             {
-                GardenGame.Instance.music.FadeIn(); 
-                timeExiting = 0f;
+                if (timeExiting > 0f)
+                {
+                    GardenGame.Instance.music.FadeIn();
+                    timeExiting = 0f;
+                }
             }
 
             //-- website launch
@@ -491,6 +494,10 @@ namespace IndiegameGarden.Menus
 
                 case UserInput.LAUNCH_WEBSITE:
                     isLaunchWebsite = true;
+                    break;
+
+                case UserInput.TOGGLE_MUSIC:
+                    GardenGame.Instance.music.ToggleMusic();
                     break;
 
             } // switch(inp)

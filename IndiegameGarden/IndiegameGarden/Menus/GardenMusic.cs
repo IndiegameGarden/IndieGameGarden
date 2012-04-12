@@ -149,6 +149,17 @@ namespace IndiegameGarden.Menus
         }
 
         /// <summary>
+        /// toggles the music between on and off (uses fading)
+        /// </summary>
+        public void ToggleMusic()
+        {
+            if (isFadeIn || currentSong.Amplitude >= 1)
+                FadeOut();
+            else if (isFadeOut || currentSong.Amplitude <= 0)
+                FadeIn();
+        }
+
+        /// <summary>
         /// change music to another music track
         /// </summary>
         /// <param name="musicFile">filename of a .wav or .ogg music file to play</param>

@@ -133,19 +133,25 @@ namespace IndiegameGarden.Menus
                 panel.OnUserInput(GamesPanel.UserInput.LAUNCH_WEBSITE);
             }
 
+            // -- music togglekey
+            if (st.IsKeyDown(Keys.M) && !prevKeyboardState.IsKeyDown(Keys.M))
+            {
+                panel.OnUserInput(GamesPanel.UserInput.TOGGLE_MUSIC);
+            }
+
             // -- a navigation key is pressed - check keys and generate action(s)
             if (st.IsKeyDown(Keys.Left)) {
                 panel.OnUserInput(GamesPanel.UserInput.LEFT);                
             }
-            else if (st.IsKeyDown(Keys.Right)) {
+            if (st.IsKeyDown(Keys.Right)) {
                 panel.OnUserInput(GamesPanel.UserInput.RIGHT);
             }
 
-            else if (st.IsKeyDown(Keys.Up)) {
+            if (st.IsKeyDown(Keys.Up)) {
                 panel.OnUserInput(GamesPanel.UserInput.UP);
             }
 
-            else if (st.IsKeyDown(Keys.Down)){
+            if (st.IsKeyDown(Keys.Down)){
                 panel.OnUserInput(GamesPanel.UserInput.DOWN);
             }
 

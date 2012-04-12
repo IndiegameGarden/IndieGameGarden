@@ -1,7 +1,7 @@
 ﻿IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Option to mute music
+Bug loading screen stays too long after quickly exiting a game
 Add for certain games that loading takes a while.
 Bug of background garbled after certain games
 Loading websites - long delay
@@ -27,6 +27,8 @@ Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-04-12 Option to mute music
+2012-04-12 Refactored MotionBehavior to TTengine Motion class
 2012-04-11 Fix the exit bug popup
 2012-04-10 Music skip bug due to TTengine sample tracking - hack in TTMusicEngine to disable.
 2012-04-10 Show game thumbnail in loading screen (center)

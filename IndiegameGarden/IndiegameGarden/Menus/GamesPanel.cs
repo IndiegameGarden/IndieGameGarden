@@ -15,7 +15,7 @@ namespace IndiegameGarden.Menus
     {
 
         public enum UserInput { LEFT, RIGHT, UP, DOWN, START_EXIT, STOP_EXIT, 
-                                START_SELECT, STOP_SELECT, LAUNCH_WEBSITE };
+                                START_SELECT, STOP_SELECT, LAUNCH_WEBSITE, TOGGLE_MUSIC };
 
         // stores the current list obtained with OnUpdateList()
         protected GameCollection gl = new GameCollection();

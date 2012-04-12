@@ -31,6 +31,7 @@ namespace IndiegameGarden.Base
         public override void OnExit(Gamelet g)
         {
             GardenGame.Instance.IsMouseVisible = false;
+            GardenGame.Instance.music.FadeIn();
         }
     }
 
