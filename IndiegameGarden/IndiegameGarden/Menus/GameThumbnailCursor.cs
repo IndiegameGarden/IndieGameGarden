@@ -17,15 +17,12 @@ namespace IndiegameGarden.Menus
      */
     public class GameThumbnailCursor: EffectSpritelet
     {
-        public MotionBehavior MotionB;
         public Vector2 GridPosition = Vector2.Zero;        
 
         public GameThumbnailCursor()
             : base("cursor2","GameThumbnailCursor")
         {
             DrawInfo.LayerDepth = 0.95f;
-            MotionB = new MotionBehavior();
-            Add(MotionB);
         }
 
         /// <summary>
@@ -48,8 +45,8 @@ namespace IndiegameGarden.Menus
         /// <param name="g"></param>
         public void SetToGame(GardenItem g)
         {
-            MotionB.Target = g.Position;
-            MotionB.TargetSpeed = 4f;
+            Motion.TargetPos = g.Position;
+            Motion.TargetPosSpeed = 4f; // TODO constant?
             GridPosition = g.Position;
         }
 

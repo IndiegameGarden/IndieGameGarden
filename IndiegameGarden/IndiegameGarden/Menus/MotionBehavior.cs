@@ -13,7 +13,7 @@ namespace IndiegameGarden.Menus
      * Behavior to let a Gamelet smoothly move towards a given target, and to change
      * Scale smoothly to a target.
      */
-    public class MotionBehavior: Gamelet
+    public class MotionBehaviorXX: Gamelet
     {
         /// <summary>
         /// sets a target position for cursor to move towards
@@ -40,7 +40,7 @@ namespace IndiegameGarden.Menus
 
         public float ZoomSpeed = 0f;
 
-        public Vector2 ZoomCenterTarget = Vector2.Zero;
+        public Motion ZoomCenterTarget = null;
 
         public float RotateTarget = 0f;
 
@@ -92,7 +92,7 @@ namespace IndiegameGarden.Menus
                 // handle zoom center moving
                 if (!Motion.ZoomCenter.Equals(ZoomCenterTarget))
                 {
-                    Vector2 vdif = ZoomCenterTarget - Motion.ZoomCenter;
+                    Vector2 vdif = ZoomCenterTarget.PositionAbs - Motion.ZoomCenter;
                     float vel = 1000.0f * ZoomSpeed * vdif.Length();
                     if (vel < ZoomSpeed * 100.0f)
                         vel = ZoomSpeed * 100.0f;
@@ -102,7 +102,7 @@ namespace IndiegameGarden.Menus
                     if (vmove.LengthSquared() > vdif.LengthSquared())
                     {
                         // target reached
-                        Motion.ZoomCenter = ZoomCenterTarget;
+                        Motion.ZoomCenter = ZoomCenterTarget.PositionAbs; // FIXME abs?
                     }
                     else
                     {

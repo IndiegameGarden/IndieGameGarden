@@ -30,7 +30,7 @@ namespace IndiegameGarden.Menus
         const float PANEL_ZOOM_REGULAR = 0.5f; //0.16f;
         const float PANEL_DELTA_GRID_X = 0.16f;
         const float PANEL_DELTA_GRID_Y = 0.12f;
-        const float PANEL_SPEED_SHIFT = 2.1f;
+        const float PANEL_SPEED_SHIFT = 0.5f; //2.1f;
         const float PANEL_SIZE_X = 1.333f;
         const float PANEL_SIZE_Y = 1.0f;
         const float PANEL_ZOOM_TARGET_QUITTING = 0.01f;
@@ -55,11 +55,6 @@ namespace IndiegameGarden.Menus
         const float TIME_BEFORE_GAME_LAUNCH = 0.7f;
         const float TIME_BEFORE_EXIT = 1.2f;
         const float TIME_BEFORE_EXIT_CONTINUES = 0.6f;
-
-        /// <summary>
-        /// my motion behavior controls
-        /// </summary>
-        public MotionBehavior MotionB;
 
         // maximum sizes of grid
         public double GridMaxX=32, GridMaxY=32;
@@ -89,16 +84,14 @@ namespace IndiegameGarden.Menus
         public GardenGamesPanel(GameChooserMenu parent)
         {
             parentMenu = parent;
-            MotionB = new MotionBehavior();
-            Add(MotionB);
 
             // cursor
             cursor = new GameThumbnailCursor();
             Add(cursor);
             cursor.Motion.Scale = CURSOR_SCALE_REGULAR;
             Motion.Zoom = PANEL_ZOOM_REGULAR;
-            MotionB.ZoomTarget = PANEL_ZOOM_REGULAR;
-            MotionB.ZoomCenterTarget = cursor.Motion.PositionAbs;
+            Motion.ZoomTarget = PANEL_ZOOM_REGULAR;
+            Motion.ZoomCenterTarget = cursor.Motion;
             //cursor.Visible = false;
 
             // info box - will be added to parent upon OnNewParent() event
@@ -115,9 +108,9 @@ namespace IndiegameGarden.Menus
                                     "W = Launch game's website";
 
             // default zoom
-            MotionB.ZoomTarget = PANEL_ZOOM_DETAILED_VIEW;
-            MotionB.ZoomSpeed = PANEL_ZOOM_SPEED_REGULAR;
-            MotionB.ZoomCenterTarget = cursor.Motion.PositionAbs;
+            Motion.ZoomTarget = PANEL_ZOOM_DETAILED_VIEW;
+            Motion.ZoomSpeed = PANEL_ZOOM_SPEED_REGULAR;
+            Motion.ZoomCenterTarget = cursor.Motion;
         }
 
         public override void OnUpdateList(GameCollection gl)
@@ -194,10 +187,10 @@ namespace IndiegameGarden.Menus
                 timeLaunching += p.Dt;
                 th = thumbnailsCache[SelectedGame.GameID];
                 float sc = (1f + timeLaunching/3f);
-                th.MotionB.ScaleTarget = SelectedGame.ScaleIcon * sc; // blow up size of thumbnail while user requests launch
-                //th.MotionB.ScaleSpeed = 0.00005f;
-                cursor.MotionB.ScaleTarget = sc;
-                cursor.MotionB.ScaleSpeed = th.MotionB.ScaleSpeed / SelectedGame.ScaleIcon;
+                th.Motion.ScaleTarget = SelectedGame.ScaleIcon * sc; // blow up size of thumbnail while user requests launch
+                //th.Motion.ScaleSpeed = 0.00005f;
+                cursor.Motion.ScaleTarget = sc;
+                cursor.Motion.ScaleSpeed = th.Motion.ScaleSpeed / SelectedGame.ScaleIcon;
 
                 if (timeLaunching > TIME_BEFORE_GAME_LAUNCH)
                 {
@@ -304,7 +297,7 @@ namespace IndiegameGarden.Menus
                     // retrieve GameThumbnail from cache
                     th = thumbnailsCache[g.GameID];
                 }
-                th.MotionB.ScaleSpeed = 0.01f; // TODO const
+                th.Motion.ScaleSpeed = 0.01f; // TODO const
                 
                 // check if thnail visible and in range. If so, start displaying it (fade in)
                 if (!th.Visible && cursor.GameletInRange(th))
@@ -318,25 +311,25 @@ namespace IndiegameGarden.Menus
                 {
                     if (g.IsInstalling)
                     {
-                        //th.MotionB.ScaleTarget = (g.ScaleIcon /* 0.9f + 0.35f * g.InstallProgress */ ) *
+                        //th.Motion.ScaleTarget = (g.ScaleIcon /* 0.9f + 0.35f * g.InstallProgress */ ) *
                         //                        ((g == SelectedGame) ? THUMBNAIL_SCALE_SELECTED : THUMBNAIL_SCALE_UNSELECTED);
-                        //th.MotionB.ScaleSpeed = 0.00003f;
+                        //th.Motion.ScaleSpeed = 0.00003f;
                     }
                     else
                     {
-                        th.MotionB.ScaleTarget = 1f; // (0.85f + 0.15f * g.InstallProgress);
-                        //th.MotionB.ScaleSpeed = 0.03f;
+                        th.Motion.ScaleTarget = 1f; // (0.85f + 0.15f * g.InstallProgress);
+                        //th.Motion.ScaleSpeed = 0.03f;
                         // displaying selected thumbnails larger
                         if (g == SelectedGame && g.IsGrowable )
                         {
-                            th.MotionB.ScaleTarget *= THUMBNAIL_SCALE_SELECTED * g.ScaleIcon; // TODO remove scaleicon from all calculations! It's fixed.
+                            th.Motion.ScaleTarget *= THUMBNAIL_SCALE_SELECTED * g.ScaleIcon; // TODO remove scaleicon from all calculations! It's fixed.
                         }
                         else
                         {
                             if (g.IsInstalled || !g.IsGrowable)
-                                th.MotionB.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED * g.ScaleIcon;
+                                th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED * g.ScaleIcon;
                             else
-                                th.MotionB.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED * g.ScaleIcon;
+                                th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED * g.ScaleIcon;
                             
                         }
                         
@@ -346,15 +339,15 @@ namespace IndiegameGarden.Menus
 
                 // coordinate position where to move a game thumbnail to 
                 Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X,PANEL_DELTA_GRID_Y);
-                th.MotionB.Target = targetPos;
-                th.MotionB.TargetSpeed = 3f;
+                th.Motion.TargetPos = targetPos;
+                th.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT;
 
                 // cursor where to move to
-                cursor.MotionB.Target = (cursor.GridPosition - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
-                cursor.MotionB.TargetSpeed = 3f; // TODO
+                cursor.Motion.TargetPos = (cursor.GridPosition - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
+                cursor.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT; 
 
                 // panel shift effect when cursor hits edges of panel
-                Vector2 cp = cursor.Motion.PositionAbs;
+                Vector2 cp = cursor.Motion.PositionDraw;
                 float chw = cursor.DrawInfo.WidthAbs / 2.0f; // cursor-half-width
                 float chh = cursor.DrawInfo.HeightAbs / 2.0f; // cursor-half-height
                 float dx = PANEL_SPEED_SHIFT * p.Dt;
@@ -399,8 +392,8 @@ namespace IndiegameGarden.Menus
                 GameThumbnail th = thumbnailsCache[oldSel.GameID];
                 if (th != null)
                 {
-                    th.MotionB.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED * oldSel.ScaleIcon;
-                    th.MotionB.ScaleSpeed = 0.01f;
+                    th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED * oldSel.ScaleIcon;
+                    th.Motion.ScaleSpeed = 0.01f;
                 }
             }
              */
@@ -445,9 +438,9 @@ namespace IndiegameGarden.Menus
                 case UserInput.START_EXIT:
                     isExiting = true;
                     //selectionLevel = 0;
-                    MotionB.ZoomTarget = PANEL_ZOOM_TARGET_QUITTING ;
-                    MotionB.ZoomSpeed = PANEL_ZOOM_SPEED_QUITTING ;
-                    MotionB.ZoomCenterTarget = cursor.Motion.PositionAbs;
+                    Motion.ZoomTarget = PANEL_ZOOM_TARGET_QUITTING ;
+                    Motion.ZoomSpeed = PANEL_ZOOM_SPEED_QUITTING ;
+                    Motion.ZoomCenterTarget = cursor.Motion;
                     break;
                 
                 case UserInput.STOP_EXIT:
@@ -455,9 +448,9 @@ namespace IndiegameGarden.Menus
                     {
                         isExiting = false;
                         selectionLevel = 0;
-                        MotionB.ZoomTarget = PANEL_ZOOM_REGULAR;
-                        MotionB.ZoomSpeed = PANEL_ZOOM_SPEED_ABORTQUITTING;
-                        MotionB.ZoomCenterTarget = cursor.Motion.PositionAbs;
+                        Motion.ZoomTarget = PANEL_ZOOM_REGULAR;
+                        Motion.ZoomSpeed = PANEL_ZOOM_SPEED_ABORTQUITTING;
+                        Motion.ZoomCenterTarget = cursor.Motion;
                     }
                     break;
 
@@ -471,12 +464,12 @@ namespace IndiegameGarden.Menus
                             {
                                 case 0:
                                     // select once - zoom in on selected game
-                                    MotionB.ZoomTarget = PANEL_ZOOM_DETAILED_VIEW;
-                                    MotionB.ZoomCenterTarget = th.Motion.PositionAbs;
-                                    MotionB.ZoomSpeed = 0.01f; // TODO const
+                                    Motion.ZoomTarget = PANEL_ZOOM_DETAILED_VIEW;
+                                    Motion.ZoomCenterTarget = th.Motion;
+                                    Motion.ZoomSpeed = 0.01f; // TODO const
                                     SelectedGame.Refresh();
-                                    //infoBox.MotionB.Target = INFOBOX_SHOWN_POSITION - new Vector2(0f,0.05f * (SelectedGame.DescriptionLineCount-1));
-                                    //infoBox.MotionB.TargetSpeed = INFOBOX_SPEED_MOVE;
+                                    //infoBox.Motion.TargetPos = INFOBOX_SHOWN_POSITION - new Vector2(0f,0.05f * (SelectedGame.DescriptionLineCount-1));
+                                    //infoBox.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
                                     selectionLevel++;
                                     break;
                                 case 1:
@@ -493,7 +486,7 @@ namespace IndiegameGarden.Menus
                 case UserInput.STOP_SELECT:
                     isGameLaunchOngoing = false;
                     timeLaunching = 0f;
-                    cursor.MotionB.ScaleTarget = CURSOR_SCALE_REGULAR;
+                    cursor.Motion.ScaleTarget = CURSOR_SCALE_REGULAR;
                     break;
 
                 case UserInput.LAUNCH_WEBSITE:
@@ -504,8 +497,8 @@ namespace IndiegameGarden.Menus
 
             if (selectionLevel == 0)
             {
-                infoBox.MotionB.Target = INFOBOX_HIDDEN_POSITION;
-                infoBox.MotionB.TargetSpeed = INFOBOX_SPEED_MOVE;
+                infoBox.Motion.TargetPos = INFOBOX_HIDDEN_POSITION;
+                infoBox.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
             }
 
             if (selectionLevel == 1)
@@ -515,8 +508,8 @@ namespace IndiegameGarden.Menus
                 {
                     lnCount = SelectedGame.DescriptionLineCount;
                 }
-                infoBox.MotionB.Target = INFOBOX_SHOWN_POSITION - new Vector2(0f, 0.029f * (lnCount - 1));
-                infoBox.MotionB.TargetSpeed = INFOBOX_SPEED_MOVE;
+                infoBox.Motion.TargetPos = INFOBOX_SHOWN_POSITION - new Vector2(0f, 0.029f * (lnCount - 1));
+                infoBox.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
             }
 
         }

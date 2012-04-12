@@ -58,10 +58,8 @@ namespace IndiegameGarden.Menus
             // bg color 169, 157, 241
             bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/70.0f; }, "Rotate"));
             bg.Motion.Add(new MyFuncyModifier(delegate(float v) { return (0.7f + 0.5f * (float) Math.Sqrt(v/190.0)); }, "Scale"));
-            MotionBehavior bgMotionB = new MotionBehavior();
-            bg.Add(bgMotionB);
-            bgMotionB.Target = new Vector2(0.66667f, 0.5f);
-            bgMotionB.TargetSpeed = 0.003f;
+            bg.Motion.TargetPos = new Vector2(0.66667f, 0.5f);
+            bg.Motion.TargetPosSpeed = 0.003f;
             Add(bg);
             background = bg;
 

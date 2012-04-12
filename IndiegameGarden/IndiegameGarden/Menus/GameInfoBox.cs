@@ -17,7 +17,6 @@ namespace IndiegameGarden.Menus
     /// </summary>
     public class GameInfoBox: Drawlet
     {
-        public MotionBehavior MotionB;
         ProgressBar dlProgressBar;
         GameTextBox titleBox;
         GameTextBox descriptionBox;
@@ -32,9 +31,6 @@ namespace IndiegameGarden.Menus
 
         private void InitComponents()
         {
-            MotionB = new MotionBehavior();
-            Add(MotionB);
-
             dlProgressBar = new ProgressBar();
             dlProgressBar.Motion.Position = new Vector2(0.85f, 0.0f);
             dlProgressBar.Visible = false;

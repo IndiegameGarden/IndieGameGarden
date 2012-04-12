@@ -22,11 +22,6 @@ namespace IndiegameGarden.Menus
     public class GameThumbnail: EffectSpritelet
     {
         /// <summary>
-        /// my motion behavior controls
-        /// </summary>
-        public MotionBehavior MotionB;
-
-        /// <summary>
         /// my color change behavior
         /// </summary>
         public ColorChangeBehavior ColorB;
@@ -106,9 +101,7 @@ namespace IndiegameGarden.Menus
         public GameThumbnail(GardenItem game)
             : base( (Texture2D) null,"GameThumbnail")
         {
-            MotionB = new MotionBehavior();
-            ColorB = new ColorChangeBehavior();
-            Add(MotionB);
+            ColorB = new ColorChangeBehavior();         
             Add(ColorB);
             Motion.Scale = GardenGamesPanel.THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED;
             Game = game;
