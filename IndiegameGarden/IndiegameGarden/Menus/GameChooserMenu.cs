@@ -115,7 +115,11 @@ namespace IndiegameGarden.Menus
                 return;
             // if no keys pressed, skip further checks
             if (st.GetPressedKeys().Length == 0)
+            {
+                prevKeyboardState = st;
                 return;
+            }
+
 
             // -- esc key
             if (st.IsKeyDown(Keys.Escape))

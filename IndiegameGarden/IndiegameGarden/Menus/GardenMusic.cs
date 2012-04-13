@@ -69,6 +69,7 @@ namespace IndiegameGarden.Menus
                         parent.oldSongs.Add(parent.currentSong);
                     }
                     parent.currentSong = ev;
+                    parent.FadeIn();
                 }
             }
 

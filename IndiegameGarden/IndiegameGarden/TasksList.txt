@@ -2,9 +2,11 @@
 
 OPEN  [top issues first]
 Bug loading screen stays too long after quickly exiting a game
+Bug music goes on after zoom-out
+Bug scrolling in zoomed-out mode is ridiculous
 Add for certain games that loading takes a while.
 Bug of background garbled after certain games
-Loading websites - long delay
+Controls help in a bitmap
 Change text "exit this game to return to garden" when loading
 Fix bouncy behavior at startup with cursor
 Loading from server file corruptions?
@@ -27,6 +29,7 @@ Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-04-13 Loading websites - long delay (did not occur?)
 2012-04-12 Option to mute music
 2012-04-12 Refactored MotionBehavior to TTengine Motion class
 2012-04-11 Fix the exit bug popup
