@@ -1,7 +1,6 @@
 ﻿IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Bug music goes on after zoom-out
 Bug scrolling in zoomed-out mode is ridiculous
 Add for certain games that loading takes a while.
 Bug of background garbled after certain games
@@ -19,7 +18,8 @@ Test client version update in deployment version
 Fade out music when exiting : do better?
 Make gamelib loading non-blocking
 
-OPTIONAL [when time permits]
+AFTER ALPHA-1
+Bug music goes on after zoom-out
 Bug loading screen stays too long after quickly exiting a game - still the case?
 Mystery game icon
 Report exceptions to server; for collecting good debug info from the field

@@ -27,17 +27,17 @@ namespace IndiegameGarden.Menus
         const float LAYER_DODGING_ITEM = 0.3f;
         const float LAYER_GRID_ITEMS = 0.9f;
 
-        const float PANEL_ZOOM_REGULAR = 0.5f; //0.16f;
+        const float PANEL_ZOOM_REGULAR = 0.45f; //0.16f;
         const float PANEL_DELTA_GRID_X = 0.16f;
         const float PANEL_DELTA_GRID_Y = 0.12f;
-        const float PANEL_SPEED_SHIFT = 2.7f;
+        const float PANEL_SPEED_SHIFT = 2.1f;
         const float PANEL_SIZE_X = 1.333f;
         const float PANEL_SIZE_Y = 1.0f;
         const float PANEL_ZOOM_TARGET_QUITTING = 0.01f;
         const float PANEL_ZOOM_SPEED_QUITTING = 0.005f;
         const float PANEL_ZOOM_SPEED_REGULAR = 0.005f;
-        const float PANEL_ZOOM_SPEED_ABORTQUITTING = 0.05f;
-        const float PANEL_ZOOM_DETAILED_VIEW = 1f; //2.857f;
+        const float PANEL_ZOOM_SPEED_ABORTQUITTING = 0.005f;
+        const float PANEL_ZOOM_DETAILED_VIEW = 1.0f; //2.857f;
 
         const float CURSOR_SCALE_REGULAR = 0.8f; //5.9375f;
         public const float CURSOR_DISCOVERY_RANGE = 0.35f;
@@ -89,10 +89,6 @@ namespace IndiegameGarden.Menus
             cursor = new GameThumbnailCursor();
             Add(cursor);
             cursor.Motion.Scale = CURSOR_SCALE_REGULAR;
-            Motion.Zoom = PANEL_ZOOM_REGULAR;
-            Motion.ZoomTarget = PANEL_ZOOM_REGULAR;
-            Motion.ZoomCenterTarget = cursor.Motion;
-            //cursor.Visible = false;
 
             // info box - will be added to parent upon OnNewParent() event
             infoBox = new GameInfoBox();
@@ -232,7 +228,7 @@ namespace IndiegameGarden.Menus
                 timeExiting += p.Dt;
                 if (timeExiting > TIME_BEFORE_EXIT)
                 {
-                    parentMenu.background.Motion.ScaleModifier = 1f / (1f + (timeExiting-TIME_BEFORE_EXIT) / 3f);
+                    parentMenu.background.Motion.ScaleModifier = 1f / (1f + (timeExiting-TIME_BEFORE_EXIT) / 11f);
                     if (!isExitingUnstoppable)
                     {
                         GardenGame.Instance.ExitGame();
@@ -290,7 +286,7 @@ namespace IndiegameGarden.Menus
                     //th.Position = new Vector2(RandomMath.RandomBetween(-0.4f,2.0f), RandomMath.RandomBetween(-0.4f,1.4f) );
                     //th.Scale = RandomMath.RandomBetween(0.01f, 0.09f); 
                     // create with new position and scale
-                    th.Motion.Position = new Vector2(0.5f, 0.5f);
+                    th.Motion.Position = Screen.Center;
                     th.Motion.Scale = 0.05f;
 
                     th.DrawInfo.LayerDepth = LAYER_GRID_ITEMS;
@@ -350,29 +346,31 @@ namespace IndiegameGarden.Menus
                 cursor.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT; 
 
                 // panel shift effect when cursor hits edges of panel
-                Vector2 cp = cursor.Motion.PositionDraw;
-                float chw = cursor.DrawInfo.WidthAbs / 2.0f; // cursor-half-width
-                float chh = cursor.DrawInfo.HeightAbs / 2.0f; // cursor-half-height
-                float dx = PANEL_SPEED_SHIFT * p.Dt;
-                const float xMargin = CURSOR_MARGIN_X; // TODO into gui props
-                const float yMargin = CURSOR_MARGIN_Y;
-                if (cp.X <= chw + xMargin)
+                if (true /*Motion.Zoom == Motion.ZoomTarget*/  )
                 {
-                    PanelShiftPos.X -= dx;
+                    Vector2 cp = cursor.Motion.PositionDraw;
+                    float chw = cursor.DrawInfo.WidthAbs / 2.0f; // cursor-half-width
+                    float chh = cursor.DrawInfo.HeightAbs / 2.0f; // cursor-half-height
+                    float dx = PANEL_SPEED_SHIFT * p.Dt;
+                    const float xMargin = CURSOR_MARGIN_X; // TODO into gui props
+                    const float yMargin = CURSOR_MARGIN_Y;
+                    if (cp.X <= chw + xMargin)
+                    {
+                        PanelShiftPos.X -= dx;
+                    }
+                    else if (cp.X >= PANEL_SIZE_X - chw - xMargin)
+                    {
+                        PanelShiftPos.X += dx;
+                    }
+                    if (cp.Y <= chh + yMargin)
+                    {
+                        PanelShiftPos.Y -= dx;
+                    }
+                    else if (cp.Y >= PANEL_SIZE_Y - chh - yMargin)
+                    {
+                        PanelShiftPos.Y += dx;
+                    }
                 }
-                else if (cp.X >= PANEL_SIZE_X - chw - xMargin)
-                {
-                    PanelShiftPos.X += dx;
-                }
-                if (cp.Y <= chh + yMargin)
-                {
-                    PanelShiftPos.Y -= dx;
-                }
-                else if (cp.Y >= PANEL_SIZE_Y - chh - yMargin)
-                {
-                    PanelShiftPos.Y += dx;
-                }
-
             }
         }
 
@@ -443,6 +441,7 @@ namespace IndiegameGarden.Menus
                     //selectionLevel = 0;
                     Motion.ZoomTarget = PANEL_ZOOM_TARGET_QUITTING ;
                     Motion.ZoomSpeed = PANEL_ZOOM_SPEED_QUITTING ;
+                    //Motion.ZoomCenter = cursor.Motion.PositionAbs;
                     Motion.ZoomCenterTarget = cursor.Motion;
                     break;
                 
@@ -453,6 +452,7 @@ namespace IndiegameGarden.Menus
                         selectionLevel = 0;
                         Motion.ZoomTarget = PANEL_ZOOM_REGULAR;
                         Motion.ZoomSpeed = PANEL_ZOOM_SPEED_ABORTQUITTING;
+                        //Motion.ZoomCenter = cursor.Motion.PositionAbs;
                         Motion.ZoomCenterTarget = cursor.Motion;
                     }
                     break;
@@ -468,8 +468,9 @@ namespace IndiegameGarden.Menus
                                 case 0:
                                     // select once - zoom in on selected game
                                     Motion.ZoomTarget = PANEL_ZOOM_DETAILED_VIEW;
-                                    Motion.ZoomCenterTarget = th.Motion;
-                                    Motion.ZoomSpeed = 0.01f; // TODO const
+                                    Motion.ZoomSpeed = PANEL_ZOOM_SPEED_REGULAR; // 0.01f; 
+                                    //Motion.ZoomCenter = cursor.Motion.PositionAbs;
+                                    Motion.ZoomCenterTarget = cursor.Motion;
                                     SelectedGame.Refresh();
                                     //infoBox.Motion.TargetPos = INFOBOX_SHOWN_POSITION - new Vector2(0f,0.05f * (SelectedGame.DescriptionLineCount-1));
                                     //infoBox.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
