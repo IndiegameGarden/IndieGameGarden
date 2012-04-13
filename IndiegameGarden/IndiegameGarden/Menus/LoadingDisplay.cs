@@ -49,6 +49,8 @@ namespace IndiegameGarden.Menus
             public override void OnEntry(Gamelet g)
             {
                 g.SimTime = 0f;
+                if (loadingDisplay.gameIcon != null)
+                    loadingDisplay.gameIcon.Visible = true;
             }
             public override void OnUpdate(Gamelet g)
             {
@@ -89,17 +91,21 @@ namespace IndiegameGarden.Menus
 
             public override void OnEntry(Gamelet g)
             {
+                isFirstDraw = true;
                 g.SimTime = 0f;
+                if (loadingDisplay.gameIcon != null)
+                    loadingDisplay.gameIcon.Visible = true;
             }
             public override void OnUpdate(Gamelet g)
             {
-                if (isFirstDraw)
+                if (g.SimTime < 0.3f || isFirstDraw)
                 {
                     isFirstDraw = false;
                     loadingDisplay.tbox.Text = "Playing " + loadingDisplay.game.Name;
                 }
-                else if (!isFirstDraw)
+                else 
                 {
+                    // suppress drawing during play of another game - save resources and avoid gfx conflicts.
                     GardenGame.Instance.SuppressDraw();
                 }
                 if (g.SimTime > TIME_SHOW_PLAYING_MESSAGE)
@@ -122,7 +128,9 @@ namespace IndiegameGarden.Menus
 
             public override void OnEntry(Gamelet g)
             {
-                loadingDisplay.tbox.Text = ""; 
+                loadingDisplay.tbox.Text = "";
+                if (loadingDisplay.gameIcon != null)
+                    loadingDisplay.gameIcon.Visible = false;
             }
         }
 
@@ -147,7 +155,7 @@ namespace IndiegameGarden.Menus
             Add(helpTextBox);
 
             gameIcon = new Spritelet();
-            gameIcon.Motion.Position = new Vector2( Screen.Width/2f , 0.5f);
+            gameIcon.Motion.Position = new Vector2( Screen.Width*0.8f , 0.2f);
             Add(gameIcon);
         }
 
@@ -160,6 +168,7 @@ namespace IndiegameGarden.Menus
             SetNextState(new StateLoadingDisplay_Loading(this));
             game = g;
             gameIcon.Texture = thumb.Texture;
+            gameIcon.Motion.Scale = thumb.Motion.Scale * 1.4f;
 
         }
 
