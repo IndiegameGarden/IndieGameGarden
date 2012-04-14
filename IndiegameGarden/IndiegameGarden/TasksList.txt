@@ -1,7 +1,6 @@
 ﻿IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Bug scrolling in zoomed-out mode is ridiculous
 Add for certain games that loading takes a while.
 Bug of background garbled after certain games
 Controls help in a bitmap
@@ -29,6 +28,7 @@ Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-04-13 Bug scrolling in zoomed-out mode is ridiculous
 2012-04-13 Loading websites - long delay (did not occur?)
 2012-04-12 Option to mute music
 2012-04-12 Refactored MotionBehavior to TTengine Motion class

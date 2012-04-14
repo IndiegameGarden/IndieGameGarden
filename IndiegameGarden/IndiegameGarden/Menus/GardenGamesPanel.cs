@@ -442,7 +442,7 @@ namespace IndiegameGarden.Menus
                     Motion.ZoomTarget = PANEL_ZOOM_TARGET_QUITTING ;
                     Motion.ZoomSpeed = PANEL_ZOOM_SPEED_QUITTING ;
                     //Motion.ZoomCenter = cursor.Motion.PositionAbs;
-                    Motion.ZoomCenterTarget = cursor.Motion;
+                    //Motion.ZoomCenterTarget = cursor.Motion;
                     break;
                 
                 case UserInput.STOP_EXIT:
@@ -453,7 +453,7 @@ namespace IndiegameGarden.Menus
                         Motion.ZoomTarget = PANEL_ZOOM_REGULAR;
                         Motion.ZoomSpeed = PANEL_ZOOM_SPEED_ABORTQUITTING;
                         //Motion.ZoomCenter = cursor.Motion.PositionAbs;
-                        Motion.ZoomCenterTarget = cursor.Motion;
+                        //Motion.ZoomCenterTarget = cursor.Motion;
                     }
                     break;
 
