@@ -82,8 +82,8 @@ namespace IndiegameGarden
         GraphicsDeviceManager graphics;
         Screenlet mainScreenlet, loadingScreenlet;       
         HttpFtpProtocolExtension myDownloaderProtocol;
-        int myWindowWidth = 1280; //1024; //1280; //1440; //1280;
-        int myWindowHeight = 768; //768; //720; //900; //720;
+        int myWindowWidth; // = 1280; //1024; //1280; //1440; //1280;
+        int myWindowHeight; // = 768; //768; //720; //900; //720;
         public DebugMessage DebugMsg; // DEBUG
         Exception initError = null;
         MusicEngine musicEngine;
@@ -137,6 +137,11 @@ namespace IndiegameGarden
             TreeRoot.Add(loadingScreenlet);
             mainScreenlet.DrawInfo.DrawColor = new Color(169 * 2 / 3, 157 * 2 / 3, 241 * 2 / 3); // Color.Black;
 
+            // graphics bitmap scaling that adapts to screen resolution 
+            mainScreenlet.Motion.Scale = ((float)myWindowHeight) / 900f;
+            loadingScreenlet.Motion.Scale = mainScreenlet.Motion.Scale;
+
+            // music
             music = new GardenMusic();
             TreeRoot.Add(music);
 

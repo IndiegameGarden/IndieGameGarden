@@ -85,7 +85,7 @@ namespace IndiegameGarden.Menus
                     // first run the base downloading task now. If that is ok, then load from file downloaded.
                     base.StartInternal();
 
-                    if (File.Exists(thumbnail.ThumbnailFilename) && status == ITaskStatus.SUCCESS )
+                    if (File.Exists(thumbnail.ThumbnailFilename) && IsSuccess() )
                     {
                         thumbnail.LoadTextureFromFile();
                         status = ITaskStatus.SUCCESS;
@@ -94,6 +94,11 @@ namespace IndiegameGarden.Menus
                     {
                         status = ITaskStatus.FAIL;
                     }
+                }
+
+                if (IsSuccess())
+                {
+                    thumbnail.Enable();
                 }
             }
         } // class
@@ -122,6 +127,20 @@ namespace IndiegameGarden.Menus
             if (loaderTask != null)
                 loaderTask.Abort();
             loaderTask = null;
+        }
+
+        public bool IsLoaded()
+        {
+            return ((loaderTask != null) && (loaderTask.IsSuccess() ));
+        }
+
+        public void LoadInBackground()
+        {
+            if (loaderTask == null)
+            {
+                loaderTask = new ThreadedTask(new GameThumbnailLoadTask(this));
+                loaderTask.Start();
+            }
         }
 
         public void Enable()

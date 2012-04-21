@@ -1,6 +1,9 @@
-﻿IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
+IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
+Background sometimes not shows?
+Icon stays big while loading game
+Text not fully shown on widescreen lowres?
 Add for certain games that loading takes a while.
 Bug of background garbled after certain games
 Controls help in a bitmap
@@ -28,6 +31,8 @@ Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-04-21 Spacing different on res 1366 x 768 (vs 1440 x 900) - need to scale all bitmap things with 768/900 as well in engine.
+2012-04-21 Icons will only fade in after being downloaded.
 2012-04-13 Bug scrolling in zoomed-out mode is ridiculous
 2012-04-13 Loading websites - long delay (did not occur?)
 2012-04-12 Option to mute music

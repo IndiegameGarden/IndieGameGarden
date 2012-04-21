@@ -301,11 +301,15 @@ namespace IndiegameGarden.Menus
                 // check if thnail visible and in range. If so, start displaying it (fade in)
                 if (!th.Visible && cursor.GameletInRange(th))
                 {
-                    th.Enable();
+                    th.LoadInBackground();
                     th.ColorB.Intensity = 0f;
                 }
-                            
-                th.ColorB.FadeTarget = (0.65f + 0.35f * g.InstallProgress);
+
+                if (th.IsLoaded())
+                    th.ColorB.FadeTarget = (0.65f + 0.35f * g.InstallProgress);
+                else
+                    th.ColorB.FadeTarget = 0f;
+
                 if (!(isGameLaunchOngoing && g == SelectedGame))
                 {
                     if (g.IsInstalling)
