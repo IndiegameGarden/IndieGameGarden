@@ -89,6 +89,7 @@ namespace IndiegameGarden.Menus
             cursor = new GameThumbnailCursor();
             Add(cursor);
             cursor.Motion.Scale = CURSOR_SCALE_REGULAR;
+            cursor.Motion.Position = new Vector2(0.7f,0.2f);
 
             // info box - will be added to parent upon OnNewParent() event
             infoBox = new GameInfoBox();
@@ -104,6 +105,7 @@ namespace IndiegameGarden.Menus
                                     "W = Launch game's website";
 
             // default zoom
+            Motion.Zoom = PANEL_ZOOM_DETAILED_VIEW;
             Motion.ZoomTarget = PANEL_ZOOM_DETAILED_VIEW;
             Motion.ZoomSpeed = PANEL_ZOOM_SPEED_REGULAR;
             Motion.ZoomCenterTarget = cursor.Motion;

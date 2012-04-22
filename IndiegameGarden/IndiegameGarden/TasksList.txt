@@ -1,10 +1,9 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Music pausing to be fixed.
+Loading bar overlaps with title/text
 Background sometimes not shows?
 Add for certain games that loading takes a while.
-Bug of background garbled after certain games
 Controls help in a bitmap
 Change text "exit this game to return to garden" when loading
 Fix bouncy behavior at startup with cursor
@@ -20,6 +19,8 @@ Fade out music when exiting : do better?
 Make gamelib loading non-blocking
 
 AFTER ALPHA-1
+Bug of background garbled after certain games?
+Default music should be already-loaded in garden selection.
 Icon stays big while loading game
 If exiting while downloading zip/rar -> file not deleted.
 Bug music goes on after zoom-out
@@ -32,6 +33,7 @@ Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-04-22 Music pausing to be fixed. -> 5000 ms hack in TTMusicEngine
 2012-04-21 Text not fully shown on widescreen lowres?
 2012-04-21 Spacing different on res 1366 x 768 (vs 1440 x 900) - need to scale all bitmap things with 768/900 as well in engine.
 2012-04-21 Icons will only fade in after being downloaded.
