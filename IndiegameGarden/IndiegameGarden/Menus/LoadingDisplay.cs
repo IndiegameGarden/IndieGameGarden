@@ -168,7 +168,7 @@ namespace IndiegameGarden.Menus
 
             helpTextBox = new GameTextBox("GameDescriptionFont");
             helpTextBox.Text = "";
-            helpTextBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.7f);
+            helpTextBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.83f);
             helpTextBox.Motion.Scale = 1.0f;
             Add(helpTextBox);
 

@@ -1,9 +1,8 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
+Music pausing to be fixed.
 Background sometimes not shows?
-Icon stays big while loading game
-Text not fully shown on widescreen lowres?
 Add for certain games that loading takes a while.
 Bug of background garbled after certain games
 Controls help in a bitmap
@@ -21,6 +20,7 @@ Fade out music when exiting : do better?
 Make gamelib loading non-blocking
 
 AFTER ALPHA-1
+Icon stays big while loading game
 If exiting while downloading zip/rar -> file not deleted.
 Bug music goes on after zoom-out
 Bug loading screen stays too long after quickly exiting a game - still the case?
@@ -32,6 +32,7 @@ Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
 
 CLOSED  [date order]
+2012-04-21 Text not fully shown on widescreen lowres?
 2012-04-21 Spacing different on res 1366 x 768 (vs 1440 x 900) - need to scale all bitmap things with 768/900 as well in engine.
 2012-04-21 Icons will only fade in after being downloaded.
 2012-04-13 Bug scrolling in zoomed-out mode is ridiculous
