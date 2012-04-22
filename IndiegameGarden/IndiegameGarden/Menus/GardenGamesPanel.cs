@@ -314,7 +314,8 @@ namespace IndiegameGarden.Menus
                 {
                     if (g.IsInstalling)
                     {
-                        th.Motion.ScaleTarget = 1.0f + (float)Math.Sin(MathHelper.TwoPi * 0.16f * SimTime);
+                        // wobble the size of icon when installing.
+                        th.Motion.ScaleTarget = 1.0f + 0.1f * (float)Math.Sin(MathHelper.TwoPi * 0.16f * SimTime);
                     }
                     else
                     {
@@ -337,7 +338,7 @@ namespace IndiegameGarden.Menus
                         
                     }
                 }
-                th.ColorB.FadeSpeed = 0.10f;// 0.15f;
+                th.ColorB.FadeSpeed = 0.15f;// 0.15f;
 
                 // coordinate position where to move a game thumbnail to 
                 Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X,PANEL_DELTA_GRID_Y);

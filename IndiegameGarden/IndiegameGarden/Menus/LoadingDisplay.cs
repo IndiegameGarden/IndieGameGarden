@@ -121,6 +121,8 @@ namespace IndiegameGarden.Menus
         /// </summary>
         class StateLoadingDisplay_Empty : LoadingDisplayState
         {
+            bool isFirstDraw = true;
+
             public StateLoadingDisplay_Empty(LoadingDisplay parent)
                 : base(parent)
             { }
@@ -128,10 +130,26 @@ namespace IndiegameGarden.Menus
 
             public override void OnEntry(Gamelet g)
             {
+                g.SimTime = 0f;
                 loadingDisplay.tbox.Text = "";
-                if (loadingDisplay.gameIcon != null)
-                    loadingDisplay.gameIcon.Visible = false;
+                //if (loadingDisplay.gameIcon != null)
+                //    loadingDisplay.gameIcon.Visible = false;
             }
+
+            public override void OnUpdate(Gamelet g)
+            {
+                if (g.SimTime < 0.3f || isFirstDraw)
+                {
+                    isFirstDraw = false;
+                }
+                else
+                {
+                    // suppress drawing during play of another game - save resources and avoid gfx conflicts.
+                    GardenGame.Instance.SuppressDraw();
+                }
+
+            }
+        
         }
 
         public LoadingDisplay()
@@ -155,7 +173,10 @@ namespace IndiegameGarden.Menus
             Add(helpTextBox);
 
             gameIcon = new Spritelet();
-            gameIcon.Motion.Position = new Vector2( Screen.Width*0.8f , 0.2f);
+            //gameIcon.Motion.Position = new Vector2( Screen.Width*0.8f , 0.2f);
+            gameIcon.Motion.Position = Screen.Center;
+            gameIcon.DrawInfo.LayerDepth = 1f;
+            gameIcon.DrawInfo.DrawColor = Color.Gray;
             Add(gameIcon);
         }
 
@@ -168,7 +189,8 @@ namespace IndiegameGarden.Menus
             SetNextState(new StateLoadingDisplay_Loading(this));
             game = g;
             gameIcon.Texture = thumb.Texture;
-            gameIcon.Motion.Scale = thumb.Motion.Scale * 1.4f;
+            //gameIcon.Motion.Scale = thumb.Motion.Scale * 1.4f * g.ScaleIcon;
+            gameIcon.Motion.Scale = Screen.Width / gameIcon.DrawInfo.Width;
 
         }
 
