@@ -183,10 +183,10 @@ namespace IndiegameGarden.Menus
                 timeLaunching += p.Dt;
                 th = thumbnailsCache[SelectedGame.GameID];
                 float sc = (1f + timeLaunching/3f);
-                th.Motion.ScaleTarget = SelectedGame.ScaleIcon * sc; // blow up size of thumbnail while user requests launch
+                th.Motion.ScaleTarget = sc; // blow up size of thumbnail while user requests launch
                 //th.Motion.ScaleSpeed = 0.00005f;
                 cursor.Motion.ScaleTarget = sc;
-                cursor.Motion.ScaleSpeed = th.Motion.ScaleSpeed / SelectedGame.ScaleIcon;
+                cursor.Motion.ScaleSpeed = th.Motion.ScaleSpeed / SelectedGame.ScaleIcon; // TODO correct ScaleIcon?
 
                 if (timeLaunching > TIME_BEFORE_GAME_LAUNCH)
                 {
@@ -314,25 +314,24 @@ namespace IndiegameGarden.Menus
                 {
                     if (g.IsInstalling)
                     {
-                        //th.Motion.ScaleTarget = (g.ScaleIcon /* 0.9f + 0.35f * g.InstallProgress */ ) *
-                        //                        ((g == SelectedGame) ? THUMBNAIL_SCALE_SELECTED : THUMBNAIL_SCALE_UNSELECTED);
-                        //th.Motion.ScaleSpeed = 0.00003f;
+                        th.Motion.ScaleTarget = 1.0f + (float)Math.Sin(MathHelper.TwoPi * 0.16f * SimTime);
                     }
                     else
                     {
-                        th.Motion.ScaleTarget = 1f; // (0.85f + 0.15f * g.InstallProgress);
+                        th.Motion.ScaleTarget = 1f; 
                         //th.Motion.ScaleSpeed = 0.03f;
+
                         // displaying selected thumbnails larger
                         if (g == SelectedGame && g.IsGrowable )
                         {
-                            th.Motion.ScaleTarget *= THUMBNAIL_SCALE_SELECTED * g.ScaleIcon; // TODO remove scaleicon from all calculations! It's fixed.
+                            th.Motion.ScaleTarget *= THUMBNAIL_SCALE_SELECTED ; 
                         }
                         else
                         {
                             if (g.IsInstalled || !g.IsGrowable)
-                                th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED * g.ScaleIcon;
+                                th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED;
                             else
-                                th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED * g.ScaleIcon;
+                                th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED ;
                             
                         }
                         
@@ -390,18 +389,7 @@ namespace IndiegameGarden.Menus
 
         public override void OnChangedSelectedGame(GardenItem newSel, GardenItem oldSel)
         {
-            // unselect the previous game DEBUG
-            /*
-            if (oldSel != null)
-            {
-                GameThumbnail th = thumbnailsCache[oldSel.GameID];
-                if (th != null)
-                {
-                    th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED * oldSel.ScaleIcon;
-                    th.Motion.ScaleSpeed = 0.01f;
-                }
-            }
-             */
+            //
         }
 
         public override void OnUserInput(GamesPanel.UserInput inp)

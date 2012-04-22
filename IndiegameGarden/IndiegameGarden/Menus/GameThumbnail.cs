@@ -17,12 +17,12 @@ using MyDownloader.Core;
 namespace IndiegameGarden.Menus
 {
     /// <summary>
-    /// A thumbnail showing a single game, with auto-loading and downloading of image data.
+    /// A thumbnail showing a single game, with scaling, auto-loading and downloading of image data.
     /// </summary>
     public class GameThumbnail: EffectSpritelet
     {
         /// <summary>
-        /// my color change behavior
+        /// my color change behavior used eg for fading in/out
         /// </summary>
         public ColorChangeBehavior ColorB;
 
@@ -34,7 +34,7 @@ namespace IndiegameGarden.Menus
         /// <summary>
         /// actual/intended filename of thumbnail file (the file may or may not exist)
         /// </summary>
-        public string ThumbnailFilename
+        protected string ThumbnailFilename
         {
             get
             {
@@ -46,49 +46,66 @@ namespace IndiegameGarden.Menus
         /// thumbnail loading task
         /// </summary>
         ITask loaderTask;
+
+        /// <summary>
+        /// when a new texture is available, it's passed via this var
+        /// </summary>
         Texture2D updatedTexture;
         Object updateTextureLock = new Object();
+
+        /// <summary>
+        /// indicate whether texture already loaded
+        /// </summary>
         bool isLoaded = false;
         
-        float HaloTime = 0f;
+        /// <summary>
+        /// a time variable for rendering shader 'halo' around a thumbnail
+        /// </summary>
+        float haloTime = 0f;
 
         // a default texture to use if no thumbnail has been loaded yet
         static Texture2D DefaultTexture;
 
         /**
          * internal Task to load a thumbnail from disk, or download it first if not available.
-         * To be called in a separate thread e.g. ThreadedTask.
+         * To be called in a separate thread e.g. by using a ThreadedTask.
          */
         class GameThumbnailLoadTask : ThumbnailDownloader
         {
             // my parent - where to load for/to
-            GameThumbnail thumbnail;
+            GameThumbnail parent;
 
             public GameThumbnailLoadTask(GameThumbnail th): 
                 base(th.Game)
             {
-                thumbnail = th;
+                parent = th;
             }
 
             /// <summary>
-            /// loads image from either file if it exists, or else by download
+            /// loads image from file if it exists, or else by downloading and then loading from file
             /// </summary>
             protected override void StartInternal()
             {
-                if (File.Exists(thumbnail.ThumbnailFilename))
+                if (File.Exists(parent.ThumbnailFilename))
                 {
-                    thumbnail.LoadTextureFromFile();
-                    status = ITaskStatus.SUCCESS;
+                    bool ok = parent.LoadTextureFromFile();
+                    if (ok)
+                        status = ITaskStatus.SUCCESS;
+                    else
+                        status = ITaskStatus.FAIL;
                 }
                 else
                 {
                     // first run the base downloading task now. If that is ok, then load from file downloaded.
                     base.StartInternal();
 
-                    if (File.Exists(thumbnail.ThumbnailFilename) && IsSuccess() )
+                    if (File.Exists(parent.ThumbnailFilename) && IsSuccess() )
                     {
-                        thumbnail.LoadTextureFromFile();
-                        status = ITaskStatus.SUCCESS;
+                        bool ok = parent.LoadTextureFromFile();
+                        if (ok)
+                            status = ITaskStatus.SUCCESS;
+                        else
+                            status = ITaskStatus.FAIL;
                     }
                     else
                     {
@@ -96,15 +113,16 @@ namespace IndiegameGarden.Menus
                     }
                 }
 
+                // after a successful load, enable the thumbnail.
                 if (IsSuccess())
                 {
-                    thumbnail.Enable();
+                    parent.Enable();
                 }
             }
         } // class
 
         public GameThumbnail(GardenItem game)
-            : base( (Texture2D) null,"GameThumbnail")
+            : base( (Texture2D) null, "GameThumbnail")
         {
             ColorB = new ColorChangeBehavior();         
             Add(ColorB);
@@ -123,17 +141,26 @@ namespace IndiegameGarden.Menus
 
         public override void Dispose()
         {
-            base.Dispose();
             if (loaderTask != null)
                 loaderTask.Abort();
             loaderTask = null;
+
+            base.Dispose();
         }
 
+        /// <summary>
+        /// test whether the image for this thumbnail has already been (down)loaded or not.
+        /// </summary>
+        /// <returns>true if image has been loaded, false if not yet or not successfully</returns>
         public bool IsLoaded()
         {
             return ((loaderTask != null) && (loaderTask.IsSuccess() ));
         }
 
+        /// <summary>
+        /// trigger the background loading in a thread of the game's thumbnail image.
+        /// Does nothing if loading already in progress or finished.
+        /// </summary>
         public void LoadInBackground()
         {
             if (loaderTask == null)
@@ -143,6 +170,9 @@ namespace IndiegameGarden.Menus
             }
         }
 
+        /// <summary>
+        /// makes thumbnail visible, setting EffectEnabled properly, and loading thumbnail image if not yet loaded/loading.
+        /// </summary>
         public void Enable()
         {
             Visible = true;
@@ -155,7 +185,8 @@ namespace IndiegameGarden.Menus
         }
         
         /// <summary>
-        /// (re) loads texture from a file and puts in updatedTexture var 
+        /// (re) loads texture from a file and puts in internal updatedTexture var,
+        /// which replaces the present texture in next Update() round.
         /// </summary>
         /// <returns>true if loaded ok, false if failed (e.g. no file or invalid file)</returns>
         protected bool LoadTextureFromFile()
@@ -167,7 +198,7 @@ namespace IndiegameGarden.Menus
             }
             catch (InvalidOperationException)
             {
-                return false;
+                return false; // TODO be able to log the error somehow
             }
             catch (FileNotFoundException)
             {
@@ -196,6 +227,9 @@ namespace IndiegameGarden.Menus
                 Motion.RotateModifier += SimTime * Game.RotateSpeed;
             }
 
+            // adapt scale according to GameItem preset
+            Motion.ScaleModifier *= Game.ScaleIcon;
+
             // check if a new texture has been loaded in background
             if (updatedTexture != null)
             {
@@ -208,14 +242,14 @@ namespace IndiegameGarden.Menus
                 }
             }
 
-            // effect on when FX mode says so, and thnail is loaded
+            // effect on when FX mode says so, and only if thumbnail is loaded
             if (isLoaded)
                 EffectEnabled = (Game.FXmode > 0); // DEBUG isLoaded && (Game.FXmode > 0) && Game.IsInstalled;
 
             if (EffectEnabled)
             {
-                Motion.ScaleModifier *= (1f / 0.7f);
-                HaloTime += p.Dt; // move the 'halo' of the icon onwards as long as it's visible.
+                Motion.ScaleModifier *= (1f / 0.7f); // this extends image for shader fx region, see .fx file
+                haloTime += p.Dt; // move the 'halo' of the icon onwards as long as it's visible.
             }
         }
 
@@ -229,7 +263,7 @@ namespace IndiegameGarden.Menus
             Color col = DrawInfo.DrawColor;
             if (EffectEnabled)
             {
-                int t = (int) (HaloTime * 256);
+                int t = (int) (haloTime * 256);
                 int c3 = t % 256;
                 int c2 = ((t - c3)/256) % 256;
                 int c1 = ((t - c2 - c3)/65536) % 256;

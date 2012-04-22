@@ -21,6 +21,7 @@ Fade out music when exiting : do better?
 Make gamelib loading non-blocking
 
 AFTER ALPHA-1
+If exiting while downloading zip/rar -> file not deleted.
 Bug music goes on after zoom-out
 Bug loading screen stays too long after quickly exiting a game - still the case?
 Mystery game icon
