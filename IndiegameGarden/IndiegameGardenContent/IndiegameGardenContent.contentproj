@@ -98,12 +98,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="aurelic.ogg">
-      <Name>aurelic</Name>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="igglogo.png">
       <Name>igglogo</Name>
       <Importer>TextureImporter</Importer>
@@ -128,6 +122,13 @@
   <ItemGroup>
     <Compile Include="cursor2.png">
       <Name>cursor2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="keymap.png">
+      <Name>keymap</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

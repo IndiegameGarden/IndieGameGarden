@@ -141,10 +141,6 @@ namespace IndiegameGarden
             mainScreenlet.Motion.Scale = ((float)myWindowHeight) / 900f;
             loadingScreenlet.Motion.Scale = mainScreenlet.Motion.Scale;
 
-            // music
-            music = new GardenMusic();
-            TreeRoot.Add(music);
-
             // MyDownloader configuration
             myDownloaderProtocol = new HttpFtpProtocolExtension();
             Settings.Default.MaxRetries = 0;
@@ -160,6 +156,10 @@ namespace IndiegameGarden
             {
                 Exit();
             }
+
+            // music
+            music = new GardenMusic();
+            TreeRoot.Add(music);
 
             // finally call base to enumnerate all (gfx) Game components to init
             base.Initialize();

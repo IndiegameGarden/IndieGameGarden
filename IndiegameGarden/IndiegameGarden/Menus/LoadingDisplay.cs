@@ -162,7 +162,7 @@ namespace IndiegameGarden.Menus
 
             iggNameBox = new GameTextBox("GameDescriptionFont");
             iggNameBox.Text = "Indiegame Garden              Exit this game to return to the garden!";
-            iggNameBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.92f);
+            iggNameBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.95f);
             iggNameBox.Motion.Scale = 0.8f;
             Add(iggNameBox);
 

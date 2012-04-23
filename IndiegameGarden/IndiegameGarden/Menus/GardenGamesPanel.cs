@@ -27,7 +27,9 @@ namespace IndiegameGarden.Menus
         const float LAYER_DODGING_ITEM = 0.3f;
         const float LAYER_GRID_ITEMS = 0.9f;
 
+        const float PANEL_ZOOM_STARTUP = 0.45f;
         const float PANEL_ZOOM_REGULAR = 0.45f; //0.16f;
+        const float PANEL_ZOOM_DETAILED_VIEW = 1.0f; //2.857f;
         const float PANEL_DELTA_GRID_X = 0.16f;
         const float PANEL_DELTA_GRID_Y = 0.12f;
         const float PANEL_SPEED_SHIFT = 2.1f;
@@ -37,12 +39,13 @@ namespace IndiegameGarden.Menus
         const float PANEL_ZOOM_SPEED_QUITTING = 0.005f;
         const float PANEL_ZOOM_SPEED_REGULAR = 0.005f;
         const float PANEL_ZOOM_SPEED_ABORTQUITTING = 0.005f;
-        const float PANEL_ZOOM_DETAILED_VIEW = 1.0f; //2.857f;
+        static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-1.5f);
 
         const float CURSOR_SCALE_REGULAR = 0.8f; //5.9375f;
         public const float CURSOR_DISCOVERY_RANGE = 0.35f;
         const float CURSOR_MARGIN_X = 0.15f;
         const float CURSOR_MARGIN_Y = 0.15f;
+        static Vector2 CURSOR_INITIAL_POSITION = new Vector2(0.7f, 0.2f);
 
         public const float THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED = 0.44f;
         const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; //0.6f; //0.54f; //1.5625f;
@@ -50,7 +53,9 @@ namespace IndiegameGarden.Menus
         
         static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f, 0.895f);
         static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.96f);
-        const float    INFOBOX_SPEED_MOVE = 3.8f;
+        static Vector2 HELPTEXT_SHOWN_POSITION = new Vector2(0.15f, 0.13f);
+        static Vector2 HELPTEXT_HIDDEN_POSITION = new Vector2(0.15f, -0.2f);
+        const float INFOBOX_SPEED_MOVE = 3.8f;
         
         const float TIME_BEFORE_GAME_LAUNCH = 0.7f;
         const float TIME_BEFORE_EXIT = 1.2f;
@@ -67,8 +72,8 @@ namespace IndiegameGarden.Menus
         // box showing info of a game such as title and download progressContributionSingleFile
         GameInfoBox infoBox;
 
-        // textbox showing controls help message
-        FloatingTextMessage controlsHelpText;
+        // showing controls help message
+        Spritelet controlsHelpBitmap;
 
         // UI related vars - related to whether user indicates to quit program or user cancelled this
         bool isExiting = false;
@@ -77,7 +82,7 @@ namespace IndiegameGarden.Menus
         bool isLaunchWebsite = false;
         float timeExiting = 0f;
         float timeLaunching = 0f;
-        Vector2 PanelShiftPos = Vector2.Zero;
+        Vector2 PanelShiftPos = PANEL_INITIAL_SHIFT_POS;
         int selectionLevel = 1;
         GameChooserMenu parentMenu;
 
@@ -89,20 +94,17 @@ namespace IndiegameGarden.Menus
             cursor = new GameThumbnailCursor();
             Add(cursor);
             cursor.Motion.Scale = CURSOR_SCALE_REGULAR;
-            cursor.Motion.Position = new Vector2(0.7f,0.2f);
+            cursor.Motion.Position = CURSOR_INITIAL_POSITION;
 
             // info box - will be added to parent upon OnNewParent() event
             infoBox = new GameInfoBox();
             infoBox.Motion.Position = INFOBOX_HIDDEN_POSITION;
 
-            // controls help text
-            controlsHelpText = new FloatingTextMessage();
-            controlsHelpText.Motion.Position = new Vector2(0.04f, 0.04f);
-            controlsHelpText.Text = "CONTROLS:\n\n" + 
-                                    "ARROWs = Move cursor          ENTER = Select game\n" +
-                                    "ESCAPE = Back                       Hold ESCAPE = Quit the garden\n" +
-                                    "Hold ENTER = Grow game in your garden / Play game\n" +
-                                    "W = Launch game's website";
+            // controls help 
+            controlsHelpBitmap = new Spritelet("keymap");
+            controlsHelpBitmap.Motion.Scale = 0.5f;
+            controlsHelpBitmap.Motion.Position = HELPTEXT_HIDDEN_POSITION;
+            controlsHelpBitmap.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
 
             // default zoom
             Motion.Zoom = PANEL_ZOOM_DETAILED_VIEW;
@@ -167,7 +169,7 @@ namespace IndiegameGarden.Menus
             // some items are part of the parent, to avoid scaling issues in GardenGamesPanel
             // (which get rescaled/zoomed based on user input).
             Parent.Add(infoBox);
-            Parent.Add(controlsHelpText);
+            Parent.Add(controlsHelpBitmap);
         }
 
         protected override void OnUpdate(ref UpdateParams p)
@@ -261,12 +263,12 @@ namespace IndiegameGarden.Menus
             //-- helpful controls text
             if (SelectedGame != null && SelectedGame.GameID.Equals("igg_controls"))
             {
-                controlsHelpText.FadeIn();
+                controlsHelpBitmap.Motion.TargetPos = HELPTEXT_SHOWN_POSITION;
                 SelectedGame.Name = GardenGame.Instance.Config.ServerMsg;
             }
             else
             {
-                controlsHelpText.FadeOut();
+                controlsHelpBitmap.Motion.TargetPos = HELPTEXT_HIDDEN_POSITION;
             }
 
             //-- loop all games adapt their display properties where needed

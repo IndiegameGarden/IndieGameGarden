@@ -31,6 +31,7 @@ Key/option to abort download or install of a game
 Add mirrors to all thumbnail loading?
 Desktop resolution: check for minimum resolution?
 Easter egg with sprites from OpenGameArt in menu
+Check GardenMusic for existence of .ogg file (less fragile)
 
 CLOSED  [date order]
 2012-04-22 Music pausing to be fixed. -> 5000 ms hack in TTMusicEngine

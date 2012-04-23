@@ -25,7 +25,7 @@ namespace IndiegameGarden.Menus
         {
             soundScript = new SoundEvent("GardenMusic");            
             rp.Ampl = 1;            
-            Play("Content\\aurelic.ogg", 0.5);
+            Play( GardenGame.Instance.Config.PackedFilesFolder + "\\Torley_Cataplasm.ogg", 0.5);
             FadeIn();
         }
 
