@@ -152,11 +152,5 @@ namespace IndiegameGarden.Menus
             }
         }
 
-        protected override void OnDraw(ref DrawParams p)
-        {
-            base.OnDraw(ref p);
-        }
-
-
     }
 }

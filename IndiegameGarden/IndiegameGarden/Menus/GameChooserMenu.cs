@@ -68,7 +68,7 @@ namespace IndiegameGarden.Menus
             Add(logo);
             logo.DrawInfo.Alpha = 0.7f;
             logo.Motion.Scale = 0.55f;
-            logo.Motion.Position = new Vector2(Screen.AspectRatio - 0.3f, 0.04f);
+            logo.Motion.Position = new Vector2(Screen.AspectRatio - 0.24f, 0.04f);
             ColorChangeBehavior fadeIn = new ColorChangeBehavior();
             logo.Add(fadeIn);
             fadeIn.Intensity = 0f;
@@ -79,11 +79,6 @@ namespace IndiegameGarden.Menus
             Add(panel);
             panel.OnUpdateList(gamesList);
 
-        }
-
-        protected override void OnDraw(ref DrawParams p)
-        {
-            base.OnDraw(ref p);
         }
 
         /// <summary>

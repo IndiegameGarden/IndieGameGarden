@@ -1,24 +1,21 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Loading bar overlaps with title/text
+credits go left top and are bitmap
+Upload music files to server
+Loading bar overlaps with title/text (replace by percent in title only? or circle?)
 Background sometimes not shows?
 Add for certain games that loading takes a while.
-Controls help in a bitmap
-Change text "exit this game to return to garden" when loading
-Fix bouncy behavior at startup with cursor
 Loading from server file corruptions?
 Test on 4:3 resolution for item visibility
 Faster thumbs downloading thread abortion on exit
 Add more games
-Test disk free before growing game
-Check starman directx 8
 Test client install and first run from website
 Test client version update in deployment version
-Fade out music when exiting : do better?
 Make gamelib loading non-blocking
 
 AFTER ALPHA-1
+Test disk free before growing game
 Bug of background garbled after certain games?
 Default music should be already-loaded in garden selection.
 Icon stays big while loading game
@@ -34,6 +31,11 @@ Easter egg with sprites from OpenGameArt in menu
 Check GardenMusic for existence of .ogg file (less fragile)
 
 CLOSED  [date order]
+2012-04-24 Change text "exit this game to return to garden" when loading not show it.
+2012-04-23 Controls help in a bitmap
+2012-04-23 Check starman directx 8 -> only on some PCs
+2012-04-23 Fix bouncy behavior at startup with cursor
+2012-04-23 Fade out music when exiting : do better?
 2012-04-22 Music pausing to be fixed. -> 5000 ms hack in TTMusicEngine
 2012-04-21 Text not fully shown on widescreen lowres?
 2012-04-21 Spacing different on res 1366 x 768 (vs 1440 x 900) - need to scale all bitmap things with 768/900 as well in engine.

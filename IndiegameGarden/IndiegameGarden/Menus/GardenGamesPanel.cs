@@ -382,16 +382,6 @@ namespace IndiegameGarden.Menus
             }
         }
 
-        protected override void OnDraw(ref DrawParams p)
-        {
-            base.OnDraw(ref p);
-
-            // DEBUG
-            //if (SelectedGame != null)
-            //    Screen.DebugText(0f, 0f, "Selected: " + gl.IndexOf(SelectedGame) + " " + SelectedGame.GameID );
-            //Screen.DebugText(0f, 0.1f, "Zoom: " + Motion.Zoom);
-        }
-
         public override void OnChangedSelectedGame(GardenItem newSel, GardenItem oldSel)
         {
             //

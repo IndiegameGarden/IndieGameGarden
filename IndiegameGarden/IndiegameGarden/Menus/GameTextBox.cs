@@ -16,6 +16,8 @@ namespace IndiegameGarden.Menus
      */
     public class GameTextBox: Drawlet
     {
+        public ColorChangeBehavior ColorB;
+
         string txt ;
         SpriteFont font;
 
@@ -24,6 +26,9 @@ namespace IndiegameGarden.Menus
         /// </summary>
         public GameTextBox(string fontName)
         {
+            ColorB = new ColorChangeBehavior();
+            Add(ColorB);
+
             txt = "";
             Init(fontName);
         }

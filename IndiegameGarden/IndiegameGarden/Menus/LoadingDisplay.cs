@@ -48,6 +48,8 @@ namespace IndiegameGarden.Menus
 
             public override void OnEntry(Gamelet g)
             {
+                loadingDisplay.iggNameBox.ColorB.Intensity = 0f;
+                loadingDisplay.iggNameBox.ColorB.FadeTarget = 0f;
                 g.SimTime = 0f;
                 if (loadingDisplay.gameIcon != null)
                     loadingDisplay.gameIcon.Visible = true;
@@ -96,11 +98,14 @@ namespace IndiegameGarden.Menus
                 if (loadingDisplay.gameIcon != null)
                     loadingDisplay.gameIcon.Visible = true;
             }
+
             public override void OnUpdate(Gamelet g)
             {
-                if (g.SimTime < 0.3f || isFirstDraw)
+                // fade in 
+                loadingDisplay.iggNameBox.ColorB.FadeTarget = 1.0f;
+
+                if (g.SimTime <= 1f || isFirstDraw)
                 {
-                    isFirstDraw = false;
                     loadingDisplay.tbox.Text = "Playing " + loadingDisplay.game.Name;
                 }
                 else 
@@ -112,8 +117,13 @@ namespace IndiegameGarden.Menus
                 {
                     g.SetNextState(new StateLoadingDisplay_Empty(loadingDisplay));
                 }
-
             }
+
+            public override void OnDraw(Gamelet g)
+            {
+                isFirstDraw = false;
+            }
+
         }
 
         /// <summary>
@@ -127,43 +137,44 @@ namespace IndiegameGarden.Menus
                 : base(parent)
             { }
 
-
             public override void OnEntry(Gamelet g)
             {
                 g.SimTime = 0f;
                 loadingDisplay.tbox.Text = "";
-                //if (loadingDisplay.gameIcon != null)
-                //    loadingDisplay.gameIcon.Visible = false;
             }
 
             public override void OnUpdate(Gamelet g)
             {
-                if (g.SimTime < 0.3f || isFirstDraw)
-                {
-                    isFirstDraw = false;
-                }
-                else
+                if (g.SimTime > 1f && !isFirstDraw)
                 {
                     // suppress drawing during play of another game - save resources and avoid gfx conflicts.
                     GardenGame.Instance.SuppressDraw();
                 }
 
             }
-        
+
+            public override void OnDraw(Gamelet g)
+            {
+                isFirstDraw = false;
+            }
+
         }
 
         public LoadingDisplay()
         {
-            SetNextState(new StateLoadingDisplay_Loading(this));
             tbox = new GameTextBox("m41_lovebit");
             tbox.Text = "Loading ...";
-            tbox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.05f);
+            tbox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.05f); // TODO consts
             Add(tbox);
 
             iggNameBox = new GameTextBox("GameDescriptionFont");
-            iggNameBox.Text = "Indiegame Garden              Exit this game to return to the garden!";
-            iggNameBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.95f);
-            iggNameBox.Motion.Scale = 0.8f;
+            iggNameBox.Text = "Indiegame Garden        Exit this game to return to the garden";
+            iggNameBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.94f);
+            iggNameBox.Motion.Scale = 0.7f;
+            iggNameBox.DrawInfo.DrawColor = Color.Transparent;
+            iggNameBox.ColorB.Intensity = 0f;
+            iggNameBox.ColorB.FadeTarget = 0.0f;
+            iggNameBox.ColorB.FadeSpeed = 1.0f;
             Add(iggNameBox);
 
             helpTextBox = new GameTextBox("GameDescriptionFont");
@@ -178,6 +189,9 @@ namespace IndiegameGarden.Menus
             gameIcon.DrawInfo.LayerDepth = 1f;
             gameIcon.DrawInfo.DrawColor = Color.Gray;
             Add(gameIcon);
+
+            // setup initial state
+            SetNextState(new StateLoadingDisplay_Loading(this));
         }
 
         /// <summary>
@@ -222,19 +236,6 @@ namespace IndiegameGarden.Menus
         {
             return IsInState(new StateLoadingDisplay_Playing(this));
         }
-
-
-        protected override void OnUpdate(ref UpdateParams p)
-        {
-            base.OnUpdate(ref p);
-        }
-
-        protected override void OnDraw(ref DrawParams p)
-        {
-            base.OnDraw(ref p);
-        }
-
-
 
     }
 }

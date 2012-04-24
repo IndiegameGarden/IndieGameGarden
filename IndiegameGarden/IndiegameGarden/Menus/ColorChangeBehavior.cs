@@ -36,7 +36,7 @@ namespace IndiegameGarden.Menus
             set
             {
                 intensity = value;
-                DrawInfo.DrawColor = new Color(intensity, intensity, intensity, intensity); //DrawInfo.DrawColor.A);
+                DrawInfo.DrawColor = new Color(intensity, intensity, intensity, intensity); //DrawInfo.DrawColor.A); // TODO allow drawcolor?
             }
 
         }
