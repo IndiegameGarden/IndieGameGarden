@@ -55,6 +55,8 @@ namespace IndiegameGarden.Menus
         static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.96f);
         static Vector2 HELPTEXT_SHOWN_POSITION = new Vector2(0.15f, 0.13f);
         static Vector2 HELPTEXT_HIDDEN_POSITION = new Vector2(0.15f, -0.2f);
+        static Vector2 CREDITS_SHOWN_POSITION = new Vector2(0.3f, 0.13f);
+        static Vector2 CREDITS_HIDDEN_POSITION = new Vector2(0.3f, -0.3f);
         const float INFOBOX_SPEED_MOVE = 3.8f;
         
         const float TIME_BEFORE_GAME_LAUNCH = 0.7f;
@@ -74,6 +76,9 @@ namespace IndiegameGarden.Menus
 
         // showing controls help message
         Spritelet controlsHelpBitmap;
+
+        // showing credits
+        Spritelet creditsBitmap;
 
         // UI related vars - related to whether user indicates to quit program or user cancelled this
         bool isExiting = false;
@@ -105,6 +110,12 @@ namespace IndiegameGarden.Menus
             controlsHelpBitmap.Motion.Scale = 0.5f;
             controlsHelpBitmap.Motion.Position = HELPTEXT_HIDDEN_POSITION;
             controlsHelpBitmap.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
+
+            // credits
+            creditsBitmap = new Spritelet("credits");
+            creditsBitmap.Motion.Scale = 0.7f;
+            creditsBitmap.Motion.Position = CREDITS_HIDDEN_POSITION;
+            creditsBitmap.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
 
             // default zoom
             Motion.Zoom = PANEL_ZOOM_DETAILED_VIEW;
@@ -170,6 +181,7 @@ namespace IndiegameGarden.Menus
             // (which get rescaled/zoomed based on user input).
             Parent.Add(infoBox);
             Parent.Add(controlsHelpBitmap);
+            Parent.Add(creditsBitmap);
         }
 
         protected override void OnUpdate(ref UpdateParams p)
@@ -271,6 +283,16 @@ namespace IndiegameGarden.Menus
                 controlsHelpBitmap.Motion.TargetPos = HELPTEXT_HIDDEN_POSITION;
             }
 
+            //-- credits text
+            if (SelectedGame != null && SelectedGame.GameID.Equals("igg_credits"))
+            {
+                creditsBitmap.Motion.TargetPos = CREDITS_SHOWN_POSITION;
+            }
+            else
+            {
+                creditsBitmap.Motion.TargetPos = CREDITS_HIDDEN_POSITION;
+            }
+
             //-- loop all games adapt their display properties where needed
             if (gl == null)
                 return;
@@ -310,7 +332,12 @@ namespace IndiegameGarden.Menus
                 }
 
                 if (th.IsLoaded())
-                    th.ColorB.FadeTarget = (0.65f + 0.35f * g.InstallProgress);
+                {
+                    if (th.Game.IsGrowable)
+                        th.ColorB.FadeTarget = (0.65f + 0.35f * g.InstallProgress);
+                    else
+                        th.ColorB.FadeTarget = 1f;
+                }
                 else
                     th.ColorB.FadeTarget = 0f;
 

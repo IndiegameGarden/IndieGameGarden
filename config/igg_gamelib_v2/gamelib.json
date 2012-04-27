@@ -14,8 +14,7 @@
 	  	},
 	  	{
 	  		"ID": "igg_credits",
-	  		"Name": "Credits (press Enter to view)",
-	  		"Descr": "Music from album Glitch Piano (c) by Torley (torley.com), CC by-nc-sa licensed. Nice album!\nMusic track \"Sublime\" (c) by Space Explorer(s), CC-by licensed.\nBackground photo: Parc departemental du Val-de-Marne (c) by gadl, CC by-sa licensed. Great stuff!\nFMOD Sound System, copyright (c) Firelight Technologies Pty, Ltd., 1994-2012.\nFont M41_LOVEBIT by Miffies (mfs.jp.org). Source code (c) IndiegameGarden.com and others,\nsee LICENSE.txt for code license details.\nBig thanks to all game authors who (involuntarily) contributed to filling this garden! Twitter: @IndiegameGarden",
+	  		"Name": "Credits",
 	  		"FX": 0,
 	  		"X": 3, "Y": 0
 	  	},

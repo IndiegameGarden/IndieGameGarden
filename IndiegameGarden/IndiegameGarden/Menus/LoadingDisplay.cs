@@ -57,7 +57,7 @@ namespace IndiegameGarden.Menus
             public override void OnUpdate(Gamelet g)
             {
                 int phase = (int)Math.Round((g.SimTime*2f) % 3.0f);
-                string t = "Loading " + loadingDisplay.game.Name;
+                string t = "Loading \"" + loadingDisplay.game.Name + "\"";
                 switch (phase)
                 {
                     case 0: t += " .";
@@ -106,7 +106,7 @@ namespace IndiegameGarden.Menus
 
                 if (g.SimTime <= 1f || isFirstDraw)
                 {
-                    loadingDisplay.tbox.Text = "Playing " + loadingDisplay.game.Name;
+                    loadingDisplay.tbox.Text = "Enjoy \"" + loadingDisplay.game.Name + "\"";
                 }
                 else 
                 {
