@@ -8,8 +8,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("IndiegameGardenLauncher")]
 [assembly: AssemblyProduct("IndiegameGardenLauncher")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("TranceTrance.com")]
-[assembly: AssemblyCopyright("Copyright © TranceTrance.com 2012")]
+[assembly: AssemblyCompany("IndiegameGarden.com")]
+[assembly: AssemblyCopyright("Copyright © IndiegameGarden.com 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

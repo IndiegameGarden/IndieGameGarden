@@ -1,11 +1,11 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Test on 4:3 resolution for item visibility
-Faster thumbs downloading thread abortion on exit
 Test client install and first run from website
 
 AFTER ALPHA-1
+Bg rotates faster upon downloading
+Faster thumbs downloading thread abortion on exit?
 Add for certain games that loading takes a while.
 Test client version update in deployment version
 Make gamelib loading non-blocking
@@ -30,6 +30,7 @@ Easter egg with sprites from OpenGameArt in menu
 Check GardenMusic for existence of .ogg file (less fragile)
 
 CLOSED  [date order]
+2012-04-30 Test on 4:3 resolution for item visibility
 2012-04-28 Loading bar overlaps with title/text (replace by percent in title only? or circle?)
 2012-04-27 Upload music files to server
 2012-04-27 credits go left top and are bitmap

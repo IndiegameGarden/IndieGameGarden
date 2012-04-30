@@ -63,7 +63,7 @@ namespace IndiegameGarden.Menus
             Color shadowDrawColor = Color.Black;
             shadowDrawColor.A = DrawInfo.DrawColor.A;
             MySpriteBatch.DrawString(font, txt, pos + new Vector2(1f,1f), shadowDrawColor,
-                                    Motion.RotateAbs, origin, Motion.ScaleAbs, SpriteEffects.None, DrawInfo.LayerDepth + 0.00001f);
+                                    Motion.RotateAbs, origin, Motion.ScaleAbs, SpriteEffects.None, DrawInfo.LayerDepth + 0.00001f); // TODO the const
             MySpriteBatch.DrawString(font, txt, pos, DrawInfo.DrawColor,
                                     Motion.RotateAbs, origin, Motion.ScaleAbs, SpriteEffects.None, DrawInfo.LayerDepth);
         }

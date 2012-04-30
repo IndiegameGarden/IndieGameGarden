@@ -51,14 +51,14 @@ namespace IndiegameGarden.Menus
 
             // background
             Spritelet bg = new Spritelet("parc-by-gadl.png");
-            bg.Motion.Position = new Vector2(0.66667f, 0.6f);
+            bg.Motion.Position = new Vector2(0.66667f, 0.22f);
             bg.Motion.Scale = 0.5f;
             bg.DrawInfo.LayerDepth = 1f;
             //bg.DrawInfo.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
             // bg color 169, 157, 241
             bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/70.0f; }, "Rotate"));
-            bg.Motion.Add(new MyFuncyModifier(delegate(float v) { return (0.7f + 0.5f * (float) Math.Sqrt(v/190.0)); }, "Scale"));
-            bg.Motion.TargetPos = new Vector2(0.66667f, 0.5f);
+            bg.Motion.Add(new MyFuncyModifier(delegate(float v) { return (0.25f + 0.95f * (float) Math.Sqrt(v/430.0)); }, "Scale"));
+            bg.Motion.TargetPos = new Vector2(0.66667f, 0.9f);
             bg.Motion.TargetPosSpeed = 0.003f;
             Add(bg);
             background = bg;

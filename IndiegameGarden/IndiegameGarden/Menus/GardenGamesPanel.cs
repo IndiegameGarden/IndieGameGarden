@@ -57,7 +57,7 @@ namespace IndiegameGarden.Menus
         static Vector2 HELPTEXT_HIDDEN_POSITION = new Vector2(0.15f, -0.2f);
         static Vector2 CREDITS_SHOWN_POSITION = new Vector2(0.46f, 0.145f);
         static Vector2 CREDITS_HIDDEN_POSITION = new Vector2(0.46f, -0.22f);
-        const float CREDITS_SCALE_DEFAULT = 0.6f;
+        const float CREDITS_SCALE_DEFAULT = 1f;
         const float INFOBOX_SPEED_MOVE = 3.8f;
         
         const float TIME_BEFORE_GAME_LAUNCH = 0.7f;
