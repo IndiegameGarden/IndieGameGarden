@@ -183,7 +183,23 @@ namespace IndiegameGarden.Menus
                 loaderTask.Start();
             }
         }
-        
+
+        /// <summary>
+        /// get the manual scaling or the auto-scaling value for game thumbnail size 
+        /// </summary>
+        protected float ThumbnailScale
+        {
+            get
+            {
+                float sc = Game.ScaleIcon;
+                if (Texture != null && sc == 1.0f)
+                {
+                    sc *= 320f / Texture.Width;
+                }
+                return sc;
+            }
+        }
+
         /// <summary>
         /// (re) loads texture from a file and puts in internal updatedTexture var,
         /// which replaces the present texture in next Update() round.
@@ -228,7 +244,7 @@ namespace IndiegameGarden.Menus
             }
 
             // adapt scale according to GameItem preset
-            Motion.ScaleModifier *= Game.ScaleIcon;
+            Motion.ScaleModifier *= ThumbnailScale;
 
             // check if a new texture has been loaded in background
             if (updatedTexture != null)

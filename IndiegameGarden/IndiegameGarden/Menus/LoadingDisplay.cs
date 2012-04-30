@@ -106,7 +106,7 @@ namespace IndiegameGarden.Menus
 
                 if (g.SimTime <= 1f || isFirstDraw)
                 {
-                    loadingDisplay.tbox.Text = "Enjoy \"" + loadingDisplay.game.Name + "\"";
+                    loadingDisplay.tbox.Text = "   Enjoy \"" + loadingDisplay.game.Name + "\"";
                 }
                 else 
                 {

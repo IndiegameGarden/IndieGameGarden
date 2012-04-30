@@ -113,13 +113,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cursor.png">
-      <Name>cursor</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="cursor2.png">
       <Name>cursor2</Name>
       <Importer>TextureImporter</Importer>
@@ -134,8 +127,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="credits.png">
-      <Name>credits</Name>
+    <Compile Include="credits2.png">
+      <Name>credits2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

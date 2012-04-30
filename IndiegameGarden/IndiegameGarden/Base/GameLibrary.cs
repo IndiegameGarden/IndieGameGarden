@@ -79,43 +79,43 @@ namespace IndiegameGarden.Base
                 Vector2 posPrevious = Vector2.Zero;
                 //Vector2 childPosPrevious = Vector2.Zero;
                 Vector2 sectionWidthHeight = new Vector2(999f, 999f);
-                GardenItem ig = null;
+                GardenItem gi = null;
                 
                 foreach (IJsonType jChild in ja)
                 {
                     // parse each subitem and add to gamelist
-                    ig = ParseJson(jChild, childPosOffset);
-                    if (ig == null)
+                    gi = ParseJson(jChild, childPosOffset);
+                    if (gi == null)
                         continue;
 
                     // optional first SectionID item of a JsonArray may contain position offset info for all items
-                    if (ig.IsSectionId)
+                    if (gi.IsSectionId)
                     {
-                        childPosOffset += ig.Position;
+                        childPosOffset += gi.Position;
                         // WARNING mis-use the posdelta field for section width/height!!
-                        sectionWidthHeight = ig.PositionDelta;
+                        sectionWidthHeight = gi.PositionDelta;
                         //childPosPrevious = Vector2.Zero;
-                        posPrevious = Vector2.Zero;
+                        posPrevious = Vector2.Zero - Vector2.UnitX; // for first item of a section, apply a shift to align item to (0,0)
                         continue;
                     }                    
 
                     // calculate correct item position
-                    if (!ig.IsPositionGiven)
+                    if (!gi.IsPositionGiven)
                     {
-                        ig.Position = posPrevious + ig.PositionDelta;
+                        gi.Position = posPrevious + gi.PositionDelta;
                         // checking the automatic calculated game position with section width
-                        if (ig.Position.X >= sectionWidthHeight.X)
+                        if (gi.Position.X >= sectionWidthHeight.X)
                         {
-                            ig.Position.Y += 1.0f;
-                            ig.Position.X = 0f;
+                            gi.Position.Y += 1.0f;
+                            gi.Position.X = 0f;
                         }
                     }                    
 
                     // update prev item position 
-                    posPrevious = ig.Position;
+                    posPrevious = gi.Position;
 
                     // apply the section position offset
-                    ig.Position += childPosOffset;
+                    gi.Position += childPosOffset;
 
                 }
                 return null; // indicate array was last item.

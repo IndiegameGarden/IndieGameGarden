@@ -48,6 +48,7 @@ namespace IndiegameGarden.Download
                 {
                     DownloadManager.Instance.RemoveDownload(downloader);
                     downloader.WaitForConclusion();
+                    status = ITaskStatus.FAIL;
                 }
 
                 // try to delete file if an error occurred in download

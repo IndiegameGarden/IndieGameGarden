@@ -33,7 +33,9 @@ namespace IndiegameGarden.Download
             }
             else
             {
+                Settings.Default.MaxRetries = 4; // FIXME hack
                 InternalDoDownload(game.PackedFileURL, fn, toLocalFolder, false, game.PackedFileMirrors);
+                Settings.Default.MaxRetries = 0;
             }
         }
 

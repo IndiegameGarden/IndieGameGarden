@@ -39,7 +39,7 @@ namespace IndiegameGarden.Menus
         const float PANEL_ZOOM_SPEED_QUITTING = 0.005f;
         const float PANEL_ZOOM_SPEED_REGULAR = 0.005f;
         const float PANEL_ZOOM_SPEED_ABORTQUITTING = 0.005f;
-        static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-1.5f);
+        static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-3f);
 
         const float CURSOR_SCALE_REGULAR = 0.8f; //5.9375f;
         public const float CURSOR_DISCOVERY_RANGE = 0.35f;
@@ -55,8 +55,9 @@ namespace IndiegameGarden.Menus
         static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.96f);
         static Vector2 HELPTEXT_SHOWN_POSITION = new Vector2(0.15f, 0.13f);
         static Vector2 HELPTEXT_HIDDEN_POSITION = new Vector2(0.15f, -0.2f);
-        static Vector2 CREDITS_SHOWN_POSITION = new Vector2(0.3f, 0.13f);
-        static Vector2 CREDITS_HIDDEN_POSITION = new Vector2(0.3f, -0.3f);
+        static Vector2 CREDITS_SHOWN_POSITION = new Vector2(0.46f, 0.145f);
+        static Vector2 CREDITS_HIDDEN_POSITION = new Vector2(0.46f, -0.22f);
+        const float CREDITS_SCALE_DEFAULT = 0.6f;
         const float INFOBOX_SPEED_MOVE = 3.8f;
         
         const float TIME_BEFORE_GAME_LAUNCH = 0.7f;
@@ -112,8 +113,8 @@ namespace IndiegameGarden.Menus
             controlsHelpBitmap.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
 
             // credits
-            creditsBitmap = new Spritelet("credits");
-            creditsBitmap.Motion.Scale = 0.7f;
+            creditsBitmap = new Spritelet("credits2");
+            creditsBitmap.Motion.Scale = CREDITS_SCALE_DEFAULT;
             creditsBitmap.Motion.Position = CREDITS_HIDDEN_POSITION;
             creditsBitmap.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
 
@@ -287,6 +288,13 @@ namespace IndiegameGarden.Menus
             if (SelectedGame != null && SelectedGame.GameID.Equals("igg_credits"))
             {
                 creditsBitmap.Motion.TargetPos = CREDITS_SHOWN_POSITION;
+                Vector2 cp = cursor.Motion.PositionDraw;
+                if (cp.Y <= 0.35f) // TODO const
+                {
+                    float dx = PANEL_SPEED_SHIFT * p.Dt;
+                    PanelShiftPos.Y -= dx;
+                }
+
             }
             else
             {
@@ -369,7 +377,7 @@ namespace IndiegameGarden.Menus
                         
                     }
                 }
-                th.ColorB.FadeSpeed = 0.15f;// 0.15f;
+                th.ColorB.FadeSpeed = 0.15f;// 0.15f; // TODO const
 
                 // coordinate position where to move a game thumbnail to 
                 Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X,PANEL_DELTA_GRID_Y);

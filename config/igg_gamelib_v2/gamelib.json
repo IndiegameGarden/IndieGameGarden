@@ -1,22 +1,21 @@
 {
 	"version": 2,
-	"Xmax": 13,
-	"Ymax": 13,
+	"Xmax": 12,
+	"Ymax": 12,
 	"gameslist":
 		[
 	  	{
 	  	 	"ID": "igg_controls",
-	  		"Name": "",
 	  		"Scale": 2.7,
 	  		"RotSpeed": 0.16,
 	  		"FX": 0,
 	  		"X": 3, "Y": 2
 	  	},
 	  	{
-	  		"ID": "igg_credits",
-	  		"Name": "Credits",
+	  		"ID": "igg_credits",	  		
 	  		"FX": 0,
-	  		"X": 3, "Y": 0
+	  		"Scale": 0.7,
+	  		"X": 1, "Y": 0
 	  	},
 	  	{
 	  	  "ID": "igg",
@@ -28,19 +27,19 @@
 	  	},
 	  	[
 	  		{ "ID": "section_music",
-	  			"X": 6, "Y": 0, "DX": 10
+	  			"X": 7, "Y": 6, "DX": 2
 	  		},
 		  	{
 		  	 	"ID": "igg_iconmusic",
 		  		"Name": "",
-		  		"Scale": 0.7,
+		  		"Scale": 0.55,
 		  		"X": -1, "Y": -1,
 		  		"FX": 0
 		  	},
 		  	{
 		  		"ID": "Torley_Aurelic",
-		  		"Name": "Indie music: \"Aurelic\" by Torley",
-		  		"Descr": "Track from the album \"Glitch Piano\". Hit \"W\" for Torley's website with more music.\nCreative Commons by-nc-sa licensed.",
+		  		"Name": "\"Aurelic\" by Torley",
+		  		"Descr": "From the album \"Glitch Piano\". Hit \"W\" for Torley's website. (CC BY-NC-SA license.)",
 		  		"Zip": "Torley_Aurelic.ogg",
 		  		"Exe": "Torley_Aurelic.ogg",
 		  		"Site": "music.torley.com",
@@ -49,8 +48,8 @@
 		  	},
 		  	{
 		  		"ID": "Torley_Zalgone",
-		  		"Name": "Indie music: \"Zalgone\" by Torley",
-		  		"Descr": "Track from the album \"Glitch Piano\". Hit \"W\" for Torley's website with more music.\nCreative Commons by-nc-sa licensed.",
+		  		"Name": "\"Zalgone\" by Torley",
+		  		"Descr": "From the album \"Glitch Piano\". Hit \"W\" for Torley's website. (CC BY-NC-SA license.)",
 		  		"Zip": "Torley_Zalgone.ogg",
 		  		"Exe": "Torley_Zalgone.ogg",
 		  		"Site": "music.torley.com",
@@ -58,8 +57,8 @@
 		  	},
 		  	{
 		  		"ID": "Space-Explorers_Sublime",
-		  		"Name": "Indie music: \"Sublime\" by Space Explorer(s)",
-		  		"Descr": "Hit \"W\" for the Space Explorer(s) website with more music. Creative Commons attribution license.",
+		  		"Name": "\"Sublime\" by Space Explorer(s)",
+		  		"Descr": "Hit \"W\" for Space Explorer(s) website. (CC BY license.)",
 		  		"Zip": "Space-Explorers_Sublime.ogg",
 		  		"Exe": "Space-Explorers_Sublime.ogg",
 		  		"Site": "spaceexplorers.bandcamp.com",
@@ -68,8 +67,8 @@
 		  ],
 
 			[
-				{ "ID": "section_general"
-					"X": 0, "Y": 1, "DX": 2
+				{ "ID": "section_general",
+					"X": 1, "Y": 1, "DX": 2
 				},
 		  	{
 		  	 	"ID": "honeyblaster",
@@ -92,13 +91,12 @@
 		  	{
 		  	 	"ID": "foxaliens",
 		  		"Name": "Fox aliens from space invade a planet within space",
-		  		"Descr": "\"jump as mr zuper hero dude, stop em aliens, bring their ships down destroy dem walkers.\"\nPress \"W\" to go to the great YoYoGames website for this game. Lawyers or YoYoGames people: if it's illegal to link\nto the game like this please let us know @IndiegameGarden and we'll remove it.",
+		  		"Descr": "\"jump as mr zuper hero dude, stop em aliens, bring their ships down destroy dem walkers.\"\nPress \"W\" to visit the YoYoGames website of this game. GameMaker is great, try it!",
 		  		"ZipOrigin": "http://sandbox.yoyogames.com/games/196253-fox-aliens-from-space-invade-a-planet-within-space/send_download?code=113999adfa054f80141a43cc8f58f5cd2f70a5b1",
 		  		"Site": "http://sandbox.yoyogames.com/games/196253-fox-aliens-from-space-invade-a-planet-within-space#",
 		  		"Exe": "FOXLZRS.exe",
 		  		"Cd": "FOXLZRS",
-		  		"Version": 2,
-		  		"Scale": 0.5
+		  		"Version": 2
 		  	},
 		  	{
 		  	 	"ID": "wither",
@@ -121,24 +119,15 @@
 	  	[
 	  		{
 	  			"ID": "section_dutch",
-	  			"X": 7, "Y": 2, "DX": 3
+	  			"X": 5, "Y": 1, "DX": 2
 	  		},
-		  	{
-		  		"ID": "igg_icondutch",
-		  		"Name": "",
-		  		"Scale": 0.63,
-		  		"FX": 0,
-		  		"X": -1, "Y": 0,
-		  		"Site": "www.dutchgamegarden.nl"
-		  	},
 	      {
 		  		"ID": "supercratebox",
 		  		"Name": "Super Crate Box",
 		  		"Descr": "Prepare for an arcade delight with tight controls, refreshing game mechanics, cracking retro art and a terribly hip chiptune soundtrack.",
 		  		"Exe": "supercratebox.exe",
 		  		"Zip": "www.supercratebox.com/download/supercratebox.rar",
-		  		"Site": "www.supercratebox.com",
-		  		"X": 0, "Y": 0
+		  		"Site": "www.supercratebox.com"
 		  	},
 		    {
 		  		"ID": "yetihunter",
@@ -162,7 +151,7 @@
 	  		{
 	  			"ID": "section_experimental",
 	  			"Visible": 0,
-	  			"X": 3, "Y": 3, "DX": 3
+	  			"X": 4, "Y": 3, "DX": 3
 	  		},
   	    {
 		  		"ID": "gametitle",
@@ -176,7 +165,7 @@
   	    {
 		  		"ID": "gametitle_lostlevels",
 		  		"Name": "Game Title: Lost Levels",
-		  		"Descr": "This is a sort of sequel to Game Title, inspired a bug that came up. It is very difficult to complete it.\nIt is possible to complete it. It is possible to get stuck.\nIf you're not absolutely certain that you're stuck, you're probably not stuck. Sorry.",
+		  		"Descr": "This is a sort of sequel to Game Title, inspired a bug that came up. It is very difficult to complete it. It is possible to complete it.\nIt is possible to get stuck. If you're not absolutely certain that you're stuck, you're probably not stuck. Sorry.",
 		  		"Cd": "Game Title - Lost Levels",
 		  		"Exe": "Game Title - Lost Levels.exe",
 		  		"Zip": "www.glorioustrainwrecks.com/files/Game%20Title%20-%20Lost%20Levels%20-%202012-02-23.zip",
@@ -209,6 +198,13 @@
 		  		"Zip": "http://dl.dropbox.com/u/3536006/forumz/spacemass.exe",
 		  		"Site": "www.darshell.co.nr"
 		  	}		  	
+	  	],
+	  	[
+	  		{
+	  			"ID": "section_gt",
+	  			"Visible": 0,
+	  			"X": 9, "Y": 9, "DX": 15
+	  		}
 	  	]   	
 		]
 }

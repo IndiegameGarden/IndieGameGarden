@@ -1,9 +1,9 @@
 ﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
+using System.IO;
 using System.Threading;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.Runtime.InteropServices; //required for SetForegroundWindow
@@ -46,14 +46,30 @@ namespace IndiegameGarden.Base
         {
             try
             {
+                // FIXME check for preconditions first. exefile exist, etc
                 //TODO wait until task done, keep setting it to fg a few times.
-                string cwd = System.IO.Directory.GetCurrentDirectory();
-                System.IO.Directory.SetCurrentDirectory(Game.GameFolder);
+                string cwd = Directory.GetCurrentDirectory();
+                Directory.SetCurrentDirectory(Game.GameFolder);
                 if (Game.CdPath.Length > 0) // if given
                 {
-                    System.IO.Directory.SetCurrentDirectory(Game.CdPath);
+                    Directory.SetCurrentDirectory(Game.CdPath);
                 }
-                Proc = System.Diagnostics.Process.Start(Game.ExeFile);
+                /* FIXME
+                else
+                {
+                    Directory.SetCurrentDirectory(AutoDetectedCdPath());
+                }
+                 */
+                if (Game.ExeFile.Length > 0)
+                {
+                    Proc = System.Diagnostics.Process.Start(Game.ExeFile);
+                }
+                else
+                {
+                    //Proc = System.Diagnostics.Process.Start(AutoDetectedExeFile()); FIXME
+                    Directory.SetCurrentDirectory(cwd);
+                    return;
+                }
                 Proc.Exited += new EventHandler(EvHandlerProcessExited);
                 Proc.EnableRaisingEvents = true;
             
@@ -78,7 +94,7 @@ namespace IndiegameGarden.Base
                 }
 
                 // set previous dir back
-                System.IO.Directory.SetCurrentDirectory(cwd);
+                Directory.SetCurrentDirectory(cwd);
 
                 // when done switch back to our Garden app
                 Process p = Process.GetCurrentProcess();
@@ -93,7 +109,7 @@ namespace IndiegameGarden.Base
             {             
                 status = ITaskStatus.FAIL;
             }
-            catch (System.IO.FileNotFoundException)
+            catch (FileNotFoundException)
             {             
                 status = ITaskStatus.FAIL;
             }
@@ -123,5 +139,24 @@ namespace IndiegameGarden.Base
             status = ITaskStatus.SUCCESS;
         }
 
+        /*
+        protected string AutoDetectedCdPath()
+        {
+            string[] dirs = Directory.GetDirectories(".");
+            if (dirs.Length == 0)
+                return ".";
+            else 
+                return dirs[0];
+        }
+
+        protected string AutoDetectedExeFile()
+        {
+            string[] exeFiles = Directory.GetFiles(".", "*.exe");
+            if (exeFiles.Length == 0)
+                return "";
+            else
+                return exeFiles[0];
+        }
+         */
     }
 }

@@ -161,7 +161,7 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// directory gameDirPath that OS has to 'change directory' to, before launching the game
         /// </summary>
-        public string CdPath = ".";
+        public string CdPath = "";
 
         /// <summary>
         /// Latest version of the game packed file which is available
@@ -244,6 +244,18 @@ namespace IndiegameGarden.Base
         }
 
         /// <summary>
+        /// get full file path from base directory to a game's .exe (to check it's there).
+        /// </summary>
+        /// <returns></returns>
+        public string ExeFilepath
+        {
+            get {
+                return GameFolder + "\\" + CdPath + "\\" + ExeFile;
+            }
+        }
+
+
+        /// <summary>
         /// check whether this game is locally installed, if true it is. Use Refresh() to
         /// enforce the installation check again.
         /// </summary>
@@ -253,8 +265,10 @@ namespace IndiegameGarden.Base
             {
                 if (refreshInstallationStatusNeeded)
                 {
+                    //AutoDetectedCdPath();
+                    //AutoDetectedExeFile(); FIXME
                     String gameDirPath = GameFolder;
-                    String exePath = GardenGame.Instance.Config.GetExeFilepath(this);
+                    String exePath = ExeFilepath;
                     isInstalled =   IsGrowable &&
                                     Directory.Exists(gameDirPath) &&
                                     File.Exists(exePath) &&
@@ -475,8 +489,54 @@ namespace IndiegameGarden.Base
                 ShowBelowClientVersion = GardenGame.Instance.Config.NewestClientVersion;
                 Version = GardenGame.Instance.Config.NewestClientVersion;
             }
+
+            // optional auto-detection of CdPath and ExeFile
+            //AutoDetectedCdPath(); FIXME
+            //AutoDetectedExeFile();
         }
 
+        /*
+        protected void AutoDetectedCdPath()
+        {
+            if (CdPath.Length == 0 && ExeFile.Length == 0)
+            {
+                string baseDir = GameFolder;
+                if (!Directory.Exists(baseDir))
+                    return;
+                string[] dirs = Directory.GetDirectories(baseDir);
+                if (dirs.Length > 0)
+                {
+                    DirectoryInfo di = new DirectoryInfo(dirs[0]);
+                    CdPath = di.Name;
+                }
+            }
+        }
+
+        protected void AutoDetectedExeFile()
+        {
+            if (ExeFile.Length == 0)
+            {
+                string baseDir = Path.Combine(GameFolder, CdPath);
+                if (!Directory.Exists(baseDir))
+                    return;
+                string[] exeFiles = Directory.GetFiles(baseDir, "*.exe");
+                if (exeFiles.Length == 0)
+                {   // try .bat files otherwise.
+                    exeFiles = Directory.GetFiles(baseDir, "*.bat");
+                    if (exeFiles.Length > 0)
+                    {
+                        DirectoryInfo di = new DirectoryInfo(exeFiles[0]);
+                        ExeFile = di.Name;
+                    }
+                }
+                else
+                {
+                    DirectoryInfo di = new DirectoryInfo(exeFiles[0]);
+                    ExeFile = di.Name;
+                }
+            }
+        }
+        */
 
     }
 }

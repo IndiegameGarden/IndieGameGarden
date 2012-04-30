@@ -242,16 +242,6 @@ namespace IndiegameGarden.Base
         }
 
         /// <summary>
-        /// get full file path from base directory to a game's .exe (to check it's there).
-        /// </summary>
-        /// <param name="g"></param>
-        /// <returns></returns>
-        public string GetExeFilepath(GardenItem g)
-        {
-            return g.GameFolder + "\\" + g.CdPath + "\\" + g.ExeFile;
-        }
-
-        /// <summary>
         /// get path to a game's packed file (.zip, .rar)
         /// </summary>
         /// <param name="g"></param>

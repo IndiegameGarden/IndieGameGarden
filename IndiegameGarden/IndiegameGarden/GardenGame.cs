@@ -264,7 +264,7 @@ namespace IndiegameGarden
                 }
                 if (g.IsMusic)
                 {
-                    music.Play(Config.GetExeFilepath(g) , g.SoundVolume );
+                    music.Play(g.ExeFilepath , g.SoundVolume );
                 }
             }
         }

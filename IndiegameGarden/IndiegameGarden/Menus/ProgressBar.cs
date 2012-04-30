@@ -19,6 +19,7 @@ namespace IndiegameGarden.Menus
     public class ProgressBar: Spritelet
     {
         bool isPulsing = false;
+        float barWidth = 1f;
         float progressValue;
         float progressSpeed = 0f;
         float progressValueTarget;
@@ -48,6 +49,22 @@ namespace IndiegameGarden.Menus
             {
                 isPulsing = value;
             }
+        }
+
+        /// <summary>
+        /// Use to tweak the barwidth, using only a portion of the progress bar bitmap (0f=none...1f=full)
+        /// </summary>
+        public float BarWidth
+        {
+            get
+            {
+                return barWidth;
+            }
+            set
+            {
+                barWidth = value;
+            }
+
         }
 
         public float ProgressTarget
@@ -101,16 +118,15 @@ namespace IndiegameGarden.Menus
             }
 
             // pulsing
-            textScale = 1f;
             if (isPulsing)
             {
                 // animate percentage text a bit
                 float ampl = 0.043f;
-                float frequency = 0.783f;// +progressSpeed * 0.0000001f; //0.6243f;
+                float frequency = 0.383f;// +progressSpeed * 0.0000001f; //0.6243f;
                 textScale = 1f + ampl + ampl * (float)Math.Sin(MathHelper.TwoPi * (double)frequency * SimTime);
 
                 // bar color
-                ampl = 0.103f;
+                ampl = 0.080f;
                 float v = (1 - ampl) + ampl * (float)Math.Sin(MathHelper.TwoPi * (double)frequency * SimTime);
                 DrawInfo.DrawColor = new Color(1f, v, v, 1f);
             }
@@ -126,7 +142,7 @@ namespace IndiegameGarden.Menus
             Vector2 pos = DrawInfo.DrawPosition;
             double progressValuePercent = 100 * progressValue;
             float drawSc = DrawInfo.DrawScale;
-            int width = 1 + (int)Math.Round(ToPixels(DrawInfo.WidthAbs) * progressValue);
+            int width = 1 + (int)Math.Round(ToPixels(DrawInfo.WidthAbs) * progressValue * barWidth );
             int height = (int) Math.Round(ToPixels(DrawInfo.HeightAbs));
             if (width > Texture.Width) width = Texture.Width;
 

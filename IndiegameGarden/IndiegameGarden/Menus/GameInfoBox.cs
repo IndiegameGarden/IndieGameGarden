@@ -17,6 +17,9 @@ namespace IndiegameGarden.Menus
     /// </summary>
     public class GameInfoBox: Drawlet
     {
+        // relative position w.r.t. right of user's display
+        static Vector2 PROGRESS_BAR_POSITION_RELATIVE = new Vector2(-0.32f, 0.0f);
+
         ProgressBar dlProgressBar;
         GameTextBox titleBox;
         GameTextBox descriptionBox;
@@ -32,10 +35,11 @@ namespace IndiegameGarden.Menus
         private void InitComponents()
         {
             dlProgressBar = new ProgressBar();
-            dlProgressBar.Motion.Position = new Vector2(0.85f, 0.0f);
+            dlProgressBar.Motion.Position = new Vector2(Screen.Width,0f) + PROGRESS_BAR_POSITION_RELATIVE ;
             dlProgressBar.Visible = false;
             dlProgressBar.ProgressValue = 0f;
             dlProgressBar.ProgressTarget = 0f;
+            dlProgressBar.BarWidth = 0.4f;
             Add(dlProgressBar);
 
             titleBox = new GameTextBox("m41_lovebit");

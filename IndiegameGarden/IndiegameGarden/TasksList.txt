@@ -1,20 +1,19 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-credits go left top and are bitmap
-Upload music files to server
-Loading bar overlaps with title/text (replace by percent in title only? or circle?)
-Background sometimes not shows?
-Add for certain games that loading takes a while.
-Loading from server file corruptions?
 Test on 4:3 resolution for item visibility
 Faster thumbs downloading thread abortion on exit
-Add more games
 Test client install and first run from website
-Test client version update in deployment version
-Make gamelib loading non-blocking
 
 AFTER ALPHA-1
+Add for certain games that loading takes a while.
+Test client version update in deployment version
+Make gamelib loading non-blocking
+Add more games
+Loading from server file corruptions?
+Background sometimes not shows?
+Autodetection of CdPath and ExeFile if not given in gamelib.
+Autoscaling of thumbnail size if no size given.
 Test disk free before growing game
 Bug of background garbled after certain games?
 Default music should be already-loaded in garden selection.
@@ -31,6 +30,9 @@ Easter egg with sprites from OpenGameArt in menu
 Check GardenMusic for existence of .ogg file (less fragile)
 
 CLOSED  [date order]
+2012-04-28 Loading bar overlaps with title/text (replace by percent in title only? or circle?)
+2012-04-27 Upload music files to server
+2012-04-27 credits go left top and are bitmap
 2012-04-24 Change text "exit this game to return to garden" when loading not show it.
 2012-04-23 Controls help in a bitmap
 2012-04-23 Check starman directx 8 -> only on some PCs
