@@ -56,20 +56,47 @@ namespace IndiegameGarden.Menus
 
             protected override void StartInternal()
             {
-                if (isAbort) return;
-                SampleSoundEvent ev = new SampleSoundEvent(musicFile);
-                ev.Amplitude = volume;
-                parent.soundScript.AddEvent(parent.rp.Time + 0.3, ev);
-                if (isAbort) return;
-
-                lock (parent.songChangeLock)
+                try
                 {
-                    if (parent.currentSong != null)  // if needed, fade out a current playing song
+                    if (isAbort)
                     {
-                        parent.oldSongs.Add(parent.currentSong);
+                        status = ITaskStatus.FAIL;
+                        statusMsg = "Task aborted";
+                        return;
                     }
-                    parent.currentSong = ev;
-                    parent.FadeIn();
+
+                    // check file
+                    if (!System.IO.File.Exists(musicFile))
+                    {
+                        status = ITaskStatus.FAIL;
+                        statusMsg = "File not found: " + musicFile;
+                        return;
+                    }
+
+                    SampleSoundEvent ev = new SampleSoundEvent(musicFile);
+                    ev.Amplitude = volume;
+                    parent.soundScript.AddEvent(parent.rp.Time + 0.3, ev);
+                    if (isAbort)
+                    {
+                        status = ITaskStatus.FAIL;
+                        statusMsg = "Task aborted";
+                        return;
+                    }
+
+                    lock (parent.songChangeLock)
+                    {
+                        if (parent.currentSong != null)  // if needed, fade out a current playing song
+                        {
+                            parent.oldSongs.Add(parent.currentSong);
+                        }
+                        parent.currentSong = ev;
+                        parent.FadeIn();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    status = ITaskStatus.FAIL;
+                    statusMsg = "Failed: " + ex.Message;
                 }
             }
 
