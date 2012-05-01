@@ -48,7 +48,6 @@ namespace IndiegameGarden.Menus
 
             descriptionBox = new GameTextBox("GameDescriptionFont");
             descriptionBox.Motion.Position = new Vector2(0.0f, 0.04f);
-            descriptionBox.Motion.Scale = 1f + (((float)Screen.WidthPixels) - 1440f)/2880f;
             Add(descriptionBox);
 
             dlProgressBar.Pulsing = false; 

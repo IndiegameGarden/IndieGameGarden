@@ -55,9 +55,9 @@ namespace IndiegameGarden.Menus
         static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.96f);
         static Vector2 HELPTEXT_SHOWN_POSITION = new Vector2(0.15f, 0.13f);
         static Vector2 HELPTEXT_HIDDEN_POSITION = new Vector2(0.15f, -0.2f);
-        static Vector2 CREDITS_SHOWN_POSITION = new Vector2(0.46f, 0.145f);
-        static Vector2 CREDITS_HIDDEN_POSITION = new Vector2(0.46f, -0.22f);
-        const float CREDITS_SCALE_DEFAULT = 1f;
+        static Vector2 CREDITS_SHOWN_POSITION = new Vector2(0.4f, 0.145f);
+        static Vector2 CREDITS_HIDDEN_POSITION = new Vector2(0.4f, -0.22f);
+        const float CREDITS_SCALE_DEFAULT = 0.6f;
         const float INFOBOX_SPEED_MOVE = 3.8f;
         
         const float TIME_BEFORE_GAME_LAUNCH = 0.7f;
@@ -113,7 +113,7 @@ namespace IndiegameGarden.Menus
             controlsHelpBitmap.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
 
             // credits
-            creditsBitmap = new Spritelet("credits2");
+            creditsBitmap = new Spritelet("credits.png");
             creditsBitmap.Motion.Scale = CREDITS_SCALE_DEFAULT;
             creditsBitmap.Motion.Position = CREDITS_HIDDEN_POSITION;
             creditsBitmap.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
