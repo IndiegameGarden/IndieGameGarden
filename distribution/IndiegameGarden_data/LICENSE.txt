@@ -1,0 +1,139 @@
+
+Thanks for trying Indiegame Garden!
+
+Sections below list the copyrights and license conditions for all parts of
+this software. 
+
+NOTE: All games and content downloaded via this software may have its own
+copyrights and license conditions, which are NOT included here. Press key 'W'
+in the menu to go to a game's website which should list such copyrights and
+license conditions if any.
+______________________________________________________________________________
+
+[Indiegame Garden]
+
+This software is Copyright (c) 2012 IndiegameGarden.com except for the parts
+indicated in the below sections of this document. For Indiegame Garden 
+without these below parts, the BSD license applies:
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this 
+    list of conditions and the following disclaimer. Redistributions in binary 
+    form must reproduce the above copyright notice, this list of conditions and
+    the following disclaimer in the documentation and/or other materials 
+    provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+______________________________________________________________________________
+
+[TTengine.dll] [TTMusicEngine.dll]
+
+See http://www.trancetrance.com/
+Copyright (c) 2010-2012, TranceTrance.com and its domain owner
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted provided that the following conditions are met:
+
+    Redistributions of source code must retain the above copyright notice, this 
+    list of conditions and the following disclaimer. Redistributions in binary 
+    form must reproduce the above copyright notice, this list of conditions and
+    the following disclaimer in the documentation and/or other materials 
+    provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE 
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+______________________________________________________________________________
+
+[RandomMath.cs]
+
+Copyright (C) Microsoft Corporation. All rights reserved.
+Microsoft Public License, formerly Microsoft Permissive License, applies.
+http://www.microsoft.com/en-us/openness/licenses.aspx
+______________________________________________________________________________
+
+[Ionic.Zip.dll]
+
+The Ionic DotNetZip library http://dotnetzip.codeplex.com/
+Microsoft Public License, formerly Microsoft Permissive License, applies.
+http://www.microsoft.com/en-us/openness/licenses.aspx
+______________________________________________________________________________
+
+[NetServ.Net.Json.dll]
+
+Source available from http://www.codeproject.com/KB/recipes/JSON.aspx
+The GNU General Public License version 2 or greater, published by Free Software
+Foundation, applies.
+http://www.gnu.org/licenses/gpl.html
+______________________________________________________________________________
+
+[MyDownloader.Core.dll]
+
+The MyDownloader library (http://www.codeproject.com/KB/IP/MyDownloader.aspx)
+is licensed under the The Code Project Open License (CPOL) 1.02. 
+______________________________________________________________________________
+
+[unrar.dll]
+
+File "unrar.dll" license from rarlab.com:
+      The unrar.dll library is freeware. This means:
+
+   1. All copyrights to RAR and the unrar.dll are exclusively
+      owned by the author - Alexander Roshal.
+
+   2. The unrar.dll library may be used in any software to handle
+      RAR archives without limitations free of charge.
+
+   3. THE RAR ARCHIVER AND THE UNRAR.DLL LIBRARY ARE DISTRIBUTED "AS IS".
+      NO WARRANTY OF ANY KIND IS EXPRESSED OR IMPLIED.  YOU USE AT 
+      YOUR OWN RISK. THE AUTHOR WILL NOT BE LIABLE FOR DATA LOSS, 
+      DAMAGES, LOSS OF PROFITS OR ANY OTHER KIND OF LOSS WHILE USING
+      OR MISUSING THIS SOFTWARE.
+
+      Thank you for your interest in RAR and unrar.dll.
+
+                                            Alexander L. Roshal
+______________________________________________________________________________
+
+[fmodex.dll]
+
+FMOD Sound System, copyright © Firelight Technologies Pty, Ltd., 1994-2012.
+Restrictions apply to redistribution.
+See http://fmod.org and http://fmod.org/salespop1.htm 
+______________________________________________________________________________
+
+[Title Music; Torley_Cataplasm.ogg]
+"Cataplasm" from the album "Glitch Piano" by Torley. Distributed under a 
+Creative Commons (CC) license Attribution, Non-Commercial, Share Alike
+BY-NC-SA, http://creativecommons.org/licenses/by-nc-sa/2.0/
+Buy the complete album for almost free at http://music.torley.com/ !
+______________________________________________________________________________
+
+[parc-by-gadl.jpg]
+Original photo by gadl is available from
+http://www.flickr.com/photos/gadl/360929190/
+under a Creative Commons (CC) Attribution Share-Alike license, BY-SA,
+http://creativecommons.org/licenses/by-sa/2.0/
+
+The modified version included in this work is licensed under the
+same conditions.
+
