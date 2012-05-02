@@ -24,9 +24,14 @@ namespace IndiegameGarden.Menus
         public GardenMusic()
         {
             soundScript = new SoundEvent("GardenMusic");            
-            rp.Ampl = 1;            
-            Play( GardenGame.Instance.Config.PackedFilesFolder + "\\Torley_Cataplasm.ogg", 0.5);
+            rp.Ampl = 1;
+            PlayDefaultSong();
             FadeIn();
+        }
+
+        public void PlayDefaultSong()
+        {
+            Play(GardenGame.Instance.Config.PackedFilesFolder + "\\Torley_Cataplasm.ogg", 0.5);
         }
 
         public bool IsPlaying
@@ -181,10 +186,12 @@ namespace IndiegameGarden.Menus
         /// </summary>
         public void ToggleMusic()
         {
-            if (isFadeIn || currentSong.Amplitude >= 1)
+            if (isFadeIn || (currentSong != null && currentSong.Amplitude >= 1) )
                 FadeOut();
-            else if (isFadeOut || currentSong.Amplitude <= 0)
+            else if (isFadeOut || (currentSong != null && currentSong.Amplitude <= 0) )
                 FadeIn();
+            if (currentSong == null)
+                PlayDefaultSong();
         }
 
         /// <summary>

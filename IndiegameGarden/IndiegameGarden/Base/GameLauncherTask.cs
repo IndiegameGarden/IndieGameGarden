@@ -47,27 +47,26 @@ namespace IndiegameGarden.Base
             try
             {
                 // FIXME check for preconditions first. exefile exist, etc
-                //TODO wait until task done, keep setting it to fg a few times.
-                string cwd = Directory.GetCurrentDirectory();
-                Directory.SetCurrentDirectory(Game.GameFolder);
-                if (Game.CdPath.Length > 0) // if given
-                {
-                    Directory.SetCurrentDirectory(Game.CdPath);
-                }
-                /* FIXME
-                else
-                {
-                    Directory.SetCurrentDirectory(AutoDetectedCdPath());
-                }
-                 */
                 if (Game.ExeFile.Length > 0)
                 {
+                    string cwd = Directory.GetCurrentDirectory();
+                    Directory.SetCurrentDirectory(Game.GameFolder);
+                    if (Game.CdPath.Length > 0) // if given
+                    {
+                        Directory.SetCurrentDirectory(Game.CdPath);
+                    }
+                    /* FIXME
+                    else
+                    {
+                        Directory.SetCurrentDirectory(AutoDetectedCdPath());
+                    }
+                     */
                     Proc = System.Diagnostics.Process.Start(Game.ExeFile);
+                    // set previous dir back
+                    Directory.SetCurrentDirectory(cwd);
                 }
                 else
                 {
-                    //Proc = System.Diagnostics.Process.Start(AutoDetectedExeFile()); FIXME
-                    Directory.SetCurrentDirectory(cwd);
                     return;
                 }
                 Proc.Exited += new EventHandler(EvHandlerProcessExited);
@@ -82,7 +81,7 @@ namespace IndiegameGarden.Base
                     if (n < 25 && !IsFinished() )
                     {
                         gameWindowHandle = Proc.MainWindowHandle.ToInt32();
-                        if (gameWindowHandle != 0)
+                        if (gameWindowHandle != 0) // FIXME && !IsGameShowingWindow?
                         {
                             IsGameShowingWindow = true;
                             SetForegroundWindow(gameWindowHandle);
@@ -92,9 +91,6 @@ namespace IndiegameGarden.Base
                     }
                     
                 }
-
-                // set previous dir back
-                Directory.SetCurrentDirectory(cwd);
 
                 // when done switch back to our Garden app
                 Process p = Process.GetCurrentProcess();
@@ -125,13 +121,6 @@ namespace IndiegameGarden.Base
                     // TODO check if we can abort the process
                 }
             }
-        }
-
-        public override double Progress()
-        {
-            if (IsFinished())
-                return 1.0;
-            return 0.0;
         }
 
         private void EvHandlerProcessExited(object sender, System.EventArgs e)

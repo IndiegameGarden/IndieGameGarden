@@ -1,7 +1,7 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Fix 1280x1024 res text width (to test with 1440x900, 1280x768)
+Fix 1280x1024 res text width (to test with 1280x768)
 Test client install and first run from website
 
 AFTER ALPHA-1
@@ -31,6 +31,8 @@ Easter egg with sprites from OpenGameArt in menu
 Check GardenMusic for existence of .ogg file (less fragile)
 
 CLOSED  [date order]
+2012-05-02 Bugfix use of M key when no music playing
+2012-05-02 Bug: loading while playing, loading 2 games at once -> should have no dep. on relative dir.
 2012-05-01 Resolution check for credits image -> use higher rez png, better when scaled.
 2012-05-01 Fix crash when music file not there -> tests now file presence in music task.
 2012-04-30 Test on 4:3 resolution for item visibility
