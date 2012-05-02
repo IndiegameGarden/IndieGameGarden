@@ -5,7 +5,9 @@
  
 ; Enter the name of your game here
 #define MyAppName "Indiegame Garden"
- 
+
+#define MyAppDirName "IndiegameGarden"
+
 ; Enter the name of your game and a version number here
 #define MyAppVerName "Indiegame Garden Alpha-2"
  
@@ -37,9 +39,9 @@ AppPublisher={#MyCompany}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-DefaultDirName={pf}\{#MyAppName}
+DefaultDirName={pf}\{#MyAppDirName}
 DefaultGroupName={#MyAppName}
-OutputBaseFilename={#MyAppName}Setup
+OutputBaseFilename={#MyAppDirName}_Setup_Alpha-2
 Compression=lzma
 SolidCompression=yes
 SetupIconFile = "C:\dev\TT\IndiegameGarden\IndiegameGarden\IndiegameGarden\game.ico"
@@ -63,3 +65,15 @@ Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; Tasks: desk
  
 [Run]
 Filename: {app}\{#MyAppExeName}; Description: {cm:LaunchProgram,{#MyAppName}}; Flags: nowait postinstall skipifsilent
+
+[Code]
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+begin
+  case CurUninstallStep of
+    usPostUninstall:
+      begin
+        MsgBox('Uninstall finished. Any downloaded content and games are' #13 #13 'still in the folder C:\Program Files\{#MyAppName}.', mbInformation, MB_OK);
+        // ...insert code to perform post-uninstall tasks here...
+      end;
+  end;
+end;

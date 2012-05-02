@@ -34,16 +34,20 @@ namespace IndiegameGarden.Base
         /// </summary>
         public const int    KNOWN_GAMELIB_VERSION = 2;
 
-        //public const string DATA_PATH = "..\\..\\..\\..\\.."; // for testing in Visual Studio
+        public const string DATA_PATH_DEBUG = "..\\..\\..\\..\\.."; // for testing in Visual Studio
         public const string DATA_PATH = "..\\.."; // for deployment version when embedded in games folder
         
-        public const string DEFAULT_CONFIG_FILEPATH = DATA_PATH + "\\config\\config.json";
+        public const string DEFAULT_CONFIG_FILEPATH = "config\\config.json";
 
         bool hasLoadedFromFileOk = false;
 
         public GardenConfig()
         {
-            jsonFilePath = DEFAULT_CONFIG_FILEPATH;
+#if DEBUG
+            jsonFilePath = Path.Combine(DATA_PATH_DEBUG, DEFAULT_CONFIG_FILEPATH);
+#else
+            jsonFilePath = Path.Combine(DATA_PATH, DEFAULT_CONFIG_FILEPATH);
+#endif
             hasLoadedFromFileOk = true;
             try
             {
@@ -61,7 +65,12 @@ namespace IndiegameGarden.Base
         protected void Init()
         {
             // NOTE DataPath should be set FIRST of all.
+            // check whether in Visual studio debugging mode
+#if DEBUG
+            DataPath = Path.GetFullPath(DATA_PATH_DEBUG);
+#else
             DataPath = Path.GetFullPath(DATA_PATH);
+#endif
 
             GardenID = DEFAULT_GARDEN_ID;
             ServerMsg = "";

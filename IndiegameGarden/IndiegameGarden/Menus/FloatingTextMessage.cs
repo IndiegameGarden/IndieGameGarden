@@ -10,7 +10,6 @@ namespace IndiegameGarden.Menus
     /// </summary>
     public class FloatingTextMessage: GameTextBox
     {
-        ColorChangeBehavior ColorB;
 
         public FloatingTextMessage()
             : base("GameDescriptionFont")

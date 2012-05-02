@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("IndiegameGardenLauncher")]
-[assembly: AssemblyProduct("IndiegameGardenLauncher")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Indiegame Garden")]
+[assembly: AssemblyProduct("IndiegameGarden")]
+[assembly: AssemblyDescription("Indiegame Garden")]
 [assembly: AssemblyCompany("IndiegameGarden.com")]
-[assembly: AssemblyCopyright("Copyright © IndiegameGarden.com 2012")]
+[assembly: AssemblyCopyright("Copyright © IndiegameGarden.com 2011-2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,4 +31,4 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.2.0.0")]

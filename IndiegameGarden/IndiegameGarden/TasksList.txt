@@ -1,11 +1,11 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
+Hide launch/title for non-visible icons
 Fix 1280x1024 res text width (to test with 1280x768)
 Test client install and first run from website
 
 AFTER ALPHA-1
-Get rid of debug vs deployment path difference!
 Bg rotates faster upon downloading
 Faster thumbs downloading thread abortion on exit?
 Add for certain games that loading takes a while.
@@ -32,6 +32,7 @@ Easter egg with sprites from OpenGameArt in menu
 Check GardenMusic for existence of .ogg file (less fragile)
 
 CLOSED  [date order]
+2012-05-02 Get rid of debug vs deployment path difference!
 2012-05-02 Bugfix use of M key when no music playing
 2012-05-02 Bug: loading while playing, loading 2 games at once -> should have no dep. on relative dir.
 2012-05-01 Resolution check for credits image -> use higher rez png, better when scaled.

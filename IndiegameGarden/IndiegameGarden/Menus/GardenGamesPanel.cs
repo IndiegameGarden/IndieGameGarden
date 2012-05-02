@@ -288,11 +288,11 @@ namespace IndiegameGarden.Menus
             if (SelectedGame != null && SelectedGame.GameID.Equals("igg_credits"))
             {
                 creditsBitmap.Motion.TargetPos = CREDITS_SHOWN_POSITION;
-                Vector2 cp = cursor.Motion.PositionDraw;
-                if (cp.Y <= 0.35f) // TODO const
+                Vector2 cpd = cursor.Motion.PositionDraw;
+                if (cpd.Y <= 0.35f) // TODO const
                 {
-                    float dx = PANEL_SPEED_SHIFT * p.Dt;
-                    PanelShiftPos.Y -= dx;
+                    float dxp = PANEL_SPEED_SHIFT * p.Dt;
+                    PanelShiftPos.Y -= dxp;
                 }
 
             }
@@ -323,7 +323,7 @@ namespace IndiegameGarden.Menus
                     th.Motion.Position = Screen.Center;
                     th.Motion.Scale = 0.05f;
 
-                    th.DrawInfo.LayerDepth = LAYER_GRID_ITEMS;
+                    th.DrawInfo.LayerDepth = LAYER_GRID_ITEMS + ((float)th.ID) * float.Epsilon;
                     th.Visible = false;
                     th.ColorB.Intensity = 0.0f;
                 }else{
@@ -380,41 +380,40 @@ namespace IndiegameGarden.Menus
                 th.ColorB.FadeSpeed = 0.15f;// 0.15f; // TODO const
 
                 // coordinate position where to move a game thumbnail to 
-                Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X,PANEL_DELTA_GRID_Y);
+                Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
                 th.Motion.TargetPos = targetPos;
                 th.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT;
 
-                // cursor where to move to
-                cursor.Motion.TargetPos = (cursor.GridPosition - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
-                cursor.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT; 
+            } // end for loop over all games
 
-                // panel shift effect when cursor hits edges of panel
-                if (true /*Motion.Zoom == Motion.ZoomTarget*/  )
-                {
-                    Vector2 cp = cursor.Motion.PositionDraw;
-                    float chw = cursor.DrawInfo.WidthAbs / 2.0f; // cursor-half-width
-                    float chh = cursor.DrawInfo.HeightAbs / 2.0f; // cursor-half-height
-                    float dx = PANEL_SPEED_SHIFT * p.Dt;
-                    const float xMargin = CURSOR_MARGIN_X; // TODO into gui props
-                    const float yMargin = CURSOR_MARGIN_Y;
-                    if (cp.X <= chw + xMargin)
-                    {
-                        PanelShiftPos.X -= dx;
-                    }
-                    else if (cp.X >= PANEL_SIZE_X - chw - xMargin)
-                    {
-                        PanelShiftPos.X += dx;
-                    }
-                    if (cp.Y <= chh + yMargin)
-                    {
-                        PanelShiftPos.Y -= dx;
-                    }
-                    else if (cp.Y >= PANEL_SIZE_Y - chh - yMargin)
-                    {
-                        PanelShiftPos.Y += dx;
-                    }
-                }
+            // cursor where to move to
+            cursor.Motion.TargetPos = (cursor.GridPosition - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
+            cursor.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT;
+
+            // panel shift effect when cursor hits edges of panel
+            Vector2 cp = cursor.Motion.PositionDraw;
+            float chw = cursor.DrawInfo.WidthAbs / 2.0f; // cursor-half-width
+            float chh = cursor.DrawInfo.HeightAbs / 2.0f; // cursor-half-height
+            float dx = PANEL_SPEED_SHIFT * p.Dt;
+            const float xMargin = CURSOR_MARGIN_X; // TODO into gui props
+            const float yMargin = CURSOR_MARGIN_Y;
+            if (cp.X <= chw + xMargin)
+            {
+                PanelShiftPos.X -= dx;
             }
+            else if (cp.X >= PANEL_SIZE_X - chw - xMargin)
+            {
+                PanelShiftPos.X += dx;
+            }
+            if (cp.Y <= chh + yMargin)
+            {
+                PanelShiftPos.Y -= dx;
+            }
+            else if (cp.Y >= PANEL_SIZE_Y - chh - yMargin)
+            {
+                PanelShiftPos.Y += dx;
+            }
+
         }
 
         public override void OnChangedSelectedGame(GardenItem newSel, GardenItem oldSel)
