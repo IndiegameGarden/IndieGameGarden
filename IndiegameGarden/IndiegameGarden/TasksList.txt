@@ -5,6 +5,7 @@ Fix 1280x1024 res text width (to test with 1280x768)
 Test client install and first run from website
 
 AFTER ALPHA-1
+Get rid of debug vs deployment path difference!
 Bg rotates faster upon downloading
 Faster thumbs downloading thread abortion on exit?
 Add for certain games that loading takes a while.

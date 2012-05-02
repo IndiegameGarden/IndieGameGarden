@@ -34,8 +34,8 @@ namespace IndiegameGarden.Base
         /// </summary>
         public const int    KNOWN_GAMELIB_VERSION = 2;
 
-        public const string DATA_PATH = "..\\..\\..\\..\\.."; // for testing in Visual Studio
-        //public const string DATA_PATH = "..\\.."; // for deployment version when embedded in games folder
+        //public const string DATA_PATH = "..\\..\\..\\..\\.."; // for testing in Visual Studio
+        public const string DATA_PATH = "..\\.."; // for deployment version when embedded in games folder
         
         public const string DEFAULT_CONFIG_FILEPATH = DATA_PATH + "\\config\\config.json";
 

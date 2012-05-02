@@ -25,7 +25,7 @@
 #define MyGameStudioLocation "C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v3.1"
  
 ; Enter the name for the correct version of the XNA Framework MSI
-#define XNARedist "xnafx31_redist.msi"
+#define XNARedist "xnafx40_redist.msi"
  
 ; Enter the location where you have placed the VC and .NET redistributables
 #define MyRedistLocation "D:\Game Development Tools"
@@ -36,7 +36,7 @@
  
 ; Download latest .NET from http://www.microsoft.com/net/ (download button on menu)
 ; enter the name of the executable file here
-#define DotNetSetup "DotNetFX35Setup.exe"
+#define DotNetSetup "dotNetFx40_Full_x86_x64.exe"
  
 ; Once you've filled in all the variables above and downloaded your redist packages,
 ; everything under this point should JUST WORK for most XNA projects.
