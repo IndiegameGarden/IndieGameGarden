@@ -191,8 +191,10 @@ namespace IndiegameGarden.Menus
 
             base.OnUpdate(ref p);
 
-            // update text box with currently selected game info
-            infoBox.SetGameInfo(SelectedGame);
+            if (SelectedGame == null)
+            {
+                infoBox.SetGameInfo(SelectedGame);
+            }
 
             // handle download/install/launching of a game
             if (isGameLaunchOngoing)
@@ -273,34 +275,6 @@ namespace IndiegameGarden.Menus
                 isLaunchWebsite = false;
             }
 
-            //-- helpful controls text
-            if (SelectedGame != null && SelectedGame.GameID.Equals("igg_controls"))
-            {
-                controlsHelpBitmap.Motion.TargetPos = HELPTEXT_SHOWN_POSITION;
-                SelectedGame.Name = GardenGame.Instance.Config.ServerMsg;
-            }
-            else
-            {
-                controlsHelpBitmap.Motion.TargetPos = HELPTEXT_HIDDEN_POSITION;
-            }
-
-            //-- credits text
-            if (SelectedGame != null && SelectedGame.GameID.Equals("igg_credits"))
-            {
-                creditsBitmap.Motion.TargetPos = CREDITS_SHOWN_POSITION;
-                Vector2 cpd = cursor.Motion.PositionDraw;
-                if (cpd.Y <= 0.35f) // TODO const
-                {
-                    float dxp = PANEL_SPEED_SHIFT * p.Dt;
-                    PanelShiftPos.Y -= dxp;
-                }
-
-            }
-            else
-            {
-                creditsBitmap.Motion.TargetPos = CREDITS_HIDDEN_POSITION;
-            }
-
             //-- loop all games adapt their display properties where needed
             if (gl == null)
                 return;
@@ -322,6 +296,7 @@ namespace IndiegameGarden.Menus
                     // create with new position and scale
                     th.Motion.Position = Screen.Center;
                     th.Motion.Scale = 0.05f;
+                    th.Motion.ScaleTarget = 0.05f;
 
                     th.DrawInfo.LayerDepth = LAYER_GRID_ITEMS + ((float)th.ID) * float.Epsilon;
                     th.Visible = false;
@@ -349,33 +324,73 @@ namespace IndiegameGarden.Menus
                 else
                     th.ColorB.FadeTarget = 0f;
 
-                if (!(isGameLaunchOngoing && g == SelectedGame))
+                if (g == SelectedGame && th.Visible)
                 {
-                    if (g.IsInstalling)
+                    // update text box with currently selected game info
+                    infoBox.SetGameInfo(SelectedGame);
+
+                    //-- helpful controls text
+                    if (SelectedGame != null && SelectedGame.GameID.Equals("igg_controls"))
                     {
-                        // wobble the size of icon when installing.
-                        th.Motion.ScaleTarget = 1.0f + 0.1f * (float)Math.Sin(MathHelper.TwoPi * 0.16f * SimTime);
+                        controlsHelpBitmap.Motion.TargetPos = HELPTEXT_SHOWN_POSITION;
+                        SelectedGame.Name = GardenGame.Instance.Config.ServerMsg;
                     }
                     else
                     {
-                        th.Motion.ScaleTarget = 1f; 
-                        //th.Motion.ScaleSpeed = 0.03f;
+                        controlsHelpBitmap.Motion.TargetPos = HELPTEXT_HIDDEN_POSITION;
+                    }
 
-                        // displaying selected thumbnails larger
-                        if (g == SelectedGame && g.IsGrowable )
+                    //-- credits text
+                    if (SelectedGame != null && SelectedGame.GameID.Equals("igg_credits"))
+                    {
+                        creditsBitmap.Motion.TargetPos = CREDITS_SHOWN_POSITION;
+                        Vector2 cpd = cursor.Motion.PositionDraw;
+                        if (cpd.Y <= 0.35f) // TODO const
                         {
-                            th.Motion.ScaleTarget *= THUMBNAIL_SCALE_SELECTED ; 
+                            float dxp = PANEL_SPEED_SHIFT * p.Dt;
+                            PanelShiftPos.Y -= dxp;
+                        }
+                    }
+                    else
+                    {
+                        creditsBitmap.Motion.TargetPos = CREDITS_HIDDEN_POSITION;
+                    }
+
+                    if (!(isGameLaunchOngoing && g == SelectedGame))
+                    {
+                        if (g.IsInstalling)
+                        {
+                            // wobble the size of icon when installing.
+                            th.Motion.ScaleTarget = 1.0f + 0.1f * (float)Math.Sin(MathHelper.TwoPi * 0.16f * SimTime);
                         }
                         else
                         {
-                            if (g.IsInstalled || !g.IsGrowable)
-                                th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED;
+                            th.Motion.ScaleTarget = 1f;
+                            //th.Motion.ScaleSpeed = 0.03f;
+
+                            // displaying selected thumbnails larger
+                            if (g == SelectedGame && g.IsGrowable)
+                            {
+                                th.Motion.ScaleTarget *= THUMBNAIL_SCALE_SELECTED;
+                            }
                             else
-                                th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED ;
-                            
+                            { // FIXME code duplication below
+                                if (g.IsInstalled || !g.IsGrowable)
+                                    th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED;
+                                else
+                                    th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED;
+                            }
+
                         }
-                        
                     }
+                } // end if th==SelectedGame
+                else
+                {
+                    if (g.IsInstalled || !g.IsGrowable)
+                        th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
+                    else
+                        th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED;
+
                 }
                 th.ColorB.FadeSpeed = 0.15f;// 0.15f; // TODO const
 
