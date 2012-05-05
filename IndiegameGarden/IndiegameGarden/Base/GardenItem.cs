@@ -489,10 +489,6 @@ namespace IndiegameGarden.Base
                 ShowBelowClientVersion = GardenGame.Instance.Config.NewestClientVersion;
                 Version = GardenGame.Instance.Config.NewestClientVersion;
             }
-
-            // optional auto-detection of CdPath and ExeFile
-            //AutoDetectedCdPath(); FIXME
-            //AutoDetectedExeFile();
         }
 
         /*
