@@ -47,8 +47,7 @@ namespace IndiegameGarden.Menus
         const float CURSOR_MARGIN_Y = 0.15f;
         static Vector2 CURSOR_INITIAL_POSITION = new Vector2(0.7f, 0.2f);
 
-        public const float THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED = 0.44f;
-        const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; //0.6f; //0.54f; //1.5625f;
+        public const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; //0.6f; //0.54f; //1.5625f;
         const float THUMBNAIL_SCALE_SELECTED = 0.51f; //0.7f; //0.65f; //2f;
         
         static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f, 0.895f);
@@ -374,11 +373,8 @@ namespace IndiegameGarden.Menus
                                 th.Motion.ScaleTarget *= THUMBNAIL_SCALE_SELECTED;
                             }
                             else
-                            { // FIXME code duplication below
-                                if (g.IsInstalled || !g.IsGrowable)
-                                    th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED;
-                                else
-                                    th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED;
+                            { 
+                                th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED;
                             }
 
                         }
@@ -386,11 +382,7 @@ namespace IndiegameGarden.Menus
                 } // end if th==SelectedGame
                 else
                 {
-                    if (g.IsInstalled || !g.IsGrowable)
-                        th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
-                    else
-                        th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED_UNINSTALLED;
-
+                    th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED;
                 }
                 th.ColorB.FadeSpeed = 0.15f;// 0.15f; // TODO const
 

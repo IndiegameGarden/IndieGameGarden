@@ -1,37 +1,36 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Hide launch/title for non-visible icons
-Fix 1280x1024 res text width (to test with 1280x768)
-Test client install and first run from website
-
-AFTER ALPHA-1
-Bg rotates faster upon downloading
 Faster thumbs downloading thread abortion on exit?
-Add for certain games that loading takes a while.
 Test client version update in deployment version
 Make gamelib loading non-blocking
 Add more games
-Loading from server file corruptions?
-Background sometimes not shows?
 Autodetection of CdPath and ExeFile if not given in gamelib.
-Autoscaling of thumbnail size if no size given.
+Ogg files wrap in zip for extra reliability check (CRC) and future multi-track downloads
 Test disk free before growing game
-Bug of background garbled after certain games?
 Default music should be already-loaded in garden selection.
-Icon stays big while loading game
 If exiting while downloading zip/rar -> file not deleted.
 Bug music goes on after zoom-out
 Bug loading screen stays too long after quickly exiting a game - still the case?
-Mystery game icon
-Report exceptions to server; for collecting good debug info from the field
-Key/option to abort download or install of a game
+Report exceptions to server; for collecting good debug info from the field; or save to a file
 Add mirrors to all thumbnail loading?
-Desktop resolution: check for minimum resolution?
+
+AFTER ALPHA-3
 Easter egg with sprites from OpenGameArt in menu
-Check GardenMusic for existence of .ogg file (less fragile)
+Icon stays big while loading game -> maybe not nice.
+Mystery game icon
+Key/option to abort download or install of a game
 
 CLOSED  [date order]
+2012-05-05 Check GardenMusic for existence of .ogg file (less fragile) -> already done for Alpha-2
+2012-05-05 Desktop resolution: check for minimum resolution? -> not needed, it scales.
+2012-05-05 Autoscaling of thumbnail size if no size given. -> was already done earlier.
+2012-05-05 Loading from server file corruptions? -> only seen on 3G connection, ignore
+2012-05-05 Background sometimes not shows? -> solved with new TTengine png texture loading
+2012-05-05 Bug of background garbled after certain games? -> see above
+2012-05-03 Hide launch/title for non-visible icons
+2012-05-03 Fix 1280x1024 res text width (to test with 1280x768)
+2012-05-03 Test client install and first run from website
 2012-05-02 Get rid of debug vs deployment path difference!
 2012-05-02 Bugfix use of M key when no music playing
 2012-05-02 Bug: loading while playing, loading 2 games at once -> should have no dep. on relative dir.
@@ -158,5 +157,7 @@ CLOSED  [date order]
 
 
 SKIPPED [date order]
+2012-05-05 Add for certain games that loading takes a while. -> not seen in netw connected configurations.
+2012-05-05 Bg rotates faster upon downloading
 2012-03-30 Optionally avoid .exe / cd-path in database, default is try first .exe found or first folder found with a .exe -> creates issue with install state check
 2012-01-28 Display a progress bar when launching starts with bar speed set by config file
