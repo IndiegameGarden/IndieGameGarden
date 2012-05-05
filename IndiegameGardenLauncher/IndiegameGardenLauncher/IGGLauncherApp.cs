@@ -65,7 +65,15 @@ namespace IndiegameGardenLauncher
         /// <returns>relative path to most recent IGG directory or null if nothing found</returns>
         string FindMostRecentIGGDirectory()
         {
-            string[] dirs = Directory.GetDirectories(IGG_PATH);
+            string[] dirs;
+            try
+            {
+                dirs = Directory.GetDirectories(IGG_PATH);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
             string dirFound = null;
 
             // check the dirs, are they igg, and which one's most recent
@@ -88,37 +96,6 @@ namespace IndiegameGardenLauncher
             }
 
             return dirFound;
-
-            /*
-            int v = 1;
-            const int V_MAX = 499; // how many versions to try? that should be enough for a while.
-            int highestVersionFound = -1;
-            for (v = 1; v <= V_MAX; v++)
-            {
-                string dir ;
-                if (v == 1) // special case for v1
-                    dir = "igg";
-                else
-                    dir = "igg_v" + v;
-                dir = Path.Combine(iggPath, dir);
-
-                if (System.IO.Directory.Exists(dir))
-                    highestVersionFound = v;
-
-            }
-                
-            if (v < 1 || v >= V_MAX ) // oops
-            {
-                MsgBox.Show(ERROR_BOX_TITLE, "IndiegameGarden's executable not found in " + iggPath + ";\nlikely a damaged installation.");
-                return false;
-            }
-
-            if (v== 1)
-                System.IO.Directory.SetCurrentDirectory("igg");
-            else
-                System.IO.Directory.SetCurrentDirectory("igg_v" + v);
-            return true;
-             */
         }
 
         /// <summary>
