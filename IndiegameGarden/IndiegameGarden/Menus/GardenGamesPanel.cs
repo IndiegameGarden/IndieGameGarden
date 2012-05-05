@@ -208,17 +208,17 @@ namespace IndiegameGarden.Menus
 
                 if (timeLaunching > TIME_BEFORE_GAME_LAUNCH)
                 {
-                    // check for mystery game
+                    // check for mystery game                    
                     if (SelectedGame.GameID.Equals("igg_mysterygame"))
                     {
                         GameCollection lib = GardenGame.Instance.GameLib.GetList();
-                        GardenItem grnd = lib.GetRandomInstalledGame();
-                        GardenGame.Instance.music.FadeOut();
-                        GameThumbnail thumb = thumbnailsCache[grnd.GameID];
-                        GardenGame.Instance.ActionLaunchGame(grnd, thumb);
+                        //GardenItem grnd = lib.GetRandomInstalledGame();
+                        //GardenGame.Instance.music.FadeOut();
+                        //GameThumbnail thumb = thumbnailsCache[grnd.GameID];
+                        //GardenGame.Instance.ActionLaunchGame(grnd, thumb);
                         isGameLaunchOngoing = false;
-                        return;
-
+                        throw new NotImplementedException("igg_mysterygame");
+                        //return;
                     }
                     else
                     {

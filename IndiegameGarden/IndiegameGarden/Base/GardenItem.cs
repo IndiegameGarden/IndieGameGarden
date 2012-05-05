@@ -71,11 +71,10 @@ namespace IndiegameGarden.Base
             get
             {
                 if (VisibilityLabel == 0) return "invisible-item";
-                if (IsPlayable)   return "game";
-                if (IsMusic)      return "music";
+                if (IsMusic)         return "music";
                 if (IsSystemPackage) return "system-package";
 
-                return "item";
+                return "game";
             }
         }
 
@@ -265,13 +264,8 @@ namespace IndiegameGarden.Base
             {
                 if (refreshInstallationStatusNeeded)
                 {
-                    //AutoDetectedCdPath();
-                    //AutoDetectedExeFile(); FIXME
-                    String gameDirPath = GameFolder;
-                    String exePath = ExeFilepath;
                     isInstalled =   IsGrowable &&
-                                    Directory.Exists(gameDirPath) &&
-                                    File.Exists(exePath) &&
+                                    Directory.Exists(GameFolder) &&
                                     (DlAndInstallTask == null || DlAndInstallTask.IsFinished()) ;
                     refreshInstallationStatusNeeded = false;
                 }
@@ -313,7 +307,9 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                return ExeFile.Length > 0;
+                if (IsSectionId || IsSystemPackage)
+                    return false;
+                return true;
             }
         }
 
@@ -324,7 +320,11 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                return ExeFile.ToLower().EndsWith(".exe");
+                if(ExeFile.ToLower().EndsWith(".exe"))
+                    return true;
+                if (IsSectionId || IsMusic || IsSystemPackage)
+                    return false;
+                return true; // for games that don't specify their .exe file.                
             }
         }
 

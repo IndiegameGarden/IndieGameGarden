@@ -47,6 +47,7 @@ namespace IndiegameGarden.Base
             return sel;
         }
 
+        /*
         public GardenItem GetRandomInstalledGame()
         {
             GardenItem g = null;
@@ -57,6 +58,7 @@ namespace IndiegameGarden.Base
             } while (g.IsSystemPackage || !g.IsGrowable || !g.IsInstalled || !g.IsPlayable);
             return g;
         }
+         */
     
     }
 }
