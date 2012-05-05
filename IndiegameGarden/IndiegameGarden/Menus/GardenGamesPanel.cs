@@ -364,17 +364,14 @@ namespace IndiegameGarden.Menus
                         }
                         else
                         {
-                            th.Motion.ScaleTarget = 1f;
-                            //th.Motion.ScaleSpeed = 0.03f;
-
                             // displaying selected thumbnails larger
                             if (g == SelectedGame && g.IsGrowable)
                             {
-                                th.Motion.ScaleTarget *= THUMBNAIL_SCALE_SELECTED;
+                                th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED;
                             }
                             else
                             { 
-                                th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED;
+                                th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
                             }
 
                         }
@@ -382,7 +379,7 @@ namespace IndiegameGarden.Menus
                 } // end if th==SelectedGame
                 else
                 {
-                    th.Motion.ScaleTarget *= THUMBNAIL_SCALE_UNSELECTED;
+                    th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
                 }
                 th.ColorB.FadeSpeed = 0.15f;// 0.15f; // TODO const
 
