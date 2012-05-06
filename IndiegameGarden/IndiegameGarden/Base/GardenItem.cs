@@ -400,6 +400,40 @@ namespace IndiegameGarden.Base
             }
         }
 
+        protected string thumbnailFile = "";
+
+        protected string thumbnailURL = "";
+
+        public string ThumbnailFile
+        {
+            get
+            {
+                if (thumbnailFile.Length > 0)
+                {
+                    return thumbnailFile;
+                }
+                else
+                {
+                    return GameIDwithVersion + ".png";
+                }
+            }
+        }
+
+        public string ThumbnailURL
+        {
+            get
+            {
+                if (thumbnailURL.Length > 0)
+                {
+                    return thumbnailURL;
+                }
+                else
+                {
+                    return GardenGame.Instance.Config.GetThumbnailURL(GameIDwithVersion + ".png");
+                }
+            }
+        }
+
         // extract an extension e.g. "zip" from a partial or full URL e.g. http://server/test/name.zip 
         // <returns>extension after last dot, or default "zip" if no dot found in 'urlDl'.</returns>
         private string ExtractFileExtension(string url)
@@ -457,6 +491,10 @@ namespace IndiegameGarden.Base
             try { CdPath = j["Cd"].ToString(); }
             catch (Exception) { ; }
             try { PackedFileURL = j["Zip"].ToString(); }
+            catch (Exception) { ; }
+            try { thumbnailURL = j["ThumbURL"].ToString(); }
+            catch (Exception) { ; }
+            try { thumbnailFile = j["Thumb"].ToString(); }
             catch (Exception) { ; }
             try { DeveloperWebsiteURL = j["Site"].ToString(); }
             catch (Exception) { ; }

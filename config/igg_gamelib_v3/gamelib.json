@@ -1,0 +1,944 @@
+{
+	"version": 3,
+	"Xmax": 30,
+	"Ymax": 220,
+	"gameslist":
+		[
+	  	{
+	  	 	"ID": "igg_controls",
+	  		"Scale": 2.7,
+	  		"RotSpeed": 0.16,
+	  		"FX": 0,
+	  		"X": 3, "Y": 2
+	  	},
+	  	{
+	  		"ID": "igg_credits",	  		
+	  		"FX": 0,
+	  		"Scale": 0.7,
+	  		"X": 1, "Y": 0
+	  	},
+	  	{
+	  	  "ID": "igg",
+	  	  "Name": "Update Indiegame Garden!",
+	  	  "Descr": "Hold ENTER to update Indiegame Garden client. Once installed, restart this client to get the new version.",
+	  	  "Site": "indiegamegarden.com",
+	  	  "Exe": "TTengine.dll",
+	  	  "X": 4, "Y": 0
+	  	},
+	  	[
+	  		{ "ID": "section_music",
+	  			"X": 7, "Y": 6, "DX": 2
+	  		},
+		  	{
+		  	 	"ID": "igg_iconmusic",
+		  		"Name": "",
+		  		"Scale": 0.55,
+		  		"X": -1, "Y": -1,
+		  		"FX": 0
+		  	},
+		  	{
+		  		"ID": "Torley_Aurelic",
+		  		"Name": "\"Aurelic\" by Torley",
+		  		"Descr": "From the album \"Glitch Piano\". Hit \"W\" for Torley's website. (CC BY-NC-SA license.)",
+		  		"Zip": "Torley_Aurelic.ogg",
+		  		"Exe": "Torley_Aurelic.ogg",
+		  		"Site": "music.torley.com",
+		  		"Scale": 0.7,
+		  		"X": 0, "Y": 0
+		  	},
+		  	{
+		  		"ID": "Torley_Zalgone",
+		  		"Name": "\"Zalgone\" by Torley",
+		  		"Descr": "From the album \"Glitch Piano\". Hit \"W\" for Torley's website. (CC BY-NC-SA license.)",
+		  		"Zip": "Torley_Zalgone.ogg",
+		  		"Exe": "Torley_Zalgone.ogg",
+		  		"Site": "music.torley.com",
+		  		"Scale": 0.7
+		  	},
+		  	{
+		  		"ID": "Space-Explorers_Sublime",
+		  		"Name": "\"Sublime\" by Space Explorer(s)",
+		  		"Descr": "Hit \"W\" for Space Explorer(s) website. (CC BY license.)",
+		  		"Zip": "Space-Explorers_Sublime.ogg",
+		  		"Exe": "Space-Explorers_Sublime.ogg",
+		  		"Site": "spaceexplorers.bandcamp.com",
+		  		"Scale": 0.7
+		  	}
+		  ],
+
+			[
+				{ "ID": "section_general",
+					"X": 1, "Y": 1, "DX": 2
+				},
+		  	{
+		  	 	"ID": "honeyblaster",
+		  		"Name": "HoneyBlaster",
+		  		"Descr": "Classic action shoot'em up game, where the player is not a spaceship but a... bumble-bee.\nTAKE CARE: McAfee on-demand virus scan deletes ezip.dll claiming a virus, breaking the game.",
+		  		"Zip": "lowfuel.melnicek.cz/honeyblaster/data/lf-honeyblaster-demo.zip",
+		  		"Site": "lowfuel.melnicek.cz/honeyblaster",
+		  		"Exe": "lf-hb.exe"
+		  	},
+		  	{
+		  	 	"ID": "dwarffortress",
+		  		"Name": "Dwarf Fortress 0.34.02",
+		  		"Descr": "Single-player fantasy game set in a randomly generated, persistent world. Amazingly, all visuals are ASCII.",
+		  		"Help": "You can maximize the window to see a larger map area during the game.",
+		  		"Zip": "www.bay12games.com/dwarves/df_34_02_win.zip",
+		  		"ZipMirrors": ["b12.wimbli.com/df_34_02_win.zip", "df.nucleardog.com/df_34_02_win.zip"],
+		  		"Site": "www.bay12games.com/dwarves/",
+		  		"Exe": "Dwarf Fortress.exe"
+		  	},
+		  	{
+		  	 	"ID": "foxaliens",
+		  		"Name": "Fox aliens from space invade a planet within space",
+		  		"Descr": "\"jump as mr zuper hero dude, stop em aliens, bring their ships down destroy dem walkers.\"\nPress \"W\" to visit the YoYoGames website of this game. GameMaker is great, try it!",
+		  		"ZipOrigin": "http://sandbox.yoyogames.com/games/196253-fox-aliens-from-space-invade-a-planet-within-space/send_download?code=113999adfa054f80141a43cc8f58f5cd2f70a5b1",
+		  		"Site": "http://sandbox.yoyogames.com/games/196253-fox-aliens-from-space-invade-a-planet-within-space#",
+		  		"Exe": "FOXLZRS.exe",
+		  		"Cd": "FOXLZRS",
+		  		"Version": 2
+		  	},
+		  	{
+		  	 	"ID": "wither",
+		  		"Name": "Wither",
+		  		"Descr": "Short RPG made in old gameboy style. Press \"W\" to visit the rpgmaker.net site for this game!",
+		  		"Zip": "wither.rar",
+		  		"Site": "http://rpgmaker.net/games/3434/",
+		  		"Exe": "RPG_RT.exe",
+		  		"Cd": "Wither"
+		  	},
+		  	{
+		  	 	"ID": "YCPEMTDT2",
+		  		"Name": "You Can't Possibly Expect Me To Do That! 2",
+		  		"Descr": "The Space Station Catalyst Planet Exploration Crew is recruiting new members! If you can complete\nthe training exercise, you will become a member of the crew. Discover 5(erm, 4, or maybe 3) planets of\nvarying terrain, from firey tempests to temples overrun with foliage!",
+		  		"Zip": "http://64digits.com/games/5356/YCPEMTDT2_-_IHDUYATDMTO_v1.0.exe.zip",
+		  		"Exe": "YCPEMTDT2 - IHDUYATDMTO v1.0.exe",
+		  		"Site": "64digits.com/games/index.php?cmd=view_game&id=5356"
+		  	}
+		  ],	  	
+	  	[
+	  		{
+	  			"ID": "section_dutch",
+	  			"X": 5, "Y": 1, "DX": 2
+	  		},
+	      {
+		  		"ID": "supercratebox",
+		  		"Name": "Super Crate Box",
+		  		"Descr": "Prepare for an arcade delight with tight controls, refreshing game mechanics, cracking retro art and a terribly hip chiptune soundtrack.",
+		  		"Exe": "supercratebox.exe",
+		  		"Zip": "www.supercratebox.com/download/supercratebox.rar",
+		  		"Site": "www.supercratebox.com"
+		  	},
+		    {
+		  		"ID": "yetihunter",
+		  		"Name": "Yeti Hunter",
+		  		"Descr": "a Vlambeer game about hunting yetis - music by Kozilek",
+		  		"Help": "mouse=look, WASD=move, rmb=scope, lmb=shoot, SHIFT=run,\nR=restart, CTRL=duck/climb down trees, walk up a tree to climb",
+		  		"Exe": "YETI HUNTER.exe",
+		  		"Zip": "yetihunter.vlambeer.com/download.rar",
+		  		"Site": "yetihunter.vlambeer.com"
+		  	},
+		  	{
+		  	 	"ID": "mythicdefence",
+		  		"Name": "Mythic Defence - The rise of evil",
+		  		"Descr": "Tower defence with 25 waves of onslaught with 6 different races; over 30 different towers to choose from. Can you hold your line?",
+		  		"Zip": "www.creativegamechallenge.nl/games2009/cgc09025/cgc09025.zip",
+		  		"Site": "www.creativegamechallenge.nl/allegamescgc2009.php",
+		  		"Exe": "Mythic Defence - The rise of evil.exe"
+		  	}
+	  	],
+	  	[
+	  		{
+	  			"ID": "section_experimental",
+	  			"Visible": 0,
+	  			"X": 4, "Y": 3, "DX": 3
+	  		},
+  	    {
+		  		"ID": "gametitle",
+		  		"Name": "Game Title",
+		  		"Descr": "\"a zelda-esque dungeon crawler, but you only have one hit point, various weapons are hidden to ease the difficulty\"",
+		  		"Cd": "Game Title",
+		  		"Exe": "Game Title.exe",
+		  		"Zip": "www.glorioustrainwrecks.com/files/Game%20Title%20-%202012-02-22b.zip",
+		  		"Site": "www.glorioustrainwrecks.com/node/2258"
+		  	},
+  	    {
+		  		"ID": "gametitle_lostlevels",
+		  		"Name": "Game Title: Lost Levels",
+		  		"Descr": "This is a sort of sequel to Game Title, inspired a bug that came up. It is very difficult to complete it. It is possible to complete it.\nIt is possible to get stuck. If you're not absolutely certain that you're stuck, you're probably not stuck. Sorry.",
+		  		"Cd": "Game Title - Lost Levels",
+		  		"Exe": "Game Title - Lost Levels.exe",
+		  		"Zip": "www.glorioustrainwrecks.com/files/Game%20Title%20-%20Lost%20Levels%20-%202012-02-23.zip",
+		  		"Site": "www.glorioustrainwrecks.com/node/2268"
+		  	},
+  	    {
+		  		"ID": "minestein3d",
+		  		"Name": "Minestein 3D",
+		  		"Descr": "A mashup of Wolfenstein 3D and Minecraft. You can hit Enter/PageUp/KeypadEnter at any time to switch between editor\nmode and action mode. It's sort of a Wolf3D construction kit. (If the default level takes a while to load, that's normal.)",
+		  		"Cd": "minestein3D",
+		  		"Exe": "Minestein3D.exe",
+		  		"Zip": "www.glorioustrainwrecks.com/files/minestein3d_0.rar",
+		  		"Site": "http://www.glorioustrainwrecks.com/node/3041"
+		  	},
+		  	{
+		  		"ID": "starman",
+		  		"Name": "Starman",
+		  		"Descr": "Jump on the goomba!",
+		  		"Cd": "starman",
+		  		"Exe": "starman.exe",
+		  		"Zip": "klikscene.com/games/Radix_starman.rar",
+		  		"Site": "klikscene.com/2009/starman/"
+		  	},
+		  	{
+		  		"ID": "spacemass",
+		  		"Name": "Space Mass",
+		  		"Descr": "Blocks, nothing but blocks... destroy blocks, use your grappling hook, collect the key, find the exit door.",
+		  		"Help": "Hint: you can zoom out to an overall map by pressing 'v'",
+		  		"Exe": "spacemass.exe",
+		  		"Zip": "http://dl.dropbox.com/u/3536006/forumz/spacemass.exe",
+		  		"Site": "www.darshell.co.nr"
+		  	},		  	
+	  		{
+"Name": "weave i",
+"ID": "1308",
+"Zip": "www.glorioustrainwrecks.com/files/sixweav.knytt.bin.zip",
+"Thumb": "sssged.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/sssged.png",
+"Descr": "gosh this took a whii don't evi don't even know though",
+"GTrating": 5,
+"GTvotes": 7,
+"Site": "www.glorioustrainwrecks.com/node/1308"
+},
+{
+"Name": "Your Batman",
+"ID": "1366",
+"Zip": "www.glorioustrainwrecks.com/files/yourbat.zip",
+"Thumb": "yourbatman.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/yourbatman.png",
+"Descr": "You r Batman",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1366"
+},
+{
+"Name": "Getalong Golfhop",
+"ID": "1409",
+"Zip": "www.glorioustrainwrecks.com/files/Getalong Golfhop.zip",
+"Thumb": "Golfhop.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/Golfhop.png",
+"Descr": "Complete this platforming course in as few strokes as possible! Try and get to the hole unde",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1409"
+},
+{
+"Name": "Emagtra",
+"ID": "1423",
+"Zip": "www.glorioustrainwrecks.com/files/emagtra.zip",
+"Thumb": "emagtra.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/emagtra.png",
+"Descr": "A primitive storytelling experiment! I went 25.5 hours overtime but that's okay.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1423"
+},
+{
+"Name": "EffBee is on Point!",
+"ID": "1427",
+"Zip": "www.glorioustrainwrecks.com/files/AP-EffBee-2010.zip",
+"Thumb": "AP2010_0.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/AP2010_0.png",
+"Descr": "My entries for Action Point 201= Choo Choo TextActually the last entry I made for the thing, because I suddenly realized that I lacked a text scroller and needed to make one badly! This is a text scroller with a twist - literally! The text follows a chugging train as it turns and twists around in loop= Hurdler SunsetWatch as a dignified hurdler runs across randomly generated terrain with smooth scrolling while automatically jumping over any hurdles along the way! Admire the scrolling parallax ocean and the clouds as they pass b= Bubble SeaQuite possibly an attempt to one-up qrleon's water physics demo from AP2009. What's the difference? His demo was water surface physics. This demo is *underwater* physics! Ha! Gaze in awe as I emulate sub-pixel movement for each bubble and flowing particle by giving each object four alterable variables (that right - not three, but four= Starry SkiesTake a trip through a starfield! The stars will then form all sorts of shapes! Guest-starring (ha ha, a pun) You Know Wh= More information on these entriesThese entries are all 100% free of timer events. This means that timing will be perfect regardless of MIDI changes, differing timing across different machines, etc. How does it work? By using the power of counters and the mod operator, that's hoI was forced to use a ton of workarounds. Here's just a smOther notes.Some of the entries has a wee bit of interactivity. See if you can discover the means to interact with them without opening the .gam fileStarry Skies uses sequenced one-channel .wav musiThe ambient music in Bubble Sea is procedurally generated (actually just randomly generateI used the mod operator. A LOT. And not just for avoiding timer events either! Take a look at the Bubble Sea source for some insight.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1427"
+},
+{
+"Name": "Klik & Reality",
+"ID": "1428",
+"Zip": "www.glorioustrainwrecks.com/files/klik_and_reality.zip",
+"Thumb": "knpmonster.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/knpmonster.png",
+"Descr": "<centeA shot-for-shot remake of Future Crew's Second Reality in Klik & Play!</center>It runs pretty slowly in DOSBox + Win3.1, but quite acceptably under Windows XP running in VirtualBox.  Best watched with a video of Second Reality beside the Klik & Reality window so that you can see what the hell you're supposed to be looking a",
+"GTrating": 5,
+"GTvotes": 5,
+"Site": "www.glorioustrainwrecks.com/node/1428"
+},
+{
+"Name": "Review a Game: The Movie: The Game",
+"ID": "1437",
+"Zip": "www.glorioustrainwrecks.com/files/review_a_game_the_movie_the_game.zip",
+"Thumb": "review_a_game.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/review_a_game.png",
+"Descr": "made early cause i have things to do to-night",
+"GTrating": 5,
+"GTvotes": 4,
+"Site": "www.glorioustrainwrecks.com/node/1437"
+},
+{
+"Name": "Super Hoskins and Leguizamo Brothers",
+"ID": "1446",
+"Zip": "www.glorioustrainwrecks.com/files/SuperBobHoskins.zip",
+"Thumb": "screen_2.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/screen_2.png",
+"Descr": "This Ain't No Game, It's a Live-Action Thrill RidCan two plumbers save the world from going down the drain?",
+"GTrating": 5,
+"GTvotes": 4,
+"Site": "www.glorioustrainwrecks.com/node/1446"
+},
+{
+"Name": "A Proper Occasion for Ripped Sprites",
+"ID": "1447",
+"Zip": "www.glorioustrainwrecks.com/files/RippedSpritesFinal.zip",
+"Thumb": "RippedSprites.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/RippedSprites.png",
+"Descr": "In celebration of the 25th, I have crafted 25 mini-levels to jump througI went waaaay overtime on thiMMF2 has really lousy performance when it comes to rotating/scaling sprites inEdit: You might want to install the Arcade font to play this, but it's totally optional.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1447"
+},
+{
+"Name": "Give Yourself Klikbumps",
+"ID": "1464",
+"Zip": "www.glorioustrainwrecks.com/files/Give Yourself Klikbumps-all.zip",
+"Thumb": "Picture 11.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/Picture 11.png",
+"Descr": "Give yourself goosebumps with Give Yourself Klikbumps, with a grand total of ten and a half endings to find! With absolutely no relation to the book series by R. L. Stine. None at all, eveThe zip file contains Windows, Mac and Linux versions.",
+"GTrating": 5,
+"GTvotes": 4,
+"Site": "www.glorioustrainwrecks.com/node/1464"
+},
+{
+"Name": "The Ballad Of Sad Ghost",
+"ID": "1469",
+"Zip": "www.glorioustrainwrecks.com/files/sadghost.zip",
+"Thumb": "sadghost.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/sadghost.png",
+"Descr": "Sad Ghost is the saddest ghost!  Wander the afterlife in search of meaning.  Can you find it al(Sad Ghost is a character invented by my son)",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1469"
+},
+{
+"Name": "seibmoZ",
+"ID": "1472",
+"Zip": "www.glorioustrainwrecks.com/files/zomppi_1.zip",
+"Thumb": "zombie.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/zombie.png",
+"Descr": "Kill all the zombies but OH LOOK YOU DIED GAME OVETry to avoid paradoxes; the time flows backwards!",
+"GTrating": 5,
+"GTvotes": 4,
+"Site": "www.glorioustrainwrecks.com/node/1472"
+},
+{
+"Name": "Sonic Boom",
+"ID": "1473",
+"Zip": "www.glorioustrainwrecks.com/files/sonicboom.rar",
+"Thumb": "sonicboom.jpg",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/sonicboom.jpg",
+"Descr": "sonicboom by markp0rter for http://www.glorioustrainwrecks.com. help save halloween and kill dracula in this action packed action pack featuring sonic the hedgehog. forget sonic 4 - play sonicboom",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1473"
+},
+{
+"Name": "Gorillaflop: Episode 0.555647: P.I. Investigates: The Moon Man Moon Heist: Gorilla in Spaaaaace",
+"ID": "1474",
+"Zip": "www.glorioustrainwrecks.com/files/Gorillaflop2_final_r1.zip",
+"Thumb": "Gorillaflop2.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/Gorillaflop2.png",
+"Descr": "Holy shit I made a sequel to the original Gorillaflop, this time in MMF2! It's pretty faithful to the original one I made, I'd arguWent waaaaay overtime on this. Oh well. It's done noThis marks the beginning of official Running Direct3D trainwrecks by EffBee on platforms they weren't ever meant to run on, E.G. Linux support from me. There is a compatibility mode that will fix the screen stretching issue if you're on Linux and using Wine. Windows users can probably ignore it. Come to think of it, though, I haven't actually tested this trainwreck on Windows! Someone do that for me. I'm too lazy to dual-boot. Edit: Confirmed working in WindowBUGFIX: Fixed a programming error where a Gorillaflop at rest would be put to sleep and then not woken up after attempting to flop agai------------------Gorillaflop is a Private Investigator working for the Federal Bureau of Anti-Planet-Thievery. Someone has stolen <s>Planet Earth</s> the moon! Gorillaflop must save <s>Planet Earth</s> the moon by flopping back and fortMade in <s>Construct</s> MMF2, and features Win32 API abuse. Requires Shader Model 2.0 for the trippy background effecNo special thanks to six. He wasn't around at the time to name the characters. Boo.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1474"
+},
+{
+"Name": "Invader Sammy in \"One Sam Army\"",
+"ID": "1489",
+"Zip": "www.glorioustrainwrecks.com/files/OneSamArmy.zip",
+"Thumb": "w.PNG",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/w.PNG",
+"Descr": "A one-button game. Your entire platoon's been wiped out, Invader Sammy! It's all up to yoPress any button to change direction. Follow the arrow to victor(Invader Sammy copyright Auntie Pixelante Enterprises LLC(BGM copyright Taito Corp.)",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1489"
+},
+{
+"Name": "The Secret of Sky Castle",
+"ID": "1495",
+"Zip": "www.glorioustrainwrecks.com/files/The Secret of Sky Castle.zip",
+"Thumb": "skycastle.jpg",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/skycastle.jpg",
+"Descr": "You have found it, the mysterious Sky Castle. What awaits you insidShift to jump, arrows to move.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1495"
+},
+{
+"Name": "Weem 2",
+"ID": "1500",
+"Zip": "www.glorioustrainwrecks.com/files/Weem 2.zip",
+"Thumb": "weem2.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/weem2.png",
+"Descr": "The sequel to a one button adventure game prototype I made five years agIf you're using a 64-bit operating system.",
+"GTrating": 5,
+"GTvotes": 4,
+"Site": "www.glorioustrainwrecks.com/node/1500"
+},
+{
+"Name": "NUCLEAR ATTACK",
+"ID": "1502",
+"Zip": "www.glorioustrainwrecks.com/files/NUCLEAR ATTACK.rar",
+"Thumb": "nuclearattack.JPG",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/nuclearattack.JPG",
+"Descr": "A nuclear war has happened. Get the romans to the U.N. bunker before they are mutated. avoid the giant mutant viking.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1502"
+},
+{
+"Name": "BURGELVOMIT",
+"ID": "1503",
+"Zip": "www.glorioustrainwrecks.com/files/burgelvomit.zip",
+"Thumb": "burgelvomit.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/burgelvomit.png",
+"Descr": "vomit hamburgers into elvis' moumade in 15 minutes",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1503"
+},
+{
+"Name": "Bullet Rodeo",
+"ID": "1504",
+"Zip": "www.glorioustrainwrecks.com/files/BulletRodeo_1.zip",
+"Thumb": "BulletRodeo.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/BulletRodeo.png",
+"Descr": "Cross between a bull-fight and a bullet-hell shmup. Run away from bullets with the arrow keys. Bullets spawn every few frameMade in Processing. Embarrassing source included, as well as Mac/Win/Lin executables.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1504"
+},
+{
+"Name": "a lumber proposal",
+"ID": "1509",
+"Zip": "www.glorioustrainwrecks.com/files/TIMBER.zip",
+"Thumb": "lumberjerk.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/lumberjerk.png",
+"Descr": "your girlfriend is tied to a stake and you've gotta chop down this tree!",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1509"
+},
+{
+"Name": "KOMMANDER OF THE WINDOWS: WINDOW MAY KOMMANDER: KING OF THE WINDOWS: WINDOWMAKING: WINDOW MAY KING: WINDOWLICKER: THE MUSICAL: W",
+"ID": "1511",
+"Zip": "www.glorioustrainwrecks.com/files/WindowKommander.zip",
+"Thumb": "BOZOOO.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/BOZOOO.png",
+"Descr": "OOPS! TITLE DOES NOT FIT! FULL TITLE IIIIIIKOMMANDER OF THE WINDOWS: WINDOW MAY KOMMANDER: KING OF THE WINDOWS: WINDOWMAKING: WINDOW MAY KING: WINDOWLICKER: THE MUSICAL: WIDOWMAKER: WINDOW MAY KILL: X11: MECHANISM NOT POLI-------------------------------------------------------------WINDOW COMMANDER, IT IS YOUR DUTY TO COMMAND WINDOWINDOWS APPEAR AND DISAPPEDISMISS EVIL POP-UP WINDODON'T DISMISS NOT-EVIL POP-UP WINDOUSE ROBOTS TO CONTROL ASTRONAUFIND ALIENS THAT ARE NOT POP-UP WINDOCLICK POP-UP ALIENS TO CLOSE THTRICK THE CLOI HATE FORD ADVERTISEMENI AM USING CRUISE CONTROL FOR COOL",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1511"
+},
+{
+"Name": "Daphny needs to shit",
+"ID": "1512",
+"Zip": "www.glorioustrainwrecks.com/files/kotmk 41.rar",
+"Thumb": "ddd.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/ddd.png",
+"Descr": "buggy and I'm pretty sure unwinnab----->",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1512"
+},
+{
+"Name": "typesphere",
+"ID": "1577",
+"Zip": "www.glorioustrainwrecks.com/files/HelloWorld.swf",
+"Thumb": "Screen shot 2011-01-16 at 03.31",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/Screen shot 2011-01-16 at 03.31",
+"Descr": "went a bit over (1:30 actually...:can play online he",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1577"
+},
+{
+"Name": "Silly family - an original",
+"ID": "1610",
+"Zip": "www.glorioustrainwrecks.com/files/css10.zip",
+"Thumb": "silly.JPG",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/silly.JPG",
+"Descr": "Your family eggs are escape! you must collect them. then other stuff happens. and the argue. and the throwing of churroand then it crashes, the endyay!",
+"GTrating": 5,
+"GTvotes": 6,
+"Site": "www.glorioustrainwrecks.com/node/1610"
+},
+{
+"Name": "My First IGN Interview",
+"ID": "1614",
+"Zip": "www.glorioustrainwrecks.com/files/IGN-all.zip",
+"Thumb": "IGN.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/IGN.png",
+"Descr": "IGN is looking for a new female editor! Do you have what it takes to get the job?",
+"GTrating": 5,
+"GTvotes": 4,
+"Site": "www.glorioustrainwrecks.com/node/1614"
+},
+{
+"Name": "rainbow dogs or something, i don't know",
+"ID": "1616",
+"Zip": "www.glorioustrainwrecks.com/files/kotm.zip",
+"Thumb": "2dbuih5.gif",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/2dbuih5.gif",
+"Descr": "This is a strange booIt's strange because it's really a videogame, or at least, a curious box made to house a videogame. And the videogame it houses is not an ordinary one about elves or soldiers or footballers created to run on the latest and most powerful computer, but a new title for a videogame console more than three decades old, the Atari Video Computer System. And that Atari game is not a nostalgic re-make of a popular shoot-em-up or a new take on an iconic action-adventure, but a set of playable poetry that owes as much to Wi",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1616"
+},
+{
+"Name": "Cops and robbers",
+"ID": "1667",
+"Zip": "www.glorioustrainwrecks.com/files/Cops and Robbers.zip",
+"Thumb": "coprob.PNG",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/coprob.PNG",
+"Descr": "In this game you are a legendary thief that is stealing everything.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1667"
+},
+{
+"Name": "The Syms",
+"ID": "1671",
+"Zip": "www.glorioustrainwrecks.com/files/thesyms.zip",
+"Thumb": "Untitled_0.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/Untitled_0.png",
+"Descr": "My first KotM, and, uhh, I think it shows. Surf on your symmetrical partner. The game is beatable, but the last level is annoying. :Y",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1671"
+},
+{
+"Name": "Blood Sword of the Man-God",
+"ID": "1678",
+"Zip": "www.glorioustrainwrecks.com/files/bloodsword.rar",
+"Thumb": "bloodsword.jpg",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/bloodsword.jpg",
+"Descr": "A barbarian under sentence of death is given one final chance to redeem himself. Over 200 levels of <b>pulse-pounding action</b>, <b>arranged string soundtrack</b>, and <b>multiple dialogue paths</b> in the vein of <b>Deus Ex</b>, <b>Planescape: Torment</b>, and <b>Mass Effect</bChoose...your...<b><strong><h1>...destiny.</b></strong></hBy Jack Perkins and Alabaster the Lorem.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1678"
+},
+{
+"Name": "Jesus: The Second Coming: Hamburger Flipper",
+"ID": "1681",
+"Zip": "www.glorioustrainwrecks.com/files/SecondComing.zip",
+"Thumb": "SecondComing.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/SecondComing.png",
+"Descr": "Idea created using that trainwreck idea generator I made earlieYou are tasked with making a platform game starring Jesus as the protagonist, whose goal is to collect every Hamburger. Your trainwreck must utilize Win32 API abuse as a gimmickThis game involves you, as Jesus, coming back down to earth in order to set up a hamburger stand. However, you need hamburgers to begin with, so you set out on a search across the mountains for burgers to sell at your burger stand. And then stuff happens.",
+"GTrating": 5,
+"GTvotes": 6,
+"Site": "www.glorioustrainwrecks.com/node/1681"
+},
+{
+"Name": "YeargH 3D!",
+"ID": "1683",
+"Zip": "www.glorioustrainwrecks.com/files/YeargH3D r2.rar",
+"Thumb": "y3dss1.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/y3dss1.png",
+"Descr": "Hello this is a klik raycasting FPS with one leveI was gonna add exploding barrels and grenades and a cowboy enemy type but I ran out of time what with all the bugfixing to be donIt's capped at 15fps. Deal with it (my laptop barely canControls are WASD, shift to sprint, 1/2/3 to switch weapons, leftklik to fire, esc to quit, E to open doors and secret walls. Find the magical door thing to exit the level.",
+"GTrating": 5,
+"GTvotes": 9,
+"Site": "www.glorioustrainwrecks.com/node/1683"
+},
+{
+"Name": "The Hose",
+"ID": "1686",
+"Zip": "www.glorioustrainwrecks.com/files/thehose.zip",
+"Thumb": "thehose.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/thehose.png",
+"Descr": "Hey what happened to the Ladies Auxiliary?Anyway, this is my game.  I was trying to add a bit of Glorious-y out-there-ness to my game that my staid self sometimes lacks, while staying true to my artistic, physics-toy-making style. Such as it iTHE HOSE is the resulYou are the hose. Hold the mouse to send out water streaming, sending you flying and hopefully dousing the flamesErr, I mean.THE BUILDING IS ON FIRE! HOLY CRAP YOU BETTER PUT IT OUT!!! GAH WHAT KIND OF GOOD HOSE ARE YOU IF YOU CANT PUT PUT A FIRE!!!!!!  AAAAAH WHATS GOING ON YOURE FLYING ALL OVER THE BOARD LOOK OUT!!!! LOOK OUT! PUT OUT THE FIRE AS FAST AS YOU CAN GO GO GO GO GO GO!!!!",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1686"
+},
+{
+"Name": "Yie-Ar Klik Fu 3: ElEkTrIk KuNgAlOo",
+"ID": "1695",
+"Zip": "www.glorioustrainwrecks.com/files/Yie-Ar 3 1.025.zip",
+"Thumb": "shot.PNG",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/shot.PNG",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1695"
+},
+{
+"Name": "beautiful underwater experience",
+"ID": "1707",
+"Zip": "www.glorioustrainwrecks.com/files/beautifu.zip",
+"Thumb": "beautifu.PNG",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/beautifu.PNG",
+"Descr": "my ps3 crapped out earlier todi am not happy",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1707"
+},
+{
+"Name": "Bee Man",
+"ID": "1709",
+"Zip": "www.glorioustrainwrecks.com/files/Bee Man-all.zip",
+"Thumb": "beemanscreen.jpg",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/beemanscreen.jpg",
+"Descr": "My first RenPy. Mac/Win/Linux builds included. Kudos to PurpleChair for the idea.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1709"
+},
+{
+"Name": "Tim Allen's Gruntmaster 6000",
+"ID": "1715",
+"Zip": "www.glorioustrainwrecks.com/files/TimAllen.zip",
+"Thumb": "TimAllen.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/TimAllen.png",
+"Descr": "Uhh, I was trying to come up with a concept for a game. I generated about a hundred names from the VGNG before folks on IRC suggested that I use \"Gruntmaster 6000\" as the name of my gamSo I thought about grunts, and I was like, hmm... how do I base a game around grunts? Oh, I know! Tim Allen!  grunts I could use! This is barely even a game. What the hell did I just produce?",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1715"
+},
+{
+"Name": "SPACE MARINE GROCERY SHOPPING",
+"ID": "1752",
+"Zip": "www.glorioustrainwrecks.com/files/marine.zip",
+"Thumb": "marine.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/marine.png",
+"Descr": "you're a space marine! your enormous bulk and tank controls are a boon when fighting space monsters, but it sure gets in the way when you're trying to shop for groceries! pick up a carton of eggs, but try not to rack up your bill too high in the process!",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1752"
+},
+{
+"Name": "Rapture Raptor",
+"ID": "1753",
+"Zip": "www.glorioustrainwrecks.com/files/Rapture Raptor.zip",
+"Thumb": "Rapture Raptor.jpg",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/Rapture Raptor.jpg",
+"Descr": "You are a raptor, sent to Earth to save as many souls as possible. Do tha(Newgrounds version link added)",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1753"
+},
+{
+"Name": "Sonic The Hedgehog's Orphan Genocide",
+"ID": "1765",
+"Zip": "www.glorioustrainwrecks.com/files/sonicgenocide.zip",
+"Thumb": "sonicgenocide.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/sonicgenocide.png",
+"Descr": "Become history's greatest monster... and its greatest saviour!  Take the role of Sonic the Hedgehog in this tactically and morally complex real-time strategy game, as you murder astronomical quantities of orphans in order to keep Earth from explodinYou might need to download  mind.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1765"
+},
+{
+"Name": "Daddy I'm Scared",
+"ID": "1773",
+"Zip": "www.glorioustrainwrecks.com/files/Daddy I'm Scared_0.zip",
+"Thumb": "screenshot100_9.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/screenshot100_9.png",
+"Descr": "",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1773"
+},
+{
+"Name": "Headwrench",
+"ID": "1815",
+"Zip": "www.glorioustrainwrecks.com/files/Headwrench.zip",
+"Thumb": "Headwrench.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/Headwrench.png",
+"Descr": "It's as if nightmares were real, and not just things children make up to get you to hug them for no reason. As soon as I gave up the search for the red-door-opening powerup, I pri",
+"GTrating": 5,
+"GTvotes": 4,
+"Site": "www.glorioustrainwrecks.com/node/1815"
+},
+{
+"Name": "5 DAYS A FUCKFEST",
+"ID": "1863",
+"Zip": "www.glorioustrainwrecks.com/files/5 DAYS A FUCKFEST-all_0.zip",
+"Thumb": "Picture 67.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/Picture 67.png",
+"Descr": "5 DAYS A FUCKFEST A YAHTZEE GAME BY YAHTZEE (and myself, abner cadaver and khoros",
+"GTrating": 5,
+"GTvotes": 11,
+"Site": "www.glorioustrainwrecks.com/node/1863"
+},
+{
+"Name": "        Parallel Paradox",
+"ID": "1901",
+"Zip": "www.glorioustrainwrecks.com/files/ParallelParadox.zip",
+"Thumb": "Paradox.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/Paradox.png",
+"Descr": "This is just a single difficult puzzle similar to the sort you might find in Karoshi 2.0 or The Impossible Quiz. You must \"think outside the box\" and come up with a very specific solution to this seemingly impossible task of your own accord. I will reveal the solution in a day or twNote: there might be a bug that causes it to be solved immediately. Please disregard this if it occurs.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1901"
+},
+{
+"Name": "RUN!!!!!!1",
+"ID": "1910",
+"Zip": "www.glorioustrainwrecks.com/files/RUN.rar",
+"Thumb": "elephant444.PNG",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/elephant444.PNG",
+"Descr": "Try to get 1,000,000 points for the real ending!",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1910"
+},
+{
+"Name": "Yoshi Does Drugs",
+"ID": "1919",
+"Zip": "www.glorioustrainwrecks.com/files/YoshiDoesDrugs-rev1.zip",
+"Thumb": "YoshiDoesDrugs.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/YoshiDoesDrugs.png",
+"Descr": "Guide Yoshi the Super Happy Dinosaur to his melon stash so he can eat melons! Err, wait, what's that thing? Should Yoshi eat it? Well, it looks close enough like food, so why noShift to jump, Ctrl to eat melons. Down to enter the pipEdit: Bugfix release so you can't shoot multiple tongues and have them coming out of your feet.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1919"
+},
+{
+"Name": "ECIN - Robot Delivery",
+"ID": "1920",
+"Zip": "www.glorioustrainwrecks.com/files/ecin_rynen10k_kotmk51.zip",
+"Thumb": "robits01.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/robits01.png",
+"Descr": "SUPER SECRET LATE ENTECIN is a game played with the 'E', 'C', 'I', and 'N' keyHelp the robots pass boxes down the linYaThe in-game music is \"ROBOTBIRTHDAY\", a dumb song about robots' birthdays i made in WarioWare DIY.",
+"GTrating": 5,
+"GTvotes": 4,
+"Site": "www.glorioustrainwrecks.com/node/1920"
+},
+{
+"Name": "Vector1",
+"ID": "1925",
+"Zip": "www.glorioustrainwrecks.com/files/Vector1.zip",
+"Thumb": "vector.JPG",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/vector.JPG",
+"Descr": "",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1925"
+},
+{
+"Name": "Vector the Crocodile Walks Through Great Art",
+"ID": "1930",
+"Zip": "www.glorioustrainwrecks.com/files/VTCWTGA.zip",
+"Thumb": "screenshot106.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/screenshot106.png",
+"Descr": "Join Vector the Crocodile as he walks through a sampling of the world's great art!(X jumpEDIT: Turns out the Vector sprite is courtesy of Yuski.  Thank you, Yuski!",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1930"
+},
+{
+"Name": "Vector's Chaotix",
+"ID": "1933",
+"Zip": "www.glorioustrainwrecks.com/files/vchaotix.zip",
+"Thumb": "vectorschaotixxx.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/vectorschaotixxx.png",
+"Descr": "",
+"GTrating": 5,
+"GTvotes": 7,
+"Site": "www.glorioustrainwrecks.com/node/1933"
+},
+{
+"Name": "Vector's Block Ball",
+"ID": "1934",
+"Zip": "www.glorioustrainwrecks.com/files/VectorBlockBall.zip",
+"Thumb": "VectorBlockBall.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/VectorBlockBall.png",
+"Descr": "Launch Vector at some bricks! Move the mouse to shift the paddle, and click to firGameplay possibly related to Knuckles Chaotix.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1934"
+},
+{
+"Name": "Vector Bros. the Crocodiles Escape the Warehouse",
+"ID": "1944",
+"Zip": "www.glorioustrainwrecks.com/files/VBTCETW.zip",
+"Thumb": "screenshot135.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/screenshot135.png",
+"Descr": "Vector the Crocodile teams up with his brother Hector the Crocodile.  Together, Vector and Hector are Vector Bros!  They're stuck in a factory, and they need to work together (as a family!) to escape to the outside world, but first <i>they're going to have to collect every single ring in the factory!</i>  Stand on one another's shoulders, push boxes, and get to the blue skieThis game is two-player friendly!  Share the screen with modern split-screen technology!  Play with your friend, play with yourself, play with your buddy, or play with your friend's buddy's selW, A, and D control Vector, while the arrow keys control Hector (up jumps(Press J and K at the same time to reset the level if you get stucThe Vector sprite is courtesy of Yuski. Thank you, Yuski!",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1944"
+},
+{
+"Name": "vector's ordrix",
+"ID": "1945",
+"Zip": "www.glorioustrainwrecks.com/files/ordrix.zip",
+"Thumb": "vector.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/vector.png",
+"Descr": "vector the crocodile is tired of all these CHAOTIX constantly interrupting his tunes. in VECTOR'S ORDRIX, run along a perfectly flat landscape and enjoy your favorite song.",
+"GTrating": 5,
+"GTvotes": 5,
+"Site": "www.glorioustrainwrecks.com/node/1945"
+},
+{
+"Name": "Sonic and the Green Jogger",
+"ID": "1951",
+"Zip": "www.glorioustrainwrecks.com/files/GreenJogger.zip",
+"Thumb": "GreenJogger.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/GreenJogger.png",
+"Descr": "The disappointing sequel to Sonic and the Yellow Jogger! Features less content and one brand new leveSonic and the Green Jogger takes place aix million years in the future after the events in Sonic and the Yellow Jogger. Find Vector and help him locate the computer room! Jig around at high speeds! Avoid getting blown up! All this and less can be found in this horrible sequel that should have never existed in the first place!",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1951"
+},
+{
+"Name": "Unlikely Arsenal",
+"ID": "1958",
+"Zip": "www.glorioustrainwrecks.com/files/UnlikelyArsenal.zip",
+"Thumb": "unlikely.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/unlikely.png",
+"Descr": "You are Baron van der Bandolier, and must blast a swarm of Fearsome Flying Femmes Fatale. You have two bouncing lasers, one shoe-cannon set, and one back-mounted grenade launcher. You can only fire all of these weapons at once, and if you get hit by one of your own shots, you die. In retrospect, your enthusiasm for weaponry may be your un",
+"GTrating": 5,
+"GTvotes": 4,
+"Site": "www.glorioustrainwrecks.com/node/1958"
+},
+{
+"Name": "pongpongpongpongpongpongpongpong",
+"ID": "1979",
+"Thumb": "Screen shot 2011-10-15 at 3.09",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/Screen shot 2011-10-15 at 3.09",
+"GTrating": 5,
+"GTvotes": 4,
+"Site": "www.glorioustrainwrecks.com/node/1979"
+},
+{
+"Name": "Worker & Parasite: The Game",
+"ID": "2044",
+"Zip": "www.glorioustrainwrecks.com/files/wnp.zip",
+"Thumb": "workerparasite.jpg",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/workerparasite.jpg",
+"Descr": "CHEATING AT KLIK OF THE MONTH: PARTBack in June, inspired by .",
+"GTrating": 5,
+"GTvotes": 6,
+"Site": "www.glorioustrainwrecks.com/node/2044"
+},
+{
+"Name": "thurs day part ii",
+"ID": "2045",
+"Zip": "www.glorioustrainwrecks.com/files/thursday2.zip",
+"Thumb": "td2screen.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/td2screen.png",
+"Descr": "CHEATING AT KLIK OF THE MONTH: PART This Thursday, I started press spacebar in addition to pressing the arrow keyThe graphics, despite largely resembling the previous game, are entirely original this time. The sounds are mostly original too (thanks, malfunctioning microphone port) supplemented by edited audio from the games I referencedA word of warning: thurs day part ii is 'contemplative', which is to say, slow-paced to a fault.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/2045"
+},
+{
+"Name": "Tummy Jigglers",
+"ID": "2052",
+"Zip": "www.glorioustrainwrecks.com/files/apotheosis.swf",
+"Thumb": "ss_5.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/ss_5.png",
+"Descr": "here is an art game about tummies i love you",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/2052"
+},
+{
+"Name": "TIME WORM!!!",
+"ID": "2055",
+"Zip": "www.glorioustrainwrecks.com/files/timeworm.zip",
+"Thumb": "timewormscreen.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/timewormscreen.png",
+"Descr": "Help Timbo the Worm get revenge on the chickens with the help of the magical going-back-in-time potioAll art assets taken from",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/2055"
+},
+{
+"Name": "Mormon Temple",
+"ID": "2061",
+"Zip": "www.glorioustrainwrecks.com/files/mormon temple.7z",
+"Thumb": "screenshot100_11.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/screenshot100_11.png",
+"Descr": "",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/2061"
+},
+{
+"Name": "giftopia",
+"ID": "2062",
+"Zip": "www.glorioustrainwrecks.com/files/giftopia.zip",
+"Thumb": "giftopia.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/giftopia.png",
+"Descr": "You are PARTY ROBOT!  Your goal is to uhhhhhDoes not work in Firefox :( Definitely does work in Chrome.",
+"GTrating": 5,
+"GTvotes": 4,
+"Site": "www.glorioustrainwrecks.com/node/2062"
+},
+{
+"Name": "Frank Sinatra in River, Stay Away From My Door",
+"ID": "2069",
+"Zip": "www.glorioustrainwrecks.com/files/RiverStayAway1.3.zip",
+"Thumb": "screenshot119.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/screenshot119.png",
+"Descr": "Why won't the river stay away from Frank Sinatra's door?  Help Frank guide his beloved door to safety away from the river, up above, where the river can't rise any higher (he's so all alone!Press 'X' to jump and press 'Z' while standing next to the door to pick it up.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/2069"
+},
+{
+"Name": "Five Golden Rings",
+"ID": "2087",
+"Zip": "www.glorioustrainwrecks.com/files/FiveGoldenRings_r1.zip",
+"Thumb": "FiveGoldenRings.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/FiveGoldenRings.png",
+"Descr": "Sonic must collect the Five Golden Rings to put the CHIST back in CHISTMAS! Can he do itFeatures Sonic Running Like an Idio",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/2087"
+},
+{
+"Name": "Dragonsanta",
+"ID": "2088",
+"Zip": "www.glorioustrainwrecks.com/files/Dragonsanta.zip",
+"Thumb": "dragonsanta.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/dragonsanta.png",
+"Descr": "back in olden tymes, during thy reigne of Queene Henry XIV, Santa Clause was a Dragynne!  He doth deliverith presentse to the nice children, and did burne downe yon houses of thy naughty.  Take controle of Dragonsanta in this historically accurate Renaissance Simulatione, and useth yon Psychic Dragone Powers to feparate the nice from the naughty.  Try not to punish good childrynne or reward bad one(Partial game design credits go to my four-year-old son, who suggested I make a game about alligators fighting with dragons.  When asked for a more festive idea, he offered dragons in Christmas.(May have problems working in Firefox for some people?)",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/2088"
+},
+{
+"Name": "Prizeturret",
+"ID": "2098",
+"Zip": "www.glorioustrainwrecks.com/files/Prizeturret.zip",
+"Thumb": "prizeturret.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/prizeturret.png",
+"Descr": "This is a sequel to ",
+"GTrating": 5,
+"GTvotes": 4,
+"Site": "www.glorioustrainwrecks.com/node/2098"
+},
+{
+"Name": "Adventure Thin [DEMO]",
+"ID": "2099",
+"GTrating": 5,
+"GTvotes": 4,
+"Site": "www.glorioustrainwrecks.com/node/2099"
+},
+{
+"Name": "Rotation Invaders",
+"ID": "2146",
+"Zip": "www.glorioustrainwrecks.com/files/RotationInvaders.zip",
+"Thumb": "RotationInvaders.png",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/RotationInvaders.png",
+"Descr": "A Space Invaders type game inspired by my own Prizeturret, WarioWare: Twisted! and that one level of KaroYou fire automatically. Your missiles disobey gravity and will always fall downward regardless of the screen's rotation. The enemy's missiles do not, so try and avoid them constantly.",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/2146"
+}
+	  	]   	
+		]
+}

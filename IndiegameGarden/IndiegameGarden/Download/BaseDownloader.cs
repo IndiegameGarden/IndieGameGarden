@@ -78,7 +78,7 @@ namespace IndiegameGarden.Download
         /// class-internal method to perform a download without mirrors. See description of InternalDoDownload() method
         /// with mirrors.
         /// </summary>
-        /// <param name="urlPath">full URL gameDirPath of file, optionally leaving out protocol http://</param>
+        /// <param name="urlPath">full URL of file, optionally leaving out protocol http://</param>
         /// <param name="filename">local name under which to store the file</param>
         /// <param name="toLocalFolder">local folder where to store file</param>
         /// <param name="overwriteExisting">if true, overwrites any existing file 'filename'</param>
@@ -91,7 +91,7 @@ namespace IndiegameGarden.Download
         /// class-internal method to perform a download with mirrors. Has blocking wait and sets ITask status to FAIL
         /// in case of failure.
         /// </summary>
-        /// <param name="urlPath">full URL gameDirPath of file, optionally leaving out protocol http://</param>
+        /// <param name="urlPath">full URL of file, optionally leaving out protocol http://</param>
         /// <param name="filename">local name under which to store the file</param>
         /// <param name="toLocalFolder">local folder where to store file</param>
         /// <param name="mirrors">optional set of mirrors for urlPath, may be empty string[] for none</param>

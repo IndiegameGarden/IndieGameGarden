@@ -33,22 +33,11 @@ namespace IndiegameGarden.Download
 
         protected override void StartInternal()
         {
-            string filename = game.GameIDwithVersion + ".jpg";
-            string urlDl = GardenGame.Instance.Config.GetThumbnailURL(filename);
+            string filename = game.ThumbnailFile;
+            string urlDl = game.ThumbnailURL; // GardenGame.Instance.Config.GetThumbnailURL(filename);
             string toLocalFolder = GardenGame.Instance.Config.ThumbnailsFolder;
             //lock (downloadingToken) // TODO check if sequentializing locks needed
-            {
-                InternalDoDownload(urlDl, filename, toLocalFolder, true);
-
-                // if jpg not ok, try the png
-                if (IsFinished() && !IsSuccess() && !doAbort )
-                {
-                    filename = game.GameIDwithVersion + ".png";
-                    urlDl = GardenGame.Instance.Config.GetThumbnailURL(filename);
-                    InternalDoDownload(urlDl, filename, toLocalFolder, true);
-                    // status may have become successful by now.
-                }
-            }
+            InternalDoDownload(urlDl, filename, toLocalFolder, true);
         }
 
     }

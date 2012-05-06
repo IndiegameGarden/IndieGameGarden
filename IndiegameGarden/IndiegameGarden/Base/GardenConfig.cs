@@ -32,7 +32,7 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// update for a new build -> quick bootstrap to load a known version of gamelib.
         /// </summary>
-        public const int    KNOWN_GAMELIB_VERSION = 2;
+        public const int    KNOWN_GAMELIB_VERSION = 3;
 
         public const string DATA_PATH_DEBUG = "..\\..\\..\\..\\.."; // for testing in Visual Studio
         public const string DATA_PATH = "..\\.."; // for deployment version when embedded in games folder
