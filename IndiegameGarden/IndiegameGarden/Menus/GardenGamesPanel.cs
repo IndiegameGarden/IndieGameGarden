@@ -32,7 +32,7 @@ namespace IndiegameGarden.Menus
         const float PANEL_ZOOM_DETAILED_VIEW = 1.0f; //2.857f;
         const float PANEL_DELTA_GRID_X = 0.16f;
         const float PANEL_DELTA_GRID_Y = 0.12f;
-        const float PANEL_SPEED_SHIFT = 2.1f;
+        const float PANEL_SPEED_SHIFT = 4.2f;
         const float PANEL_SIZE_X = 1.333f;
         const float PANEL_SIZE_Y = 1.0f;
         const float PANEL_ZOOM_TARGET_QUITTING = 0.01f;
