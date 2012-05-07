@@ -32,7 +32,7 @@ namespace IndiegameGarden.Menus
         public GardenItem Game;
 
         /// <summary>
-        /// actual/intended filename of thumbnail file (the file may or may not exist)
+        /// actual/intended full path to local thumbnail file (the file may or may not exist)
         /// </summary>
         protected string ThumbnailFilename
         {

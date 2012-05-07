@@ -227,18 +227,20 @@ namespace IndiegameGarden.Base
         /// get file path to locally stored thumbnail file for game
         /// </summary>
         /// <param name="g"></param>
-        /// <returns>by default a .jpg thumbnail for a game (whether file exists or not)
-        /// but if a .png thumbnail exists, it has preference.</returns>
+        /// <returns>by default a .png thumbnail for a game (whether file exists or not)
+        /// but if a .jpg thumbnail exists, it is chosen.</returns>
         public string GetThumbnailFilepath(GardenItem g)
         {
-            string p1 = ThumbnailsFolder + "\\" + g.GameIDwithVersion;
+            string p1 = Path.Combine(ThumbnailsFolder , g.GameIDwithVersion);
             string p2 = p1;
             p1 += ".jpg";
             p2 += ".png";
             if (File.Exists(p2))
                 return p2;
-            else
+            else if (File.Exists(p1))
                 return p1;
+            else
+                return p2;
         }
                
         /// <summary>

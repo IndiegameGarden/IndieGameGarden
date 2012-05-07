@@ -343,7 +343,7 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                return GameID.StartsWith("igg");
+                return GameID.StartsWith("igg_");
             }
         }
 
@@ -391,7 +391,7 @@ namespace IndiegameGarden.Base
             get
             {
                 string folder = GardenGame.Instance.Config.UnpackedFilesFolder;
-                // if system package (starts with "igg") then located in config files folder
+                // if system package then it's located in config files folder
                 if (IsSystemPackage)
                 {
                     folder = GardenGame.Instance.Config.ConfigFilesFolder;
@@ -408,9 +408,11 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                if (thumbnailFile.Length > 0)
+                if (thumbnailURL.Length > 0)
                 {
-                    return thumbnailFile;
+                    // if thumbnail url given, use the file format extension for generating local thumbnail file name.
+                    string ext = ExtractFileExtension(thumbnailURL);
+                    return GameIDwithVersion + "." + ext;
                 }
                 else
                 {

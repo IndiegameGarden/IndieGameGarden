@@ -11,7 +11,7 @@ using IndiegameGarden.Base;
 namespace IndiegameGarden.Download
 {
     /**
-     * A downloader task for a thumbnail that selects either PNG or JPG depending on what's available
+     * A downloader task for a thumbnail for a GardenItem
      */
     public class ThumbnailDownloader: BaseDownloader
     {
