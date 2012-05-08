@@ -41,6 +41,8 @@ namespace IndiegameGarden.Base
 
         bool hasLoadedFromFileOk = false;
 
+        protected static GardenConfig instance = null;
+
         public GardenConfig()
         {
 #if DEBUG
@@ -59,6 +61,20 @@ namespace IndiegameGarden.Base
                 hasLoadedFromFileOk = false;
             }
             Init();
+        }
+
+        public static GardenConfig Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new GardenConfig();
+                return instance;
+            }
+            set
+            {
+                instance = value;
+            }
         }
 
         // default values for all fields
@@ -81,6 +97,7 @@ namespace IndiegameGarden.Base
 
             ConfigFilename = "config.json";
             GameLibraryFilename = "gamelib.json";
+            GameLibraryFilenameBin = "gamelib.bin";
             NewestGameLibraryVersion = KNOWN_GAMELIB_VERSION;
             ClientVersion = IGG_CLIENT_VERSION;
 
@@ -182,6 +199,8 @@ namespace IndiegameGarden.Base
         /// name of the game library JSON file
         /// </summary>
         public string GameLibraryFilename { get; set; }
+
+        public string GameLibraryFilenameBin { get; set; }
 
         /// <summary>
         /// version of the newest game library currently available (obtained from config server)

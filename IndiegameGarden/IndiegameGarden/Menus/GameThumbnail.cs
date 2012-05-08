@@ -38,7 +38,7 @@ namespace IndiegameGarden.Menus
         {
             get
             {
-                return GardenGame.Instance.Config.GetThumbnailFilepath(Game);
+                return GardenConfig.Instance.GetThumbnailFilepath(Game);
             }
         }
 
@@ -238,10 +238,12 @@ namespace IndiegameGarden.Menus
             }
 
             // rotate thumbnail if specified
+            /*
             if (Game.RotateSpeed != 0f)
             {
                 Motion.RotateModifier += SimTime * Game.RotateSpeed;
             }
+             */
 
             // adapt scale according to GameItem preset
             Motion.ScaleModifier *= ThumbnailScale;
@@ -260,7 +262,7 @@ namespace IndiegameGarden.Menus
 
             // effect on when FX mode says so, and only if thumbnail is loaded
             if (isLoaded)
-                EffectEnabled = (Game.FXmode > 0); // DEBUG isLoaded && (Game.FXmode > 0) && Game.IsInstalled;
+                EffectEnabled = (Game.IsGrowable); // TODO && Game.IsInstalled ?;
 
             if (EffectEnabled)
             {

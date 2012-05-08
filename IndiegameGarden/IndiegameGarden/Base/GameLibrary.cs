@@ -7,6 +7,7 @@ using System.Text;
 using System.IO;
 using NetServ.Net.Json;
 using Microsoft.Xna.Framework;
+using ProtoBuf;
 
 namespace IndiegameGarden.Base
 {
@@ -20,13 +21,10 @@ namespace IndiegameGarden.Base
         int version = 0;
 
         /// <summary>
-        /// create new game library of specified version by loading it from disk using the Load() method
+        /// create new game library 
         /// </summary>
-        /// <param name="version">version number is required since there may be multiple gamelib versions on disk to choose from</param>
-        public GameLibrary(int version)
+        public GameLibrary()
         {
-            this.version = version;
-            Load();
         }
 
         /// <summary>
@@ -41,18 +39,49 @@ namespace IndiegameGarden.Base
         }
 
         /// <summary>
-        /// (re)load information from config file(s)
+        /// (re)load information from default JSON config file(s) of a specific version number
+        /// </summary>
+        /// <param name="version">version number is required since there may be multiple gamelib versions on disk to choose from</param>
+        /// <exception cref="">various IO exceptions may occur when library file could not be found/loaded</exception>
+        public void LoadJson(int version)
+        {
+            GardenItem g = GardenItem.ConstructGameLibItem(version);
+            string fn = g.GameFolder + "\\" + GardenConfig.Instance.GameLibraryFilename;
+            LoadJson(fn);
+            this.version = version;
+        }
+
+        /// <summary>
+        /// (re)load information from default binary (protocol buffers) config file(s) of a specific version number
+        /// </summary>
+        /// <param name="version">version number is required since there may be multiple gamelib versions on disk to choose from</param>
+        /// <exception cref="">various IO exceptions may occur when library file could not be found/loaded</exception>
+        public void LoadBin(int version)
+        {
+            GardenItem g = GardenItem.ConstructGameLibItem(version);
+            string fn = g.GameFolder + "\\" + GardenConfig.Instance.GameLibraryFilenameBin;
+            LoadBin(fn);
+            this.version = version;
+        }
+
+        /// <summary>
+        /// (re)load information from given Json file
         /// </summary>
         /// <exception cref="">various IO exceptions may occur when library file could not be found/loaded</exception>
-        public void Load()
+        public void LoadJson(string libraryFile)
         {
-            GardenItem g = GardenItem.ConstructGameLib(version);
-            string fn = g.GameFolder + "\\" + GardenGame.Instance.Config.GameLibraryFilename;
-            json = new JSONStore(fn); // TODO use all json files in there?
+            json = new JSONStore(libraryFile); // TODO use all json files in there?
             gamesList = new GameCollection();
             ParseJson(json);
-            // for extra safety, get version nr from the gamelib file and use that from here on.
-            version = (int) json.GetValue("version");
+        }
+
+        public void LoadBin(string libraryFile)
+        {            
+            //List<GardenItem> l;
+            using (var file = File.OpenRead(libraryFile))
+            {
+                gamesList = Serializer.Deserialize<GameCollection>(file);             
+            }
         }
 
         public void Dispose()
@@ -102,12 +131,16 @@ namespace IndiegameGarden.Base
                     // calculate correct item position
                     if (!gi.IsPositionGiven)
                     {
-                        gi.Position = posPrevious + gi.PositionDelta;
+                        if (gi.IsPositionDeltaGiven)
+                            gi.Position = posPrevious + gi.PositionDelta;
+                        else
+                            gi.Position = posPrevious + Vector2.UnitX; // advance in standard way to the right
+
                         // checking the automatic calculated game position with section width
-                        if (gi.Position.X >= sectionWidthHeight.X)
+                        if (gi.PositionX >= sectionWidthHeight.X)
                         {
-                            gi.Position.Y += 1.0f;
-                            gi.Position.X = 0f;
+                            gi.PositionY += 1;
+                            gi.PositionX = 0;
                         }
                     }                    
 
@@ -115,7 +148,8 @@ namespace IndiegameGarden.Base
                     posPrevious = gi.Position;
 
                     // apply the section position offset
-                    gi.Position += childPosOffset;
+                    gi.PositionX += (int) childPosOffset.X;
+                    gi.PositionY += (int) childPosOffset.Y;
 
                 }
                 return null; // indicate array was last item.

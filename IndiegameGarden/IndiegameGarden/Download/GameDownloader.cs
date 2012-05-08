@@ -23,8 +23,8 @@ namespace IndiegameGarden.Download
         protected override void StartInternal()
         {
             status = ITaskStatus.RUNNING;
-            string fn = GardenGame.Instance.Config.GetPackedFileName(game);
-            string toLocalFolder = GardenGame.Instance.Config.PackedFilesFolder;
+            string fn = GardenConfig.Instance.GetPackedFileName(game);
+            string toLocalFolder = GardenConfig.Instance.PackedFilesFolder;
             string filePath = Path.Combine(toLocalFolder , fn);
             if (File.Exists(filePath))
             {

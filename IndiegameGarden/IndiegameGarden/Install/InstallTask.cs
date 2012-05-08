@@ -31,7 +31,7 @@ namespace IndiegameGarden.Install
         protected override void StartInternal()
         {
             string destFolder = game.GameFolder;
-            unpacker = new UnpackerTask(GardenGame.Instance.Config.GetPackedFilepath(game), 
+            unpacker = new UnpackerTask(GardenConfig.Instance.GetPackedFilepath(game), 
                                         destFolder,
                                         game.ExeFile);
             if (File.Exists(unpacker.Filename))

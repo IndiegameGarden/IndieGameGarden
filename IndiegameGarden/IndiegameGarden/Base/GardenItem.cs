@@ -10,24 +10,22 @@ using TTengine.Core;
 using IndiegameGarden.Menus;
 using IndiegameGarden.Install;
 using NetServ.Net.Json;
+using ProtoBuf;
 
 namespace IndiegameGarden.Base
 {
     /**
      * <summary>represents all data and status of a game that a user can select, download and start/play</summary>
      */
+    [ProtoContract]
     public class GardenItem: IDisposable
     {
         /// <summary>
         /// internally used string ID for game, no whitespace allowed, only alphanumeric and 
         /// _ - special characters allowed.
         /// </summary>
+        [ProtoMember(1)]
         public string GameID = "";
-
-        /// <summary>
-        /// default visibility for user status 1 (yes) or 0 (no)
-        /// </summary>
-        public int VisibilityLabel = 1;
 
         public string GameIDwithVersion
         {
@@ -41,13 +39,21 @@ namespace IndiegameGarden.Base
         }
 
         /// <summary>
+        /// default visibility for user status 1 (yes) or 0 (no)
+        /// </summary>
+        [ProtoMember(2)]
+        public int VisibilityLabel = 1;
+
+        /// <summary>
         /// Name of game
         /// </summary>
+        [ProtoMember(3)]
         public string Name = "";
 
         /// <summary>
         /// short game description to show on screen
         /// </summary>
+        [ProtoMember(4)]
         public string description = "";
 
         public string Description
@@ -104,7 +110,11 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// some hints for the player e.g. what the control keys are.
         /// </summary>
+        [ProtoMember(5)]
         public string HelpText = "";
+
+        [ProtoMember(6)]
+        protected string packedFileURL = "";
 
         /// <summary>
         /// where can the packed file (.zip, .rar etc.) be downloaded from.
@@ -121,18 +131,20 @@ namespace IndiegameGarden.Base
             set
             {
                 if (!value.Contains("/"))
-                    packedFileURL = GardenGame.Instance.Config.PackedFilesServerURL + value;
+                    packedFileURL = GardenConfig.Instance.PackedFilesServerURL + value;
                 else
                     packedFileURL = value;
             }
         }
 
-        protected string packedFileURL = "";
-
         /// <summary>
         /// where a .EXE_NOT_PACKED file can be downloaded from, which needs no unpacking (run straight away)
         /// </summary>
+        [ProtoMember(7)]
         public string ExeFileURL = "";
+
+        [ProtoMember(8)]
+        protected List<string> packedFileMirrors = new List<string>();
 
         /// <summary>
         /// a set of mirrors for PackedFileURL
@@ -145,67 +157,123 @@ namespace IndiegameGarden.Base
             }
         }
 
-        protected List<string> packedFileMirrors = new List<string>();
-
         /// <summary>
         /// URL (optionally without the http:// or www. in front) to game developer's website
         /// </summary>
+        [ProtoMember(9)]
         public string DeveloperWebsiteURL = "";
 
         /// <summary>
         /// name of .exe file or .bat to launch to start game
         /// </summary>
+        [ProtoMember(10)]
         public string ExeFile = "";
 
         /// <summary>
         /// directory gameDirPath that OS has to 'change directory' to, before launching the game
         /// </summary>
+        [ProtoMember(11)]
         public string CdPath = "";
 
         /// <summary>
         /// Latest version of the game packed file which is available
         /// </summary>
+        [ProtoMember(12)]        
         public int Version = 1;
 
         /// <summary>
-        /// only show this item if client version is below this version number
+        /// only show this item if client version is below this version number. 0 is unitialized
         /// </summary>
-        public int ShowBelowClientVersion = 99999999;
+        [ProtoMember(13)]        
+        protected int showBelowClientVersion = 0;
+
+        public int ShowBelowClientVersion
+        {
+            get
+            {
+                if (showBelowClientVersion == 0)
+                    return 999999;
+                else
+                    return showBelowClientVersion;
+            }
+            set
+            {
+                showBelowClientVersion = value;
+            }
+        }
 
         /// <summary>
         /// scaling factor of game icon when displayed
         /// </summary>
+        [ProtoMember(14)]
         public float ScaleIcon = 1f;
-
-        /// <summary>
-        /// selection of rendering/shading effect for icon rendering. 0 = off.
-        /// </summary>
-        public int FXmode = 1;
 
         /// <summary>
         /// where in 2D coordinates this game is positioned. Zero means non-specified.
         /// </summary>
-        public Vector2 Position = Vector2.Zero;
+        [ProtoMember(15)]
+        public int PositionX = 0;
+        [ProtoMember(16)]        
+        public int PositionY = 0;
 
         /// <summary>
         /// in case a 2D Position is not given, this specifies a wished position delta of game w.r.t. previous game in the library.
         /// </summary>
-        public Vector2 PositionDelta = Vector2.UnitX;
+        [ProtoMember(17)]        
+        public int PositionDeltaX = 0;
+        [ProtoMember(18)]        
+        public int PositionDeltaY = 0;
 
         /// <summary>
-        /// check whether a 2D coordinate position for game is given, or not
+        /// check whether a 2D coordinate position for game is explicitly given, or not
         /// </summary>
-        public bool IsPositionGiven = false;
+        public bool IsPositionGiven
+        {
+            get
+            {
+                return (PositionX != 0) || (PositionY != 0);
+            }
+        }
 
         /// <summary>
-        /// Sound volume set for a game (not yet impl), or music playing volume for a music track
+        /// check whether a 2D coordinate position delta for game is explicitly given, or not
         /// </summary>
-        public double SoundVolume = 0.5;
+        public bool IsPositionDeltaGiven
+        {
+            get
+            {
+                return (PositionDeltaX != 0) || (PositionDeltaY != 0);
+            }
+        }
 
-        /// <summary>
-        /// speed of rotation of icon in units p/s, use <0 for left rotation
-        /// </summary>
-        public float RotateSpeed = 0f;
+        public Vector2 Position
+        {
+            get
+            {
+                return new Vector2(PositionX,PositionY);
+            }
+            set
+            {
+                PositionX = (int) value.X;
+                PositionY = (int) value.Y;
+            }
+        }
+
+        public Vector2 PositionDelta
+        {
+            get
+            {
+                return new Vector2(PositionDeltaX, PositionDeltaY);
+            }
+            set
+            {
+                PositionDeltaX = (int)value.X;
+                PositionDeltaY = (int)value.Y;
+            }
+        }
+
+        [ProtoMember(19)]
+        protected string thumbnailURL = "";
 
         /// <summary>
         /// Optionally a download/install task ongoing for this game
@@ -225,7 +293,7 @@ namespace IndiegameGarden.Base
         {            
         }
 
-        public static GardenItem ConstructGameLib(int version)
+        public static GardenItem ConstructGameLibItem(int version)
         {
             GardenItem g = new GardenItem();
             g.Version = version;
@@ -368,7 +436,7 @@ namespace IndiegameGarden.Base
             get
             {
                 return  (!IsSectionId) && 
-                        (GardenGame.Instance.Config.ClientVersion < ShowBelowClientVersion) && 
+                        (GardenConfig.Instance.ClientVersion < ShowBelowClientVersion) && 
                         (VisibilityLabel > 0);
             }
         }
@@ -390,19 +458,15 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                string folder = GardenGame.Instance.Config.UnpackedFilesFolder;
+                string folder = GardenConfig.Instance.UnpackedFilesFolder;
                 // if system package then it's located in config files folder
                 if (IsSystemPackage)
                 {
-                    folder = GardenGame.Instance.Config.ConfigFilesFolder;
+                    folder = GardenConfig.Instance.ConfigFilesFolder;
                 }
                 return folder + "\\" + GameIDwithVersion;
             }
         }
-
-        protected string thumbnailFile = "";
-
-        protected string thumbnailURL = "";
 
         public string ThumbnailFile
         {
@@ -431,7 +495,7 @@ namespace IndiegameGarden.Base
                 }
                 else
                 {
-                    return GardenGame.Instance.Config.GetThumbnailURL(GameIDwithVersion + ".png");
+                    return GardenConfig.Instance.GetThumbnailURL(GameIDwithVersion + ".png");
                 }
             }
         }
@@ -472,13 +536,13 @@ namespace IndiegameGarden.Base
             catch (Exception) { ;}
             try { VisibilityLabel = (int)((JsonNumber)j["Visible"]).Value; }
             catch (Exception) { ;}
-            try { Position.X = (float)((JsonNumber)j["X"]).Value; IsPositionGiven = true; }
+            try { PositionX = (int)((JsonNumber)j["X"]).Value; }
             catch (Exception) { ;}
-            try { Position.Y = (float)((JsonNumber)j["Y"]).Value; IsPositionGiven = true; }
+            try { PositionY = (int)((JsonNumber)j["Y"]).Value; }
             catch (Exception) { ;}
-            try { PositionDelta.X = (float)((JsonNumber)j["DX"]).Value; }
+            try { PositionDeltaX = (int)((JsonNumber)j["DX"]).Value; }
             catch (Exception) { ;}
-            try { PositionDelta.Y = (float)((JsonNumber)j["DY"]).Value; }
+            try { PositionDeltaY = (int)((JsonNumber)j["DY"]).Value; }
             catch (Exception) { ;}
             try { ScaleIcon = (float)((JsonNumber)j["Scale"]).Value; }
             catch (Exception) { ;}
@@ -496,8 +560,6 @@ namespace IndiegameGarden.Base
             catch (Exception) { ; }
             try { thumbnailURL = j["ThumbURL"].ToString(); }
             catch (Exception) { ; }
-            try { thumbnailFile = j["Thumb"].ToString(); }
-            catch (Exception) { ; }
             try { DeveloperWebsiteURL = j["Site"].ToString(); }
             catch (Exception) { ; }
             try { 
@@ -505,18 +567,12 @@ namespace IndiegameGarden.Base
                 packedFileMirrors = JSONStore.ToStringList(am);
             }
             catch (Exception) { ;}
-            try { FXmode = (int) ((JsonNumber)j["FX"]).Value; }
-            catch (Exception) { ;}
             try { ShowBelowClientVersion = (int)((JsonNumber)j["ShowBelowVer"]).Value; }
-            catch (Exception) { ;}
-            try { SoundVolume = (double)((JsonNumber)j["Vol"]).Value; }
-            catch (Exception) { ;}
-            try { RotateSpeed = (float)((JsonNumber)j["RotSpeed"]).Value; }
             catch (Exception) { ;}
             
             // update with default mirror location, only if a main location is defined
             // if no main location is given, use default location as main DL location which assumes a .zip file type too.
-            string defaultDownloadLoc = GardenGame.Instance.Config.PackedFilesServerURL + GardenGame.Instance.Config.GetPackedFileName(this);
+            string defaultDownloadLoc = GardenConfig.Instance.PackedFilesServerURL + GardenConfig.Instance.GetPackedFileName(this);
             if (PackedFileURL.Length > 0)
                 packedFileMirrors.Add( defaultDownloadLoc );
             else
@@ -526,53 +582,10 @@ namespace IndiegameGarden.Base
             if (GameID.Equals("igg"))
             {
                 // make the item conditionally show - only if user has a lower version of the client!
-                ShowBelowClientVersion = GardenGame.Instance.Config.NewestClientVersion;
-                Version = GardenGame.Instance.Config.NewestClientVersion;
+                ShowBelowClientVersion = GardenConfig.Instance.NewestClientVersion;
+                Version = GardenConfig.Instance.NewestClientVersion;
             }
         }
-
-        /*
-        protected void AutoDetectedCdPath()
-        {
-            if (CdPath.Length == 0 && ExeFile.Length == 0)
-            {
-                string baseDir = GameFolder;
-                if (!Directory.Exists(baseDir))
-                    return;
-                string[] dirs = Directory.GetDirectories(baseDir);
-                if (dirs.Length > 0)
-                {
-                    DirectoryInfo di = new DirectoryInfo(dirs[0]);
-                    CdPath = di.Name;
-                }
-            }
-        }
-
-        protected void AutoDetectedExeFile()
-        {
-            if (ExeFile.Length == 0)
-            {
-                string baseDir = Path.Combine(GameFolder, CdPath);
-                if (!Directory.Exists(baseDir))
-                    return;
-                string[] exeFiles = Directory.GetFiles(baseDir, "*.exe");
-                if (exeFiles.Length == 0)
-                {   // try .bat files otherwise.
-                    exeFiles = Directory.GetFiles(baseDir, "*.bat");
-                    if (exeFiles.Length > 0)
-                    {
-                        DirectoryInfo di = new DirectoryInfo(exeFiles[0]);
-                        ExeFile = di.Name;
-                    }
-                }
-                else
-                {
-                    DirectoryInfo di = new DirectoryInfo(exeFiles[0]);
-                    ExeFile = di.Name;
-                }
-            }
-        }
-        */
 
     }
 }

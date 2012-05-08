@@ -11,7 +11,7 @@ namespace IndiegameGarden.Download
     public class GameLibraryDownloader: GameDownloadAndInstallTask
     {
         public GameLibraryDownloader(int version)
-            : base(GardenItem.ConstructGameLib(version))
+            : base(GardenItem.ConstructGameLibItem(version))
         {
         }
     }

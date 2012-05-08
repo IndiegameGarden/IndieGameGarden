@@ -24,7 +24,7 @@ namespace IndiegameGarden.Menus
 
         public static ThumbnailFromFile CreateFromGameID(string GameID)
         {
-            string gameDirPath = GardenGame.Instance.Config.ThumbnailsFolder + "\\" + GameID + ".png" ;
+            string gameDirPath = GardenConfig.Instance.ThumbnailsFolder + "\\" + GameID + ".png" ;
             return new ThumbnailFromFile(gameDirPath);
         }
 

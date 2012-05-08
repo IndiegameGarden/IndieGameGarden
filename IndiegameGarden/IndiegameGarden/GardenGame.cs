@@ -55,11 +55,6 @@ namespace IndiegameGarden
         public GameLibrary GameLib;
 
         /// <summary>
-        /// configuration and parameters store
-        /// </summary>
-        public GardenConfig Config;
-        
-        /// <summary>
         /// the top-level Gamelet
         /// </summary>
         public Gamelet TreeRoot;
@@ -146,7 +141,7 @@ namespace IndiegameGarden
             Settings.Default.MaxRetries = 0;
 
             // load config
-            if (LoadConfig() && DownloadConfig() &&  LoadGameLibrary())
+            if ( (GardenConfig.Instance != null) && DownloadConfig() &&  LoadGameLibrary())
             {
                 // game chooser menu
                 GameChooserMenu menu = new GameChooserMenu();
@@ -264,7 +259,7 @@ namespace IndiegameGarden
                 }
                 if (g.IsMusic)
                 {
-                    music.Play(g.ExeFilepath , g.SoundVolume );
+                    music.Play(g.ExeFilepath , 0.5f ); // TODO vary audio volume per track.
                 }
             }
         }
@@ -294,39 +289,20 @@ namespace IndiegameGarden
             }
         }
 
-        /// <summary>
-        /// load, download (if needed) and check the configuration and game library
-        /// Sets initError to exception in case of fatal errors.
-        /// </summary>
-        protected bool LoadConfig()
-        {
-            // first try loading from file
-            try
-            {
-                Config = new GardenConfig();
-            }
-            catch (Exception ex)
-            {
-                initError = ex;
-                return false;
-            }
-            return true;
-        }
-
         protected bool DownloadConfig()
         {
             // download config - if needed or if could not be loaded
-            ConfigDownloader dl = new ConfigDownloader(Config);
+            ConfigDownloader dl = new ConfigDownloader(GardenConfig.Instance);
             configDownloadThread = new ThreadedTask(dl);
-            if (dl.IsDownloadNeeded() || Config==null )
+            if (dl.IsDownloadNeeded() )
             {
                 // start the task
                 configDownloadThread.Start();
                 
                 // then wait for a short while until success of the task thread
                 long timer = 0;
-                long blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 1;  // TODO const in config
-                if (Config == null || !Config.IsValid() )
+                long blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 0;  // TODO const in config
+                if (!GardenConfig.Instance.IsValid() )
                     blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 30;  // TODO const in config
                 while (configDownloadThread.Status() == ITaskStatus.CREATED)
                 {
@@ -341,7 +317,7 @@ namespace IndiegameGarden
                 switch (dl.Status())
                 {
                     case ITaskStatus.SUCCESS:
-                        Config = dl.NewConfig;
+                        GardenConfig.Instance = dl.NewConfig;
                         break;
 
                     case ITaskStatus.FAIL:
@@ -356,7 +332,7 @@ namespace IndiegameGarden
             }
 
             // if still not ok after attempted download, warn the user and exit
-            if (Config==null || !Config.IsValid() )
+            if (!GardenConfig.Instance.IsValid() )
             { 
                 TTengine.Util.MsgBox.Show("Could not load configuration", "Could not load configuration file. Is it missing or corrupted?"); 
                 return false;
@@ -369,9 +345,11 @@ namespace IndiegameGarden
             // load game library
             try
             {
-                GameLibraryDownloader gldl = new GameLibraryDownloader(Config.NewestGameLibraryVersion);
+                GameLibraryDownloader gldl = new GameLibraryDownloader(GardenConfig.Instance.NewestGameLibraryVersion);
                 gldl.Start();
-                GameLib = new GameLibrary(Config.NewestGameLibraryVersion);
+                GameLib = new GameLibrary();
+                //GameLib.LoadJson(Config.NewestGameLibraryVersion);
+                GameLib.LoadBin(GardenConfig.Instance.NewestGameLibraryVersion);
             }
             catch (Exception ex)
             {

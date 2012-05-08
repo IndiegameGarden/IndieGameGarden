@@ -332,7 +332,7 @@ namespace IndiegameGarden.Menus
                     if (SelectedGame != null && SelectedGame.GameID.Equals("igg_controls"))
                     {
                         controlsHelpBitmap.Motion.TargetPos = HELPTEXT_SHOWN_POSITION;
-                        SelectedGame.Name = GardenGame.Instance.Config.ServerMsg;
+                        SelectedGame.Name = GardenConfig.Instance.ServerMsg;
                     }
                     else
                     {

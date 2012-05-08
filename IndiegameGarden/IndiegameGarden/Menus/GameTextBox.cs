@@ -68,10 +68,17 @@ namespace IndiegameGarden.Menus
             float sc = Motion.ScaleAbs; // *((float)Screen.WidthPixels) / 1440f; // HACK
             float scRatio = (float) (Screen.AspectRatio / 1.6f);
             Vector2 vScale = new Vector2( sc * scRatio, sc );
-            MySpriteBatch.DrawString(font, txt, pos + new Vector2(1f,1f), shadowDrawColor,
-                                    Motion.RotateAbs, origin, vScale, SpriteEffects.None, DrawInfo.LayerDepth + 0.00001f); // TODO the const
-            MySpriteBatch.DrawString(font, txt, pos, DrawInfo.DrawColor,
-                                    Motion.RotateAbs, origin, vScale, SpriteEffects.None, DrawInfo.LayerDepth);
+            try
+            {
+                MySpriteBatch.DrawString(font, txt, pos + new Vector2(1f, 1f), shadowDrawColor,
+                                        Motion.RotateAbs, origin, vScale, SpriteEffects.None, DrawInfo.LayerDepth + 0.00001f); // TODO the const
+                MySpriteBatch.DrawString(font, txt, pos, DrawInfo.DrawColor,
+                                        Motion.RotateAbs, origin, vScale, SpriteEffects.None, DrawInfo.LayerDepth);
+            }
+            catch (Exception)
+            {
+                ;  // e.g. if character to draw not available. // TODO
+            }
         }
     }
 }

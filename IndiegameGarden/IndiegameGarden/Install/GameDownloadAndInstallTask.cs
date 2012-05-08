@@ -65,7 +65,7 @@ namespace IndiegameGarden.Install
                 // install failed? remove the zip file and the game dir
                 if (status == ITaskStatus.FAIL)
                 {
-                    string fn = GardenGame.Instance.Config.GetPackedFilepath(game);
+                    string fn = GardenConfig.Instance.GetPackedFilepath(game);
                     if (fn != null && fn.Length > 0)
                     {
                         try
