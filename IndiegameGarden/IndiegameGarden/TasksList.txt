@@ -1,6 +1,10 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
+Test swf file handling, add support for .swf search in zip
+Add support for web games (via browser instance?)
+Memory mgt for thumbs: free up least recently seen thumbs from memory
+.7z file unpacking using the 7-Zip DLLs
 Faster thumbs downloading thread abortion on exit?
 Test client version update in deployment version
 Make gamelib loading non-blocking
@@ -22,6 +26,7 @@ Mystery game icon
 Key/option to abort download or install of a game
 
 CLOSED  [date order]
+2012-05-08 Bug too wide area of thumbnails loaded - only start downloading when near
 2012-05-05 Check GardenMusic for existence of .ogg file (less fragile) -> already done for Alpha-2
 2012-05-05 Desktop resolution: check for minimum resolution? -> not needed, it scales.
 2012-05-05 Autoscaling of thumbnail size if no size given. -> was already done earlier.

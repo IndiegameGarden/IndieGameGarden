@@ -42,7 +42,7 @@ namespace IndiegameGarden.Menus
         static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-3f);
 
         const float CURSOR_SCALE_REGULAR = 0.8f; //5.9375f;
-        public const float CURSOR_DISCOVERY_RANGE = 0.35f;
+        public const float CURSOR_DISCOVERY_RANGE = 0.19f;
         const float CURSOR_MARGIN_X = 0.15f;
         const float CURSOR_MARGIN_Y = 0.15f;
         static Vector2 CURSOR_INITIAL_POSITION = new Vector2(0.7f, 0.2f);

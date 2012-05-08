@@ -114,7 +114,31 @@
 		  		"Zip": "http://64digits.com/games/5356/YCPEMTDT2_-_IHDUYATDMTO_v1.0.exe.zip",
 		  		"Exe": "YCPEMTDT2 - IHDUYATDMTO v1.0.exe",
 		  		"Site": "64digits.com/games/index.php?cmd=view_game&id=5356"
-		  	}
+		  	},
+{
+"Name": "Eyeball 3D: Maze of Felsh",
+"ID": "1619",
+"Zip": "www.glorioustrainwrecks.com/files/Eyeball 3D.zip",
+"Thumb": "eb3d.jpg",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/eb3d.jpg",
+"Descr": "Made using a really awful program called The 3D Gamemaker. Because of this, you will probably have issues even \nrunning the game... let me know if you can get it working! If it says 'runtime error ###' or the screen starts \nflashing black and white at a rapid pace, know that it's an issue with the program I can do nothing about. \nEDIT: but you can! If running the game fails, delete directory C:\\Windows\\Temp\\AckGame and it might start \nworking. Thanks EffBee! Play at your own risk, obviously. If it won't run (or if you can't be bothered trying) \nI uploaded a video playthrough. If the game looks like this, you could try playing this version. \n",
+"GTrating": 5,
+"GTvotes": 2,
+"Site": "www.glorioustrainwrecks.com/node/1619"
+},
+{
+"Name": "typesphere",
+"ID": "1577",
+"Zip": "www.glorioustrainwrecks.com/files/HelloWorld.swf",
+"Thumb": "Screen shot 2011-01-16 at 03.31",
+"ThumbURL": "www.glorioustrainwrecks.com/files/screens/Screen shot 2011-01-16 at 03.31",
+"Descr": "went a bit over (1:30 actually...:can play online he",
+"GTrating": 5,
+"GTvotes": 3,
+"Site": "www.glorioustrainwrecks.com/node/1577"
+}
+
+
 		  ],	  	
 	  	[
 	  		{
@@ -151,7 +175,7 @@
 	  		{
 	  			"ID": "section_experimental",
 	  			"Visible": 0,
-	  			"X": 4, "Y": 3, "DX": 3
+	  			"X": 1, "Y": 6, "DX": 20
 	  		},
   	    {
 		  		"ID": "gametitle",
@@ -854,17 +878,6 @@
 "GTrating": 5,
 "GTvotes": 3,
 "Site": "www.glorioustrainwrecks.com/node/2055"
-},
-{
-"Name": "Mormon Temple",
-"ID": "2061",
-"Zip": "www.glorioustrainwrecks.com/files/mormon temple.7z",
-"Thumb": "screenshot100_11.png",
-"ThumbURL": "www.glorioustrainwrecks.com/files/screens/screenshot100_11.png",
-"Descr": "",
-"GTrating": 5,
-"GTvotes": 3,
-"Site": "www.glorioustrainwrecks.com/node/2061"
 },
 {
 "Name": "giftopia",
