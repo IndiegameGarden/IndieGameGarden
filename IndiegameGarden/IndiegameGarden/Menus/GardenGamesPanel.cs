@@ -84,6 +84,7 @@ namespace IndiegameGarden.Menus
         bool isExiting = false;
         bool isExitingUnstoppable = false;
         bool isGameLaunchOngoing = false;
+        bool isGameLaunchConfirmed = false;
         bool isLaunchWebsite = false;
         float timeExiting = 0f;
         float timeLaunching = 0f;
@@ -196,7 +197,7 @@ namespace IndiegameGarden.Menus
             }
 
             // handle download/install/launching of a game
-            if (isGameLaunchOngoing)
+            if (isGameLaunchOngoing && timeLaunching < TIME_BEFORE_GAME_LAUNCH)
             {
                 timeLaunching += p.Dt;
                 th = thumbnailsCache[SelectedGame.GameID];
@@ -205,38 +206,38 @@ namespace IndiegameGarden.Menus
                 //th.Motion.ScaleSpeed = 0.00005f;
                 cursor.Motion.ScaleTarget = sc;
                 cursor.Motion.ScaleSpeed = th.Motion.ScaleSpeed / SelectedGame.ScaleIcon; // TODO correct ScaleIcon?
+            }
 
-                if (timeLaunching > TIME_BEFORE_GAME_LAUNCH)
+            // launch of a game
+            if (isGameLaunchConfirmed)
+            {
+                cursor.Motion.ScaleTarget = CURSOR_SCALE_REGULAR;
+                // check for mystery game                    
+                if (SelectedGame.GameID.Equals("igg_mysterygame"))
                 {
-                    // check for mystery game                    
-                    if (SelectedGame.GameID.Equals("igg_mysterygame"))
+                    //GameCollection lib = GardenGame.Instance.GameLib.GetList();
+                    //GardenItem grnd = lib.GetRandomInstalledGame();
+                    //GardenGame.Instance.music.FadeOut();
+                    //GameThumbnail thumb = thumbnailsCache[grnd.GameID];
+                    //GardenGame.Instance.ActionLaunchGame(grnd, thumb);
+                    throw new NotImplementedException("igg_mysterygame");
+                }
+                else
+                {
+                    if (SelectedGame.IsInstalled)
                     {
-                        GameCollection lib = GardenGame.Instance.GameLib.GetList();
-                        //GardenItem grnd = lib.GetRandomInstalledGame();
-                        //GardenGame.Instance.music.FadeOut();
-                        //GameThumbnail thumb = thumbnailsCache[grnd.GameID];
-                        //GardenGame.Instance.ActionLaunchGame(grnd, thumb);
-                        isGameLaunchOngoing = false;
-                        throw new NotImplementedException("igg_mysterygame");
-                        //return;
+                        GardenGame.Instance.music.FadeOut();
+                        GameThumbnail thumb = thumbnailsCache[SelectedGame.GameID];
+                        GardenGame.Instance.ActionLaunchGame(SelectedGame, thumb);
                     }
                     else
                     {
-                        if (SelectedGame.IsInstalled)
-                        {
-                            GardenGame.Instance.music.FadeOut();
-                            GameThumbnail thumb = thumbnailsCache[SelectedGame.GameID];
-                            GardenGame.Instance.ActionLaunchGame(SelectedGame, thumb);
-                            isGameLaunchOngoing = false;
-                            return;
-                        }
-                        else
-                        {
-                            GardenGame.Instance.ActionDownloadAndInstallGame(SelectedGame);
-                        }
+                        GardenGame.Instance.ActionDownloadAndInstallGame(SelectedGame);
                     }
-                    isGameLaunchOngoing = false;
                 }
+                isGameLaunchOngoing = false;
+                isGameLaunchConfirmed = false;
+                timeLaunching = 0f;
             }
 
             // handle exit key
@@ -513,9 +514,15 @@ namespace IndiegameGarden.Menus
                     break;
 
                 case UserInput.STOP_SELECT:
+                    // if not launched long enough, reset - no action
+                    if (timeLaunching < TIME_BEFORE_GAME_LAUNCH)
+                    {                        
+                        isGameLaunchConfirmed = false;
+                    }
+                    else
+                        isGameLaunchConfirmed = true;
                     isGameLaunchOngoing = false;
-                    timeLaunching = 0f;
-                    cursor.Motion.ScaleTarget = CURSOR_SCALE_REGULAR;
+                    timeLaunching = 0f;                    
                     break;
 
                 case UserInput.LAUNCH_WEBSITE:

@@ -1,6 +1,9 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
+Missing music icons after refactor
+Location for downloaded content in Windows 7 -> determine & implement (installer version)
+Threadpool for tasks and/or downloading (find out if needed there)
 Test swf file handling, add support for .swf search in zip
 Add support for web games (via browser instance?)
 Memory mgt for thumbs: free up least recently seen thumbs from memory
@@ -26,6 +29,7 @@ Mystery game icon
 Key/option to abort download or install of a game
 
 CLOSED  [date order]
+2012-05-09 Only start launching game when ENTER is released again (issue of popup boxes missed etc)
 2012-05-08 Bug too wide area of thumbnails loaded - only start downloading when near
 2012-05-05 Check GardenMusic for existence of .ogg file (less fragile) -> already done for Alpha-2
 2012-05-05 Desktop resolution: check for minimum resolution? -> not needed, it scales.
