@@ -18,7 +18,7 @@ namespace IndiegameGarden.Menus
                                 START_SELECT, STOP_SELECT, LAUNCH_WEBSITE, TOGGLE_MUSIC };
 
         // stores the current list obtained with OnUpdateList()
-        protected GameCollection gl = new GameCollection();
+        protected GameCollection gl = null;
 
         // stores currently selected game
         private GardenItem selectedGame = null;

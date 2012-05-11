@@ -39,6 +39,15 @@ namespace IndiegameGarden.Menus
 
         }
 
+        public bool GameletOutOfRange(Gamelet g)
+        {
+            float d = (g.Motion.Position - this.Motion.Position).Length();
+            if (d > 1.0f) //TODO
+                return true;
+            return false;
+
+        }
+
         /// <summary>
         /// set cursor to select a given game. It will move there in next Update()s.
         /// </summary>
