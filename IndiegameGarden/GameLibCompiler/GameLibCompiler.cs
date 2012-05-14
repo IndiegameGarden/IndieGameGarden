@@ -26,7 +26,7 @@ namespace GameLibCompiler
             using (var file = File.Create("gamelib.bin"))
             {
                 t0 = Environment.TickCount;
-                Serializer.Serialize(file, (List<GardenItem>) GameLib.GetList());
+                Serializer.Serialize(file, GameLib.GetList().AsList());
                 t1 = Environment.TickCount;
                 System.Console.WriteLine("Bin  save: " + (t1 - t0) + " ms.");
             }

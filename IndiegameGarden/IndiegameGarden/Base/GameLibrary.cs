@@ -71,7 +71,7 @@ namespace IndiegameGarden.Base
         public void LoadJson(string libraryFile)
         {
             json = new JSONStore(libraryFile); // TODO use all json files in there?
-            gamesList = new GameCollection();
+            gamesList = new GameCollection(42,128,new List<GardenItem>()); // FIXME size from config
             ParseJson(json);
         }
 
@@ -80,7 +80,7 @@ namespace IndiegameGarden.Base
             //List<GardenItem> l;
             using (var file = File.OpenRead(libraryFile))
             {
-                gamesList = Serializer.Deserialize<GameCollection>(file);             
+                gamesList = new GameCollection( 42,128, Serializer.Deserialize<List<GardenItem>>(file) );             
             }
         }
 

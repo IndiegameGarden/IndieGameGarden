@@ -4,47 +4,110 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using IndiegameGarden.Util;
+using ProtoBuf;
 
 namespace IndiegameGarden.Base
 {
     /**
-     * a selected collection/list of games
+     * a collection/list of games
      */
-    public class GameCollection: List<GardenItem>, IDisposable
+    public class GameCollection: IDisposable
     {
+        int sizeX = 0, sizeY = 0;
+        GardenItem[,] matrix;
+        List<GardenItem> gamesList;
 
-        public void Dispose()
+        public GameCollection(int sizeX, int sizeY, List<GardenItem> gamesList)
         {
-            foreach (GardenItem g in this)
+            this.gamesList = gamesList;
+            this.sizeX = sizeX;
+            this.sizeY = sizeY;
+            matrix = new GardenItem[sizeX,sizeY];
+            FillMatrix();
+        }
+
+        private void FillMatrix()
+        {
+            foreach (GardenItem gi in gamesList)
             {
-                g.Dispose();
+                //if (matrix[gi.PositionX, gi.PositionY] != null)
+                //    throw new Exception("Multiple games at same position in GameCollection - Gamelib data error");
+                matrix[gi.PositionX, gi.PositionY] = gi;
             }
         }
 
         /// <summary>
-        /// find the game closest to given position
+        /// add a new GardenItem to the collection at position (gi.PositionX,gi.PositionY)
         /// </summary>
-        /// <param name="pos">index position (x,y)</param>
-        /// <returns>found IndieGame or null if none are found near</returns>
-        public GardenItem FindGameAt(Vector2 pos)
-        {
-            GardenItem sel = null;
-            float bestD = 999999;
+        /// <param name="gi"></param>
+        public void Add(GardenItem gi) {
+            matrix[gi.PositionX,gi.PositionY] = gi;
+            gamesList.Add(gi);
+        }
 
-            foreach (GardenItem g in this)
+        public int Count
+        {
+            get
             {
-                Vector2 v = pos - g.Position;
-                float d = v.Length();
-                if (d < bestD)
+                return gamesList.Count;
+            }
+        }
+
+        public List<GardenItem> GetItemsAround(int x, int y, int range)
+        {
+            int x1 = x - range;
+            int x2 = x + range;
+            int y1 = y - range;
+            int y2 = y + range;
+            if (x1 < 0) x1 = 0;
+            if (x2 < 0) x2 = 0;
+            if (y1 < 0) y1 = 0;
+            if (y2 < 0) y2 = 0;
+            if (x1 >= sizeX) x1 = sizeX - 1;
+            if (x2 >= sizeX) x2 = sizeX - 1;
+            if (y1 >= sizeY) y1 = sizeY - 1;
+            if (y2 >= sizeY) y2 = sizeY - 1;
+            List<GardenItem> l = new List<GardenItem>();
+            for (int ix = x1; ix < x2; ix++)
+            {
+                for (int iy = y1; iy < y2; iy++)
                 {
-                    sel = g;
-                    bestD = d;
+                    GardenItem g = matrix[ix, iy];
+                    if (g!=null)
+                        l.Add(g);
                 }
             }
-            // check distance limit
-            if (bestD > 0.5)  // TODO set constant? relation to cursor selection range?
-                return null;
-            return sel;
+            return l;
+        }
+
+        public List<GardenItem> AsList()
+        {
+            return gamesList;
+        }
+
+        public void Dispose()
+        {
+            foreach (GardenItem g in gamesList)
+            {
+                g.Dispose();
+            }
+            gamesList.Clear();
+            matrix = new GardenItem[0,0];
+        }
+
+        /// <summary>
+        /// find the game closest to given position, if any
+        /// </summary>
+        /// <param name="pos">index position (x,y)</param>
+        /// <returns>found GardenItem close to that position or null if none are found near</returns>
+        public GardenItem FindGameAt(Vector2 pos)
+        {
+            int x = (int) Math.Round(pos.X);
+            int y = (int)Math.Round(pos.Y);
+            if (x >= 0 && x < sizeX && y >=0 && y < sizeY) {
+                return matrix[x, y];
+            }
+            return null;
         }
 
         /*

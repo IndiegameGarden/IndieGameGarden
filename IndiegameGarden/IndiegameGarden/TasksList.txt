@@ -11,7 +11,7 @@ Memory mgt for thumbs: free up least recently seen thumbs from memory
 Faster thumbs downloading thread abortion on exit?
 Test client version update in deployment version
 Make gamelib loading non-blocking
-Add more games
+Add more games; calicoland; 
 Ogg files wrap in zip for extra reliability check (CRC) and future multi-track downloads
 Test disk free before growing game
 Default music should be already-loaded in garden selection.

@@ -29,7 +29,7 @@ namespace IndiegameGarden.Menus
 
         const float PANEL_ZOOM_STARTUP = 0.45f;
         const float PANEL_ZOOM_REGULAR = 0.45f; //0.16f;
-        const float PANEL_ZOOM_DETAILED_VIEW = 1.0f; //2.857f;
+        const float PANEL_ZOOM_DETAILED_VIEW = 1.5f; //2.857f;
         const float PANEL_DELTA_GRID_X = 0.16f;
         const float PANEL_DELTA_GRID_Y = 0.12f;
         const float PANEL_SPEED_SHIFT = 4.2f;
@@ -42,7 +42,7 @@ namespace IndiegameGarden.Menus
         static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-3f);
 
         const float CURSOR_SCALE_REGULAR = 0.8f; //5.9375f;
-        public const float CURSOR_DISCOVERY_RANGE = 0.19f;
+        public const float CURSOR_DISCOVERY_RANGE = 1.3f;
         const float CURSOR_MARGIN_X = 0.15f;
         const float CURSOR_MARGIN_Y = 0.15f;
         static Vector2 CURSOR_INITIAL_POSITION = new Vector2(0.7f, 0.2f);
@@ -64,10 +64,12 @@ namespace IndiegameGarden.Menus
         const float TIME_BEFORE_EXIT_CONTINUES = 0.6f;
 
         // maximum sizes of grid
-        public double GridMaxX=32, GridMaxY=32;
+        public double GridMaxX=128, GridMaxY=128;
 
         Dictionary<string, GameThumbnail> thumbnailsCache = new Dictionary<string, GameThumbnail>();
-        
+
+        //GameCollection gamesList;
+
         // cursor is the graphics selection thingy         
         GameThumbnailCursor cursor;
 
@@ -127,51 +129,20 @@ namespace IndiegameGarden.Menus
 
         public override void OnUpdateList(GameCollection gl)
         {
-            // first process old list - start fading away of items
-            for (int i = 0; i < gl.Count; i++)
-            {
-                GardenItem g = gl[i];
-                if (thumbnailsCache.ContainsKey(g.GameID))
-                {
-                    GameThumbnail th = thumbnailsCache[g.GameID];
-                    th.ColorB.FadeToTarget(0f,4f);
-                }
-            }
             this.gl = gl;
-
-            // update selection
-            if (gl.Count > 0)
-            {
-                if (SelectedGame == null)
-                {
-                    SelectedGame = gl[0];
-                    cursor.SetToGame(SelectedGame);
-                    
-                }
-                else
-                {
-                    if (!gl.Contains(SelectedGame))
-                    {
-                        SelectedGame = gl[0];
-                        cursor.SetToGame(SelectedGame);
-                    }
-                    else
-                    {
-                        // gl contains the previously selected game. Relocate it in new list.
-                        cursor.SetToGame(SelectedGame);
-                    }
-                }
-            }
         }
 
         // shorthand method to select the game currently indicated by cursor
         protected void SelectGameBelowCursor()
         {
-            GardenItem g = gl.FindGameAt(cursor.GridPosition);
-            SelectedGame = g;
-            infoBox.ClearProgressBar();
-            if (g!= null)
-                g.Refresh();
+            if (gl != null)
+            {
+                GardenItem g = gl.FindGameAt(cursor.GridPosition);
+                SelectedGame = g;
+                infoBox.ClearProgressBar();
+                if (g != null)
+                    g.Refresh();
+            }
         }
 
         protected override void OnNewParent()
@@ -187,8 +158,6 @@ namespace IndiegameGarden.Menus
 
         protected override void OnUpdate(ref UpdateParams p)
         {
-            GameThumbnail th = null;
-
             base.OnUpdate(ref p);
 
             if (SelectedGame == null)
@@ -200,7 +169,7 @@ namespace IndiegameGarden.Menus
             if (isGameLaunchOngoing && timeLaunching < TIME_BEFORE_GAME_LAUNCH)
             {
                 timeLaunching += p.Dt;
-                th = thumbnailsCache[SelectedGame.GameID];
+                GameThumbnail th = thumbnailsCache[SelectedGame.GameID];
                 float sc = (1f + timeLaunching/3f);
                 th.Motion.ScaleTarget = sc; // blow up size of thumbnail while user requests launch
                 //th.Motion.ScaleSpeed = 0.00005f;
@@ -275,21 +244,25 @@ namespace IndiegameGarden.Menus
                 isLaunchWebsite = false;
             }
 
-            //-- loop all games adapt their display properties where needed
+            //-- loop all nearby games adapt their display properties where needed
             if (gl == null)
                 return;
             GardenItem g;
-            for (int i = 0; i < gl.Count; i++)
+
+            // upd cache with possibly new items around cursor
+            List<GardenItem> c = gl.GetItemsAround((int)cursor.GridPosition.X, (int)cursor.GridPosition.Y, 2);
+            if (SelectedGame != null)
+                c.Add(SelectedGame);
+            for (int i = c.Count - 1; i >= 0; i--)
             {
-                // fetch that game from list
-                g = gl[i];
+                g = c[i];
 
                 // if GameThumbnail for current game does not exist yet, create it                
                 if (!thumbnailsCache.ContainsKey(g.GameID))
                 {
                     // create now
-                    th = new GameThumbnail(g);
-                    Add(0,th);
+                    GameThumbnail th = new GameThumbnail(g);
+                    Add(0, th);
                     thumbnailsCache.Add(g.GameID, th);
                     //th.Position = new Vector2(RandomMath.RandomBetween(-0.4f,2.0f), RandomMath.RandomBetween(-0.4f,1.4f) );
                     //th.Scale = RandomMath.RandomBetween(0.01f, 0.09f); 
@@ -297,91 +270,49 @@ namespace IndiegameGarden.Menus
                     th.Motion.Position = Screen.Center;
                     th.Motion.Scale = 0.05f;
                     th.Motion.ScaleTarget = 0.05f;
+                    th.Motion.ScaleSpeed = 0.01f; // TODO const
 
                     th.DrawInfo.LayerDepth = LAYER_GRID_ITEMS + ((float)th.ID) * float.Epsilon;
                     th.Visible = false;
                     th.ColorB.Intensity = 0.0f;
-                }else{
-                    // retrieve GameThumbnail from cache
-                    th = thumbnailsCache[g.GameID];
                 }
-                th.Motion.ScaleSpeed = 0.01f; // TODO const
+            }
                 
-                // check if thnail visible and in range. If so, start displaying it (fade in)
-                if (!th.Visible && cursor.GameletInRange(th))
-                {
-                    th.LoadInBackground();
-                    th.ColorB.Intensity = 0f;
-                }
+            // visit all cached items and adjust positions, visibility, etc.
+            List<GameThumbnail> toRemoveFromCache = new List<GameThumbnail>();
+            foreach(GameThumbnail th in thumbnailsCache.Values)
+            {
+                g = th.Game;
 
-                if (th.IsLoaded())
+                // check if out of range. If so, remove from cache later
+                if (cursor.GameletOutOfRange(th))
                 {
-                    if (th.Game.IsGrowable)
-                        th.ColorB.FadeTarget = (0.65f + 0.35f * g.InstallProgress);
-                    else
-                        th.ColorB.FadeTarget = 1f;
+                    toRemoveFromCache.Add(th);
+                    Remove(th);
+                    th.Dispose();
                 }
                 else
-                    th.ColorB.FadeTarget = 0f;
-
-                if (g == SelectedGame && th.Visible)
                 {
-                    // update text box with currently selected game info
-                    infoBox.SetGameInfo(SelectedGame);
-
-                    //-- helpful controls text
-                    if (SelectedGame != null && SelectedGame.GameID.Equals("igg_controls"))
+                    // check if thnail visible and in range. If so, start displaying it (fade in)
+                    if (!th.Visible && cursor.GameletInRange(th))
                     {
-                        controlsHelpBitmap.Motion.TargetPos = HELPTEXT_SHOWN_POSITION;
-                        SelectedGame.Name = GardenConfig.Instance.ServerMsg;
-                    }
-                    else
-                    {
-                        controlsHelpBitmap.Motion.TargetPos = HELPTEXT_HIDDEN_POSITION;
+                        th.LoadInBackground();
+                        th.ColorB.Intensity = 0f;
                     }
 
-                    //-- credits text
-                    if (SelectedGame != null && SelectedGame.GameID.Equals("igg_credits"))
+                    if (th.IsLoaded() && cursor.GameletInRange(th))
                     {
-                        creditsBitmap.Motion.TargetPos = CREDITS_SHOWN_POSITION;
-                        Vector2 cpd = cursor.Motion.PositionDraw;
-                        if (cpd.Y <= 0.35f) // TODO const
-                        {
-                            float dxp = PANEL_SPEED_SHIFT * p.Dt;
-                            PanelShiftPos.Y -= dxp;
-                        }
-                    }
-                    else
-                    {
-                        creditsBitmap.Motion.TargetPos = CREDITS_HIDDEN_POSITION;
-                    }
-
-                    if (!(isGameLaunchOngoing && g == SelectedGame))
-                    {
-                        if (g.IsInstalling)
-                        {
-                            // wobble the size of icon when installing.
-                            th.Motion.ScaleTarget = 1.0f + 0.1f * (float)Math.Sin(MathHelper.TwoPi * 0.16f * SimTime);
-                        }
+                        if (th.Game.IsGrowable)
+                            th.ColorB.FadeTarget = (0.65f + 0.35f * g.InstallProgress);
                         else
-                        {
-                            // displaying selected thumbnails larger
-                            if (g == SelectedGame && g.IsGrowable)
-                            {
-                                th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED;
-                            }
-                            else
-                            { 
-                                th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
-                            }
-
-                        }
+                            th.ColorB.FadeTarget = 1f;
                     }
-                } // end if th==SelectedGame
-                else
-                {
-                    th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
+                    else
+                        th.ColorB.FadeTarget = 0f;
+
                 }
+
+                th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
                 th.ColorB.FadeSpeed = 0.15f;// 0.15f; // TODO const
 
                 // coordinate position where to move a game thumbnail to 
@@ -390,6 +321,71 @@ namespace IndiegameGarden.Menus
                 th.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT;
 
             } // end for loop over all games
+            foreach (GameThumbnail th in toRemoveFromCache)
+            {
+                thumbnailsCache.Remove(th.Game.GameID);
+            }
+
+            // --- for selected game only
+            if (SelectedGame != null)
+            {
+                g = SelectedGame;
+                // update text box with currently selected game info
+                infoBox.SetGameInfo(g);
+
+                //-- helpful controls text
+                if (g.GameID.Equals("igg_controls"))
+                {
+                    controlsHelpBitmap.Motion.TargetPos = HELPTEXT_SHOWN_POSITION;
+                    g.Name = GardenConfig.Instance.ServerMsg;
+                }
+                else
+                {
+                    controlsHelpBitmap.Motion.TargetPos = HELPTEXT_HIDDEN_POSITION;
+                }
+
+                //-- credits text
+                if (g.GameID.Equals("igg_credits"))
+                {
+                    creditsBitmap.Motion.TargetPos = CREDITS_SHOWN_POSITION;
+                    Vector2 cpd = cursor.Motion.PositionDraw;
+                    if (cpd.Y <= 0.35f) // TODO const
+                    {
+                        float dxp = PANEL_SPEED_SHIFT * p.Dt;
+                        PanelShiftPos.Y -= dxp;
+                    }
+                }
+                else
+                {
+                    creditsBitmap.Motion.TargetPos = CREDITS_HIDDEN_POSITION;
+                }
+
+                if (!isGameLaunchOngoing)
+                {
+                    if (thumbnailsCache.ContainsKey(g.GameID))
+                    {
+                        GameThumbnail th = thumbnailsCache[g.GameID];
+
+                        if (g.IsInstalling)
+                        {
+                            // wobble the size of icon when installing.
+                            th.Motion.ScaleTarget = 1.0f + 0.1f * (float)Math.Sin(MathHelper.TwoPi * 0.16f * SimTime);
+                        }
+                        else
+                        {
+                            // displaying selected thumbnails larger
+                            if (g.IsGrowable)
+                            {
+                                th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED;
+                            }
+                            else
+                            {
+                                th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
+                            }
+                        }
+                    }
+                }
+            }
 
             // cursor where to move to
             cursor.Motion.TargetPos = (cursor.GridPosition - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
