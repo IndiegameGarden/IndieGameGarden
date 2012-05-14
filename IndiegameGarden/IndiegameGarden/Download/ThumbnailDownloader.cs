@@ -11,16 +11,11 @@ using IndiegameGarden.Base;
 namespace IndiegameGarden.Download
 {
     /**
-     * A downloader task for a thumbnail for a GardenItem
+     * A downloader task for downloading a thumbnail for a GardenItem
      */
     public class ThumbnailDownloader: BaseDownloader
     {
-        GardenItem game;
-
-        /// <summary>
-        /// a lock object to ensure one download at a time takes place.
-        /// </summary>
-        //static Object downloadingToken = new Object();
+        GardenItem gi;
 
         /// <summary>
         /// construct a new thumbnail downloader for game; downloading from default server
@@ -28,15 +23,14 @@ namespace IndiegameGarden.Download
         /// </summary>
         public ThumbnailDownloader(GardenItem g)
         {
-            this.game = g;
+            this.gi = g;
         }
 
         protected override void StartInternal()
         {
-            string filename = game.ThumbnailFile;
-            string urlDl = game.ThumbnailURL; // GardenConfig.Instance.GetThumbnailURL(filename);
+            string filename = gi.ThumbnailFile;
+            string urlDl = gi.ThumbnailURL; 
             string toLocalFolder = GardenConfig.Instance.ThumbnailsFolder;
-            //lock (downloadingToken) // TODO check if sequentializing locks needed
             InternalDoDownload(urlDl, filename, toLocalFolder, true);
         }
 

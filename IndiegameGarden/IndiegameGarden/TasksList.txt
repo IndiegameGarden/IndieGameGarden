@@ -12,7 +12,6 @@ Faster thumbs downloading thread abortion on exit?
 Test client version update in deployment version
 Make gamelib loading non-blocking
 Add more games
-Autodetection of CdPath and ExeFile if not given in gamelib.
 Ogg files wrap in zip for extra reliability check (CRC) and future multi-track downloads
 Test disk free before growing game
 Default music should be already-loaded in garden selection.
@@ -29,6 +28,8 @@ Mystery game icon
 Key/option to abort download or install of a game
 
 CLOSED  [date order]
+2012-05-14 Scaling down texture in memory (see http://forums.create.msdn.com/forums/t/24124.aspx, "texture copy" function in lib?)
+2012-05-09 Autodetection of CdPath and ExeFile if not given in gamelib. -> already fixed earlier.
 2012-05-09 Only start launching game when ENTER is released again (issue of popup boxes missed etc)
 2012-05-08 Bug too wide area of thumbnails loaded - only start downloading when near
 2012-05-05 Check GardenMusic for existence of .ogg file (less fragile) -> already done for Alpha-2

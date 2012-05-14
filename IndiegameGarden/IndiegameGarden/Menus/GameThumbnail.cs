@@ -34,7 +34,7 @@ namespace IndiegameGarden.Menus
         /// <summary>
         /// actual/intended full path to local thumbnail file (the file may or may not exist)
         /// </summary>
-        protected string ThumbnailFilename
+        protected string ThumbnailFilepath
         {
             get
             {
@@ -48,7 +48,7 @@ namespace IndiegameGarden.Menus
         ITask loaderTask;
 
         /// <summary>
-        /// when a new texture is available, it's passed via this var
+        /// when a new texture is available, it's passed via this var and using corresponding lock object
         /// </summary>
         Texture2D updatedTexture;
         Object updateTextureLock = new Object();
@@ -86,7 +86,7 @@ namespace IndiegameGarden.Menus
             /// </summary>
             protected override void StartInternal()
             {
-                if (File.Exists(parent.ThumbnailFilename))
+                if (File.Exists(parent.ThumbnailFilepath))
                 {
                     bool ok = parent.LoadTextureFromFile();
                     if (ok)
@@ -99,7 +99,7 @@ namespace IndiegameGarden.Menus
                     // first run the base downloading task now. If that is ok, then load from file downloaded.
                     base.StartInternal();
 
-                    if (File.Exists(parent.ThumbnailFilename) && IsSuccess() )
+                    if (File.Exists(parent.ThumbnailFilepath) && IsSuccess() )
                     {
                         bool ok = parent.LoadTextureFromFile();
                         if (ok)
@@ -185,7 +185,7 @@ namespace IndiegameGarden.Menus
         }
 
         /// <summary>
-        /// get the manual scaling or the auto-scaling value for game thumbnail size 
+        /// get the manual scaling if specified, or else the auto-scaling value for game thumbnail size 
         /// </summary>
         protected float ThumbnailScale
         {
@@ -210,7 +210,7 @@ namespace IndiegameGarden.Menus
             Texture2D tex = null;
             try
             {
-                tex = LoadBitmap(ThumbnailFilename, "", true);
+                tex = LoadBitmap(ThumbnailFilepath, "", true);
             }
             catch (InvalidOperationException)
             {
@@ -236,14 +236,6 @@ namespace IndiegameGarden.Menus
             {
                 Motion.RotateModifier += SimTime / 6.0f;
             }
-
-            // rotate thumbnail if specified
-            /*
-            if (Game.RotateSpeed != 0f)
-            {
-                Motion.RotateModifier += SimTime * Game.RotateSpeed;
-            }
-             */
 
             // adapt scale according to GameItem preset
             Motion.ScaleModifier *= ThumbnailScale;
@@ -281,6 +273,8 @@ namespace IndiegameGarden.Menus
             Color col = DrawInfo.DrawColor;
             if (EffectEnabled)
             {
+                // this is a conversion from 'halotime' to the time format that can be given to the pixel shader
+                // via the 'draw color' parameter
                 int t = (int) (haloTime * 256);
                 int c3 = t % 256;
                 int c2 = ((t - c3)/256) % 256;
