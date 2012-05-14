@@ -66,6 +66,8 @@ namespace IndiegameGarden.Menus
         // a default texture to use if no thumbnail has been loaded yet
         static Texture2D DefaultTexture;
 
+        static SpriteBatch batch ; //= new SpriteBatch(graphicsDevice);
+
         /**
          * internal Task to load a thumbnail from disk, or download it first if not available.
          * To be called in a separate thread e.g. by using a ThreadedTask.
@@ -134,6 +136,10 @@ namespace IndiegameGarden.Menus
             if (DefaultTexture == null)
             {
                 DefaultTexture = GardenGame.Instance.Content.Load<Texture2D>("ball-supernova2");
+            }
+            if (batch == null)
+            {
+                batch = new SpriteBatch(Screen.graphicsDevice);
             }
             // use default texture as long as thumbnail not loaded yet
             Texture = DefaultTexture;
@@ -211,6 +217,32 @@ namespace IndiegameGarden.Menus
             try
             {
                 tex = LoadBitmap(ThumbnailFilename, "", true);
+                float sc = 320f / tex.Width;
+                if (sc < 1f)
+                {
+                    int desiredWidth = 320;
+                    int desiredHeight = (int) ( ((float)tex.Height) * sc );
+                    RenderTarget2D renderTarget = new RenderTarget2D(
+                        Screen.graphicsDevice, desiredWidth, desiredHeight);
+                    Rectangle destinationRectangle = new Rectangle(0, 0, desiredWidth, desiredHeight);
+
+                    lock (Screen.graphicsDevice)
+                    {
+                        lock (batch)
+                        {
+                            Screen.graphicsDevice.SetRenderTarget(renderTarget);
+
+                            batch.Begin();
+                            batch.Draw(tex, destinationRectangle, Color.White);
+                            batch.End();
+
+                            Screen.graphicsDevice.SetRenderTarget(null);
+                        }
+                    }
+                    tex = renderTarget;
+
+                }
+
             }
             catch (InvalidOperationException)
             {

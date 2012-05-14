@@ -29,7 +29,7 @@ namespace IndiegameGarden.Menus
 
         const float PANEL_ZOOM_STARTUP = 0.45f;
         const float PANEL_ZOOM_REGULAR = 0.45f; //0.16f;
-        const float PANEL_ZOOM_DETAILED_VIEW = 1.0f; //2.857f;
+        const float PANEL_ZOOM_DETAILED_VIEW = 1.5f; //2.857f;
         const float PANEL_DELTA_GRID_X = 0.16f;
         const float PANEL_DELTA_GRID_Y = 0.12f;
         const float PANEL_SPEED_SHIFT = 4.2f;
@@ -42,7 +42,7 @@ namespace IndiegameGarden.Menus
         static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-3f);
 
         const float CURSOR_SCALE_REGULAR = 0.8f; //5.9375f;
-        public const float CURSOR_DISCOVERY_RANGE = 0.19f;
+        public const float CURSOR_DISCOVERY_RANGE = 1.3f;
         const float CURSOR_MARGIN_X = 0.15f;
         const float CURSOR_MARGIN_Y = 0.15f;
         static Vector2 CURSOR_INITIAL_POSITION = new Vector2(0.7f, 0.2f);
@@ -282,13 +282,6 @@ namespace IndiegameGarden.Menus
             foreach(GameThumbnail th in thumbnailsCache.Values)
             {
                 g = th.Game;
-                
-                // check if thnail visible and in range. If so, start displaying it (fade in)
-                if (!th.Visible && cursor.GameletInRange(th))
-                {
-                    th.LoadInBackground();
-                    th.ColorB.Intensity = 0f;
-                }
 
                 // check if out of range. If so, remove from cache later
                 if (cursor.GameletOutOfRange(th))
@@ -297,16 +290,26 @@ namespace IndiegameGarden.Menus
                     Remove(th);
                     th.Dispose();
                 }
-
-                if (th.IsLoaded())
-                {
-                    if (th.Game.IsGrowable)
-                        th.ColorB.FadeTarget = (0.65f + 0.35f * g.InstallProgress);
-                    else
-                        th.ColorB.FadeTarget = 1f;
-                }
                 else
-                    th.ColorB.FadeTarget = 0f;
+                {
+                    // check if thnail visible and in range. If so, start displaying it (fade in)
+                    if (!th.Visible && cursor.GameletInRange(th))
+                    {
+                        th.LoadInBackground();
+                        th.ColorB.Intensity = 0f;
+                    }
+
+                    if (th.IsLoaded() && cursor.GameletInRange(th))
+                    {
+                        if (th.Game.IsGrowable)
+                            th.ColorB.FadeTarget = (0.65f + 0.35f * g.InstallProgress);
+                        else
+                            th.ColorB.FadeTarget = 1f;
+                    }
+                    else
+                        th.ColorB.FadeTarget = 0f;
+
+                }
 
                 th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
                 th.ColorB.FadeSpeed = 0.15f;// 0.15f; // TODO const
@@ -326,7 +329,6 @@ namespace IndiegameGarden.Menus
             if (SelectedGame != null)
             {
                 g = SelectedGame;
-                GameThumbnail th = thumbnailsCache[g.GameID];
                 // update text box with currently selected game info
                 infoBox.SetGameInfo(g);
 
@@ -359,23 +361,27 @@ namespace IndiegameGarden.Menus
 
                 if (!isGameLaunchOngoing)
                 {
-                    if (g.IsInstalling)
+                    if (thumbnailsCache.ContainsKey(g.GameID))
                     {
-                        // wobble the size of icon when installing.
-                        th.Motion.ScaleTarget = 1.0f + 0.1f * (float)Math.Sin(MathHelper.TwoPi * 0.16f * SimTime);
-                    }
-                    else
-                    {
-                        // displaying selected thumbnails larger
-                        if (g.IsGrowable)
+                        GameThumbnail th = thumbnailsCache[g.GameID];
+
+                        if (g.IsInstalling)
                         {
-                            th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED;
+                            // wobble the size of icon when installing.
+                            th.Motion.ScaleTarget = 1.0f + 0.1f * (float)Math.Sin(MathHelper.TwoPi * 0.16f * SimTime);
                         }
                         else
                         {
-                            th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
+                            // displaying selected thumbnails larger
+                            if (g.IsGrowable)
+                            {
+                                th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED;
+                            }
+                            else
+                            {
+                                th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
+                            }
                         }
-
                     }
                 }
             }
