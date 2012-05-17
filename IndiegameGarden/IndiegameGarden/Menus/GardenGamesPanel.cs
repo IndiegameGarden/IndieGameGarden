@@ -348,7 +348,7 @@ namespace IndiegameGarden.Menus
                 if (g.GameID.Equals("igg_credits"))
                 {
                     creditsBitmap.Motion.TargetPos = CREDITS_SHOWN_POSITION;
-                    Vector2 cpd = cursor.Motion.PositionDraw;
+                    Vector2 cpd = cursor.Motion.PositionAbsZoomed;
                     if (cpd.Y <= 0.35f) // TODO const
                     {
                         float dxp = PANEL_SPEED_SHIFT * p.Dt;
@@ -392,7 +392,7 @@ namespace IndiegameGarden.Menus
             cursor.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT;
 
             // panel shift effect when cursor hits edges of panel
-            Vector2 cp = cursor.Motion.PositionDraw;
+            Vector2 cp = cursor.Motion.PositionAbsZoomed;
             float chw = cursor.DrawInfo.WidthAbs / 2.0f; // cursor-half-width
             float chh = cursor.DrawInfo.HeightAbs / 2.0f; // cursor-half-height
             float dx = PANEL_SPEED_SHIFT * p.Dt;

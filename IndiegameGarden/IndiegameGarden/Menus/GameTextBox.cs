@@ -58,7 +58,7 @@ namespace IndiegameGarden.Menus
             base.OnDraw(ref p);
 
             Vector2 origin = Vector2.Zero; // new Vector2(2f * txt.Length, 0f);
-            Vector2 pos = Motion.DrawPosition;
+            Vector2 pos = Motion.PositionAbsZoomedPixels;
             // draw shadow
             Color shadowDrawColor = Color.Black;
             shadowDrawColor.A = DrawInfo.DrawColor.A;
