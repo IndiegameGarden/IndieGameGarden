@@ -199,6 +199,10 @@ namespace IndiegameGarden.Menus
                         GameThumbnail thumb = thumbnailsCache[SelectedGame.GameID];
                         GardenGame.Instance.ActionLaunchGame(SelectedGame, thumb);
                     }
+                    else if (SelectedGame.IsWebGame)
+                    {
+                        GardenGame.Instance.ActionLaunchWebsitePlayGame(SelectedGame);
+                    }
                     else
                     {
                         GardenGame.Instance.ActionDownloadAndInstallGame(SelectedGame);

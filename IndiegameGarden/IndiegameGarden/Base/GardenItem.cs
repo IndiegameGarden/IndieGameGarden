@@ -341,6 +341,17 @@ namespace IndiegameGarden.Base
             }
         }
 
+        /// <summary>
+        /// check whether this game is a web-playable game in the browser
+        /// </summary>
+        public bool IsWebGame
+        {
+            get
+            {
+                return ExeFile.StartsWith("http://") || ExeFile.StartsWith("https://");
+            }
+        }
+
         public bool IsInstalling
         {
             get

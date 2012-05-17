@@ -23,7 +23,8 @@ namespace GameLibCompiler
             System.Console.WriteLine("Json load: " + (t1 - t0) + " ms.");
 
             // save
-            using (var file = File.Create("..\\..\\..\\..\\config\\igg_gamelib_v3\\gamelib.bin"))
+            string gamelibBinFile = "..\\..\\..\\..\\config\\igg_gamelib_v3\\gamelib.bin";
+            using (var file = File.Create(gamelibBinFile))
             {
                 t0 = Environment.TickCount;
                 Serializer.Serialize(file, GameLib.GetList().AsList());
@@ -33,7 +34,7 @@ namespace GameLibCompiler
 
             // test load
             List<GardenItem> l;
-            using (var file = File.OpenRead("gamelib.bin"))
+            using (var file = File.OpenRead(gamelibBinFile))
             {
                 t0 = Environment.TickCount;
                 l = Serializer.Deserialize<List<GardenItem>>(file);
@@ -43,7 +44,7 @@ namespace GameLibCompiler
 
             // test load 2
             GameLibrary gl = new GameLibrary();
-            gl.LoadBin("gamelib.bin");
+            gl.LoadBin(gamelibBinFile);
             int c = gl.GetList().Count;
         }
     }

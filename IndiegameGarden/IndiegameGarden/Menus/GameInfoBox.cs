@@ -78,7 +78,7 @@ namespace IndiegameGarden.Menus
             {
                 string title = game.Name; 
                 string desc = game.Description + "\n";
-                if (game.IsInstalled)
+                if (game.IsInstalled || game.IsWebGame)
                 {
                     desc += "This "+game.ItemName+" now grows in your garden. Hold ENTER to play!\n";
                     //dlProgressBar.Visible = false;

@@ -77,7 +77,8 @@
 		  		"Descr": "Classic action shoot'em up game, where the player is not a spaceship but a... bumble-bee.\nTAKE CARE: McAfee on-demand virus scan deletes ezip.dll claiming a virus, breaking the game.",
 		  		"Zip": "lowfuel.melnicek.cz/honeyblaster/data/lf-honeyblaster-demo.zip",
 		  		"Site": "lowfuel.melnicek.cz/honeyblaster",
-		  		"Exe": "lf-hb.exe"
+		  		"Exe": "http://lowfuel.melnicek.cz/honeyblaster",
+		  		"ExeT": "lf-hb.exe"
 		  	},
 		  	{
 		  	 	"ID": "dwarffortress",

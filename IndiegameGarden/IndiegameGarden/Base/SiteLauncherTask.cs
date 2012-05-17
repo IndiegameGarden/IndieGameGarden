@@ -40,10 +40,13 @@ namespace IndiegameGarden.Base
         [DllImportAttribute("User32.dll")]
         private static extern IntPtr SetForegroundWindow(int hWnd);
 
-        public SiteLauncherTask(GardenItem g)
+        public SiteLauncherTask(GardenItem g): this(g,g.DeveloperWebsiteURL)
+        {
+        }
+
+        public SiteLauncherTask(GardenItem g, string url)
         {
             this.Game = g;
-            string url = g.DeveloperWebsiteURL;
             if (url.Length > 0)
             {
                 if (!url.ToLower().StartsWith("http://"))
