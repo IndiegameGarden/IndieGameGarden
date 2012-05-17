@@ -1,29 +1,30 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Location for downloaded content in Windows 7 -> determine & implement (installer version)
-Threadpool for tasks and/or downloading (find out if needed there)
-Test swf file handling, add support for .swf search in zip
 Add support for web games (via browser instance?)
-Memory mgt for thumbs: free up least recently seen thumbs from memory
+Credits bitmap shows up in wrong place initially
 .7z file unpacking using the 7-Zip DLLs
 Faster thumbs downloading thread abortion on exit?
-Test client version update in deployment version
 Make gamelib loading non-blocking
 Add more games; calicoland; 
 Ogg files wrap in zip for extra reliability check (CRC) and future multi-track downloads
-Test disk free before growing game
 Default music should be already-loaded in garden selection.
 If exiting while downloading zip/rar -> file not deleted.
 Bug music goes on after zoom-out
 Bug loading screen stays too long after quickly exiting a game - still the case?
 Report exceptions to server; for collecting good debug info from the field; or save to a file
-Add mirrors to all thumbnail loading?
+Test client version update in deployment version
 
 AFTER ALPHA-3
 Icon stays big while loading game -> maybe not nice.
+Location for downloaded content in Windows 7 -> determine & implement (installer version)
+Threadpool for tasks and/or downloading (find out if needed there)
+Test swf file handling, add support for .swf search in zip? or direct browser launch.
+Test disk free before growing game
+Add mirrors to all thumbnail loading?
 
 CLOSED  [date order]
+2012-05-17 Memory mgt for thumbs: free up least recently seen thumbs from memory -> done earlier
 2012-05-17 Missing music icons after refactor -> enabled thumburl data
 2012-05-14 Scaling down texture in memory (see http://forums.create.msdn.com/forums/t/24124.aspx, "texture copy" function in lib?)
 2012-05-09 Autodetection of CdPath and ExeFile if not given in gamelib. -> already fixed earlier.
