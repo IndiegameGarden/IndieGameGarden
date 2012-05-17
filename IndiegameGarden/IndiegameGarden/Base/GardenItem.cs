@@ -126,14 +126,14 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                return packedFileURL;
+                if (!packedFileURL.Contains("/"))
+                    return GardenConfig.Instance.PackedFilesServerURL + packedFileURL;
+                else
+                    return packedFileURL ;
             }
             set
             {
-                if (!value.Contains("/"))
-                    packedFileURL = GardenConfig.Instance.PackedFilesServerURL + value;
-                else
-                    packedFileURL = value;
+                packedFileURL = value;
             }
         }
 
@@ -491,10 +491,15 @@ namespace IndiegameGarden.Base
             {
                 if (thumbnailURL.Length > 0)
                 {
-                    return thumbnailURL;
+                    // if only a filename given, assume default url location for thumbs
+                    if (!thumbnailURL.Contains("/"))
+                        return GardenConfig.Instance.GetThumbnailURL(thumbnailURL);
+                    else
+                        return thumbnailURL; // in case a full url given with or without http:// in front
                 }
                 else
                 {
+                    // default if nothing given at all.
                     return GardenConfig.Instance.GetThumbnailURL(GameIDwithVersion + ".png");
                 }
             }

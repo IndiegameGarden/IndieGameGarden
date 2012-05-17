@@ -1,7 +1,6 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Missing music icons after refactor
 Location for downloaded content in Windows 7 -> determine & implement (installer version)
 Threadpool for tasks and/or downloading (find out if needed there)
 Test swf file handling, add support for .swf search in zip
@@ -22,12 +21,10 @@ Report exceptions to server; for collecting good debug info from the field; or s
 Add mirrors to all thumbnail loading?
 
 AFTER ALPHA-3
-Easter egg with sprites from OpenGameArt in menu
 Icon stays big while loading game -> maybe not nice.
-Mystery game icon
-Key/option to abort download or install of a game
 
 CLOSED  [date order]
+2012-05-17 Missing music icons after refactor -> enabled thumburl data
 2012-05-14 Scaling down texture in memory (see http://forums.create.msdn.com/forums/t/24124.aspx, "texture copy" function in lib?)
 2012-05-09 Autodetection of CdPath and ExeFile if not given in gamelib. -> already fixed earlier.
 2012-05-09 Only start launching game when ENTER is released again (issue of popup boxes missed etc)
@@ -165,9 +162,13 @@ CLOSED  [date order]
 2012-01-06 Refactor Unzipper/Unrarrer to proper Tasks
 2012-01-04 Fix bug that a game is never launched
 
-
 SKIPPED [date order]
 2012-05-05 Add for certain games that loading takes a while. -> not seen in netw connected configurations.
 2012-05-05 Bg rotates faster upon downloading
 2012-03-30 Optionally avoid .exe / cd-path in database, default is try first .exe found or first folder found with a .exe -> creates issue with install state check
 2012-01-28 Display a progress bar when launching starts with bar speed set by config file
+
+MAYBE SOME TIME
+Easter egg with sprites from OpenGameArt in menu
+Mystery game icon
+Key/option to abort download or install of a game

@@ -23,7 +23,7 @@ namespace GameLibCompiler
             System.Console.WriteLine("Json load: " + (t1 - t0) + " ms.");
 
             // save
-            using (var file = File.Create("gamelib.bin"))
+            using (var file = File.Create("..\\..\\..\\..\\config\\igg_gamelib_v3\\gamelib.bin"))
             {
                 t0 = Environment.TickCount;
                 Serializer.Serialize(file, GameLib.GetList().AsList());

@@ -20,7 +20,7 @@
 	  	{
 	  	  "ID": "igg",
 	  	  "Name": "Update Indiegame Garden!",
-	  	  "Descr": "Hold ENTER to update Indiegame Garden client. Once installed, restart this client to get the new version.",
+	  	  "Descr": "Hold ENTER to update Indiegame Garden itself. Once installed, simply restart to get the new version.",
 	  	  "Site": "indiegamegarden.com",
 	  	  "Exe": "TTengine.dll",
 	  	  "X": 4, "Y": 0
@@ -42,7 +42,8 @@
 		  		"Zip": "Torley_Aurelic.ogg",
 		  		"Exe": "Torley_Aurelic.ogg",
 		  		"Site": "music.torley.com",
-		  		"Scale": 0.7
+		  		"ThumbURL": "torley.png",
+		  		"X": 1, "Y": 1
 		  	},
 		  	{
 		  		"ID": "Torley_Zalgone",
@@ -50,8 +51,9 @@
 		  		"Descr": "From the album \"Glitch Piano\". Hit \"W\" for Torley's website. (CC BY-NC-SA license.)",
 		  		"Zip": "Torley_Zalgone.ogg",
 		  		"Exe": "Torley_Zalgone.ogg",
+		  		"ThumbURL": "torley.png",
 		  		"Site": "music.torley.com",
-		  		"Scale": 0.7
+		  		"X": 2, "Y": 1
 		  	},
 		  	{
 		  		"ID": "Space-Explorers_Sublime",
@@ -60,7 +62,8 @@
 		  		"Zip": "Space-Explorers_Sublime.ogg",
 		  		"Exe": "Space-Explorers_Sublime.ogg",
 		  		"Site": "spaceexplorers.bandcamp.com",
-		  		"Scale": 0.7
+		  		"ThumbURL": "Space-Explorers.png",
+		  		"X": 1, "Y": 2
 		  	}
 		  ],
 
