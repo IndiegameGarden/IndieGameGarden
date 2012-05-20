@@ -48,6 +48,7 @@ namespace IndiegameGarden.Menus
 
             public override void OnEntry(Gamelet g)
             {
+                base.OnEntry(g);
                 loadingDisplay.iggNameBox.ColorB.Intensity = 0f;
                 loadingDisplay.iggNameBox.ColorB.FadeTarget = 0f;
                 if (loadingDisplay.gameIcon != null)
@@ -55,6 +56,7 @@ namespace IndiegameGarden.Menus
             }
             public override void OnUpdate(Gamelet g, ref UpdateParams p)
             {
+                base.OnUpdate(g, ref p);
                 int phase = (int)Math.Round((SimTime*2f) % 3.0f);
                 string t = "Loading \"" + loadingDisplay.game.Name + "\"";
                 switch (phase)
@@ -92,6 +94,7 @@ namespace IndiegameGarden.Menus
 
             public override void OnEntry(Gamelet g)
             {
+                base.OnEntry(g);
                 isFirstDraw = true;
                 if (loadingDisplay.gameIcon != null)
                     loadingDisplay.gameIcon.Visible = true;
@@ -99,6 +102,7 @@ namespace IndiegameGarden.Menus
 
             public override void OnUpdate(Gamelet g, ref UpdateParams p)
             {
+                base.OnUpdate(g, ref p);
                 // fade in 
                 loadingDisplay.iggNameBox.ColorB.FadeTarget = 1.0f;
 
@@ -119,6 +123,7 @@ namespace IndiegameGarden.Menus
 
             public override void OnDraw(Gamelet g)
             {
+                base.OnDraw(g);
                 isFirstDraw = false;
             }
 
@@ -137,11 +142,13 @@ namespace IndiegameGarden.Menus
 
             public override void OnEntry(Gamelet g)
             {
+                base.OnEntry(g);
                 loadingDisplay.tbox.Text = "";
             }
 
             public override void OnUpdate(Gamelet g, ref UpdateParams p)
             {
+                base.OnUpdate(g, ref p);
                 if (SimTime > 1f && !isFirstDraw)
                 {
                     // suppress drawing during play of another game - save resources and avoid gfx conflicts.
@@ -213,7 +220,7 @@ namespace IndiegameGarden.Menus
         public void SetPlayingGame(float afterTime)
         {
             if (nextStateTimer < 0f)
-                nextStateTimer = SimTime + afterTime;
+                nextStateTimer = afterTime;
         }
 
         /// <summary>

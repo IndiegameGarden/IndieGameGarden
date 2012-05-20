@@ -38,11 +38,13 @@ namespace IndiegameGarden.Base
 
         public override void OnEntry(Gamelet g)
         {
+            base.OnEntry(g);
             GardenGame.Instance.IsMouseVisible = true;
         }
 
         public override void OnUpdate(Gamelet g, ref UpdateParams p)
         {
+            base.OnUpdate(g, ref p);
             simTime += p.Dt;
             if (stateDuration > 0f)
             {
@@ -53,6 +55,7 @@ namespace IndiegameGarden.Base
 
         public override void OnExit(Gamelet g)
         {
+            base.OnExit(g);
             GardenGame.Instance.IsMouseVisible = false;
             GardenGame.Instance.music.FadeIn();
         }
