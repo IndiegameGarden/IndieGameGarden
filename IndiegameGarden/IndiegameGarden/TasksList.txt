@@ -1,7 +1,6 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Bug descriptoins don't show well.
 Rotating sun - want it back please!
 Scale bitmap to a max height (240?)
 Credits bitmap shows up in wrong place initially
@@ -26,6 +25,7 @@ Test disk free before growing game
 Add mirrors to all thumbnail loading?
 
 CLOSED  [date order]
+2012-05-20 Bug descriptoins don't show well.
 2012-05-20 Add support for web games (via browser instance?) - with launch screen showing no thread blocks.
 2012-05-17 Memory mgt for thumbs: free up least recently seen thumbs from memory -> done earlier
 2012-05-17 Missing music icons after refactor -> enabled thumburl data

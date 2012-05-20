@@ -84,7 +84,7 @@ namespace IndiegameGarden.Base
             }
         }
 
-        int PerformLineCount(string s)
+        private int PerformLineCount(string s)
         {
             int result = 1;
             foreach (char c in s)
@@ -97,12 +97,14 @@ namespace IndiegameGarden.Base
             return result;
         }
 
-        protected int lineCount;
+        protected int lineCount = -1;
 
         public int DescriptionLineCount
         {
             get
             {
+                if (lineCount < 0)
+                    lineCount = PerformLineCount(description);
                 return lineCount;
             }
         }
