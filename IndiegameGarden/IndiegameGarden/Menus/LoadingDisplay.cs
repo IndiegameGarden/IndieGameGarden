@@ -50,13 +50,12 @@ namespace IndiegameGarden.Menus
             {
                 loadingDisplay.iggNameBox.ColorB.Intensity = 0f;
                 loadingDisplay.iggNameBox.ColorB.FadeTarget = 0f;
-                g.SimTime = 0f;
                 if (loadingDisplay.gameIcon != null)
                     loadingDisplay.gameIcon.Visible = true;
             }
-            public override void OnUpdate(Gamelet g)
+            public override void OnUpdate(Gamelet g, ref UpdateParams p)
             {
-                int phase = (int)Math.Round((g.SimTime*2f) % 3.0f);
+                int phase = (int)Math.Round((SimTime*2f) % 3.0f);
                 string t = "Loading \"" + loadingDisplay.game.Name + "\"";
                 switch (phase)
                 {
@@ -69,7 +68,7 @@ namespace IndiegameGarden.Menus
                 }
                 loadingDisplay.tbox.Text = t;
                 
-                if (loadingDisplay.nextStateTimer >= 0f && g.SimTime > loadingDisplay.nextStateTimer)
+                if (loadingDisplay.nextStateTimer >= 0f && SimTime > loadingDisplay.nextStateTimer)
                 {
                     loadingDisplay.nextStateTimer = -1f;                    
                     g.SetNextState(new StateLoadingDisplay_Playing(loadingDisplay));
@@ -94,17 +93,16 @@ namespace IndiegameGarden.Menus
             public override void OnEntry(Gamelet g)
             {
                 isFirstDraw = true;
-                g.SimTime = 0f;
                 if (loadingDisplay.gameIcon != null)
                     loadingDisplay.gameIcon.Visible = true;
             }
 
-            public override void OnUpdate(Gamelet g)
+            public override void OnUpdate(Gamelet g, ref UpdateParams p)
             {
                 // fade in 
                 loadingDisplay.iggNameBox.ColorB.FadeTarget = 1.0f;
 
-                if (g.SimTime <= 1f || isFirstDraw)
+                if (SimTime <= 1f || isFirstDraw)
                 {
                     loadingDisplay.tbox.Text = "   Enjoy \"" + loadingDisplay.game.Name + "\"";
                 }
@@ -113,7 +111,7 @@ namespace IndiegameGarden.Menus
                     // suppress drawing during play of another game - save resources and avoid gfx conflicts.
                     GardenGame.Instance.SuppressDraw();
                 }
-                if (g.SimTime > TIME_SHOW_PLAYING_MESSAGE)
+                if (SimTime > TIME_SHOW_PLAYING_MESSAGE)
                 {
                     g.SetNextState(new StateLoadingDisplay_Empty(loadingDisplay));
                 }
@@ -139,13 +137,12 @@ namespace IndiegameGarden.Menus
 
             public override void OnEntry(Gamelet g)
             {
-                g.SimTime = 0f;
                 loadingDisplay.tbox.Text = "";
             }
 
-            public override void OnUpdate(Gamelet g)
+            public override void OnUpdate(Gamelet g, ref UpdateParams p)
             {
-                if (g.SimTime > 1f && !isFirstDraw)
+                if (SimTime > 1f && !isFirstDraw)
                 {
                     // suppress drawing during play of another game - save resources and avoid gfx conflicts.
                     GardenGame.Instance.SuppressDraw();

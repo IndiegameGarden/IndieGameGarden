@@ -193,15 +193,15 @@ namespace IndiegameGarden.Menus
                 }
                 else
                 {
+                    GameThumbnail thumb = thumbnailsCache[SelectedGame.GameID];
                     if (SelectedGame.IsInstalled)
                     {
                         GardenGame.Instance.music.FadeOut();
-                        GameThumbnail thumb = thumbnailsCache[SelectedGame.GameID];
                         GardenGame.Instance.ActionLaunchGame(SelectedGame, thumb);
                     }
                     else if (SelectedGame.IsWebGame)
                     {
-                        GardenGame.Instance.ActionLaunchWebsitePlayGame(SelectedGame);
+                        GardenGame.Instance.ActionLaunchWebsitePlayGame(SelectedGame,thumb);
                     }
                     else
                     {
@@ -243,7 +243,8 @@ namespace IndiegameGarden.Menus
             {
                 if (SelectedGame != null)
                 {
-                    GardenGame.Instance.ActionLaunchWebsite(SelectedGame);
+                    GameThumbnail thumb = thumbnailsCache[SelectedGame.GameID];
+                    GardenGame.Instance.ActionLaunchWebsite(SelectedGame, thumb);
                 }
                 isLaunchWebsite = false;
             }

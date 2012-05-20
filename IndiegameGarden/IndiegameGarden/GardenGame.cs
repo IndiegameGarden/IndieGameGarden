@@ -226,16 +226,20 @@ namespace IndiegameGarden
             base.Dispose(disposing);
         }
 
-        public void ActionLaunchWebsite(GardenItem g)
+        public void ActionLaunchWebsite(GardenItem g, GameThumbnail thumb)
         {
             ITask t = new ThreadedTask(new SiteLauncherTask(g));
             t.Start();
+            loadingDisplay.SetLoadingGame(g, thumb);
+            TreeRoot.SetNextState(new StatePlayingGame(2f));
         }
 
-        public void ActionLaunchWebsitePlayGame(GardenItem g)
+        public void ActionLaunchWebsitePlayGame(GardenItem g, GameThumbnail thumb)
         {
             ITask t = new ThreadedTask(new SiteLauncherTask(g,g.ExeFile));
             t.Start();
+            loadingDisplay.SetLoadingGame(g, thumb);
+            TreeRoot.SetNextState(new StatePlayingGame(2f));
         }
 
         /// <summary>
@@ -274,7 +278,7 @@ namespace IndiegameGarden
         void taskThread_TaskFinishedEvent(object sender)
         {
             // set menu state back to 'menu viewing' state
-            GardenGame.Instance.TreeRoot.SetNextState(new StateBrowsingMenu());
+            TreeRoot.SetNextState(new StateBrowsingMenu());
         }
 
         /// <summary>

@@ -23,9 +23,32 @@ namespace IndiegameGarden.Base
      */
     public class StatePlayingGame : State
     {
+        float stateDuration = 0f;
+        float simTime = 0f;
+
+        public StatePlayingGame(): base()
+        {
+        }
+
+        public StatePlayingGame(float forDuration)
+            : base()
+        {
+            stateDuration = forDuration;
+        }
+
         public override void OnEntry(Gamelet g)
         {
             GardenGame.Instance.IsMouseVisible = true;
+        }
+
+        public override void OnUpdate(Gamelet g, ref UpdateParams p)
+        {
+            simTime += p.Dt;
+            if (stateDuration > 0f)
+            {
+                if (simTime > stateDuration)
+                    GardenGame.Instance.TreeRoot.SetNextState(new StateBrowsingMenu());
+            }
         }
 
         public override void OnExit(Gamelet g)
