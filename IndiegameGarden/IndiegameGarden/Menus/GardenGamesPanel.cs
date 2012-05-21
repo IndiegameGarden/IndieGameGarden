@@ -293,8 +293,7 @@ namespace IndiegameGarden.Menus
                 if (cursor.GameletOutOfRange(th))
                 {
                     toRemoveFromCache.Add(th);
-                    Remove(th);
-                    th.Dispose();
+                    th.Delete = true;
                 }
                 else
                 {

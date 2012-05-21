@@ -3,6 +3,7 @@ IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 OPEN  [top issues first]
 Rotating sun - want it back please!
 Scale bitmap to a max height (240?)
+Gamelib upgrading from server fully depends on client version number
 Credits bitmap shows up in wrong place initially
 .7z file unpacking using the 7-Zip DLLs
 Faster thumbs downloading thread abortion on exit?
