@@ -86,6 +86,8 @@ namespace IndiegameGarden.Base
 
         private int PerformLineCount(string s)
         {
+            if (s.Length == 0)
+                return 0;
             int result = 1;
             foreach (char c in s)
             {

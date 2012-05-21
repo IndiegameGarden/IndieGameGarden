@@ -1,7 +1,6 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-.7z file unpacking using the 7-Zip DLLs
 Faster thumbs downloading thread abortion on exit?
 Make gamelib loading non-blocking
 Add more games; calicoland; 
@@ -14,6 +13,7 @@ Report exceptions to server; for collecting good debug info from the field; or s
 Test client version update in deployment version
 
 AFTER ALPHA-3
+.7z file unpacking using the 7-Zip DLLs
 Icon stays big while loading game -> maybe not nice.
 Location for downloaded content in Windows 7 -> determine & implement (installer version)
 Threadpool for tasks and/or downloading (find out if needed there)
