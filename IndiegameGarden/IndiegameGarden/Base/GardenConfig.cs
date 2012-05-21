@@ -28,7 +28,7 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// fixed for a build! update for new version builds.
         /// </summary>
-        public const int    IGG_CLIENT_VERSION = 1;
+        public const int    IGG_CLIENT_VERSION = 2;
         /// <summary>
         /// update for a new build -> quick bootstrap to load a known version of gamelib.
         /// </summary>
