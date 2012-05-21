@@ -31,15 +31,24 @@ namespace IndiegameGarden
             }
         }
 
+        /// <summary>
+        /// misuse HTTP GET to deliver an error report to the server log
+        /// </summary>
+        /// <param name="ex"></param>
         static void ReportErrorOverNetwork(Exception ex) {
             try
             {
-                string stShort = ex.StackTrace;
-                if (stShort.Length > 200)
-                    stShort = stShort.Substring(0, 200);
-                string u = "http://indieget.appspot.com/err?ex=" + ex.Message + "&ts=" + ex.TargetSite + "&st=" + stShort;
+                const int MAX_URL_LENGTH = 580;
+                string u = "http://indieget.appspot.com/err?ex=" + ex + "&ts=" + ex.TargetSite + "&st=" + ex.StackTrace;
+                u = u.Replace(' ', '-'); // avoid the %20 substitution to save space
+                u = u.Replace('\\', '/');
+                u = u.Replace("\r", "");
+                u = u.Replace("\n", "");
+                u = u.Replace('\t', '-');
+                if (u.Length > MAX_URL_LENGTH)
+                    u = u.Substring(0, MAX_URL_LENGTH);
                 Downloader downloader = DownloadManager.Instance.Add(ResourceLocation.FromURL(u), new ResourceLocation[] { },
-                                                "temp23048230948209348230894432.tmp", 1, true);
+                                                "dummy_file_should_not_be_created_23048230948209348230894432.tmp", 1, true);
             }
             catch (Exception)
             {
