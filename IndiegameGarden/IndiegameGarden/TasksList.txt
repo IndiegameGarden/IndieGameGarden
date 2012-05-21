@@ -1,9 +1,7 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Scale bitmap to a max height (240?)
 Gamelib upgrading from server fully depends on client version number
-Credits bitmap shows up in wrong place initially
 .7z file unpacking using the 7-Zip DLLs
 Faster thumbs downloading thread abortion on exit?
 Make gamelib loading non-blocking
@@ -25,6 +23,8 @@ Test disk free before growing game
 Add mirrors to all thumbnail loading?
 
 CLOSED  [date order]
+2012-05-21 Credits bitmap shows up in wrong place initially
+2012-05-21 Scale bitmap to a max height (240?)
 2012-05-21 Rotating sun - want it back please!
 2012-05-20 Bug descriptoins don't show well.
 2012-05-20 Add support for web games (via browser instance?) - with launch screen showing no thread blocks.

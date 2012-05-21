@@ -194,7 +194,10 @@ namespace IndiegameGarden.Menus
                 float sc = Game.ScaleIcon;
                 if (Texture != null && sc == 1.0f)
                 {
-                    sc *= 320f / Texture.Width;
+                    // scale back in width and height when needed
+                    float scw = GardenGamesPanel.THUMBNAIL_MAX_WIDTH_PIXELS / ((float)Texture.Width);
+                    float sch = GardenGamesPanel.THUMBNAIL_MAX_HEIGHT_PIXELS / ((float)Texture.Height);
+                    sc *= (scw < sch ? scw : sch ); // scale using the smallest value found
                 }
                 return sc;
             }

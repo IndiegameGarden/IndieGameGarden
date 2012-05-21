@@ -49,7 +49,9 @@ namespace IndiegameGarden.Menus
 
         public const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; //0.6f; //0.54f; //1.5625f;
         const float THUMBNAIL_SCALE_SELECTED = 0.51f; //0.7f; //0.65f; //2f;
-        
+        public const float THUMBNAIL_MAX_WIDTH_PIXELS = 320f;
+        public const float THUMBNAIL_MAX_HEIGHT_PIXELS = 240f;
+
         static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f, 0.895f);
         static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.96f);
         static Vector2 HELPTEXT_SHOWN_POSITION = new Vector2(0.15f, 0.13f);
@@ -118,6 +120,7 @@ namespace IndiegameGarden.Menus
             creditsBitmap = new Spritelet("credits.png");
             creditsBitmap.Motion.Scale = CREDITS_SCALE_DEFAULT;
             creditsBitmap.Motion.Position = CREDITS_HIDDEN_POSITION;
+            creditsBitmap.Motion.TargetPos = CREDITS_HIDDEN_POSITION;
             creditsBitmap.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
 
             // default zoom
