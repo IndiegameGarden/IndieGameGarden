@@ -51,6 +51,7 @@ namespace IndiegameGarden.Menus
         const float THUMBNAIL_SCALE_SELECTED = 0.51f; //0.7f; //0.65f; //2f;
         public const float THUMBNAIL_MAX_WIDTH_PIXELS = 320f;
         public const float THUMBNAIL_MAX_HEIGHT_PIXELS = 240f;
+        const float THUMBNAIL_FADE_SPEED = 0.3f;
 
         static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f, 0.895f);
         static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.96f);
@@ -324,7 +325,7 @@ namespace IndiegameGarden.Menus
                 }
 
                 th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
-                th.ColorB.FadeSpeed = 0.15f;// 0.15f; // TODO const
+                th.ColorB.FadeSpeed = THUMBNAIL_FADE_SPEED;
 
                 // coordinate position where to move a game thumbnail to 
                 Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
