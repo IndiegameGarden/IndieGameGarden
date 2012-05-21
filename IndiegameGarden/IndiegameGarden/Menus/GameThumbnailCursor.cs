@@ -42,7 +42,7 @@ namespace IndiegameGarden.Menus
         public bool GameletOutOfRange(Gamelet g)
         {
             float d = (g.Motion.Position - this.Motion.Position).Length();
-            if (d > 1.0f) //TODO
+            if (d > GardenGamesPanel.CURSOR_DESTRUCTION_RANGE) //TODO
                 return true;
             return false;
 

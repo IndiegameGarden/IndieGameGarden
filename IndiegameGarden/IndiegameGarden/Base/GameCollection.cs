@@ -53,6 +53,11 @@ namespace IndiegameGarden.Base
             }
         }
 
+        public List<GardenItem> GetItemsAround(Vector2 pos, float range)
+        {
+            return GetItemsAround((int)Math.Round(pos.X), (int)Math.Round(pos.Y), (int)Math.Round(range));
+        }
+
         public List<GardenItem> GetItemsAround(int x, int y, int range)
         {
             int x1 = x - range;

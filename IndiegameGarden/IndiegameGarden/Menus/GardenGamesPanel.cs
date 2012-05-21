@@ -43,6 +43,7 @@ namespace IndiegameGarden.Menus
 
         const float CURSOR_SCALE_REGULAR = 0.8f; //5.9375f;
         public const float CURSOR_DISCOVERY_RANGE = 1.3f;
+        public const float CURSOR_DESTRUCTION_RANGE = 4f;
         const float CURSOR_MARGIN_X = 0.15f;
         const float CURSOR_MARGIN_Y = 0.15f;
         static Vector2 CURSOR_INITIAL_POSITION = new Vector2(0.7f, 0.2f);
