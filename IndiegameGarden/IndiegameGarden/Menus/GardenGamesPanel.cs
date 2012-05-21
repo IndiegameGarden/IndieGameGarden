@@ -280,6 +280,10 @@ namespace IndiegameGarden.Menus
                     th.DrawInfo.LayerDepth = LAYER_GRID_ITEMS + ((float)th.ID) * float.Epsilon;
                     th.Visible = false;
                     th.ColorB.Intensity = 0.0f;
+
+                    // special case thumbnails 
+                    if (g.GameID.Equals("igg_controls"))
+                        th.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/22.3f; }, "Rotate"));
                 }
             }
                 

@@ -1,7 +1,6 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Rotating sun - want it back please!
 Scale bitmap to a max height (240?)
 Gamelib upgrading from server fully depends on client version number
 Credits bitmap shows up in wrong place initially
@@ -26,6 +25,7 @@ Test disk free before growing game
 Add mirrors to all thumbnail loading?
 
 CLOSED  [date order]
+2012-05-21 Rotating sun - want it back please!
 2012-05-20 Bug descriptoins don't show well.
 2012-05-20 Add support for web games (via browser instance?) - with launch screen showing no thread blocks.
 2012-05-17 Memory mgt for thumbs: free up least recently seen thumbs from memory -> done earlier
