@@ -151,10 +151,14 @@ namespace IndiegameGarden.Install
         {            
             if (IsDownloading())
                 return ProgressDownload() * FRACTION_OF_PROGRESS_FOR_DOWNLOAD;
-            if (IsInstalling())
-                return (ProgressInstall() * (1.0 - FRACTION_OF_PROGRESS_FOR_DOWNLOAD)) + FRACTION_OF_PROGRESS_FOR_DOWNLOAD;
-            if (installTask != null && installTask.IsFinished() )
-                return 1.0;
+            if (downloadTask.IsFinished())
+            {
+                if (IsInstalling())
+                    return (ProgressInstall() * (1.0 - FRACTION_OF_PROGRESS_FOR_DOWNLOAD)) + FRACTION_OF_PROGRESS_FOR_DOWNLOAD;
+                if (installTask != null && installTask.IsFinished())
+                    return 1.0;
+                return FRACTION_OF_PROGRESS_FOR_DOWNLOAD; // since install did not start yet.
+            }
             return 0.0;            
         }
 

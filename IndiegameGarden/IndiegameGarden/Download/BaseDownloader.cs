@@ -24,7 +24,10 @@ namespace IndiegameGarden.Download
         {
             if (downloader == null)
                 return 0;
-            
+
+            if (IsFinished())
+                return 1;
+
             return downloader.Progress / 100;
         }
 

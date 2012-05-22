@@ -1,7 +1,6 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Faster thumbs downloading thread abortion on exit?
 Make gamelib loading non-blocking
 FIXMEs
 Add more games; calicoland; 
@@ -21,8 +20,10 @@ Threadpool for tasks and/or downloading (find out if needed there)
 Test swf file handling, add support for .swf search in zip? or direct browser launch.
 Test disk free before growing game
 Add mirrors to all thumbnail loading?
+Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-05-22 bugfix progress bar was jumping back to 0%
 2012-05-21 Gamelib upgrading from server fully depends on client version number -> solved in server code (uses clver=n parameter)
 2012-05-21 Credits bitmap shows up in wrong place initially
 2012-05-21 Scale bitmap to a max height (240?)
