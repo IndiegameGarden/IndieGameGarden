@@ -101,7 +101,8 @@ namespace IndiegameGarden.Base
             NewestGameLibraryVersion = KNOWN_GAMELIB_VERSION;
             ClientVersion = IGG_CLIENT_VERSION;
 
-            ThumbnailsServerURL = "http://indie.indiegamegarden.com/thumbs/";
+            //ThumbnailsServerURL = "http://indie.indiegamegarden.com/thumbs/";
+            ThumbnailsServerURL = "https://github.com/trancetrance/IndieGameGarden/raw/master/thumbs/";
             ConfigFilesServerURL = "http://indieget.appspot.com/igg/";
             PackedFilesServerURL = "http://indie.indiegamegarden.com/zips/";
 
