@@ -151,7 +151,7 @@ namespace IndiegameGarden.Install
         {            
             if (IsDownloading())
                 return ProgressDownload() * FRACTION_OF_PROGRESS_FOR_DOWNLOAD;
-            if (downloadTask.IsFinished())
+            if (downloadTask != null && downloadTask.IsFinished())
             {
                 if (IsInstalling())
                     return (ProgressInstall() * (1.0 - FRACTION_OF_PROGRESS_FOR_DOWNLOAD)) + FRACTION_OF_PROGRESS_FOR_DOWNLOAD;
