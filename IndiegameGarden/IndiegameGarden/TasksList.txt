@@ -1,18 +1,19 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Make gamelib loading non-blocking
-FIXMEs
-Add more games; calicoland; 
-Ogg files wrap in zip for extra reliability check (CRC) and future multi-track downloads
 Default music should be already-loaded in garden selection.
 If exiting while downloading zip/rar -> file not deleted.
 Bug music goes on after zoom-out
 Bug loading screen stays too long after quickly exiting a game - still the case?
 Report exceptions to server; for collecting good debug info from the field; or save to a file
 Test client version update in deployment version
+FIXMEs
+Remove thumburl entries from new gamelib & insert correct size thumbnails in git
+Catch crc error and replace with nicer message.
+Add more games; calicoland; 
 
 AFTER ALPHA-3
+Make gamelib loading non-blocking
 .7z file unpacking using the 7-Zip DLLs
 Icon stays big while loading game -> maybe not nice.
 Location for downloaded content in Windows 7 -> determine & implement (installer version)
@@ -23,6 +24,7 @@ Add mirrors to all thumbnail loading?
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-05-22 Ogg files wrap in zip for extra reliability check (CRC) and future multi-track downloads
 2012-05-22 bugfix progress bar was jumping back to 0%
 2012-05-21 Gamelib upgrading from server fully depends on client version number -> solved in server code (uses clver=n parameter)
 2012-05-21 Credits bitmap shows up in wrong place initially
