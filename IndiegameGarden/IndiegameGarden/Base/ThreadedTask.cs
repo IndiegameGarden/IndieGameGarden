@@ -49,11 +49,6 @@ namespace IndiegameGarden.Base
             task = taskToRun;
         }
 
-        ~ThreadedTask()
-        {
-            Abort();
-        }
-
         public override double Progress()
         {
             return task.Progress();
@@ -73,20 +68,19 @@ namespace IndiegameGarden.Base
                 task.Start();
                 status = task.Status();
                 statusMsg = task.StatusMsg();
-                if (status == ITaskStatus.FAIL && TaskFailEvent != null)
-                {
-                    TaskFailEvent(this);
-                }
-                if (status == ITaskStatus.SUCCESS && TaskSuccessEvent != null)
-                {
-                    TaskSuccessEvent(this);
-                }
             }
             catch (ThreadAbortException)
             {
                 status = ITaskStatus.FAIL;
-                if (TaskFailEvent != null)
-                    TaskFailEvent(this);
+                statusMsg = "Aborted task " + task;
+            }
+            if (status == ITaskStatus.FAIL && TaskFailEvent != null)
+            {
+                TaskFailEvent(this);
+            }
+            if (status == ITaskStatus.SUCCESS && TaskSuccessEvent != null)
+            {
+                TaskSuccessEvent(this);
             }
         }
 
@@ -100,13 +94,12 @@ namespace IndiegameGarden.Base
                 task.Abort();
             }
 
-            /*
             if (thread != null)
             {
                 thread.Abort();
                 thread = null;
             }
-             * */
+
             if (thread != null && !task.IsFinished() )
                 thread.Join();
         }
