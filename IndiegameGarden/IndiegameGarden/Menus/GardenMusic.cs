@@ -31,7 +31,7 @@ namespace IndiegameGarden.Menus
 
         public void PlayDefaultSong()
         {
-            Play(GardenConfig.Instance.PackedFilesFolder + "\\Torley_Cataplasm.ogg", 0.5);
+            Play( GardenGame.Instance.Content.RootDirectory + "\\Torley_Cataplasm.ogg", 0.5);
         }
 
         public bool IsPlaying

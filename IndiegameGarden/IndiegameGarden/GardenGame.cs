@@ -84,7 +84,6 @@ namespace IndiegameGarden
         MusicEngine musicEngine;
         bool isExiting = false;
 
-        #region Constructors
         public GardenGame()
         {
             Instance = this;
@@ -93,7 +92,7 @@ namespace IndiegameGarden
             // create the TTengine for this game
             TTengineMaster.Create(this);
 
-            // basic XNA graphics init here (before Initialize() and LoadContent() )
+            // basic XNA graphics manager init here (before Initialize() and LoadContent() )
             graphics = new GraphicsDeviceManager(this);
             myWindowWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
             myWindowHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
@@ -103,15 +102,22 @@ namespace IndiegameGarden
             IsFixedTimeStep = false;            
             graphics.SynchronizeWithVerticalRetrace = true;
         }
-        #endregion
 
         protected override void Initialize()
         {
+            // finally call base to enumnerate all (gfx) Game components to init
+            base.Initialize();
+        }
+
+        protected override void LoadContent()
+        {
+            base.LoadContent();
+
             // music engine
             musicEngine = MusicEngine.GetInstance();
             musicEngine.AudioPath = ".";
             if (!musicEngine.Initialize())
-                throw new Exception(musicEngine.StatusMsg); 
+                throw new Exception(musicEngine.StatusMsg);
 
             // loading screen
             loadingScreenlet = new Screenlet(myWindowWidth, myWindowHeight);
@@ -141,7 +147,7 @@ namespace IndiegameGarden
             Settings.Default.MaxRetries = 0;
 
             // load config
-            if ( (GardenConfig.Instance != null) && DownloadConfig() &&  LoadGameLibrary())
+            if ((GardenConfig.Instance != null) && DownloadConfig() && LoadGameLibrary())
             {
                 // game chooser menu
                 GameChooserMenu menu = new GameChooserMenu();
@@ -155,9 +161,6 @@ namespace IndiegameGarden
             // music
             music = new GardenMusic();
             TreeRoot.Add(music);
-
-            // finally call base to enumnerate all (gfx) Game components to init
-            base.Initialize();
 
         }
 
