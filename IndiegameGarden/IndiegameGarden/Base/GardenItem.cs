@@ -131,9 +131,14 @@ namespace IndiegameGarden.Base
             get
             {
                 if (!packedFileURL.Contains("/"))
-                    return GardenConfig.Instance.PackedFilesServerURL + packedFileURL;
+                {
+                    if (packedFileURL.Length == 0)
+                        return GardenConfig.Instance.PackedFilesServerURL + GameIDwithVersion + "." + PackedFileExtension;
+                    else
+                        return GardenConfig.Instance.PackedFilesServerURL + packedFileURL;
+                }
                 else
-                    return packedFileURL ;
+                    return packedFileURL;
             }
             set
             {
@@ -460,7 +465,7 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                string s = ExtractFileExtension(PackedFileURL);
+                string s = ExtractFileExtension(packedFileURL);
                 return s;
             }
         }

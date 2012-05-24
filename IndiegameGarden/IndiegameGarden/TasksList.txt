@@ -1,8 +1,6 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Default music should be already-loaded in garden selection.
-If exiting while downloading zip/rar -> file not deleted.
 Bug music goes on after zoom-out
 Bug loading screen stays too long after quickly exiting a game - still the case?
 Report exceptions to server; for collecting good debug info from the field; or save to a file
@@ -24,6 +22,8 @@ Add mirrors to all thumbnail loading?
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-05-24 If exiting while downloading zip/rar -> file not deleted. -> fix by downloading to a temp file then moving it to dest.
+2012-05-22 Default music should be already-loaded in garden selection.
 2012-05-22 Ogg files wrap in zip for extra reliability check (CRC) and future multi-track downloads
 2012-05-22 bugfix progress bar was jumping back to 0%
 2012-05-21 Gamelib upgrading from server fully depends on client version number -> solved in server code (uses clver=n parameter)

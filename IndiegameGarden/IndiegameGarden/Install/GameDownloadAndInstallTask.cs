@@ -56,6 +56,8 @@ namespace IndiegameGarden.Install
             if (downloadTask.IsSuccess() )
             {
                 Thread.Sleep(100);
+
+                // check if folder already there
                 // if download ready and OK, start install
                 installTask = new InstallTask(game);
                 installTask.Start();

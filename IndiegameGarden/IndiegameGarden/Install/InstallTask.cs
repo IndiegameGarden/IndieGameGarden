@@ -31,19 +31,26 @@ namespace IndiegameGarden.Install
         protected override void StartInternal()
         {
             string destFolder = game.GameFolder;
-            unpacker = new UnpackerTask(GardenConfig.Instance.GetPackedFilepath(game), 
-                                        destFolder,
-                                        game.ExeFile);
-            if (File.Exists(unpacker.Filename))
-            {                
-                unpacker.Start();
-                status = unpacker.Status();
-                statusMsg = unpacker.StatusMsg();
+            if (Directory.Exists(destFolder)) // assume it's already there
+            {
+                status = ITaskStatus.SUCCESS;
             }
             else
             {
-                status = ITaskStatus.FAIL;
-                statusMsg = "Missing file " + unpacker.Filename;
+                unpacker = new UnpackerTask(GardenConfig.Instance.GetPackedFilepath(game),
+                                            destFolder,
+                                            game.ExeFile);
+                if (File.Exists(unpacker.Filename))
+                {
+                    unpacker.Start();
+                    status = unpacker.Status();
+                    statusMsg = unpacker.StatusMsg();
+                }
+                else
+                {
+                    status = ITaskStatus.FAIL;
+                    statusMsg = "Missing file " + unpacker.Filename;
+                }
             }
             game.Refresh();
         }

@@ -62,9 +62,21 @@ namespace IndiegameGarden.Download
                         downloader.WaitForConclusion();
                         if (localFile != null && File.Exists(localFile))
                         {
-                            File.Delete(localFile);
-                            Thread.Sleep(100);
-                            File.Delete(localFile);
+                            try { 
+                                File.Delete(localFile); 
+                            }
+                            catch (Exception) 
+                            {
+                                try
+                                {
+                                    Thread.Sleep(100);
+                                    File.Delete(localFile);
+                                }
+                                catch (Exception)
+                                {
+                                    ;
+                                }                                
+                            }
                         }
                     }
                     catch (Exception)
@@ -101,39 +113,26 @@ namespace IndiegameGarden.Download
         /// <param name="overwriteExisting">if true, overwrites any existing file 'filename'</param>
         protected void InternalDoDownload(string urlPath, string filename, string toLocalFolder, bool overwriteExisting, string[] mirrors )
         {
+            // check if file already there and overwriting is unwanted.
+            if (File.Exists(localFile) && !overwriteExisting)
+            {
+                status = ITaskStatus.SUCCESS;
+                return; // yes we're done! no download needed
+            }
+
             // make sure protocol is specified
             if (!urlPath.Contains("://"))
                 urlPath = "http://" + urlPath;
             
+            // construct local & temp file names
             localFile = toLocalFolder + "\\" + filename ;
+            string tempFile;
+            tempFile = Path.GetTempPath() + "IndiegameGarden_" + Path.GetRandomFileName();
+            TryDeleteFile(tempFile);
 
-            // check if file already there
-            if (File.Exists(localFile))
-            {
-                if (!overwriteExisting)
-                {                    
-                    return; // we're done! file is there already.
-                }
-                else
-                {
-                    // remove existing file - downloader puts a new one there.
-                    try
-                    {
-                        File.Delete(localFile);
-                    }
-                    catch (Exception)
-                    {
-                        status = ITaskStatus.FAIL;
-                        statusMsg = "Could not delete " + localFile;
-                        return;
-                    }
-                }
-            }
-
-            // TODO check segments count
             downloader = DownloadManager.Instance.Add(  ResourceLocation.FromURL(urlPath), 
                                                         ResourceLocation.FromURLArray(mirrors),
-                                                        localFile, segmentsUsedInDownload, true);            
+                                                        tempFile, segmentsUsedInDownload, true);            
             if (downloader != null)
             {
                 downloader.WaitForConclusion();
@@ -147,16 +146,51 @@ namespace IndiegameGarden.Download
                     if (downloader.LastError != null)
                         statusMsg = downloader.LastError.Message;
                     else
-                        statusMsg = "Download aborted";
+                        statusMsg = "Download aborted or timed out";
                     status = ITaskStatus.FAIL;
                 }
                 else
                     status = ITaskStatus.SUCCESS;
+
+                // remove the temp file if failed
+                if (File.Exists(tempFile) && !IsSuccess() )
+                {
+                    TryDeleteFile(tempFile);
+                }
+                // move temp file to localFile on success
+                else if (IsSuccess())
+                {
+                    try
+                    {
+                        TryDeleteFile(localFile);
+                        File.Move(tempFile, localFile);
+                        status = ITaskStatus.SUCCESS;
+                    }
+                    catch (Exception ex)
+                    {
+                        status = ITaskStatus.FAIL;
+                        statusMsg = "Couldn't move downloaded file to " + localFile + ": " + ex.ToString();
+                    }
+                }
+
             }
             else
             {
                 status = ITaskStatus.FAIL;
                 statusMsg = "failed to create downloader by DownloadManager.";
+            }
+        }
+
+        private bool TryDeleteFile(string path)
+        {
+            try
+            {
+                File.Delete(path);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
 
