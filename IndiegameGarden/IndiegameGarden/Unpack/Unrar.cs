@@ -725,25 +725,25 @@ namespace IndiegameGarden.Unpack
                     throw new OutOfMemoryException("Unknown archive format.");
 
                 case RarError.BadData:
-                    throw new IOException("File CRC Error");
+                    throw new IOException("RAR File CRC Error");
 
                 case RarError.BadArchive:
-                    throw new IOException("File is not a valid archive.");
+                    throw new IOException("File is not a valid RAR archive.");
 
                 case RarError.OpenError:
-                    throw new IOException("File could not be opened.");
+                    throw new IOException("RAR File could not be opened.");
 
                 case RarError.CreateError:
-                    throw new IOException("File could not be created.");
+                    throw new IOException("RAR File could not be created.");
 
                 case RarError.CloseError:
-                    throw new IOException("File close error.");
+                    throw new IOException("RAR File close error.");
 
                 case RarError.ReadError:
-                    throw new IOException("File read error.");
+                    throw new IOException("RAR File read error.");
 
                 case RarError.WriteError:
-                    throw new IOException("File write error.");
+                    throw new IOException("RAR File write error.");
             }
         }
 

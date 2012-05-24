@@ -1,10 +1,9 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-FIXMEs
-Remove thumburl entries from new gamelib & insert correct size thumbnails in git
 Catch crc error and replace with nicer message.
 Add more games; calicoland; 
+Remove thumburl entries from new gamelib & insert correct size thumbnails in git
 Test client version update in deployment version
 
 AFTER ALPHA-3
@@ -19,6 +18,8 @@ Add mirrors to all thumbnail loading?
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-05-24 Catch crc error and replace with nicer message.
+2012-05-24 FIXMEs -> done
 2012-05-24 FIXME fixed: downloading retries can now be set per download item. (MyDownloader lib changed see this git change)
 2012-05-24 Report exceptions to server; for collecting good debug info from the field; or save to a file -> already done before
 2012-05-24 Bug loading screen stays too long after quickly exiting a game - still the case?

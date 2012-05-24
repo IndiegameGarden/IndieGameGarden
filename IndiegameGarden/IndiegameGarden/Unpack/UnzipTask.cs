@@ -38,7 +38,7 @@ namespace IndiegameGarden.Unpack
         }
 
         protected override void StartInternal()
-        {            
+        {
             try
             {
                 // Specifying Console.Out here causes diagnostic msgs to be sent to the Console
@@ -55,7 +55,7 @@ namespace IndiegameGarden.Unpack
                         if (isAborted)
                             throw new Exception("UnzipTask aborted.");
                     }
-                    
+
                     zip.ExtractProgress += new EventHandler<ExtractProgressEventArgs>(EvHandlerExtractProgress);
 
                     foreach (ZipEntry ze in zipFiles)
@@ -67,6 +67,11 @@ namespace IndiegameGarden.Unpack
                     }
                 }
                 status = ITaskStatus.SUCCESS;
+            }
+            catch (ZipException ex1)
+            {
+                status = ITaskStatus.FAIL;
+                statusMsg = "Zip file corrupt or unzip failed. Maybe try again?";
             }
             catch (System.Exception ex1)
             {
