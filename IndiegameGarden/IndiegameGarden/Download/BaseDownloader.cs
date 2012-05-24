@@ -16,6 +16,11 @@ namespace IndiegameGarden.Download
      */
     public abstract class BaseDownloader: Task
     {
+        /// <summary>
+        /// number of times the download may be tried (first try including retries)
+        /// </summary>
+        public int MaxRetries = Settings.Default.MaxRetries;
+
         protected Downloader downloader;
         protected string localFile;
         protected int segmentsUsedInDownload = 1;
@@ -133,47 +138,53 @@ namespace IndiegameGarden.Download
 
             downloader = DownloadManager.Instance.Add(  ResourceLocation.FromURL(urlPath), 
                                                         ResourceLocation.FromURLArray(mirrors),
-                                                        tempFile, segmentsUsedInDownload, true);            
+                                                        tempFile, segmentsUsedInDownload, false);
+            
             if (downloader != null)
             {
-                downloader.WaitForConclusion();
-                if (downloader == null)  // case may happen! (on basedownloader cleanup in other thread)
+                downloader.MaxRetries = MaxRetries;
+                downloader.Start();
+                if (downloader != null)
                 {
-                    status = ITaskStatus.FAIL;
-                    statusMsg = "Download aborted";
-                }
-                else if (!downloader.State.Equals(DownloaderState.Ended))
-                {
-                    if (downloader.LastError != null)
-                        statusMsg = downloader.LastError.Message;
-                    else
-                        statusMsg = "Download aborted or timed out";
-                    status = ITaskStatus.FAIL;
-                }
-                else
-                    status = ITaskStatus.SUCCESS;
 
-                // remove the temp file if failed
-                if (File.Exists(tempFile) && !IsSuccess() )
-                {
-                    TryDeleteFile(tempFile);
-                }
-                // move temp file to localFile on success
-                else if (IsSuccess())
-                {
-                    try
-                    {
-                        TryDeleteFile(localFile);
-                        File.Move(tempFile, localFile);
-                        status = ITaskStatus.SUCCESS;
-                    }
-                    catch (Exception ex)
+                    downloader.WaitForConclusion();
+                    if (downloader == null)  // case may happen! (on basedownloader cleanup in other thread)
                     {
                         status = ITaskStatus.FAIL;
-                        statusMsg = "Couldn't move downloaded file to " + localFile + ": " + ex.ToString();
+                        statusMsg = "Download aborted";
+                    }
+                    else if (!downloader.State.Equals(DownloaderState.Ended))
+                    {
+                        if (downloader.LastError != null)
+                            statusMsg = downloader.LastError.Message;
+                        else
+                            statusMsg = "Download aborted or timed out";
+                        status = ITaskStatus.FAIL;
+                    }
+                    else
+                        status = ITaskStatus.SUCCESS;
+
+                    // remove the temp file if failed
+                    if (File.Exists(tempFile) && !IsSuccess())
+                    {
+                        TryDeleteFile(tempFile);
+                    }
+                    // move temp file to localFile on success
+                    else if (IsSuccess())
+                    {
+                        try
+                        {
+                            TryDeleteFile(localFile);
+                            File.Move(tempFile, localFile);
+                            status = ITaskStatus.SUCCESS;
+                        }
+                        catch (Exception ex)
+                        {
+                            status = ITaskStatus.FAIL;
+                            statusMsg = "Couldn't move downloaded file to " + localFile + ": " + ex.ToString();
+                        }
                     }
                 }
-
             }
             else
             {

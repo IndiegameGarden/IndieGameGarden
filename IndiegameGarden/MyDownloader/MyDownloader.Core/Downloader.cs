@@ -312,6 +312,8 @@ namespace MyDownloader.Core
             }
         }
 
+        public int MaxRetries = Settings.Default.MaxRetries;
+
         #endregion
 
         private void SetState(DownloaderState value)
@@ -545,7 +547,7 @@ namespace MyDownloader.Core
                 catch (Exception ex)
                 {
                     lastError = ex;
-                    if (currentTry < Settings.Default.MaxRetries)
+                    if (currentTry < MaxRetries)
                     {
                         SetState(DownloaderState.WaitingForReconnect);
                         Thread.Sleep(TimeSpan.FromSeconds(Settings.Default.RetryDelay));
@@ -642,7 +644,7 @@ namespace MyDownloader.Core
                     catch (Exception ex)
                     {
                         lastError = ex;
-                        if (currentTry < Settings.Default.MaxRetries)
+                        if (currentTry < MaxRetries)
                         {
                             SetState(DownloaderState.WaitingForReconnect);
                             Thread.Sleep(TimeSpan.FromSeconds(Settings.Default.RetryDelay));
@@ -740,8 +742,8 @@ namespace MyDownloader.Core
             {
                 if (Segments[i].State == SegmentState.Error &&
                     Segments[i].LastErrorDateTime != DateTime.MinValue &&
-                    (Settings.Default.MaxRetries == 0 ||
-                    Segments[i].CurrentTry < Settings.Default.MaxRetries))
+                    (MaxRetries == 0 ||
+                    Segments[i].CurrentTry < MaxRetries))
                 {
                     hasErrors = true;
                     TimeSpan ts =  DateTime.Now - Segments[i].LastErrorDateTime;
