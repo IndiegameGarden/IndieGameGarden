@@ -39,6 +39,28 @@ namespace IndiegameGarden.Base
         }
 
         /// <summary>
+        /// width of garden (number of items horizontally)
+        /// </summary>
+        public int GardenSizeX
+        {
+            get
+            {
+                return 100; // TODO configurable
+            }
+        }
+
+        /// <summary>
+        /// max height of garden (number of items vertically)
+        /// </summary>
+        public int GardenSizeY
+        {
+            get
+            {
+                return 100; // TODO configurable
+            }
+        }
+
+        /// <summary>
         /// (re)load information from default JSON config file(s) of a specific version number
         /// </summary>
         /// <param name="version">version number is required since there may be multiple gamelib versions on disk to choose from</param>
@@ -71,7 +93,7 @@ namespace IndiegameGarden.Base
         public void LoadJson(string libraryFile)
         {
             json = new JSONStore(libraryFile); // TODO use all json files in there?
-            gamesList = new GameCollection(42,128,new List<GardenItem>()); // FIXME size from config
+            gamesList = new GameCollection(GardenSizeX, GardenSizeY, new List<GardenItem>()); 
             ParseJson(json);
         }
 
@@ -80,7 +102,7 @@ namespace IndiegameGarden.Base
             //List<GardenItem> l;
             using (var file = File.OpenRead(libraryFile))
             {
-                gamesList = new GameCollection( 42,128, Serializer.Deserialize<List<GardenItem>>(file) );             
+                gamesList = new GameCollection(GardenSizeX, GardenSizeY, Serializer.Deserialize<List<GardenItem>>(file));             
             }
         }
 
