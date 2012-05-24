@@ -63,12 +63,12 @@ namespace IndiegameGarden.Menus
         const float CREDITS_SCALE_DEFAULT = 0.6f;
         const float INFOBOX_SPEED_MOVE = 3.8f;
         
-        const float TIME_BEFORE_GAME_LAUNCH = 0.7f;
-        const float TIME_BEFORE_EXIT = 1.2f;
+        const float TIME_BEFORE_GAME_LAUNCH = 0.4f;
+        const float TIME_BEFORE_EXIT = 1.1f;
         const float TIME_BEFORE_EXIT_CONTINUES = 0.6f;
 
         // maximum sizes of grid
-        public double GridMaxX=128, GridMaxY=128;
+        public double GridMaxX=99, GridMaxY=99; // TODO link to GameLib size (100)
 
         Dictionary<string, GameThumbnail> thumbnailsCache = new Dictionary<string, GameThumbnail>();
 
@@ -180,6 +180,11 @@ namespace IndiegameGarden.Menus
                 //th.Motion.ScaleSpeed = 0.00005f;
                 cursor.Motion.ScaleTarget = sc;
                 cursor.Motion.ScaleSpeed = th.Motion.ScaleSpeed / SelectedGame.ScaleIcon; // TODO correct ScaleIcon?
+            }
+
+            if (!isGameLaunchOngoing)
+            {
+                cursor.Motion.ScaleTarget = CURSOR_SCALE_REGULAR;                
             }
 
             // launch of a game
