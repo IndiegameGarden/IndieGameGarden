@@ -1,12 +1,11 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Report exceptions to server; for collecting good debug info from the field; or save to a file
-Test client version update in deployment version
 FIXMEs
 Remove thumburl entries from new gamelib & insert correct size thumbnails in git
 Catch crc error and replace with nicer message.
 Add more games; calicoland; 
+Test client version update in deployment version
 
 AFTER ALPHA-3
 Make gamelib loading non-blocking
@@ -20,6 +19,7 @@ Add mirrors to all thumbnail loading?
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-05-24 Report exceptions to server; for collecting good debug info from the field; or save to a file -> already done before
 2012-05-24 Bug loading screen stays too long after quickly exiting a game - still the case?
 2012-05-24 Bug music goes on after zoom-out
 2012-05-24 If exiting while downloading zip/rar -> file not deleted. -> fix by downloading to a temp file then moving it to dest.
