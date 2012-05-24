@@ -113,6 +113,8 @@ namespace IndiegameGarden.Download
         /// <param name="overwriteExisting">if true, overwrites any existing file 'filename'</param>
         protected void InternalDoDownload(string urlPath, string filename, string toLocalFolder, bool overwriteExisting, string[] mirrors )
         {
+            localFile = toLocalFolder + "\\" + filename;
+            
             // check if file already there and overwriting is unwanted.
             if (File.Exists(localFile) && !overwriteExisting)
             {
@@ -124,8 +126,7 @@ namespace IndiegameGarden.Download
             if (!urlPath.Contains("://"))
                 urlPath = "http://" + urlPath;
             
-            // construct local & temp file names
-            localFile = toLocalFolder + "\\" + filename ;
+            // construct temp file names
             string tempFile;
             tempFile = Path.GetTempPath() + "IndiegameGarden_" + Path.GetRandomFileName();
             TryDeleteFile(tempFile);

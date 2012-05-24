@@ -36,6 +36,8 @@ namespace IndiegameGarden.Base
         //Import the SetForeground API to activate it
         [DllImportAttribute("User32.dll")]
         private static extern IntPtr SetForegroundWindow(int hWnd);
+        [DllImportAttribute("User32.dll")]
+        private static extern IntPtr GetForegroundWindow();
 
         public GameLauncherTask(GardenItem g)
         {
@@ -93,26 +95,34 @@ namespace IndiegameGarden.Base
                 // set previous dir back after starting process
                 Directory.SetCurrentDirectory(cwd);
             
-                // monitor if process creates window and wait until process exits
+                // monitor if process creates window and wait in loop until process exits
                 int n = 0;
                 int gameWindowHandle = 0;
+                int activeWindowHandle = -1;
+                IsGameShowingWindow = false;
                 while (!IsFinished())
                 {
-                    Thread.Sleep(100);
-                    if (n < 25 && !IsFinished() )
+                    Thread.Sleep(200);
+                    if (!IsGameShowingWindow)
                     {
                         gameWindowHandle = Proc.MainWindowHandle.ToInt32();
-                        if (gameWindowHandle != 0) // FIXME && !IsGameShowingWindow?
+                        //activeWindowHandle = GetForegroundWindow().ToInt32();
+
+                        if (activeWindowHandle == gameWindowHandle)
+                        {
+                            IsGameShowingWindow = true;
+                        }
+                        else if (gameWindowHandle != 0 && activeWindowHandle != gameWindowHandle)
                         {
                             IsGameShowingWindow = true;
                             SetForegroundWindow(gameWindowHandle);
                             n++;
-                        }                        
-                    }
-                    
+                        }
+                    }                    
                 }
 
                 // when done switch back to our Garden app
+                Thread.Sleep(50);
                 Process p = Process.GetCurrentProcess();
                 if (p != null)
                     SetForegroundWindow(p.MainWindowHandle.ToInt32());

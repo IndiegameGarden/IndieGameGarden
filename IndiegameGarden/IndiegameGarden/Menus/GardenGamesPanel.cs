@@ -238,7 +238,8 @@ namespace IndiegameGarden.Menus
             {
                 if (timeExiting > 0f)
                 {
-                    GardenGame.Instance.music.FadeIn();
+                    if(GardenGame.Instance.music.UserWantsMusic)
+                        GardenGame.Instance.music.FadeIn();
                     timeExiting = 0f;
                 }
             }

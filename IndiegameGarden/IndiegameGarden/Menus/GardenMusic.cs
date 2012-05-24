@@ -12,6 +12,8 @@ namespace IndiegameGarden.Menus
 {
     public class GardenMusic: Gamelet
     {
+        public bool UserWantsMusic = false;
+
         SoundEvent soundScript;
         RenderParams rp = new RenderParams();
         bool isFadeOut = false;
@@ -26,7 +28,6 @@ namespace IndiegameGarden.Menus
             soundScript = new SoundEvent("GardenMusic");            
             rp.Ampl = 1;
             PlayDefaultSong();
-            FadeIn();
         }
 
         public void PlayDefaultSong()
@@ -186,11 +187,12 @@ namespace IndiegameGarden.Menus
         /// </summary>
         public void ToggleMusic()
         {
+            UserWantsMusic = !UserWantsMusic;
             if (isFadeIn || (currentSong != null && currentSong.Amplitude >= 1) )
                 FadeOut();
             else if (isFadeOut || (currentSong != null && currentSong.Amplitude <= 0) )
                 FadeIn();
-            if (currentSong == null)
+            if (isFadeIn && currentSong == null)
                 PlayDefaultSong();
         }
 
@@ -201,6 +203,7 @@ namespace IndiegameGarden.Menus
         public void Play(string musicFile, double volume)
         {
             ITask t = new ThreadedTask(new MusicLoader(this, musicFile, volume));
+            UserWantsMusic = true;
             t.Start();
         }
     }
