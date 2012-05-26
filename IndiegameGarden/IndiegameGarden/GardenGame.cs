@@ -234,7 +234,7 @@ namespace IndiegameGarden
             ITask t = new ThreadedTask(new SiteLauncherTask(g));
             t.Start();
             loadingDisplay.SetLoadingGame(g, thumb);
-            TreeRoot.SetNextState(new StatePlayingGame(2f));
+            TreeRoot.SetNextState(new StatePlayingGame(2f,false));
         }
 
         public void ActionLaunchWebsitePlayGame(GardenItem g, GameThumbnail thumb)
@@ -242,7 +242,8 @@ namespace IndiegameGarden
             ITask t = new ThreadedTask(new SiteLauncherTask(g,g.ExeFile));
             t.Start();
             loadingDisplay.SetLoadingGame(g, thumb);
-            TreeRoot.SetNextState(new StatePlayingGame(2f));
+            music.FadeOut();
+            TreeRoot.SetNextState(new StatePlayingGame(2f,false));
         }
 
         /// <summary>

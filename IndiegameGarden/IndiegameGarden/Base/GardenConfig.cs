@@ -93,7 +93,11 @@ namespace IndiegameGarden.Base
             ConfigFilesFolder = GetFolder("config");
             PackedFilesFolder = GetFolder("zips");
             UnpackedFilesFolder = GetFolder("games");
+#if DEBUG
+            ThumbnailsFolder = GetFolder("thumbs-test");
+#else
             ThumbnailsFolder = GetFolder("thumbs");
+#endif
 
             ConfigFilename = "config.json";
             GameLibraryFilename = "gamelib.json";

@@ -23,7 +23,7 @@
 "Descr": "Hold ENTER to update Indiegame Garden itself. Once installed, simply restart to get the new version.",
 "Site": "indiegamegarden.com",
 "Exe": "TTengine.dll",
-"X": 4, "Y": 0
+"X": 2, "Y": 0
 },
 [
 { "ID": "section_music",
@@ -121,9 +121,7 @@
 	"ID": "1619",
 	"Name": "Eyeball 3D: Maze of Felsh",
 	"Zip": "www.glorioustrainwrecks.com/files/Eyeball 3D.zip",
-	"Thumb": "eb3d.jpg",
-	"ThumbURL": "www.glorioustrainwrecks.com/files/screens/eb3d.jpg",
-	"Descr": "Made using a really awful program called The 3D Gamemaker. Because of this, you will probably have issues even \nrunning the game... let me know if you can get it working! If it says 'runtime error ###' or the screen starts \nflashing black and white at a rapid pace, know that it's an issue with the program I can do nothing about. \nEDIT: but you can! If running the game fails, delete directory C:\\Windows\\Temp\\AckGame and it might start \nworking. Thanks EffBee! Play at your own risk, obviously. If it won't run (or if you can't be bothered trying) \nI uploaded a video playthrough. If the game looks like this, you could try playing this version. \n",
+	"Descr": "Can you help this two-legged eyeball conquer evil?\nThe author warns you may have issues running the game. (Some initial blinking is normal.)",
 	"GTrating": 5,
 	"GTvotes": 2,
 	"Site": "www.glorioustrainwrecks.com/node/1619"
@@ -139,7 +137,7 @@
 	  	[
 	  		{
 	  			"ID": "section_dutch",
-	  			"X": 5, "Y": 1, "DX": 2
+	  			"X": 3, "Y": 3, "DX": 2
 	  		},
 	      {
 		  		"ID": "supercratebox",
@@ -171,13 +169,14 @@
 	  		{
 	  			"ID": "section_experimental",
 	  			"Visible": 0,
-	  			"X": 1, "Y": 3, "DX": 5
+	  			"X": 4, "Y": 1, "DX": 5
 	  		},
   	    {
 		  		"ID": "gametitle",
 		  		"Name": "Game Title",
 		  		"Descr": "\"a zelda-esque dungeon crawler, but you only have one hit point, various weapons are hidden to ease the difficulty\"",
 		  		"Cd": "Game Title",
+		  		"ThumbURL": "http://indie.indiegamegarden.com/thumbs/ametitle.png"
 		  		"Exe": "Game Title.exe",
 		  		"Zip": "www.glorioustrainwrecks.com/files/Game%20Title%20-%202012-02-22b.zip",
 		  		"Site": "www.glorioustrainwrecks.com/node/2258"
@@ -223,7 +222,7 @@
 	{
 	  	"ID": "section_gt",
 	  	"Visible": 0,
-	  	"X": 1, "Y": 9, "DX": 40
+	  	"X": 4, "Y": 7, "DX": 30
 	},
 {
  "Name": "Relay",

@@ -25,15 +25,17 @@ namespace IndiegameGarden.Base
     {
         float stateDuration = 0f;
         float simTime = 0f;
+        bool fadeInMusicWhenDone = true;
 
         public StatePlayingGame(): base()
         {
         }
 
-        public StatePlayingGame(float forDuration)
+        public StatePlayingGame(float forDuration, bool fadeInMusicWhenDone)
             : base()
         {
             stateDuration = forDuration;
+            this.fadeInMusicWhenDone = fadeInMusicWhenDone;
         }
 
         public override void OnEntry(Gamelet g)
@@ -57,7 +59,8 @@ namespace IndiegameGarden.Base
         {
             base.OnExit(g);
             GardenGame.Instance.IsMouseVisible = false;
-            GardenGame.Instance.music.FadeIn();
+            if (fadeInMusicWhenDone)
+                GardenGame.Instance.music.FadeIn();
         }
     }
 

@@ -30,6 +30,14 @@ namespace IndiegameGarden.Menus
             PlayDefaultSong();
         }
 
+        public bool IsFadedIn
+        {
+            get
+            {
+                return (currentSong != null) && (currentSong.Amplitude == 1);
+            }
+        }
+
         public void PlayDefaultSong()
         {
             Play( GardenGame.Instance.Content.RootDirectory + "\\Torley_Cataplasm.ogg", 0.5);

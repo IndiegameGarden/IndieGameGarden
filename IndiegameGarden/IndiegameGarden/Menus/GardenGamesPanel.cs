@@ -165,6 +165,7 @@ namespace IndiegameGarden.Menus
         {
             base.OnUpdate(ref p);
 
+            // update info box
             if (SelectedGame == null)
             {
                 infoBox.SetGameInfo(SelectedGame);
@@ -443,6 +444,13 @@ namespace IndiegameGarden.Menus
 
         public override void OnUserInput(GamesPanel.UserInput inp)
         {
+            // HACK: for web games launch, make sure that music is turned back on upon next user input after play
+            if (!isGameLaunchOngoing && 
+                !GardenGame.Instance.music.IsFadedIn && 
+                GardenGame.Instance.music.UserWantsMusic)
+            {
+                GardenGame.Instance.music.FadeIn();
+            }
             switch (inp)
             {
                 case UserInput.DOWN:
