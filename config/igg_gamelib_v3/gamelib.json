@@ -186,7 +186,7 @@
 	  		{
 	  			"ID": "section_experimental",
 	  			"Visible": 0,
-	  			"X": 4, "Y": 1, "DX": 5
+	  			"X": 5, "Y": 1, "DX": 5
 	  		},
   	    {
 		  		"ID": "gametitle",
@@ -234,12 +234,51 @@
 		  		"Exe": "http://lowfuel.melnicek.cz/honeyblaster",
 		  		"ExeT": "lf-hb.exe"
 		  	}
+{		  	
+ "Name": "Not Pokemon",
+ "ID": "1301",
+ "Zip": "www.glorioustrainwrecks.com/files/not-pokemon.zip",
+ "Descr": "Not Pokemon: Use WASD to move, ESC to quit! GOTTA CATCH 'EM ALL!",
+ "Site": "www.glorioustrainwrecks.com/node/1301"
+ },
+{
+ "Name": "Going Forward",
+ "ID": "1339",
+ "Zip": "www.glorioustrainwrecks.com/files/Going Forward-win32.zip",
+ "Descr": "As time, companies have advantage, and nearly increased on our customer satisfaction, and markedly. We are \nstrategically important to competitive leadership and quality, teamwork environment. As time, cost \neffectivity. Integrity is absolutely part of quality, innovation the compete in today's employees are a few \nyears assume recognized to achieve that competencies have following human responsibility is a key element - \nare strategical to competencies are structures, and focused marketplace on a set of ...",
+ "Site": "www.glorioustrainwrecks.com/node/1339"
+ },
+{
+ "Name": "The darkness that lurks",
+ "ID": "1340",
+ "Zip": "www.glorioustrainwrecks.com/files/darkness.zip",
+ "Descr": "\"An attempt at a horror game. I think I managed the horror part, but not so much the game part.\"",
+ "Site": "www.glorioustrainwrecks.com/node/1340"
+ },
+{
+ "Name": "resaworld",
+ "ID": "1341",
+ "Zip": "www.glorioustrainwrecks.com/files/resaworld.zip",
+ "Descr": "Explore resaworld! Arrows to move, Q to jump, and maybe more?",
+ "GTrating": 5,
+ "GTvotes": 1,
+ "Site": "www.glorioustrainwrecks.com/node/1341"
+ },
+{
+ "Name": "pnok",
+ "ID": "1342",
+ "Zip": "www.glorioustrainwrecks.com/files/pnok.zip",
+ "Thumb": "pnok.png",
+ "ThumbURL": "www.glorioustrainwrecks.com/files/screens/pnok.png",
+ "Descr": "Player 1 uses a and d key, player 2 uses left/right arrows - try and push the squares into your opponents goal!",
+ "Site": "www.glorioustrainwrecks.com/node/1342"
+ }
 	  	],
 [
 	{
 	  	"ID": "section_gt",
 	  	"Visible": 0,
-	  	"X": 4, "Y": 7, "DX": 30
+	  	"X": 4, "Y": 9, "DX": 30
 	},
 {
  "Name": "Relay",
