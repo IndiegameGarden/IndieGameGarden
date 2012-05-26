@@ -1,8 +1,7 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Add more games; calicoland; 
-Remove thumburl entries from new gamelib & insert correct size thumbnails in git
+Remove thumburl entries from new gamelib
 Test client version update in deployment version
 
 AFTER ALPHA-3
@@ -17,6 +16,8 @@ Add mirrors to all thumbnail loading?
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-05-26 Add more games; calicoland; 
+2012-05-26 insert correct size thumbnails in git
 2012-05-26 Music should go off when starting webgame and window is not foreground
 2012-05-24 Cursor size behaves weird when selecting
 2012-05-24 Catch crc error and replace with nicer message.
