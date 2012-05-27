@@ -46,7 +46,7 @@ namespace IndiegameGarden.Menus
         public const float CURSOR_DESTRUCTION_RANGE = 4f;
         const float CURSOR_MARGIN_X = 0.15f;
         const float CURSOR_MARGIN_Y = 0.15f;
-        static Vector2 CURSOR_INITIAL_POSITION = new Vector2(0.7f, 0.2f);
+        static Vector2 CURSOR_INITIAL_POSITION = new Vector2(3f, 2f);
 
         public const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; //0.6f; //0.54f; //1.5625f;
         const float THUMBNAIL_SCALE_SELECTED = 0.51f; //0.7f; //0.65f; //2f;
@@ -106,7 +106,9 @@ namespace IndiegameGarden.Menus
             cursor = new GameThumbnailCursor();
             Add(cursor);
             cursor.Motion.Scale = CURSOR_SCALE_REGULAR;
-            cursor.Motion.Position = CURSOR_INITIAL_POSITION;
+            cursor.Motion.Position = CURSOR_INITIAL_POSITION * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
+            cursor.Motion.TargetPos = CURSOR_INITIAL_POSITION * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
+            cursor.GridPosition = CURSOR_INITIAL_POSITION;
 
             // info box - will be added to parent upon OnNewParent() event
             infoBox = new GameInfoBox();
