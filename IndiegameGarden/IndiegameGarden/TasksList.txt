@@ -16,6 +16,7 @@ Add mirrors to all thumbnail loading?
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-05-27 Press of ESC in game-loading-screen (after 'enjoy' msg) gets back to garden right away
 2012-05-27 Cursor start location is wrong
 2012-05-27 Easier gamelib update flow / server operation
 2012-05-26 Add more games; calicoland; 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 
 using TTengine.Core;
 using IndiegameGarden.Base;
@@ -118,6 +119,12 @@ namespace IndiegameGarden.Menus
                 if (SimTime > TIME_SHOW_PLAYING_MESSAGE)
                 {
                     g.SetNextState(new StateLoadingDisplay_Empty(loadingDisplay));
+                }
+
+                // check keyboard - if esc, get back to garden state
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                {
+                    g.SetNextState(new StateBrowsingMenu());
                 }
             }
 
