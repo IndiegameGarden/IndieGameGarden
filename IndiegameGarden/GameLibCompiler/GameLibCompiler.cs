@@ -18,12 +18,12 @@ namespace GameLibCompiler
 
             GameLib = new GameLibrary();
             t0 = Environment.TickCount;
-            GameLib.LoadJson("..\\..\\..\\..\\config\\igg_gamelib_v3\\gamelib.json");
+            GameLib.LoadJson("..\\..\\..\\..\\config\\gamelib_fmt3\\gamelib.json");
             t1 = Environment.TickCount;
             System.Console.WriteLine("Json load: " + (t1 - t0) + " ms.");
 
             // save
-            string gamelibBinFile = "..\\..\\..\\..\\config\\igg_gamelib_v3\\gamelib.bin";
+            string gamelibBinFile = "..\\..\\..\\..\\config\\gamelib_fmt3\\gamelib.bin";
             using (var file = File.Create(gamelibBinFile))
             {
                 t0 = Environment.TickCount;

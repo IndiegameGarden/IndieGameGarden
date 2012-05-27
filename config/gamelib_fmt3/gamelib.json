@@ -134,97 +134,97 @@
  "Site": "www.glorioustrainwrecks.com/node/1436"
  }
 
-		  ],	  	
-	  	[
-	  		{
-	  			"ID": "section_dutch",
-	  			"X": 3, "Y": 3, "DX": 2
-	  		},
-	      {
-		  		"ID": "supercratebox",
-		  		"Name": "Super Crate Box",
-		  		"Descr": "Prepare for an arcade delight with tight controls, refreshing game mechanics, cracking retro art and a terribly hip chiptune soundtrack.",
-		  		"Exe": "supercratebox.exe",
-		  		"Zip": "www.supercratebox.com/download/supercratebox.rar",
-		  		"Site": "www.supercratebox.com"
-		  	},
-		    {
-		  		"ID": "yetihunter",
-		  		"Name": "Yeti Hunter",
-		  		"Descr": "a Vlambeer game about hunting yetis - music by Kozilek",
-		  		"Help": "mouse=look, WASD=move, rmb=scope, lmb=shoot, SHIFT=run,\nR=restart, CTRL=duck/climb down trees, walk up a tree to climb",
-		  		"Exe": "YETI HUNTER.exe",
-		  		"Zip": "yetihunter.vlambeer.com/download.rar",
-		  		"Site": "yetihunter.vlambeer.com"
-		  	},
-		  	{
-		  	 	"ID": "mythicdefence",
-		  		"Name": "Mythic Defence - The rise of evil",
-		  		"Descr": "Tower defence with 25 waves of onslaught with 6 different races; over 30 different towers to choose from. Can you hold your line?",
-		  		"Zip": "www.creativegamechallenge.nl/games2009/cgc09025/cgc09025.zip",
-		  		"Site": "www.creativegamechallenge.nl/allegamescgc2009.php",
-		  		"Exe": "Mythic Defence - The rise of evil.exe"
-		  	},
-		  	{
-		  		"ID": "project-w",
-		  		"Name": "Project-W",
-		  		"Descr": "Platform/puzzle game to save various countries from flooding due to the rise of sea level. Use the levers to\nlead the water to deep underground, saving the planet.",
-		  		"Zip": "www.creativegamechallenge.nl/games2010/cgc10095/cgc10095.zip",
-		  		"Site": "www.creativegamechallenge.nl/allegamescgc2010.php"
-		  	}		  		
-	  	],
-	  	[
-	  		{
-	  			"ID": "section_experimental",
-	  			"Visible": 0,
-	  			"X": 5, "Y": 1, "DX": 5
-	  		},
-  	    {
-		  		"ID": "gametitle",
-		  		"Name": "Game Title",
-		  		"Descr": "\"a zelda-esque dungeon crawler, but you only have one hit point, various weapons are hidden to ease the difficulty\"",
-		  		"Cd": "Game Title",
-		  		"ThumbURL": "http://indie.indiegamegarden.com/thumbs/gametitle.jpg"
-		  		"Exe": "Game Title.exe",
-		  		"Zip": "www.glorioustrainwrecks.com/files/Game%20Title%20-%202012-02-22b.zip",
-		  		"Site": "www.glorioustrainwrecks.com/node/2258"
-		  	},
-  	    {
-		  		"ID": "gametitle_lostlevels",
-		  		"Name": "Game Title: Lost Levels",
-		  		"Descr": "This is a sort of sequel to Game Title, inspired a bug that came up. It is very difficult to complete it. It is possible to complete it.\nIt is possible to get stuck. If you're not absolutely certain that you're stuck, you're probably not stuck. Sorry.",
-		  		"Cd": "Game Title - Lost Levels",
-		  		"Exe": "Game Title - Lost Levels.exe",
-		  		"Zip": "www.glorioustrainwrecks.com/files/Game%20Title%20-%20Lost%20Levels%20-%202012-02-23.zip",
-		  		"Site": "www.glorioustrainwrecks.com/node/2268"
-		  	},
-  	    {
-		  		"ID": "minestein3d",
-		  		"Name": "Minestein 3D",
-		  		"Descr": "A mashup of Wolfenstein 3D and Minecraft. You can hit Enter/PageUp/KeypadEnter at any time to switch between editor\nmode and action mode. It's sort of a Wolf3D construction kit. (If the default level takes a while to load, that's normal.)",
-		  		"Cd": "minestein3D",
-		  		"Exe": "Minestein3D.exe",
-		  		"Zip": "www.glorioustrainwrecks.com/files/minestein3d_0.rar",
-		  		"Site": "http://www.glorioustrainwrecks.com/node/3041"
-		  	},
-		  	{
-		  		"ID": "spacemass",
-		  		"Name": "Space Mass",
-		  		"Descr": "Blocks, nothing but blocks... destroy blocks, use your grappling hook, collect the key, find the exit door.",
-		  		"Help": "Hint: you can zoom out to an overall map by pressing 'v'",
-		  		"Exe": "spacemass.exe",
-		  		"Zip": "http://dl.dropbox.com/u/3536006/forumz/spacemass.exe",
-		  		"Site": "www.darshell.co.nr"
-		  	},		  	
-		  	{
-		  	 	"ID": "honeyblaster",
-		  		"Name": "HoneyBlaster",
-		  		"Descr": "Classic action shoot'em up game, where the player is not a spaceship but a... bumble-bee.\nTAKE CARE: McAfee on-demand virus scan deletes ezip.dll claiming a virus, breaking the game.",
-		  		"Zip": "lowfuel.melnicek.cz/honeyblaster/data/lf-honeyblaster-demo.zip",
-		  		"Site": "lowfuel.melnicek.cz/honeyblaster",
-		  		"Exe": "http://lowfuel.melnicek.cz/honeyblaster",
-		  		"ExeT": "lf-hb.exe"
-		  	},
+],	  	
+[
+{
+	"ID": "section_dutch",
+	"X": 3, "Y": 3, "DX": 2
+},
+{
+	"ID": "supercratebox",
+	"Name": "Super Crate Box",
+	"Descr": "Prepare for an arcade delight with tight controls, refreshing game mechanics, cracking retro art and a terribly hip chiptune soundtrack.",
+	"Exe": "supercratebox.exe",
+	"Zip": "www.supercratebox.com/download/supercratebox.rar",
+	"Site": "www.supercratebox.com"
+},
+{
+	"ID": "yetihunter",
+	"Name": "Yeti Hunter",
+	"Descr": "a Vlambeer game about hunting yetis - music by Kozilek",
+	"Help": "mouse=look, WASD=move, rmb=scope, lmb=shoot, SHIFT=run,\nR=restart, CTRL=duck/climb down trees, walk up a tree to climb",
+	"Exe": "YETI HUNTER.exe",
+	"Zip": "yetihunter.vlambeer.com/download.rar",
+	"Site": "yetihunter.vlambeer.com"
+},
+{
+ 	"ID": "mythicdefence",
+	"Name": "Mythic Defence - The rise of evil",
+	"Descr": "Tower defence with 25 waves of onslaught with 6 different races; over 30 different towers to choose from. Can you hold your line?",
+	"Zip": "www.creativegamechallenge.nl/games2009/cgc09025/cgc09025.zip",
+	"Site": "www.creativegamechallenge.nl/allegamescgc2009.php",
+	"Exe": "Mythic Defence - The rise of evil.exe"
+},
+{
+	"ID": "project-w",
+	"Name": "Project-W",
+	"Descr": "Platform/puzzle game to save various countries from flooding due to the rise of sea level. Use the levers to\nlead the water to deep underground, saving the planet.",
+	"Zip": "www.creativegamechallenge.nl/games2010/cgc10095/cgc10095.zip",
+	"Site": "www.creativegamechallenge.nl/allegamescgc2010.php"
+}		  		
+],
+[
+{
+	"ID": "section_experimental",
+	"Visible": 0,
+	"X": 5, "Y": 1, "DX": 5
+},
+{
+	"ID": "gametitle",
+	"Name": "Game Title",
+	"Descr": "\"a zelda-esque dungeon crawler, but you only have one hit point, various weapons are hidden to ease the difficulty\"",
+	"Cd": "Game Title",
+	"ThumbURL": "http://indie.indiegamegarden.com/thumbs/gametitle.jpg",
+	"Exe": "Game Title.exe",
+	"Zip": "www.glorioustrainwrecks.com/files/Game%20Title%20-%202012-02-22b.zip",
+	"Site": "www.glorioustrainwrecks.com/node/2258"
+},
+{
+	"ID": "gametitle_lostlevels",
+	"Name": "Game Title: Lost Levels",
+	"Descr": "This is a sort of sequel to Game Title, inspired a bug that came up. It is very difficult to complete it. It is possible to complete it.\nIt is possible to get stuck. If you're not absolutely certain that you're stuck, you're probably not stuck. Sorry.",
+	"Cd": "Game Title - Lost Levels",
+	"Exe": "Game Title - Lost Levels.exe",
+	"Zip": "www.glorioustrainwrecks.com/files/Game%20Title%20-%20Lost%20Levels%20-%202012-02-23.zip",
+	"Site": "www.glorioustrainwrecks.com/node/2268"
+},
+{
+	"ID": "minestein3d",
+	"Name": "Minestein 3D",
+	"Descr": "A mashup of Wolfenstein 3D and Minecraft. You can hit Enter/PageUp/KeypadEnter at any time to switch between editor\nmode and action mode. It's sort of a Wolf3D construction kit. (If the default level takes a while to load, that's normal.)",
+	"Cd": "minestein3D",
+	"Exe": "Minestein3D.exe",
+	"Zip": "www.glorioustrainwrecks.com/files/minestein3d_0.rar",
+	"Site": "http://www.glorioustrainwrecks.com/node/3041"
+},
+{
+	"ID": "spacemass",
+	"Name": "Space Mass",
+	"Descr": "Blocks, nothing but blocks... destroy blocks, use your grappling hook, collect the key, find the exit door.",
+	"Help": "Hint: you can zoom out to an overall map by pressing 'v'",
+	"Exe": "spacemass.exe",
+	"Zip": "http://dl.dropbox.com/u/3536006/forumz/spacemass.exe",
+	"Site": "www.darshell.co.nr"
+},		  	
+{
+ 	"ID": "honeyblaster",
+	"Name": "HoneyBlaster",
+	"Descr": "Classic action shoot'em up game, where the player is not a spaceship but a... bumble-bee.\nTAKE CARE: McAfee on-demand virus scan deletes ezip.dll claiming a virus, breaking the game.",
+	"Zip": "lowfuel.melnicek.cz/honeyblaster/data/lf-honeyblaster-demo.zip",
+	"Site": "lowfuel.melnicek.cz/honeyblaster",
+	"Exe": "http://lowfuel.melnicek.cz/honeyblaster",
+	"ExeT": "lf-hb.exe"
+},
 {
 	"ID": "1619",
 	"Name": "Eyeball 3D: Maze of Felsh",
@@ -263,7 +263,7 @@
  "GTrating": 5,
  "GTvotes": 1,
  "Site": "www.glorioustrainwrecks.com/node/1341"
- },
+},
 {
  "Name": "pnok",
  "ID": "1342",
@@ -273,13 +273,13 @@
  "Descr": "Player 1 uses a and d key, player 2 uses left/right arrows - try and push the squares into your opponents goal!",
  "Site": "www.glorioustrainwrecks.com/node/1342"
  }
-	  	],
+],
 [
-	{
-	  	"ID": "section_gt",
-	  	"Visible": 0,
-	  	"X": 4, "Y": 9, "DX": 30
-	},
+{
+  	"ID": "section_gt",
+  	"Visible": 0,
+  	"X": 4, "Y": 9, "DX": 30
+},
 {
  "Name": "Relay",
  "ID": "1300",
@@ -723,7 +723,7 @@
  "GTrating": 4,
  "GTvotes": 1,
  "Site": "www.glorioustrainwrecks.com/node/1353"
- }
- ]	  	
-		]
+}
+]	  	
+]
 }

@@ -107,7 +107,7 @@ namespace IndiegameGarden.Base
 
             //ThumbnailsServerURL = "http://indie.indiegamegarden.com/thumbs/";
             ThumbnailsServerURL = "https://github.com/trancetrance/IndieGameGarden/raw/master/thumbs/";
-            ConfigFilesServerURL = "https://github.com/trancetrance/IndieGameGarden/raw/master/config/gamelib_v3/";
+            ConfigFilesServerURL = "https://github.com/trancetrance/IndieGameGarden/raw/master/config/gamelib_fmt3/";
             PackedFilesServerURL = "http://indie.indiegamegarden.com/zips/";
 
             jsonFilePath = ConfigFilesFolder + "\\" + ConfigFilename;

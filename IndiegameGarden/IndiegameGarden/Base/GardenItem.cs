@@ -146,13 +146,7 @@ namespace IndiegameGarden.Base
             }
         }
 
-        /// <summary>
-        /// where a .EXE i.e. NOT_PACKED file can be downloaded from, which needs no unpacking (run straight away)
-        /// </summary>
         [ProtoMember(7)]
-        public string ExeFileURL = "";
-
-        [ProtoMember(8)]
         protected List<string> packedFileMirrors = new List<string>();
 
         /// <summary>
@@ -169,31 +163,31 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// URL (optionally without the http:// or www. in front) to game developer's website
         /// </summary>
-        [ProtoMember(9)]
+        [ProtoMember(8)]
         public string DeveloperWebsiteURL = "";
 
         /// <summary>
         /// name of .exe file or .bat to launch to start game
         /// </summary>
-        [ProtoMember(10)]
+        [ProtoMember(9)]
         public string ExeFile = "";
 
         /// <summary>
         /// directory gameDirPath that OS has to 'change directory' to, before launching the game
         /// </summary>
-        [ProtoMember(11)]
+        [ProtoMember(10)]
         public string CdPath = "";
 
         /// <summary>
         /// Latest version of the game packed file which is available
         /// </summary>
-        [ProtoMember(12)]        
+        [ProtoMember(11)]        
         public int Version = 1;
 
         /// <summary>
         /// only show this item if client version is below this version number. 0 is unitialized
         /// </summary>
-        [ProtoMember(13)]        
+        [ProtoMember(12)]        
         protected int showBelowClientVersion = 0;
 
         public int ShowBelowClientVersion
@@ -214,23 +208,23 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// scaling factor of game icon when displayed
         /// </summary>
-        [ProtoMember(14)]
+        [ProtoMember(13)]
         public float ScaleIcon = 1f;
 
         /// <summary>
         /// where in 2D coordinates this game is positioned. Zero means non-specified.
         /// </summary>
-        [ProtoMember(15)]
+        [ProtoMember(14)]
         public int PositionX = 0;
-        [ProtoMember(16)]        
+        [ProtoMember(15)]        
         public int PositionY = 0;
 
         /// <summary>
         /// in case a 2D Position is not given, this specifies a wished position delta of game w.r.t. previous game in the library.
         /// </summary>
-        [ProtoMember(17)]        
+        [ProtoMember(16)]        
         public int PositionDeltaX = 0;
-        [ProtoMember(18)]        
+        [ProtoMember(17)]        
         public int PositionDeltaY = 0;
 
         /// <summary>
@@ -281,7 +275,7 @@ namespace IndiegameGarden.Base
             }
         }
 
-        [ProtoMember(19)]
+        [ProtoMember(18)]
         protected string thumbnailURL = "";
 
         /// <summary>
@@ -308,7 +302,7 @@ namespace IndiegameGarden.Base
             g.Version = version;
             g.GameID = "igg_gamelib_v3"; // TODO to config constants?
             g.ExeFile = "gamelib.bin";
-            g.PackedFileURL = GardenConfig.Instance.ConfigFilesServerURL + g.ExeFile;
+            g.PackedFileURL = GardenConfig.Instance.ConfigFilesServerURL + "gamelib.zip";
             return g;
         }
 
