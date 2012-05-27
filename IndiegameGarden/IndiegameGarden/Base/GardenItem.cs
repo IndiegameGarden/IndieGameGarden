@@ -300,7 +300,7 @@ namespace IndiegameGarden.Base
         {
             GardenItem g = new GardenItem();
             g.Version = version;
-            g.GameID = "igg_gamelib_v3"; // TODO to config constants?
+            g.GameID = "igg_gamelib_fmt3"; // TODO to config constants?
             g.ExeFile = "gamelib.bin";
             g.PackedFileURL = GardenConfig.Instance.ConfigFilesServerURL + "gamelib.zip";
             return g;

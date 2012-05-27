@@ -26,9 +26,9 @@ namespace IndiegameGarden.Base
         /// </summary>
         public const string IGG_CLIENT_AUTH_KEY = "sreqZRVmzJVqdsrKuCwJTnumI";
         /// <summary>
-        /// fixed for a build! update for new version builds.
+        /// value is constant for a build! update for new version builds.
         /// </summary>
-        public const int    IGG_CLIENT_VERSION = 3;
+        public const int    IGG_CLIENT_VERSION = 2;
         /// <summary>
         /// update for a new build -> quick bootstrap to load a known version of gamelib.
         /// </summary>
