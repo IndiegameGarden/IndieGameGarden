@@ -28,11 +28,11 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// fixed for a build! update for new version builds.
         /// </summary>
-        public const int    IGG_CLIENT_VERSION = 2;
+        public const int    IGG_CLIENT_VERSION = 3;
         /// <summary>
         /// update for a new build -> quick bootstrap to load a known version of gamelib.
         /// </summary>
-        public const int    KNOWN_GAMELIB_VERSION = 3;
+        public const int    KNOWN_GAMELIB_VERSION = 1;
 
         public const string DATA_PATH_DEBUG = "..\\..\\..\\..\\.."; // for testing in Visual Studio
         public const string DATA_PATH = "..\\.."; // for deployment version when embedded in games folder
@@ -99,7 +99,7 @@ namespace IndiegameGarden.Base
             ThumbnailsFolder = GetFolder("thumbs");
 #endif
 
-            ConfigFilename = "config.json";
+            ConfigFilename = "gamelib-config.json";
             GameLibraryFilename = "gamelib.json";
             GameLibraryFilenameBin = "gamelib.bin";
             NewestGameLibraryVersion = KNOWN_GAMELIB_VERSION;
@@ -107,7 +107,7 @@ namespace IndiegameGarden.Base
 
             //ThumbnailsServerURL = "http://indie.indiegamegarden.com/thumbs/";
             ThumbnailsServerURL = "https://github.com/trancetrance/IndieGameGarden/raw/master/thumbs/";
-            ConfigFilesServerURL = "http://indieget.appspot.com/igg/";
+            ConfigFilesServerURL = "https://github.com/trancetrance/IndieGameGarden/raw/master/config/gamelib_v3/";
             PackedFilesServerURL = "http://indie.indiegamegarden.com/zips/";
 
             jsonFilePath = ConfigFilesFolder + "\\" + ConfigFilename;

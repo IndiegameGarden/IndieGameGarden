@@ -16,7 +16,7 @@ namespace IndiegameGarden.Unpack
      */
     public class UnpackerTask: Task
     {
-        private enum PackedFileType { RAR, ZIP, EXE_NOT_PACKED, EXE_SELFEXTRACTING, OGG_MUSIC, UNKNOWN } ;
+        private enum PackedFileType { RAR, ZIP, EXE_NOT_PACKED, SWF_NOT_PACKED, BIN_NOT_PACKED, EXE_SELFEXTRACTING, OGG_MUSIC, UNKNOWN } ;
         string filename ;
         string destFolder;
         string exeFile;
@@ -54,6 +54,10 @@ namespace IndiegameGarden.Unpack
                 fileType = PackedFileType.ZIP;
             else if (filename.ToLower().EndsWith(".exe"))
                 fileType = PackedFileType.EXE_NOT_PACKED;
+            else if (filename.ToLower().EndsWith(".bin"))
+                fileType = PackedFileType.BIN_NOT_PACKED;
+            else if (filename.ToLower().EndsWith(".swf"))
+                fileType = PackedFileType.SWF_NOT_PACKED;
             else if (filename.ToLower().EndsWith(".ogg"))
                 fileType = PackedFileType.OGG_MUSIC;
             else
@@ -73,6 +77,8 @@ namespace IndiegameGarden.Unpack
                         unpackTask = new UnrarTask(filename, destFolder);
                         break;
                     case PackedFileType.EXE_NOT_PACKED:
+                    case PackedFileType.BIN_NOT_PACKED:
+                    case PackedFileType.SWF_NOT_PACKED:
                         unpackTask = new CopyFileTask(filename, destFolder, exeFile);
                         break;
                     case PackedFileType.OGG_MUSIC:

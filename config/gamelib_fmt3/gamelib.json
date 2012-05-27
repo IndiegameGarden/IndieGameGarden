@@ -118,15 +118,6 @@
 	"Site": "64digits.com/games/index.php?cmd=view_game&id=5356"
 },
 {
-	"ID": "1619",
-	"Name": "Eyeball 3D: Maze of Felsh",
-	"Zip": "www.glorioustrainwrecks.com/files/Eyeball 3D.zip",
-	"Descr": "Can you help this two-legged eyeball conquer evil?\nThe author warns you may have issues running the game. (Some initial blinking is normal.)",
-	"GTrating": 5,
-	"GTvotes": 2,
-	"Site": "www.glorioustrainwrecks.com/node/1619"
-},
-{
  	"ID": "recursion",
 	"Name": "Recursion",
 	"Descr": "tbd",
@@ -233,7 +224,16 @@
 		  		"Site": "lowfuel.melnicek.cz/honeyblaster",
 		  		"Exe": "http://lowfuel.melnicek.cz/honeyblaster",
 		  		"ExeT": "lf-hb.exe"
-		  	}
+		  	},
+{
+	"ID": "1619",
+	"Name": "Eyeball 3D: Maze of Felsh",
+	"Zip": "www.glorioustrainwrecks.com/files/Eyeball 3D.zip",
+	"Descr": "Can you help this two-legged eyeball conquer evil?\nThe author warns you may have issues running the game. (Some initial blinking is normal.)",
+	"GTrating": 5,
+	"GTvotes": 2,
+	"Site": "www.glorioustrainwrecks.com/node/1619"
+},
 {		  	
  "Name": "Not Pokemon",
  "ID": "1301",

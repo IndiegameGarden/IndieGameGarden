@@ -147,7 +147,7 @@ namespace IndiegameGarden.Base
         }
 
         /// <summary>
-        /// where a .EXE_NOT_PACKED file can be downloaded from, which needs no unpacking (run straight away)
+        /// where a .EXE i.e. NOT_PACKED file can be downloaded from, which needs no unpacking (run straight away)
         /// </summary>
         [ProtoMember(7)]
         public string ExeFileURL = "";
@@ -306,8 +306,9 @@ namespace IndiegameGarden.Base
         {
             GardenItem g = new GardenItem();
             g.Version = version;
-            g.GameID = "igg_gamelib";
-            g.ExeFile = "gamelib.json";
+            g.GameID = "igg_gamelib_v3"; // TODO to config constants?
+            g.ExeFile = "gamelib.bin";
+            g.PackedFileURL = GardenConfig.Instance.ConfigFilesServerURL + g.ExeFile;
             return g;
         }
 
