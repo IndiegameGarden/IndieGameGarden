@@ -2,6 +2,6 @@
 "ServerMsg":"Test config file GameLibVer: fmt3 v1",
 "GameLibVer":1,
 "Magic":"f20fj239jf0a9w",
-"dtChk":600000000,
+"dtChk":180,
 "ClientVer":"2"
 }
