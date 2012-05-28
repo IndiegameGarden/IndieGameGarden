@@ -1,7 +1,7 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Harmonize version numbers (alpha3 = client-v3 = x.3.y etc.
+Update distro folder to v3 client
 Test client version update in deployment version
 Finalize gamelib fmt3
 
@@ -17,6 +17,7 @@ Add mirrors to all thumbnail loading?
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-05-28 Harmonize version numbers (alpha3 = client-v3 = x.3.y etc.
 2012-05-27 Remove thumburl entries from new gamelib
 2012-05-27 Press of ESC in game-loading-screen (after 'enjoy' msg) gets back to garden right away
 2012-05-27 Cursor start location is wrong

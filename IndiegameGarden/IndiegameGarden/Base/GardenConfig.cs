@@ -26,18 +26,23 @@ namespace IndiegameGarden.Base
         /// </summary>
         public const string IGG_CLIENT_AUTH_KEY = "sreqZRVmzJVqdsrKuCwJTnumI";
         /// <summary>
-        /// value is constant for a build! update for new version builds.
+        /// value is constant for a build! update this manually for new version builds.
+        /// 1 = ALPHA-1
+        /// 2 = ALPHA-2
+        /// 3 = ALPHA-3
         /// </summary>
-        public const int    IGG_CLIENT_VERSION = 2;
+        public const int    IGG_CLIENT_VERSION = 3;
         /// <summary>
-        /// update for a new build -> quick bootstrap to load a known version of gamelib.
+        /// update for a new build -> quick bootstrap to load a known version of gamelib. This version number
+        /// starts again at 1 each time a new gamelib format ("fmt") version is released.
+        /// For example "fmt3" in the source refers to gamelib format version 3.
         /// </summary>
         public const int    KNOWN_GAMELIB_VERSION = 1;
 
         public const string DATA_PATH_DEBUG = "..\\..\\..\\..\\.."; // for testing in Visual Studio
         public const string DATA_PATH = "..\\.."; // for deployment version when embedded in games folder
         
-        public const string DEFAULT_CONFIG_FILEPATH = "config\\config.json";
+        public const string DEFAULT_CONFIG_FILEPATH = "config\\gamelib-config.json";
 
         bool hasLoadedFromFileOk = false;
 
