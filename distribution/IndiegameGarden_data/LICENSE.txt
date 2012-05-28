@@ -136,4 +136,15 @@ http://creativecommons.org/licenses/by-sa/2.0/
 
 The modified version included in this work is licensed under the
 same conditions.
+______________________________________________________________________________
 
+[protobuf-net.dll]
+Library "protobuf-net" (http://code.google.com/p/protobuf-net/) is released
+under the Apache 2.0 license, see http://www.apache.org/licenses/LICENSE-2.0
+The .proto serialization format is a credit to Google's ingenuity.
+This specific .NET implementation is designed and written by Marc Gravell, 
+developer for Stack Exchange / Stack Overflow. Credit for various compatibility 
+issues (mono/Silverlight) goes to M. David Peterson. Visual Basic stylesheet 
+contributed by Michael Thaler and Rüdiger Klaehn. Initial code for the Visual 
+Studio "Custom Tool" by Shaun Cooley. Thanks also to Michael Giagnocavo, 
+for numerous good ideas from real usage. 

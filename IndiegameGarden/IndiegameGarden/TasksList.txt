@@ -1,7 +1,7 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Update distro folder to v3 client
+Update distro folder to v3 client & update config dtChk & fix crash issue
 Test client version update in deployment version
 Finalize gamelib in fmt3
 
