@@ -92,11 +92,22 @@ See http://fmod.org and http://fmod.org/salespop1.htm
 
 -------------------------------------------------------------------------------
 
-Content "aurelic.ogg" is the track "Aurelic" from the album "Glitch Piano" by
-Torley. (c) Copyright Torley 2011 and distributed under a Creative 
+Content "Torley_Cataplasm.ogg" is the track "Cataplasm" from the album "Glitch 
+Piano" by Torley. (c) Copyright Torley 2011 and distributed under a Creative 
 Commons (CC) license Attribution, Non-Commercial, Share Alike (BY-NC-SA)
 Buy the complete album at http://music.torley.com/ 
 
 -------------------------------------------------------------------------------
 
+Library "protobuf-net" (http://code.google.com/p/protobuf-net/) is released
+under the Apache 2.0 license, see http://www.apache.org/licenses/LICENSE-2.0
+The .proto serialization format is a credit to Google's ingenuity.
+This specific .NET implementation is designed and written by Marc Gravell, 
+developer for Stack Exchange / Stack Overflow. Credit for various compatibility 
+issues (mono/Silverlight) goes to M. David Peterson. Visual Basic stylesheet 
+contributed by Michael Thaler and Rüdiger Klaehn. Initial code for the Visual 
+Studio "Custom Tool" by Shaun Cooley. Thanks also to Michael Giagnocavo, 
+for numerous good ideas from real usage. 
+
+-------------------------------------------------------------------------------
 

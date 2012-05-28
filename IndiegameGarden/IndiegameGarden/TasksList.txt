@@ -3,7 +3,7 @@ IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 OPEN  [top issues first]
 Update distro folder to v3 client
 Test client version update in deployment version
-Finalize gamelib fmt3
+Finalize gamelib in fmt3
 
 AFTER ALPHA-3
 Make gamelib loading non-blocking
