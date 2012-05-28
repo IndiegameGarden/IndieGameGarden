@@ -1,6 +1,7 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
+Harmonize version numbers (alpha3 = client-v3 = x.3.y etc.
 Test client version update in deployment version
 Finalize gamelib fmt3
 
