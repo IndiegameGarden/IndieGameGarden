@@ -55,7 +55,8 @@ namespace IndiegameGarden.Menus
         const float THUMBNAIL_FADE_SPEED = 0.3f;
 
         static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f, 0.895f);
-        static Vector2 INFOBOX_HIDDEN_POSITION = new Vector2(0.05f, 0.96f);
+        static Vector2 INFOBOX_DESCRIPTION_HIDDEN_POSITION = new Vector2(0.05f, 0.97f);
+        static Vector2 INFOBOX_ALL_HIDDEN_POSITION = new Vector2(0.05f, 1.15f);
         static Vector2 HELPTEXT_SHOWN_POSITION = new Vector2(0.15f, 0.13f);
         static Vector2 HELPTEXT_HIDDEN_POSITION = new Vector2(0.15f, -0.2f);
         static Vector2 CREDITS_SHOWN_POSITION = new Vector2(0.4f, 0.145f);
@@ -112,7 +113,7 @@ namespace IndiegameGarden.Menus
 
             // info box - will be added to parent upon OnNewParent() event
             infoBox = new GameInfoBox();
-            infoBox.Motion.Position = INFOBOX_HIDDEN_POSITION;
+            infoBox.Motion.Position = INFOBOX_ALL_HIDDEN_POSITION;
 
             // controls help 
             controlsHelpBitmap = new Spritelet("keymap");
@@ -562,7 +563,7 @@ namespace IndiegameGarden.Menus
 
             if (selectionLevel == 0)
             {
-                infoBox.Motion.TargetPos = INFOBOX_HIDDEN_POSITION;
+                infoBox.Motion.TargetPos = INFOBOX_DESCRIPTION_HIDDEN_POSITION;
                 infoBox.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
             }
 
@@ -574,6 +575,12 @@ namespace IndiegameGarden.Menus
                     lnCount = SelectedGame.DescriptionLineCount;
                 }
                 infoBox.Motion.TargetPos = INFOBOX_SHOWN_POSITION - new Vector2(0f, 0.029f * (lnCount - 1));
+                infoBox.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
+            }
+
+            if (SelectedGame == null || SelectedGame.Name.Length == 0)
+            {
+                infoBox.Motion.TargetPos = INFOBOX_ALL_HIDDEN_POSITION;
                 infoBox.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
             }
 

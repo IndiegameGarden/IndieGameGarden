@@ -16,6 +16,7 @@ Add mirrors to all thumbnail loading?
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-05-29 Music starts again if user presses M after play has ended
 2012-05-29 Update distro folder to v3 client & update config dtChk & fix crash issue
 2012-05-28 Harmonize version numbers (alpha3 = client-v3 = x.3.y etc.
 2012-05-27 Remove thumburl entries from new gamelib

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TTengine.Core;
 using TTengine.Modifiers;
+using TTengine.Util;
 using IndiegameGarden.Base;
 
 namespace IndiegameGarden.Menus
@@ -50,7 +51,12 @@ namespace IndiegameGarden.Menus
             descriptionBox.Motion.Position = new Vector2(0.0f, 0.04f);
             Add(descriptionBox);
 
-            dlProgressBar.Pulsing = false; 
+            dlProgressBar.Pulsing = false;
+
+            DarkeningHBar darkBar = new DarkeningHBar(0.4f, 0.63f);
+            darkBar.Motion.Position.Y = 0.3f;
+            darkBar.DrawInfo.LayerDepth = 0f;
+            Add(darkBar);
         }
 
         /// <summary>

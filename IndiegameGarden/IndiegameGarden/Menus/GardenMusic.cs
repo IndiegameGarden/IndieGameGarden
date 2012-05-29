@@ -20,6 +20,8 @@ namespace IndiegameGarden.Menus
         bool isFadeIn = false;
         double fadeSpeed = 0.3;
         SampleSoundEvent currentSong = null;
+        double currentSongStartTime = 0;
+        string lastMusicFile = null;
         List<SampleSoundEvent> oldSongs = new List<SampleSoundEvent>();
         Object songChangeLock = new Object();
 
@@ -41,6 +43,14 @@ namespace IndiegameGarden.Menus
         public void PlayDefaultSong()
         {
             Play( GardenGame.Instance.Content.RootDirectory + "\\Torley_Cataplasm.ogg", 0.5);
+        }
+
+        public void PlayLastSong()
+        {
+            if (lastMusicFile == null)
+                PlayDefaultSong();
+            else
+                Play(lastMusicFile, 0.5);
         }
 
         public bool IsPlaying
@@ -104,8 +114,13 @@ namespace IndiegameGarden.Menus
                             parent.oldSongs.Add(parent.currentSong);
                         }
                         parent.currentSong = ev;
+                        parent.currentSongStartTime = parent.rp.Time;
                         parent.FadeIn();
                     }
+
+                    // if all ok, record this as last song played
+                    parent.lastMusicFile = musicFile;
+
                 }
                 catch (Exception ex)
                 {
@@ -171,6 +186,10 @@ namespace IndiegameGarden.Menus
                     // advance time only if volume nonzero
                     if (currentSong.Amplitude > 0)
                         rp.Time += p.Dt;
+
+                    // remove current song if done playing
+                    if (rp.Time - currentSongStartTime > currentSong.Duration + 0.3)
+                        currentSong = null;
                 }
             }
 
@@ -178,30 +197,39 @@ namespace IndiegameGarden.Menus
                 MusicEngine.GetInstance().Render(soundScript, rp);  
         }
 
+        /// <summary>
+        /// fade out the music
+        /// </summary>
         public void FadeOut()
         {
             isFadeOut = true;
             isFadeIn = false;
         }
 
+        /// <summary>
+        /// fades in the music. If nothing was playing it starts the last played song or else default song again.
+        /// </summary>
         public void FadeIn()
         {
             isFadeOut = false;
             isFadeIn = true;
+            if (UserWantsMusic && currentSong == null)
+            {
+                PlayLastSong();
+            }
         }
 
         /// <summary>
-        /// toggles the music between on and off (uses fading)
+        /// manually toggles the music between on and off (uses fading). Plays last song
+        /// if no song is currently playing.
         /// </summary>
         public void ToggleMusic()
         {
             UserWantsMusic = !UserWantsMusic;
-            if (isFadeIn || (currentSong != null && currentSong.Amplitude >= 1) )
+            if (!UserWantsMusic )
                 FadeOut();
-            else if (isFadeOut || (currentSong != null && currentSong.Amplitude <= 0) )
+            else 
                 FadeIn();
-            if (isFadeIn && currentSong == null)
-                PlayDefaultSong();
         }
 
         /// <summary>

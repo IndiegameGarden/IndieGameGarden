@@ -68,7 +68,7 @@ namespace IndiegameGarden.Unpack
                 }
                 status = ITaskStatus.SUCCESS;
             }
-            catch (ZipException ex1)
+            catch (ZipException)
             {
                 status = ITaskStatus.FAIL;
                 statusMsg = "Zip file corrupt or unzip failed. Maybe try again?";
