@@ -1,7 +1,8 @@
 {
-"ServerMsg":"Test config file GameLibVer: fmt3 v1",
+"ServerMsg":"Enjoy your garden! But watch out for the weeds.",
 "GameLibVer":1,
 "Magic":"f20fj239jf0a9w",
 "dtChk":180,
-"ClientVer":"2"
+"ClientVer":3,
+"tmLstUpd":0
 }
