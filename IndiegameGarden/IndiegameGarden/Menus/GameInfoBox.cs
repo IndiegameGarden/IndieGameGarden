@@ -41,21 +41,24 @@ namespace IndiegameGarden.Menus
             dlProgressBar.ProgressValue = 0f;
             dlProgressBar.ProgressTarget = 0f;
             dlProgressBar.BarWidth = 0.4f;
+            dlProgressBar.DrawInfo.LayerDepth = 0.04f;
             Add(dlProgressBar);
 
             titleBox = new GameTextBox("m41_lovebit");
             titleBox.Motion.Position = new Vector2(0.0f, 0.0f);
+            titleBox.DrawInfo.LayerDepth = 0.04f;
             Add(titleBox);
 
             descriptionBox = new GameTextBox("GameDescriptionFont");
             descriptionBox.Motion.Position = new Vector2(0.0f, 0.04f);
+            descriptionBox.DrawInfo.LayerDepth = 0.04f;
             Add(descriptionBox);
 
             dlProgressBar.Pulsing = false;
 
-            DarkeningHBar darkBar = new DarkeningHBar(0.46f, 0.63f); // TODO GUI constants?
+            DarkeningHBar darkBar = new DarkeningHBar(0.5f, 0.63f); // TODO GUI constants?
             darkBar.Motion.Position.Y = 0.3f;
-            darkBar.DrawInfo.LayerDepth = 0f;
+            darkBar.DrawInfo.LayerDepth = 0.05f;
             Add(darkBar);
         }
 
@@ -86,7 +89,10 @@ namespace IndiegameGarden.Menus
                 string desc = game.Description + "\n";
                 if (game.IsInstalled || game.IsWebGame)
                 {
-                    desc += "This "+game.ItemName+" now grows in your garden. Hold ENTER to play!\n";
+                    if (game.GameID.Equals("igg"))
+                        desc += "Restart IndiegameGarden now (with ESCAPE) to get the new version " + game.Version + ".";
+                    else
+                        desc += "This "+game.ItemName+" now grows in your garden. Hold ENTER to play!\n";
                     //dlProgressBar.Visible = false;
                     dlProgressBar.ProgressTarget = 1.0f;
                     dlProgressBar.ProgressValue = 1.0f;

@@ -369,6 +369,8 @@ namespace IndiegameGarden.Base
         {
             get
             {
+                if (GameID.Equals("igg"))
+                    return true;
                 if (IsSectionId || IsSystemPackage)
                     return false;
                 return true;
@@ -405,7 +407,7 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                return GameID.StartsWith("igg_");
+                return GameID.StartsWith("igg");
             }
         }
 
