@@ -73,7 +73,7 @@ namespace IndiegameGarden.Menus
 
         Dictionary<string, GameThumbnail> thumbnailsCache = new Dictionary<string, GameThumbnail>();
 
-        //GameCollection gamesList;
+        //GameCollection gamesCollection;
 
         // cursor is the graphics selection thingy         
         GameThumbnailCursor cursor;
@@ -278,7 +278,7 @@ namespace IndiegameGarden.Menus
                 g = c[i];
 
                 // if GameThumbnail for current game does not exist yet, create it                
-                if (!thumbnailsCache.ContainsKey(g.GameID))
+                if (!thumbnailsCache.ContainsKey(g.GameID) && g.IsVisible )
                 {
                     // create now
                     GameThumbnail th = new GameThumbnail(g);
@@ -350,7 +350,7 @@ namespace IndiegameGarden.Menus
             }
 
             // --- for selected game only
-            if (SelectedGame != null)
+            if (SelectedGame != null && SelectedGame.IsVisible)
             {
                 g = SelectedGame;
                 // update text box with currently selected game info

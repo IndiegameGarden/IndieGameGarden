@@ -53,7 +53,7 @@ namespace IndiegameGarden.Menus
 
             dlProgressBar.Pulsing = false;
 
-            DarkeningHBar darkBar = new DarkeningHBar(0.4f, 0.63f);
+            DarkeningHBar darkBar = new DarkeningHBar(0.46f, 0.63f); // TODO GUI constants?
             darkBar.Motion.Position.Y = 0.3f;
             darkBar.DrawInfo.LayerDepth = 0f;
             Add(darkBar);

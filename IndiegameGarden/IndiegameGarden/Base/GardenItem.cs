@@ -39,7 +39,7 @@ namespace IndiegameGarden.Base
         }
 
         /// <summary>
-        /// default visibility for user status 1 (yes) or 0 (no)
+        /// default visibility of item for the user; 1 (yes) or 0 (no)
         /// </summary>
         [ProtoMember(2)]
         public int VisibilityLabel = 1;
@@ -185,46 +185,25 @@ namespace IndiegameGarden.Base
         public int Version = 1;
 
         /// <summary>
-        /// only show this item if client version is below this version number. 0 is unitialized
-        /// </summary>
-        [ProtoMember(12)]        
-        protected int showBelowClientVersion = 0;
-
-        public int ShowBelowClientVersion
-        {
-            get
-            {
-                if (showBelowClientVersion == 0)
-                    return 999999;
-                else
-                    return showBelowClientVersion;
-            }
-            set
-            {
-                showBelowClientVersion = value;
-            }
-        }
-
-        /// <summary>
         /// scaling factor of game icon when displayed
         /// </summary>
-        [ProtoMember(13)]
+        [ProtoMember(12)]
         public float ScaleIcon = 1f;
 
         /// <summary>
         /// where in 2D coordinates this game is positioned. Zero means non-specified.
         /// </summary>
-        [ProtoMember(14)]
+        [ProtoMember(13)]
         public int PositionX = 0;
-        [ProtoMember(15)]        
+        [ProtoMember(14)]        
         public int PositionY = 0;
 
         /// <summary>
         /// in case a 2D Position is not given, this specifies a wished position delta of game w.r.t. previous game in the library.
         /// </summary>
-        [ProtoMember(16)]        
+        [ProtoMember(15)]        
         public int PositionDeltaX = 0;
-        [ProtoMember(17)]        
+        [ProtoMember(16)]        
         public int PositionDeltaY = 0;
 
         /// <summary>
@@ -275,7 +254,7 @@ namespace IndiegameGarden.Base
             }
         }
 
-        [ProtoMember(18)]
+        [ProtoMember(17)]
         protected string thumbnailURL = "";
 
         /// <summary>
@@ -451,7 +430,6 @@ namespace IndiegameGarden.Base
             get
             {
                 return  (!IsSectionId) && 
-                        (GardenConfig.Instance.ClientVersion < ShowBelowClientVersion) && 
                         (VisibilityLabel > 0);
             }
         }
@@ -551,7 +529,7 @@ namespace IndiegameGarden.Base
         public GardenItem(JsonObject j)
         {
             try { GameID = j["ID"].ToString(); }
-            catch (Exception ex) { throw (ex); }
+            catch (Exception ex) { ; }
             try { Version = (int)((JsonNumber)j["Version"]).Value; }
             catch (Exception) { ;}
             try { VisibilityLabel = (int)((JsonNumber)j["Visible"]).Value; }
@@ -587,8 +565,6 @@ namespace IndiegameGarden.Base
                 packedFileMirrors = JSONStore.ToStringList(am);
             }
             catch (Exception) { ;}
-            try { ShowBelowClientVersion = (int)((JsonNumber)j["ShowBelowVer"]).Value; }
-            catch (Exception) { ;}
             
             // update with default mirror location, only if a main location is defined
             // if no main location is given, use default location as main DL location which assumes a .zip file type too.
@@ -598,13 +574,6 @@ namespace IndiegameGarden.Base
             else
                 PackedFileURL = defaultDownloadLoc;
 
-            // special case: igg, the IndiegameGarden client itself, then enter version numbers info from the config
-            if (GameID.Equals("igg"))
-            {
-                // make the item conditionally show - only if user has a lower version of the client!
-                ShowBelowClientVersion = GardenConfig.Instance.NewestClientVersion;
-                Version = GardenConfig.Instance.NewestClientVersion;
-            }
         }
 
     }

@@ -108,7 +108,6 @@ namespace IndiegameGarden.Base
             GameLibraryFilename = "gamelib.json";
             GameLibraryFilenameBin = "gamelib.bin";
             NewestGameLibraryVersion = KNOWN_GAMELIB_VERSION;
-            ClientVersion = IGG_CLIENT_VERSION;
 
             //ThumbnailsServerURL = "http://indie.indiegamegarden.com/thumbs/";
             ThumbnailsServerURL = "https://github.com/trancetrance/IndieGameGarden/raw/master/thumbs/";
@@ -220,7 +219,11 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// returns the version of current running client
         /// </summary>
-        public int ClientVersion { get; set;  }
+        public int ClientVersion { 
+            get {
+                return IGG_CLIENT_VERSION;
+            }
+        }
 
         /// <summary>
         /// returns newest available known client version (obtained from config server)

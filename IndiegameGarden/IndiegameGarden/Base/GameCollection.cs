@@ -115,6 +115,16 @@ namespace IndiegameGarden.Base
             return null;
         }
 
+        public GardenItem FindGameNamed(string gameID)
+        {
+            foreach (GardenItem gi in gamesList)
+            {
+                if (gi.GameID.Equals(gameID))
+                    return gi;
+            }
+            return null;
+        }
+
         /*
         public GardenItem GetRandomInstalledGame()
         {

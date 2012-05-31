@@ -17,7 +17,7 @@ namespace IndiegameGarden.Base
     public class GameLibrary: IDisposable
     {
         JSONStore json;
-        GameCollection gamesList;
+        GameCollection gamesCollection;
         int version = 0;
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace IndiegameGarden.Base
             GardenItem g = GardenItem.ConstructGameLibItem(version);
             string fn = g.GameFolder + "\\" + GardenConfig.Instance.GameLibraryFilenameBin;
             LoadBin(fn);
-            this.version = version;
+            this.version = version;            
         }
 
         /// <summary>
@@ -93,22 +93,40 @@ namespace IndiegameGarden.Base
         public void LoadJson(string libraryFile)
         {
             json = new JSONStore(libraryFile); // TODO use all json files in there?
-            gamesList = new GameCollection(GardenSizeX, GardenSizeY, new List<GardenItem>()); 
+            gamesCollection = new GameCollection(GardenSizeX, GardenSizeY, new List<GardenItem>()); 
             ParseJson(json);
+            FinalizeGamelibForUse();
         }
 
+        /// <summary>
+        /// (re)load information from given binary (protobuf) file
+        /// </summary>
+        /// <param name="libraryFile"></param>
         public void LoadBin(string libraryFile)
         {            
-            //List<GardenItem> l;
             using (var file = File.OpenRead(libraryFile))
             {
-                gamesList = new GameCollection(GardenSizeX, GardenSizeY, Serializer.Deserialize<List<GardenItem>>(file));             
+                gamesCollection = new GameCollection(GardenSizeX, GardenSizeY, Serializer.Deserialize<List<GardenItem>>(file));             
+            }
+            FinalizeGamelibForUse();
+        }
+
+        /// <summary>
+        /// last init steps that are taken after loading a gamelib into gamesCollection
+        /// </summary>
+        void FinalizeGamelibForUse()
+        {
+            // make 'igg' item only visible if there's a newer clientversion to download
+            GardenItem iggItem = gamesCollection.FindGameNamed("igg");
+            if (iggItem != null)
+            {
+                iggItem.VisibilityLabel = (GardenConfig.Instance.NewestClientVersion > GardenConfig.Instance.ClientVersion) ? 1 : 0 ;
             }
         }
 
         public void Dispose()
         {
-            gamesList.Dispose();
+            gamesCollection.Dispose();
         }
 
         // parse all games in the 'json' data
@@ -181,7 +199,7 @@ namespace IndiegameGarden.Base
                 // process single leaf item
                 GardenItem ig = new GardenItem((JsonObject)j);
                 if (ig.IsVisible )
-                    gamesList.Add(ig);
+                    gamesCollection.Add(ig);
                 return ig;
             }
             else
@@ -194,7 +212,7 @@ namespace IndiegameGarden.Base
         /// <returns>GameCollection containing all games in the library</returns>
         public GameCollection GetList()
         {
-            return gamesList;
+            return gamesCollection;
         }
     }
 }

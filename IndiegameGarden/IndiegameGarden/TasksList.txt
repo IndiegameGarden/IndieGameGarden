@@ -1,8 +1,9 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Test client version update in deployment version
-Finalize gamelib in fmt3
+Fix igg icon (should not be visible in new v3 install) -> remove ShowBelowClientVersion in general; incl bug selecting igg icon when not shown
+Test client version update in deployment version (make zips for auto-upgrade + portable app zip)
+Finalize gamelib in fmt3 (+ karate, ...)
 
 AFTER ALPHA-3
 Make gamelib loading non-blocking
