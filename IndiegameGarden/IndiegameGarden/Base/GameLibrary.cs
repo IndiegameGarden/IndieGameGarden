@@ -121,6 +121,7 @@ namespace IndiegameGarden.Base
             if (iggItem != null)
             {
                 iggItem.VisibilityLabel = (GardenConfig.Instance.NewestClientVersion > GardenConfig.Instance.ClientVersion) ? 1 : 0 ;
+                iggItem.Version = GardenConfig.Instance.NewestClientVersion;
             }
         }
 
@@ -198,8 +199,7 @@ namespace IndiegameGarden.Base
             {
                 // process single leaf item
                 GardenItem ig = new GardenItem((JsonObject)j);
-                if (ig.IsVisible )
-                    gamesCollection.Add(ig);
+                gamesCollection.Add(ig);
                 return ig;
             }
             else

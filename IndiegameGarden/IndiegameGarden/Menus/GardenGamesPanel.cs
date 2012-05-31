@@ -149,7 +149,11 @@ namespace IndiegameGarden.Menus
                 SelectedGame = g;
                 infoBox.ClearProgressBar();
                 if (g != null)
+                {
                     g.Refresh();
+                    if (!g.IsVisible)  // reset back to null for invisible items. Not selectable.
+                        SelectedGame = null;
+                }
             }
         }
 
@@ -278,7 +282,7 @@ namespace IndiegameGarden.Menus
                 g = c[i];
 
                 // if GameThumbnail for current game does not exist yet, create it                
-                if (!thumbnailsCache.ContainsKey(g.GameID) && g.IsVisible )
+                if (!thumbnailsCache.ContainsKey(g.GameID) && g.IsVisible && g.GameID.Length > 0 )
                 {
                     // create now
                     GameThumbnail th = new GameThumbnail(g);
@@ -350,7 +354,7 @@ namespace IndiegameGarden.Menus
             }
 
             // --- for selected game only
-            if (SelectedGame != null && SelectedGame.IsVisible)
+            if (SelectedGame != null)
             {
                 g = SelectedGame;
                 // update text box with currently selected game info
