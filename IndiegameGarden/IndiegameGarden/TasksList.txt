@@ -1,7 +1,8 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Test final version assign to igg fix
+Very first Selection of game doesn't work (on startup)
+AVoid downloading of igg_* items (only igg is ok)
 Test client version update in deployment version (make zips for auto-upgrade + portable app zip)
 Finalize gamelib in fmt3 (+ karate, ...)
 
@@ -17,6 +18,7 @@ Add mirrors to all thumbnail loading?
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-05-31 Test final version assign to igg fix
 2012-05-31 Avoid thumb dl for gameID=""
 2012-05-31 Fix igg icon (should not be visible in new v3 install) -> remove ShowBelowClientVersion in general; incl bug selecting igg icon when not shown
 2012-05-29 Music starts again if user presses M after play has ended
