@@ -30,22 +30,34 @@ namespace IndiegameGarden.Menus
         /// </summary>
         /// <param name="g">gamelet to check this cursor against</param>
         /// <returns>true if in range</returns>
-        public bool GameletInRange(Gamelet g)
+        public bool GameletInRange(GameThumbnail g)
         {
-            float d = (g.Motion.Position - this.Motion.Position).Length();
-            if (d <= GardenGamesPanel.CURSOR_DISCOVERY_RANGE)
+            if (GridDistanceTo(g) <= GardenGamesPanel.CURSOR_DISCOVERY_RANGE)
                 return true;
             return false;
 
         }
 
-        public bool GameletOutOfRange(Gamelet g)
+        public bool GameletInFadeOutRange(GameThumbnail g)
         {
-            float d = (g.Motion.Position - this.Motion.Position).Length();
-            if (d > GardenGamesPanel.CURSOR_DESTRUCTION_RANGE) //TODO
+            if (GridDistanceTo(g) > GardenGamesPanel.CURSOR_DISCOVERY_RANGE)
                 return true;
             return false;
 
+        }
+
+        public bool GameletOutOfRange(GameThumbnail g)
+        {
+            if (GridDistanceTo(g) > GardenGamesPanel.CURSOR_DESTRUCTION_RANGE) //TODO
+                return true;
+            return false;
+
+        }
+
+        public float GridDistanceTo(GameThumbnail g)
+        {
+            Vector2 v = g.Game.PositionXY - GridPosition;
+            return v.Length();
         }
 
         /// <summary>

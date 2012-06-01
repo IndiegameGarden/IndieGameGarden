@@ -17,7 +17,7 @@ namespace IndiegameGarden.Menus
         {
             base.OnUpdate(ref p);
             double x = MathHelper.TwoPi * 0.08f * SimTime;
-            (Parent as Motion).ScaleModifier = 1f + (float) Math.Sin( x);
+            (Parent as Motion).ScaleModifier *= 1f + (float) Math.Sin( x);
             if (x > Math.PI)
                 Delete = true;
         }

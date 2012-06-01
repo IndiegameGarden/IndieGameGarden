@@ -199,6 +199,17 @@ namespace IndiegameGarden.Base
         public int PositionY = 0;
 
         /// <summary>
+        /// Vector2 version (copy) of PositionX/PositionY
+        /// </summary>
+        public Vector2 PositionXY
+        {
+            get
+            {
+                return new Vector2((float)PositionX, (float)PositionY);
+            }
+        }
+
+        /// <summary>
         /// in case a 2D Position is not given, this specifies a wished position delta of game w.r.t. previous game in the library.
         /// </summary>
         [ProtoMember(15)]        
