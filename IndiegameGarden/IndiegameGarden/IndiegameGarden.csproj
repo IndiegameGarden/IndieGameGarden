@@ -169,6 +169,7 @@
     <Compile Include="Base\GameCollection.cs" />
     <Compile Include="Base\GameFilter.cs" />
     <Compile Include="Base\GameLibrary.cs" />
+    <Compile Include="Menus\TemporaryScaleBlowup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="GardenGame.cs" />

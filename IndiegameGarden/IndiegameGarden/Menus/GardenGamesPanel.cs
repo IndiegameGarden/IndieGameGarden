@@ -186,8 +186,7 @@ namespace IndiegameGarden.Menus
                 timeLaunching += p.Dt;
                 GameThumbnail th = thumbnailsCache[SelectedGame.GameID];
                 float sc = (1f + timeLaunching/3f);
-                th.Motion.ScaleTarget = sc; // blow up size of thumbnail while user requests launch
-                //th.Motion.ScaleSpeed = 0.00005f;
+                th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED * sc; // blow up size of thumbnail while user requests launch
                 cursor.Motion.ScaleTarget = sc;
                 cursor.Motion.ScaleSpeed = th.Motion.ScaleSpeed / SelectedGame.ScaleIcon; // TODO correct ScaleIcon?
             }
@@ -201,32 +200,28 @@ namespace IndiegameGarden.Menus
             if (isGameLaunchConfirmed)
             {
                 cursor.Motion.ScaleTarget = CURSOR_SCALE_REGULAR;
+
                 // check for mystery game                    
                 if (SelectedGame.GameID.Equals("igg_mysterygame"))
-                {
-                    //GameCollection lib = GardenGame.Instance.GameLib.GetList();
-                    //GardenItem grnd = lib.GetRandomInstalledGame();
-                    //GardenGame.Instance.music.FadeOut();
-                    //GameThumbnail thumb = thumbnailsCache[grnd.GameID];
-                    //GardenGame.Instance.ActionLaunchGame(grnd, thumb);
                     throw new NotImplementedException("igg_mysterygame");
+                
+                GameThumbnail thumb = thumbnailsCache[SelectedGame.GameID];
+                if (SelectedGame.IsSystemPackage)
+                {
+                    thumb.Motion.Add(new TemporaryScaleBlowup());
+                }
+                else if (SelectedGame.IsWebGame)
+                {
+                    GardenGame.Instance.ActionLaunchWebsitePlayGame(SelectedGame, thumb);
+                }
+                else if (SelectedGame.IsInstalled)
+                {
+                    GardenGame.Instance.music.FadeOut();
+                    GardenGame.Instance.ActionLaunchGame(SelectedGame, thumb);
                 }
                 else
                 {
-                    GameThumbnail thumb = thumbnailsCache[SelectedGame.GameID];
-                    if (SelectedGame.IsInstalled)
-                    {
-                        GardenGame.Instance.music.FadeOut();
-                        GardenGame.Instance.ActionLaunchGame(SelectedGame, thumb);
-                    }
-                    else if (SelectedGame.IsWebGame)
-                    {
-                        GardenGame.Instance.ActionLaunchWebsitePlayGame(SelectedGame,thumb);
-                    }
-                    else
-                    {
-                        GardenGame.Instance.ActionDownloadAndInstallGame(SelectedGame);
-                    }
+                    GardenGame.Instance.ActionDownloadAndInstallGame(SelectedGame);
                 }
                 isGameLaunchOngoing = false;
                 isGameLaunchConfirmed = false;
@@ -342,7 +337,7 @@ namespace IndiegameGarden.Menus
                 }
 
                 th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
-                th.ColorB.FadeSpeed = THUMBNAIL_FADE_SPEED;
+                th.ColorB.FadeSpeed = THUMBNAIL_FADE_SPEED; // TODO do this only once per th?
 
                 // coordinate position where to move a game thumbnail to 
                 Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);

@@ -729,6 +729,832 @@
  "GTvotes": 1,
  "Site": "www.glorioustrainwrecks.com/node/1353"
 }
+],
+[
+{
+  	"ID": "section_gl",
+  	"Visible": 0,
+  	"X": 1, "Y": 25, "DX": 30
+},
+{
+"ID": "anamaton",
+"Name": "Anamaton",
+"Descr": "Anamaton is a fast paced hotseat platform shooter for up to 4 players via splitscreen. The game offers fine \ngameplay and many different maps, weapons,vehicles to choose \nfrom.",
+"Zip": "http://teknopants.com/games/anamaton/anamaton.zip",
+"Site": "http://teknopants.com/games/anamaton/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Action/Anamaton/Image.jpg",
+"dummy":0
+},
+{
+"ID": "battlejuststarted",
+"Name": "Battle Just Started",
+"Descr": "BJS is a funny arcade 3D multiplayer tank battle. It is fuly playable and very fun in multiplayer. Of course \nthe single player is also possible. The game is running under Linux, Windows and hard core developers may make \nit running under MacOSX (means it is working but compilation process is not trivial). The goal of the game is \njust to create a good time for players ;-) There is no story. You just get tank and go shooting other player. \nCurrently we are having 5 different tanks, 6 maps, 9 powerups and 4 weapons. The goal of the game is just to \ncreate a good time for players. We hope you will enjoy the game.",
+"Zip": "http://sourceforge.net/projects/bjs/files/bjs/bjs-0.1.2/bjs-0.1.2-win32.zip/download?use_mirror=?/bjs-0.1.2-win32.zip",
+"Site": "http://bjs.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Action/Battle Just Started/Image.jpg",
+"dummy":0
+},
+{
+"ID": "gate88",
+"Name": "Gate88",
+"Descr": "Gate 88 is often described as like subspace but with the ability to build turrets and command fighters. While \na skillful pilot can decimate the enemy in one-on-one combat, a thoughtful player can overwhelm the opponent \nwith strategic turret and fighter placements. However, only those who truly understand the intricate details \nof both action and strategy will win the day.",
+"Zip": "http://www.queasygames.com/gate88/Gate88_Mar19_05.zip",
+"Site": "http://www.queasygames.com/gate88/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Action/Gate88/Image.jpg",
+"dummy":0
+},
+{
+"ID": "openlierox",
+"Name": "OpenLierox",
+"Descr": "OpenLierox is an extremely addictive realtime worms shoot-em-up backed by an active gamers community. Dozens \nof levels and mods are available to provide endless gaming pleasure. \n",
+"Zip": "http://sourceforge.net/projects/openlierox/files/openlierox/OpenLieroX%200.58%20rc3/OpenLieroX_0.58_rc3.win32.zip/download?use_mirror=?/OpenLieroX_0.58_rc3.win32.zip",
+"Site": "http://www.openlierox.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Action/OpenLierox/Image.jpg",
+"dummy":0
+},
+{
+"ID": "soldat",
+"Name": "Soldat",
+"Descr": "Soldat is an exciting unique side-view multiplayer action game. Played by hundreds of players at this moment. \nIt takes the best from games like Liero, Worms, Quake and Counter-Strike and gives you fast action gameplay \nwith tons of blood and flesh. Little ragdoll soldiers fight against each other on 2D battle arenas using a \ndeadly military arsenal. This is what multiplayer was invented \nfor.",
+"Zip": "http://soldat.thd.vg/down.php?id=61&mirror=http%3A%2F%2Fstatic.soldat.pl%2Fdownloads%2Fsoldat162.zip",
+"Site": "http://soldat.thd.vg/en/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Action/Soldat/Image.jpg",
+"dummy":0
+},
+{
+"ID": "zombiegrinder",
+"Name": "Zombie Grinder",
+"Descr": "Zombie Grinder is a multi-platform cooperative multiplayer arcade game, reminiscent in style and gameplay of \nretro games like Zombies Ate My Neighbors and Super Smash TV!, but with the added benefit of some newer game \nmechanics - achievements, ranking, player-customization, rpg style stats and so \nforth.",
+"Zip": "http://www.twindrills.com/uploads/game_updates/zombie_grinder/zombiegrinder_stub_win32.zip",
+"Site": "http://www.twindrills.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Action/Zombie Grinder/Image.jpg",
+"dummy":0
+},
+{
+"ID": "beacon",
+"Name": "Beacon",
+"Descr": "Beacon is a sprawling adventure-platformer involving SAD THINGS and MYSTERY. It also has a jetpack. It’ll \ntake you about 15 minutes to play.",
+"Zip": "http://wootfu.com/wp-content/uploads/2011/02/Beacon_v1_1_win.zip",
+"Site": "http://wootfu.com/beacon/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Adventure/Beacon/Image.jpg",
+"dummy":0
+},
+{
+"ID": "deadcyborg",
+"Name": "Dead Cyborg",
+"Descr": "A free, donation based hard-sci-fi adventure game for Windows, Mac and Linux. The story is about the meaning \nof life... and death... in a rusty post-apocalyptic metal and concrete world. Story: You are a human being who \nhas waken up in a cryotank... you have no memories, but you find some messages from the past... from \nyourself... You don't feel good... maybe this is a radioactive and toxic place ... you may not have much \ntime... You find some stupid robots... with strange answers to your \nquestions.",
+"Zip": "http://deadcyborg.com/deadcyborg_episode1_v002.zip",
+"Site": "http://deadcyborg.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Adventure/Dead Cyborg/Image.jpg",
+"dummy":0
+},
+{
+"ID": "quest",
+"Name": "Quest!",
+"Descr": "A fun-tivity for the whole family! Quest through 3 levels of varing difficulty! A Dragon has stole Item and it \nis up to you to go into depths of Mountain and defeat It once And for ALL! This is your... \nQuest!",
+"Zip": "http://gamejolt.com/data/games/1275/files/Quest%21.zip",
+"Site": "http://galaxy613.tumblr.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Adventure/Quest!/Image.jpg",
+"dummy":0
+},
+{
+"ID": "a7xpg",
+"Name": "A7Xpg",
+"Descr": "Old school chase action game, Control your ship and gather golds. The ship accelerates while holding the boost \nbutton. A boost power runs out about 1.5 seconds, so you have to push the boost button again to maintain the \nspeed.",
+"Zip": "http://www.asahi-net.or.jp/~cs8k-cyu/windows/a7xpg0_11.zip",
+"Site": "http://www.asahi-net.or.jp/~cs8k-cyu/windows/a7xpg_e.html",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/A7Xpg/Image.jpg",
+"dummy":0
+},
+{
+"ID": "annihilation",
+"Name": "Annihilation",
+"Descr": "Annihilation is an arena shooter that is inspired by Geometry Wars. Just shoot stuff, use your bombs in tight \nsituations and survive.",
+"Zip": "http://www.andynoble.co.uk/files/Annihilation.zip",
+"Site": "http://www.andynoble.co.uk/main.htm",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Annihilation/Image.jpg",
+"dummy":0
+},
+{
+"ID": "blocksnbricks",
+"Name": "BLOCKS'N'BRICKS",
+"Descr": "Typical Breakout clone. destroy the bricks to progress to next level, Collect powerups, 50 maps, Written in \nless than 2 days.",
+"Zip": "http://xout.blackened-interactive.com/dump/new/BlockNBricks.zip",
+"Site": "http://xout.blackened-interactive.com/Blocks/Blocks.html",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/BLOCKS'N'BRICKS/Image.jpg",
+"dummy":0
+},
+{
+"ID": "cobex",
+"Name": "COBEX",
+"Descr": "Cobex is an arcade game with abstract neon graphics where you have to colorize grids with your speedy ship. \nAvoid the enemies and score combo points on your recoloring mission!",
+"Zip": "http://www.tcksoft.co.uk/tcksoft-games/COBEX.zip",
+"Site": "http://www.tcksoft.co.uk/downloads/remakes/cobex-cruising-on-broadway-extra/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/COBEX/Image.jpg",
+"dummy":0
+},
+{
+"ID": "echoes",
+"Name": "Echoes",
+"Descr": "Echoes is essentially Asteroids and is a bit like Geometry Wars.",
+"Zip": "http://www.binaryzoo.com/games/echoes/echoes.zip",
+"Site": "http://www.binaryzoo.com/games/echoes/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Echoes/Image.jpg",
+"dummy":0
+},
+{
+"ID": "flaw",
+"Name": "F.L.A.W",
+"Descr": "F.L.A.W. is a free top-down wizard fighting game that can be played by up to 5 players. The goal of the game \nis to survive as long as possible while more and more fireballs appear in the \narena.",
+"Zip": "http://sourceforge.net/projects/flaw/files/flaw/1.3.2/flaw_1.3.2_win32.zip/download?use_mirror=?/flaw_1.3.2_win32.zip",
+"Site": "http://flaw.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/F.L.A.W/Image.jpg",
+"dummy":0
+},
+{
+"ID": "gridassault",
+"Name": "Grid Assault",
+"Descr": "Grid Assault is an arena shooter and is a clone of Geometry Wars. Shoot stuff, collect upgrades and survive \nfor 6 minutes…",
+"Zip": "http://members.home.nl/wdw/files/GridAssault98.zip",
+"Site": "http://members.home.nl/wdw/grid.html",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Grid Assault/Image.jpg",
+"dummy":0
+},
+{
+"ID": "gridwars2",
+"Name": "GridWars 2",
+"Descr": "GridWars 2 is an arena shooter with glowing neon graphics. The game took its main inspiration from Geometry \nWars. Shoot stuff, collect power ups and use your bombs wisely. Great \nfun!",
+"Zip": "http://gridwars.marune.de/bin/gridwars_win.zip",
+"Site": "http://gridwars.marune.de",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/GridWars 2/Image.jpg",
+"dummy":0
+},
+{
+"ID": "gunroar",
+"Name": "Gunroar",
+"Descr": "Guns, Guns, Guns! 360-degree gunboat shooter, Steer a boat and sink enemy \nfleet.",
+"Zip": "http://www.asahi-net.or.jp/~cs8k-cyu/windows/gr0_15.zip",
+"Site": "http://www.asahi-net.or.jp/~cs8k-cyu/windows/gr_e.html",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Gunroar/Image.jpg",
+"dummy":0
+},
+{
+"ID": "hydorah",
+"Name": "Hydorah",
+"Descr": "Hydorah is a game designed for classic shoot em up players, who still love clean designs and challenging \nadventures Choose the path to follow and fight planet by planet against hordes of meroptians. Hydorah features \nlots of short and intense levels with fantasy spacial landscapes, unlockable weapons, secrets, and a large \nlibrary of enemies and bosses. There is a single dificulty level, based on the 80's standards. It can be hard, \nbut with every beaten level there will come the glory.",
+"Zip": "http://www.locomalito.com/juegos/Hydorah.zip",
+"Site": "http://www.locomalito.com/juegos_hydorah.php",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Hydorah/Image.jpg",
+"dummy":0
+},
+{
+"ID": "lbreakout2",
+"Name": "LBreakout2",
+"Descr": "The successor to LBreakout offers you a new challenge in more than 50 levels with loads of new bonuses \n(goldshower, joker, explosive balls, bonus magnet ...), maluses (chaos, darkness, weak balls, malus magnet \n...) and special bricks (growing bricks, explosive bricks, regenerative bricks ...). If you are hungry for \nmore you can create your own levelsets with the integrated level editor. There is also an experimental two \nplayer mode (via LAN) available.",
+"Zip": "http://sourceforge.net/projects/lgames/files/lbreakout2/2.5/lbreakout2-2.5.1-win32.zip/download?use_mirror=?/lbreakout2-2.5.1-win32.zip",
+"Site": "http://lgames.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/LBreakout2/Image.jpg",
+"dummy":0
+},
+{
+"ID": "missionx",
+"Name": "MissionX",
+"Descr": "MissionX is a free open source multiplatform multilanguage 2d arcade shooting game. The game takes place in \nspace where you take control of captain Mark's starship in his mission to defend earth from the macronian \ninvasion. Supported operating systems are Windows XP (both x86 and x64), Windows Vista (both x86 and x64), \nWindows 7 (both x86 and x64) and Linux (x86). Mac OS X support is still experimental and has not been tested. \nAvailable languages are Italian and English. The game is completely written in java (but you won't have to \ninstall the JRE) and is based on the EasyWay Game Engine v4.5, a free open source 2D game \nengine.",
+"Zip": "http://sourceforge.net/projects/missionx/files/MissionX_1.2_Win.zip/download?use_mirror=?/MissionX_1.2_Win.zip",
+"Site": "http://missionx.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/MissionX/Image.jpg",
+"dummy":0
+},
+{
+"ID": "mucade",
+"Name": "Mu-cade",
+"Descr": "The Physics Centipede Invasion. Smashup waggly shmup, Keep your ship from falling down and push enemies out of \nthe way.",
+"Zip": "http://www.asahi-net.or.jp/~cs8k-cyu/windows/mcd0_11.zip",
+"Site": "http://www.asahi-net.or.jp/~cs8k-cyu/windows/mcd_e.html",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Mu-cade/Image.jpg",
+"dummy":0
+},
+{
+"ID": "neonlights",
+"Name": "Neon Lights",
+"Descr": "A one-handed autofire arena shooter inspired by Robert Fearon's SYNSO2: Squid Harder. Comes with five game \nmodes, including Score Attack, Survival, Time Attack Speed, Time Attack Shooting and a unique Tony \nHart-inspired Draw mode. Up to 4 player multiplayer (single computer), either co-operative or competitive \ndepending on the game mode.",
+"Zip": "http://downloads.niallmoody.com/NeonLights-1.00-windows.zip",
+"Site": "http://www.niallmoody.com/games/neon-lights",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Neon Lights/Image.jpg",
+"dummy":0
+},
+{
+"ID": "opensonic",
+"Name": "Open Sonic",
+"Descr": "Open Sonic is an open-source game based on the \"Sonic the Hedgehog\" universe. It introduces a different style \nof gameplay called cooperative play, in which it's possible to control 3 characters simultaneously. Unlike \nmost similar games, Open Sonic provides a greater level of interaction between the player and the levels. It's \nmore than just a jump'n'run; the user must come up with some strategy in order to get through the \nlevels.",
+"Zip": "http://sourceforge.net/projects/opensnc/files/Open Sonic/0.1.4/opensnc-win-0.1.4.zip/download?use_mirror=?/opensnc-win-0.1.4.zip",
+"Site": "http://opensnc.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Open Sonic/Image.jpg",
+"dummy":0
+},
+{
+"ID": "radialplus",
+"Name": "Radial plus",
+"Descr": "Firing at enemies directly doesn't hurt them. Instead you must bounce your shots off walls to do damage. \nEnemies have very powerful weapons. If you get hit twice in rapid succession you will die. Avoid direct \ncombat; take them by surprise by shooting around corners. Boost to safety if you become \noverwhelmed.",
+"Zip": "http://labtanner.com/gamedev/images/0/05/Radial_plus.zip",
+"Site": "http://labtanner.com/gamedev/index.php?title=Spatial",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Radial plus/Image.jpg",
+"dummy":0
+},
+{
+"ID": "spaceinvadersopengl",
+"Name": "Space Invaders OpenGL",
+"Descr": "Space Invaders OpenGL is a 2D/3D clone of Space Invaders developed with the OpenGL API. The host language is \nC/C++, and the OS platform Windows.",
+"Zip": "http://sourceforge.net/projects/spaceinvadersgl/files/Space%20Invaders%20OpenGL/0.6.1c/SpaceInvadersOpenGL-0.6.1.zip/download?use_mirror=?/SpaceInvadersOpenGL-0.6.1.zip",
+"Site": "http://spaceinvadersgl.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Space Invaders OpenGL/Image.jpg",
+"dummy":0
+},
+{
+"ID": "supersmashland",
+"Name": "Super Smash Land",
+"Descr": "Super Smash Land is a demake of the popular Super Smash Bros. series with Game Boy styled \ngraphics.",
+"Zip": "http://supersmashland.com/files/SmashLand-Final-1-1.zip",
+"Site": "http://supersmashland.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Super Smash Land/Image.jpg",
+"dummy":0
+},
+{
+"ID": "tastystatic",
+"Name": "Tasty Static",
+"Descr": "Tasty Static is a videogame where you go really fast and jump a lot. You'll probably get really annoyed along \nthe way too. It's a clone of an excellent PC oldie called Skyroads by BlueMoon Interactive, which is required \nplaying if you like this kind of stuff. Tasty Static is currently available in three fantastic flavors. There \nis also a Windows-only level editor.",
+"Zip": "http://www.stanford.edu/%7Eleeoo/tastystatic.zip",
+"Site": "http://www.tastystatic.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Tasty Static/Image.jpg",
+"dummy":0
+},
+{
+"ID": "thundergut",
+"Name": "Thunder Gut",
+"Descr": "Thunder Gut is a unique arcade/shooter/platformer mix about a naked superhero that only wears a mustache. \nInteresting fast paced mouse controlled arcade action about flying, shooting and rolling around. \n",
+"Zip": "http://web.me.com/jonblahud/ThunderGut/Download_files/Thunder%20Gut%20%28%20PC%20%29.zip",
+"Site": "http://web.me.com/jonblahud/ThunderGut/Download.html",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Thunder Gut/Image.jpg",
+"dummy":0
+},
+{
+"ID": "titanion",
+"Name": "Titanion",
+"Descr": "Strike down super high-velocity swooping insects. Fixed shooter in the good old days, Avoid incoming bullets \nand strike down all enemies.",
+"Zip": "http://www.asahi-net.or.jp/~cs8k-cyu/windows/ttn0_3.zip",
+"Site": "http://www.asahi-net.or.jp/~cs8k-cyu/windows/ttn_e.html",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Titanion/Image.jpg",
+"dummy":0
+},
+{
+"ID": "torustrooper",
+"Name": "Torus Trooper",
+"Descr": "Speed! More speed! Speeding ship sailing through barrage, Drive a ship forward and destroy enemies. When time \nruns out, game is over.",
+"Zip": "http://www.asahi-net.or.jp/~cs8k-cyu/windows/tt0_22.zip",
+"Site": "http://www.asahi-net.or.jp/~cs8k-cyu/windows/tt_e.html",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Torus Trooper/Image.jpg",
+"dummy":0
+},
+{
+"ID": "uberleben",
+"Name": "Uberleben",
+"Descr": "Uberleben is a 1-7 player survival game in which your sky-diving plans go horribly awry. You must avoid the \noncoming obstacles in order to reach your landing point. You can either try to survive with your friends or \ntry to kick them to an icy death. Version 3 has 6 levels total, another difficulty setting, and options for \nturning off blood (for younger audiences) and the replay feature (to make the game run faster). Now with \nspin!",
+"Zip": "http://teknopants.com/games/uberleben/Uberleben_3.1.zip",
+"Site": "http://teknopants.com/games/uberleben",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Uberleben/Image.jpg",
+"dummy":0
+},
+{
+"ID": "ultimatesteroids",
+"Name": "Ultimate Steroids",
+"Descr": "The Ultimate Steroids is, as the original Steroids was, an Asteroids-clone. Basically, you jump to the cockpit \nof a space ship, and burst through the space shooting space rocks, asteroids. You collect some power up \n-bonuses and slowly increase your firepower. You will encounter some hazards during your mission such as evil \naliens and strange black holes. The Ultimate Steroids is 100% freeware. The game features OpenGL accelerated \n3d graphics, sound and music, up to 10 weapon grades and up to 22 levels. Balanced gameplay with beautiful \nrendered backgrounds and colorful 3d graphics. There is also a support for two players, either in a \nco-operation or in a competition. In addition, the competition mode allows you to set various game play \nsettings.",
+"Zip": "http://www.mhgames.org/download.php?usteroids-1.21.zip",
+"Site": "http://www.mhgames.org/games/ultimate-steroids",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Ultimate Steroids/Image.jpg",
+"dummy":0
+},
+{
+"ID": "vertigo",
+"Name": "vertigo",
+"Descr": "The Xenophis, a Vulcan exploratory vessel, has incidentally found the mythical sector of Firia where the \nplanets, only reachable through warp tunnels, are told to be made of staggering ice and liquid fire. As a \nprecautionary act, the Xenophis crew are attempting to launch interstellar probes, significantly altered to \nexist within the Firia atmosphere, in order to learn more of this magnificent piece of the galaxy. However, \nevidence shows that the former inhabitants do not like outsiders. You are the probe, and your mission is to \nmaneuver your way to the other end of the warp tunnel. You are equipped with two shields, one to protect you \nfrom icy drones, and another from fiery ones. However, only one shield can be active at a time. WARNING: Be \nquick; your nerves will be tested.",
+"Zip": "http://www.vertigo-game.com/downloads/latest/windows/Vertigo.zip",
+"Site": "http://www.vertigo-game.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/vertigo/Image.jpg",
+"dummy":0
+},
+{
+"ID": "yofrankie",
+"Name": "Yo Frankie!",
+"Descr": "The original project goal was to work on a cross platform game (at least Linux, Windows, OS X), using Blender \nfor modeling and animation, Crystal Space as 3D engine and delivery platform, and Python for some magic \nscripting to glue things together. The purpose was to not only make a compelling 3D game experience, but \nespecially to improve and validate the open source 3D game creation pipeline, with industry-standard \nconditions.",
+"Zip": "http://download.blender.org/apricot/yofrankie_1_1b_bge.zip",
+"Site": "http://www.yofrankie.org",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Yo Frankie!/Image.jpg",
+"dummy":0
+},
+{
+"ID": "capitalism",
+"Name": "Capitalism",
+"Descr": "Capitalism is a client for the online server monopd. You can play Monopoly like games with it online. \nCapitalism is build with Qt4, so it runs on all important Operating \nSystems.",
+"Zip": "http://www.linux-ecke.de/Capitalism/packages/0.5/Capitalism-0.5.1.zip",
+"Site": "http://www.linux-ecke.de/Capitalism/index.html",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Board Games/Capitalism/Image.jpg",
+"dummy":0
+},
+{
+"ID": "pouetchess",
+"Name": "pouetChess",
+"Descr": "pouetChess is a small 3D chess game for beginners. ",
+"Zip": "http://sourceforge.net/projects/pouetchess/files/pouetchess/0.2/pouetchess_0.2.0_win32.zip/download?use_mirror=?/pouetchess_0.2.0_win32.zip",
+"Site": "http://pouetchess.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Board Games/pouetChess/Image.jpg",
+"dummy":0
+},
+{
+"ID": "bigsolitaires3d",
+"Name": "Big Solitaires 3D",
+"Descr": "Collection of 40 Solitaire Games with 3D - OpenGL render. Ports to Win32 (win32 API and wxWidgets) and to \nLinux (GTK+, wxWidgets).",
+"Zip": "http://sourceforge.net/projects/big3dsol/files/Big3DSol%20win32/1.4%20win32/setupWin32_BigSol3D_1.4.zip/download?use_mirror=?/setupWin32_BigSol3D_1.4.zip",
+"Site": "http://big3dsol.sourceforge.net/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Card Games/Big Solitaires 3D/Image.jpg",
+"dummy":0
+},
+{
+"ID": "magarena",
+"Name": "Magarena",
+"Descr": "Magarena is a single-player fantasy card game played against a computer opponent. The rules for Magarena are \nbased on the first modern collectible card game Magic: The Gathering.",
+"Zip": "http://magarena.googlecode.com/files/Magarena-1.24.zip",
+"Site": "http://code.google.com/p/magarena/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Card Games/Magarena/Image.jpg",
+"dummy":0
+},
+{
+"ID": "patiencepack",
+"Name": "Patience Pack",
+"Descr": "Patience Pack (freeware) is a selection of 120 skill-testing card games, dice games and puzzles written for \nvarious age groups. Many are classic games such as Klondike, Yahtzee, Freecell, Mastermind, Snakes & Ladders \nand Mind Sweeper. Other games are original, including Enigma, Neural Net, Armor of God and Lost \nWorld.",
+"Zip": "http://patpack.abraham.me.uk/patpack.zip",
+"Site": "http://patpack.abraham.me.uk/index.php",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Card Games/Patience Pack/Image.jpg",
+"dummy":0
+},
+{
+"ID": "xmsolitaire",
+"Name": "XM Solitaire",
+"Descr": "200 card games for Windows (Freecell, Klondike, Fan, Spider, Pyramid, Gaps, ...). Games layout and rules are \ndeclared in XML format. User can add his own cards and background BMP \nimages.",
+"Zip": "http://sourceforge.net/projects/xmsol/files/xmsol.zip/download?use_mirror=?/xmsol.zip",
+"Site": "http://petr.lastovicka.sweb.cz/indexEN.html",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Card Games/XM Solitaire/Image.jpg",
+"dummy":0
+},
+{
+"ID": "8bitkiller",
+"Name": "8bit killer",
+"Descr": "8bit killer is a first person shooter styled to resemble a NES game in look and feel AD 2488. A long war has \nput human race on the edge of self-extinction. Four years ago, a space creature known as Master Brain arrived \nwith the promise of a new dawn. Now, a huge army launched an attack to the few cities that are still on, \nfollowing the plan of the creature. A small group of soldiers have formed an alliance to defend those cities \nand kill the master brain. This games tells the story of their final \nmission.",
+"Zip": "http://www.locomalito.com/juegos/8bit_killer.zip",
+"Site": "http://www.locomalito.com/juegos_8bit_killer.php",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/First Person Shooter/8bit killer/Image.jpg",
+"dummy":0
+},
+{
+"ID": "nexuiz",
+"Name": "Nexuiz",
+"Descr": "Nexuiz is a 3d deathmatch game that has been in development since the summer of 2002. The goal of the project \nis to create a high quality first person shooter that can be played freely across all platforms in one \npackage: PC, Mac, Linux. The game is entirely open source, with the sources of the engine, gamecode, map \nfiles, and compiling tools, all included with the download, all under the GPL license. The gameplay is \ndeathmatch with the most excessive possible speeds and weapons, giving incredibly intense fast paced action. \nAlong with deathmatch, there are multiple gamemodes such as team deathmatch, capture the flag, domination, and \nmany mutators and weapon options like rocket arena and instagib. The user can fight through the single player \ncampaign, going through over 20 levels, or play online with our server \nbrowser.",
+"Zip": "http://sourceforge.net/projects/nexuiz/files/NexuizRelease/Nexuiz 2.5.2/nexuiz-252.zip/download?use_mirror=?/nexuiz-252.zip",
+"Site": "http://alientrap.org/nexuiz",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/First Person Shooter/Nexuiz/Image.jpg",
+"dummy":0
+},
+{
+"ID": "openarena",
+"Name": "OpenArena",
+"Descr": "OpenArena is a community-produced deathmatch FPS based on GPL idTech3 technology. There are many game types \nsupported including Free For All, Capture The Flag, Domination, Overload, Harvester, and more. There are 17 \nunique player models to choose from and 12 weapons.",
+"Zip": "http://sourceforge.net/projects/oarena/files/openarena-0.8.8.zip/download?use_mirror=?/openarena-0.8.8.zip",
+"Site": "http://www.openarena.ws",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/First Person Shooter/OpenArena/Image.jpg",
+"dummy":0
+},
+{
+"ID": "xonotic",
+"Name": "Xonotic",
+"Descr": "Xonotic is a free (GPL), fast-paced first-person shooter that works on Microsoft Windows, Mac OSX and Linux. \nXonotic is a direct successor of the Nexuiz Project.",
+"Zip": "http://dl.xonotic.org/xonotic-0.6.0.zip",
+"Site": "http://www.xonotic.org",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/First Person Shooter/Xonotic/Image.jpg",
+"dummy":0
+},
+{
+"ID": "musicracer",
+"Name": "Musicracer",
+"Descr": "In the year 4600 the musicracer League is One of the most prominent racing leagues in the galaxy. The Racing \ntracks ARE created BASED ON a spectrum analysis of ancient music from long forgotten cultures. You are hereby \ngranted access to a Classified Training Simulation. Prepare yourself for the \nleague.",
+"Zip": "http://www.musicracer.de/fileadmin/files/Musicracer-Win-1.0.1.zip",
+"Site": "http://musicracer.de",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Music/Musicracer/Image.jpg",
+"dummy":0
+},
+{
+"ID": "stringsonspeed",
+"Name": "Strings on Speed",
+"Descr": "Strings on Speed is a music video game similar to Frets on Fire in which players simulate guitar play using \ntheir keyboard. It doesn't come with any songs, but it works with the same song files used by \nFoF.",
+"Zip": "http://sourceforge.net/projects/stringsonspeed/files/stringsonspeed/0.9/StringsOnSpeed_0.9_win32.zip/download?use_mirror=?/StringsOnSpeed_0.9_win32.zip",
+"Site": "http://stringsonspeed.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Music/Strings on Speed/Image.jpg",
+"dummy":0
+},
+{
+"ID": "anuntitledstory",
+"Name": "An Untitled Story",
+"Descr": "In An Untitled Story, you begin as an egg in your nest, and the rest is up to you to figure out. Fight 18 \nunique bosses, traverse a huge game world, and unravel a mysterious storyline. The single player game features \nnon-linear progression and 5 difficulty levels for extra replay value. Also included is Heist Mode, a \nmultiplayer capture-the-flag-style versus mode.",
+"Zip": "http://mattmakesgames.com/games/AnUntitledStory.zip",
+"Site": "http://www.mattmakesgames.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/An Untitled Story/Image.jpg",
+"dummy":0
+},
+{
+"ID": "arvoesine",
+"Name": "Arvoesine",
+"Descr": "Arvoesine is a action platformer with NES styled graphics. Guide a roman soldier – that is armed with sword \nand spear – through 5 short levels.",
+"Zip": "http://alastairjohnjack.com/arvoesine1.2.zip",
+"Site": "http://alastairjohnjack.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Arvoesine/Image.jpg",
+"dummy":0
+},
+{
+"ID": "blackfoot",
+"Name": "Blackfoot",
+"Descr": "Blackfoot is a platformer with a weasel. The gameplay consists of swirling around the woodlands, collecting \neggs and killing an animal for eating purposes at the end of each level. It also has light RPG elements which \nmeans that you get experience points that you can spend on abbilities like Speed, Acceleration and \nJump.",
+"Zip": "http://www.danfornace.com/blackfoot/Blackfoot-v2.zip",
+"Site": "http://www.danfornace.com/blackfoot/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Blackfoot/Image.jpg",
+"dummy":0
+},
+{
+"ID": "frogattofriends",
+"Name": "Frogatto & Friends",
+"Descr": "Frogatto is an open-source platformer or jump-and-run videogame. You?re given a cross-section view into the \nworld, and you help a small green fellow named Frogatto walk and jump between solid platforms without getting \nhurt.  We inevitably have a lot in common with other games just by being in the genre, but we?re not trying to \nclone any specific game. Frogatto is a finished, fully-playable game. We?re planning to add a bunch of other \nstuff to it, but we have a complete start-to-finish single-player story you can play right \nnow",
+"Zip": "http://www.frogatto.com/files/Frogatto_1.1.1_Win.zip",
+"Site": "http://www.frogatto.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Frogatto & Friends/Image.jpg",
+"dummy":0
+},
+{
+"ID": "jables8099sadventure",
+"Name": "Jables?0%99s Adventure",
+"Descr": "The game has about 30-60 minutes of gameplay, but the humor is top-notch. The game stars a young boy named \nJables. One day an odd squid appears on his head an claims he is the hero. He decides to go with it and start \nhis adventure. An adventure filled with weird characters, useless advice, and magically healing \nfruit.",
+"Zip": "http://jajitsu.com/files/Jables%27s%20Adventure%20V1_1.zip",
+"Site": "http://jajitsu.com/games-html/jables-adventure",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Jables?0%99s Adventure/Image.jpg",
+"dummy":0
+},
+{
+"ID": "jvgs",
+"Name": "JVGS",
+"Descr": "This game takes place in a world much like ours, which has started fading away. At a point where nearly \neverything has gone, a poet finds himself, alone in a strange world of danger. He starts a journey along the \nbroken stream of thoughts thats left.",
+"Zip": "http://sourceforge.net/projects/jvgs/files/jvgs-0.5/jvgs-0.5-win32.zip/download?use_mirror=?/jvgs-0.5-win32.zip",
+"Site": "http://jvgs.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/JVGS/Image.jpg",
+"dummy":0
+},
+{
+"ID": "mari0",
+"Name": "Mari0",
+"Descr": "Two genre defining games from completely different eras: Nintendo's Super Mario Bros. and Valve's Portal. \nThese two games managed to give Platformers and First-Person Puzzle Games a solid place in the video game \nworld. But what if Nintendo teamed up with Valve and recreated the famous Mario game with Portal gun \nmechanics? A complete from scratch recreation of Super Mario Bros. with a focus on perfectly imitating the \nfeel the 1985 classic gave us. Then give Mario a portal gun, add puzzle game mechanics from Portal and there \nyou go. And if that wasn't crazy enough, play 4-player coop, with everyone having their own Portal \ngun!",
+"Zip": "http://stabyourself.net/dl.php?file=mari0-1006/mari0-win.zip",
+"Site": "http://stabyourself.net/mari0/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Mari0/Image.jpg",
+"dummy":0
+},
+{
+"ID": "maru",
+"Name": "Maru",
+"Descr": "A surreal platformer adventure with a theme that’s integrated into the gameplay. The game is fairly \nshort.",
+"Zip": "http://www.venbrux.com/games/maru.zip",
+"Site": "http://www.venbrux.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Maru/Image.jpg",
+"dummy":0
+},
+{
+"ID": "neonplatadventures",
+"Name": "NeonPlat Adventures",
+"Descr": "NeonPlat Adventures is a sidescrolling platformer with abstract colorful graphics that happens to be the \nsequel to NeonPlat 2. Jump around in a trippy world, collect stuff, and use several weapons (orbs, grass, \nflowers) to defeat the baddies. The game is available for Windows, Mac and \nLinux.",
+"Zip": "http://socoder.net/jstuff/complete/NeonPlat_Adventures_20110920.zip",
+"Site": "https://sites.google.com/site/neonplat/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/NeonPlat Adventures/Image.jpg",
+"dummy":0
+},
+{
+"ID": "nikkiandtherobots",
+"Name": "Nikki and the Robots",
+"Descr": "In a fictional world of the future the infamous super villain Dr. Lacroix schemes to seize world supremacy \nwith his army of robots. You take the role of Nikki and try to cross those evil plans on behalf of a secret \norganization. Your quest will take you to various locations: from futuristic metropolises to submarine \nfacilities, floating islands, and even as far as orbital space.",
+"Zip": "http://updates.joyridelabs.de/nikki/default/mingw32/i386/nikki.zip",
+"Site": "http://joyridelabs.de/game/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Nikki and the Robots/Image.jpg",
+"dummy":0
+},
+{
+"ID": "ninjasenki",
+"Name": "Ninja Senki",
+"Descr": "Ninja Senki is an action platform game inspired by classic NES games such as Ninja Jajamaru-Kun and Mega Man. \nYou play the game as Hayate, the shurikenjutsu master, who embarks on a quest to avenge the death of Kinuhime, \nthe princess of his clan.",
+"Zip": "http://www.ninjasenki.com/NinjaSenki.zip",
+"Site": "http://www.ninjasenki.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Ninja Senki/Image.jpg",
+"dummy":0
+},
+{
+"ID": "spelunky",
+"Name": "Spelunky",
+"Descr": "Spelunky is a cave exploration / treasure-hunting game inspired by classic platform games and roguelikes, \nwhere the goal is to grab as much treasure from the cave as possible. Every time you play the cave's layout \nwill be different. Use your wits, your reflexes, and the items available to you to survive and go ever deeper! \nPerhaps at the end you may find what you're looking for...",
+"Zip": "http://www.derekyu.com/games/spelunky_1_1.zip",
+"Site": "http://www.spelunkyworld.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Spelunky/Image.jpg",
+"dummy":0
+},
+{
+"ID": "sqrxz3",
+"Name": "Sqrxz 3",
+"Descr": "Sqrxz 3 is a Jump’n'Run which will please the hardcore gamer amongst you. You need fast fingers and a fast \nbrain. Original Sqrxz made by Marcus Vesterlund and John Holmvall.",
+"Zip": "http://www.retroguru.com/sqrxz3/sqrxz3-v.latest-win32.zip",
+"Site": "http://www.sqrxz.de/sqrxz-3/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Sqrxz 3/Image.jpg",
+"dummy":0
+},
+{
+"ID": "supermariowar",
+"Name": "Super Mario War",
+"Descr": "Super Mario War is a Super Mario multiplayer game. The goal is to stomp as many other Marios as possible to \nwin the game. It's a tribute to Nintendo and the game Mario War by Samuele Poletto. The game uses artwork and \nsounds from Nintendo games. We hope that this noncommercial fangame qualifies as fair use work. We just wanted \nto create this game to show how much we adore Nintendo's characters and \ngames.",
+"Zip": "http://srpgp.supersanctuary.net/smw-1.7-bin.zip",
+"Site": "http://72dpiarmy.supersanctuary.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Super Mario War/Image.jpg",
+"dummy":0
+},
+{
+"ID": "teeworlds",
+"Name": "Teeworlds",
+"Descr": "Teeworlds is a free online multiplayer game, available for all major operating systems. Battle with up to 16 \nplayers in a variety of game modes, including Team Deathmatch and Capture The Flag. You can even design your \nown maps!",
+"Zip": "http://teeworlds.com/files/teeworlds-0.6.1-win32.zip",
+"Site": "http://www.teeworlds.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Teeworlds/Image.jpg",
+"dummy":0
+},
+{
+"ID": "thegoonies",
+"Name": "The Goonies",
+"Descr": "The action takes place in the sleepy seaside town of Cauldron Point - down in an area known as the Goon Docks. \nThe Goonies are a group of local kids - Mikey, Brand, Mouth, Chunk and Data. One day they find an old treasure \nmap in Mikey's attic. Data figures that this must be the fabulous hidden treasure of the notorious local \npirate, One-Eyed Willy. The girls, Andy and Stef, join the other Goonies and the adventure begins. But the \nsecret underground tunnels they are exploring are actually the hideout of the Fratelli Gang, and the Goonies \nare soon trapped! The Goonies have a powerful ally on their side, however, in the form of the huge and amiable \nSloth.",
+"Zip": "http://braingames.jorito.net/goonies/downloads/theGoonies-1.4-1528.zip",
+"Site": "http://goonies.jorito.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/The Goonies/Image.jpg",
+"dummy":0
+},
+{
+"ID": "theyneedtobefed",
+"Name": "They Need To Be Fed",
+"Descr": "A perfection of my 360° gravity engine and gameplay. A casual, fresh and fun platformer. Walk upside down, \njump from one object to another. Objects start moving, rotating, and several other hazards are thrown your way \nto provide an exciting challenge. The game includes 5 worlds with each 7 levels to \nplay.",
+"Zip": "http://www.venbrux.com/games/TNTBF.zip",
+"Site": "http://www.venbrux.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/They Need To Be Fed/Image.jpg",
+"dummy":0
+},
+{
+"ID": "zepsdreamland",
+"Name": "Zep's dreamland",
+"Descr": "An addictive and challenging block-building puzzler where you control the cute little blue character, Zep, and \nhelp him navigate through an obstacle-filled dreamland. Use Zep's magical power to create or destroy blocks in \norder to help you change the landscape and reach each dream's exit. Easier said than done! Zep's abilities are \npowerful, but he can't build things wherever he wants. The dreamland is filled with dead-zones that prevent \nZep from being able to conjure up blocks. These, and many other obstacles will block Zep's path. It's up to \nyou to determine the best (and sometimes only) way to get around them in order to help him wake up. \n",
+"Zip": "http://www.zepsdreamland.com/downloads/zeps_dreamland.zip",
+"Site": "http://www.zepsdreamland.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Zep's dreamland/Image.jpg",
+"dummy":0
+},
+{
+"ID": "caph",
+"Name": "Caph",
+"Descr": "It is a sandbox game, based on physics. The game aim is to make contact red object with green object. You can \nuse various objects, solid, wire (rope), and bendable objects. Gravitation will help \nyou.",
+"Zip": "http://sourceforge.net/projects/caphgame/files/caph/caphgame-1.1/caph-1.1-mingw32.zip/download?use_mirror=?/caph-1.1-mingw32.zip",
+"Site": "http://caphgame.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Caph/Image.jpg",
+"dummy":0
+},
+{
+"ID": "connectagram",
+"Name": "Connectagram",
+"Descr": "Connectagram is a word unscrambling game. The board consists of several scrambled words that are joined \ntogether. You can choose the length of the words, the amount of words, and the pattern that the words are \narranged in. The game provides a hint option for times when you are stuck, and features an online word lookup \nthat fetches the definitions of each word from www.dict.org. Your current progress is automatically saved. \nNote that this game involves a large and varied word list, some of which may be considered inappropriate for \nchildren. You can edit the file containing the word list if you wish to remove words from your game. The \nlocation of this file varies by platform.",
+"Zip": "http://gottcode.org/connectagram/Connectagram_1.0.1.zip",
+"Site": "http://gottcode.org/connectagram/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Connectagram/Image.jpg",
+"dummy":0
+},
+{
+"ID": "crayon",
+"Name": "Crayon",
+"Descr": "Crayon Physics is a physics based game where you have to guide a ball to the goal by using the power of your \ndrawings. ",
+"Zip": "http://www.kloonigames.com/download/crayon.zip",
+"Site": "http://www.kloonigames.com/blog/games/crayon",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Crayon/Image.jpg",
+"dummy":0
+},
+{
+"ID": "cuby",
+"Name": "Cuby",
+"Descr": "Cuby intents to be a logic puzzle game. It uses Raydium, a 3D engine specific for games. It is available for \nGNU/Linux, Mac OS X, Windows and the iPhone OS.",
+"Zip": "http://sourceforge.net/projects/cuby/files/Cuby%20for%20Windows/0.4/cuby_0.4_windows_x86.zip/download?use_mirror=?/cuby_0.4_windows_x86.zip",
+"Site": "http://cuby.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Cuby/Image.jpg",
+"dummy":0
+},
+{
+"ID": "fishfilletsng",
+"Name": "Fish Fillets NG",
+"Descr": "Fish Fillets NG is strictly a puzzle game. The goal in every of the seventy levels is always the same: find a \nsafe way out. The fish utter witty remarks about their surroundings, the various inhabitants of their \nunderwater realm quarrel among themselves or comment on the efforts of your fish. The whole game is \naccompanied by quiet, comforting music.",
+"Zip": "http://sourceforge.net/projects/fillets/files/Fish%20Fillets%20-%20Next%20Generation/1.0.1/fillets-ng-all-win32-1.0.1.zip/download?use_mirror=?/fillets-ng-all-win32-1.0.1.zip",
+"Site": "http://fillets.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Fish Fillets NG/Image.jpg",
+"dummy":0
+},
+{
+"ID": "gottet",
+"Name": "Gottet",
+"Descr": "Gottet is a simple tetris clone.",
+"Zip": "http://gottcode.org/gottet/Gottet_1.0.4.zip",
+"Site": "http://gottcode.org/gottet",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Gottet/Image.jpg",
+"dummy":0
+},
+{
+"ID": "mrcleaner",
+"Name": "Mr.Cleaner",
+"Descr": "Mister Cleaner features 49 original Sokoban puzzles, split it 7 levels of 7 different eras that the player \nwill travel, including the Stone Age, the Ancient Egypt, the Middle Ages or the Distant Future ... The \ngraphics of the game are up to the modern standards, including complex shaders and a rich lighting scheme with \nrealtime shadows and a volumetric atmosphere rendering. Mr. Cleaner is powered by a full-featured technology \nto render the most beautiful experience to date in this category of puzzle \ngames.",
+"Zip": "http://www.astrofra.com/niji/MrCleaner_Win32.zip",
+"Site": "http://mrcleaner-thegame.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Mr.Cleaner/Image.jpg",
+"dummy":0
+},
+{
+"ID": "ninjah",
+"Name": "Ninjah",
+"Descr": "Ninjah is a fast paced action-puzzler. The general idea is to get from A to B as quickly as possible with the \nhelp of your trusty, if not slightly elastic, ninja rope and your ability to err.... go into slow motion. \nHowever, there is a snag. You may only come into contact with blocks the same colour as your belt or you die \n(for some well explained and thorough reason!). To help combat this strange allergic reaction to the evil, \nevil blocks, you can change the colour of your belt by hitting the corresponding checkered \nblocks.",
+"Zip": "http://chrismingay.co.uk/ninjah/ninjah.zip",
+"Site": "http://chrismingay.co.uk/ninjah/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Ninjah/Image.jpg",
+"dummy":0
+},
+{
+"ID": "numptyphysics",
+"Name": "Numpty Physics",
+"Descr": "Harness gravity with your crayon and set about creating blocks, ramps, levers, pulleys and whatever else you \nfancy to get the little red thing to the little yellow thing. Numpty Physics is a drawing puzzle game in the \nspirit (and style?) of Crayon Physics using the same excellent Box2D engine. Note though that I've not \nactually played CP so the experience may be very different. Numpty Physics includes a built-in editor so that \nyou may build (and submit) your own levels. Numpty Physics is released under the \nGPL.",
+"Zip": "http://thp.io/2008/numptyphysics/numptyphysics-0.2-win32.zip",
+"Site": "http://thp.io/2008/numptyphysics",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Numpty Physics/Image.jpg",
+"dummy":0
+},
+{
+"ID": "simsu",
+"Name": "Simsu",
+"Descr": "Simsu is a basic Sudoku game. You can switch between filling in notes (pencil mode), or filling in answers \n(pen mode). To make it easier to see where to place numbers, you can highlight all instances of a number. You \ncan also check your answers for correctness while playing. The game stores your current notes and answers, so \nthat you can pick up where you left off the next time you play.",
+"Zip": "http://gottcode.org/simsu/Simsu_1.2.2.zip",
+"Site": "http://gottcode.org/simsu/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Simsu/Image.jpg",
+"dummy":0
+},
+{
+"ID": "sokobano",
+"Name": "Sokobano",
+"Descr": "Sokobano is an entertaining Sokoban game featuring nice 3D graphics programmed in Java. Sokoban is one of the \nmost popular thought and logic games. The name, and the game also, comes from Japan and means \"warehouse \nkeeper\". The idea of Sokoban is simple: A level represents a store room, where boxes appear to be randomly \nplaced. You help the warehouse keeper to push the boxes around the maze of the room so that, at the end, all \nboxes are on marked fields. The only restrictions are that the warehouse keeper can only push a box, never \npull, and that just one box may be pushed at a time. Each level has a different structure, which requires a \ndifferent solution, often with a different strategy as well. The magic of the game is that boxes, which are \nout of the way on one move, might be in the way on the next move. The clearness of the rules, in combination \nwith so many levels ranging from easy to extremely difficult, have made Sokoban become a real \nclassic.",
+"Zip": "http://sourceforge.net/projects/sokobano/files/sokobano/sokobano 1.0.3/Sokobano.zip/download?use_mirror=?/sokobano 1.0.3.zip",
+"Site": "http://sokobano.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Sokobano/Image.jpg",
+"dummy":0
+},
+{
+"ID": "tanglet",
+"Name": "Tanglet",
+"Descr": "Tanglet is a single player word finding game based on Boggle. The object of the game is to list as many words \nas you can before the time runs out. There are several timer modes that determine how much time you start \nwith, and if you get extra time when you find a word. You can join letters horizontally, vertically, or \ndiagonally in any direction to make a word, so as long as the letters are next to each other on the board. \nHowever, you can not reuse the same letter cells in a single word. Also, each word must be at least three \nletters on a normal board, and four letters on a large board.",
+"Zip": "http://gottcode.org/tanglet/Tanglet_1.2.1.zip",
+"Site": "http://gottcode.org/tanglet/",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Tanglet/Image.jpg",
+"dummy":0
+},
+{
+"ID": "tetrinet",
+"Name": "TetriNET",
+"Descr": "Tetris ?  Whats that ?  Yeah, yeah, so it's been done 2 billion times before (give or take a few bil), but \nthis is different!  Yes, all you tetris addicts ut there be prepared for even MORE excitement.. internet \ntetris!  Now you can play your five best buddies in one of the most well known games in \nexistence!",
+"Zip": "http://tetrinet.info/downloads/Clients/Windows/tnet113.zip",
+"Site": "http://tetrinet.info",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/TetriNET/Image.jpg",
+"dummy":0
+},
+{
+"ID": "dakar2011",
+"Name": "Dakar 2011",
+"Descr": "The Dakar 2011 is a 3D game, where you can drive like in the Dakar rally. There are 14 stages you can go \nthrough against the time and other opponents. Stages are based on real maps (in miniature). There are 140 \nopponents you can drive with.",
+"Zip": "http://sourceforge.net/projects/dakar2011/files/final/Dakar2011_win32_linux32_bin_build2986_v5.zip/download?use_mirror=?/Dakar2011_win32_linux32_bin_build2986_v5.zip",
+"Site": "http://dakar2011.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Racing/Dakar 2011/Image.jpg",
+"dummy":0
+},
+{
+"ID": "maniadrive",
+"Name": "ManiaDrive",
+"Descr": "ManiaDrive is a free clone of Trackmania, the great game from Nad?studio, and is an arcade car game on \nacrobatic tracks, with a quick and nervous gameplay (tracks almost never exceed one minute), and features a \nnetwork mode, as the original.",
+"Zip": "http://sourceforge.net/projects/maniadrive/files/maniadrive/1.2/ManiaDrive-1.2-win32-i386.zip/download?use_mirror=?/ManiaDrive-1.2-win32-i386.zip",
+"Site": "http://maniadrive.raydium.org",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Racing/ManiaDrive/Image.jpg",
+"dummy":0
+},
+{
+"ID": "racer",
+"Name": "Racer",
+"Descr": "Racer is a free car simulation project, focusing on realism. It also stimulates users to create their own \ncontent (cars and tracks) by using simple file formats.",
+"Zip": "http://www.racer.nl/download/racer0655.zip",
+"Site": "http://www.racer.nl",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Racing/Racer/Image.jpg",
+"dummy":0
+},
+{
+"ID": "attackofthepaperzombies",
+"Name": "Attack of the Paper Zombies",
+"Descr": "Attack of the Paper Zombies is a strategy game where your small band of space marines hold off and defeats a \ngiant horde of alien zombies.  Even though there are hundreds more enemies than your soldiers, you have some \naces up your sleeve.   You can construct automated guns and minefields that rip the zombies to shreds.  You \ncan also order the use of grenades or call in a chemical barrage. The goal of the game is to exterminate the \nzombie infestation.  To do this, you need to destroy and capture all of their hives.  Watch out though, the \nzombies are capable of evolving new powers and defences.  It’s up to you to adapt and counter their \nmutations.",
+"Zip": "http://www.indiebird.com/downloads/AotP_Zombies_1_2.zip",
+"Site": "http://www.indiebird.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Real-Time Strategy/Attack of the Paper Zombies/Image.jpg",
+"dummy":0
+},
+{
+"ID": "mubblytower",
+"Name": "Mubbly Tower",
+"Descr": "Mubbly Tower a physics based Tower Defense game where you have to build a stable tower and defend it. Score \npoints, defeat attackers to get gold and buy stuff.",
+"Zip": "http://www.venbrux.com/games/mubblytower.zip",
+"Site": "http://venbrux.com/work/222",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Real-Time Strategy/Mubbly Tower/Image.jpg",
+"dummy":0
+},
+{
+"ID": "paxbritannica",
+"Name": "Pax Britannica",
+"Descr": "Pax Britannica is a one-button real-time strategy game by No Fun Games. Up to four players battle it out \nunderwater, struggling to be the last one standing!",
+"Zip": "http://paxbritannica.henk.ca/Pax%20Britannica.zip",
+"Site": "http://paxbritannica.henk.ca",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Real-Time Strategy/Pax Britannica/Image.jpg",
+"dummy":0
+},
+{
+"ID": "warlocksgauntlet",
+"Name": "Warlock's Gauntlet",
+"Descr": "Warlock's Gauntlet is an Open-Source community project, created by users from gamedev.pl - a Polish game \ndevelopment site known as Warsztat (the workshop). It's a dynamic, top-down shooter (well, spell-caster) game, \nplacing you - the player - in the role of a battlemage. The hero travels through maps filled with monsters, \ngaining experience and learning new spells. The game is similar to titles like Gauntlet or Diablo. The game \nfeatures over 12 action-packed levels which should amount to about two hours of gameplay; the player character \ncan learn over 30 distinct spells. There is no networked multiplayer, but the game includes a hot-seat \ntwo-player mode. The game available entirely for free - the code is open source and the assets are licensed \nCC.",
+"Zip": "http://hell.org.pl/~toxic/all/warsztat/snapshots/win32/en/wg_win32_1.3.zip",
+"Site": "http://www.musztardasarepska.pl/wgdown",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/RPG/Warlock's Gauntlet/Image.jpg",
+"dummy":0
+},
+{
+"ID": "gl117",
+"Name": "GL-117",
+"Descr": "GL-117 is an action flight simulator for Linux/Unix and MSWindows. Enter the Eagle Squadron and succeed in \nseveral challanging missions leading though different landscapes. Five predefined levels of video quality and \nan amount of viewing ranges let you perfectly adjust the game to the performance of your system. Joystick, \nmouse, sound effects, music... ",
+"Zip": "http://sourceforge.net/projects/gl-117/files/gl-117/GL-117 Windows/gl-117-1.3-win32.zip/download?use_mirror=?/gl-117-1.3-win32.zip",
+"Site": "http://www.heptargon.de/gl-117/gl-117.html",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Simulators/GL-117/Image.jpg",
+"dummy":0
+},
+{
+"ID": "projectxforsaken",
+"Name": "ProjectX - Forsaken",
+"Descr": "ProjectX - Forsaken Source Port Forsaken was developed by Probe Entertainment a division of Acclaim \nEntertainment in 1995. Similar to the Descent series but very unique in it's own right. It is now actively \nmaintained by a member of the multiplayer community under the original code name ProjectX. The code base is a \nfork of the final patch release with various hidden features exposed, bug fixes, additions and reversing of \nunpopular changes that appeared in the patch (such as speed reduction). In the latest branch it has been fully \nported to cross platform libraries allowing it to play natively on Linux and \nWindows.",
+"Zip": "http://fly.thruhere.net/download/projectx.zip",
+"Site": "http://fly.thruhere.net/#projectx",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Simulators/ProjectX - Forsaken/Image.jpg",
+"dummy":0
+},
+{
+"ID": "simutrans",
+"Name": "simutrans",
+"Descr": "Simutrans is a transport simulation games. Planes, ships, trains, trams, trucks, busses, or monorails are at \nyour disposal. But factories have contracts and passengers will only travel to their own destinations. Many \ngraphic sets (paks) are available",
+"Zip": "http://sourceforge.net/projects/simutrans/files/simutrans/111-2-1/simuwin-111-2-1.zip/download?use_mirror=?/simuwin-111-2-1.zip",
+"Site": "http://www.simutrans.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Simulators/simutrans/Image.jpg",
+"dummy":0
+},
+{
+"ID": "thepowdertoy",
+"Name": "The Powder Toy",
+"Descr": "The Powder Toy is a desktop version of the classic 'falling sand' physics sandbox game, it simulates air \npressure and velocity as well as heat!",
+"Zip": "http://powdertoy.co.uk/Download/powder-win32.zip",
+"Site": "http://powdertoy.co.uk",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Simulators/The Powder Toy/Image.jpg",
+"dummy":0
+},
+{
+"ID": "foobillard",
+"Name": "Foobillard++",
+"Descr": "An OpenGL Billard Game based on foobillard 3.0a with patches, new features (hud, jumpshots, correct detection \nof lost balls, more sound and graphics etc). Optimized for touch. New designed mouse / \ntouch-control.",
+"Zip": "http://sourceforge.net/projects/foobillardplus/files/binaries/Windows/foobillardplus-3.42beta-win32_64Bit.zip/download?use_mirror=?/foobillardplus-3.42beta-win32_64Bit.zip",
+"Site": "http://foobillardplus.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Sports/Foobillard++/Image.jpg",
+"dummy":0
+},
+{
+"ID": "zombies",
+"Name": "Zombies",
+"Descr": "Welcome to Zombies, a turn-based game where the only goal is to outlast and destroy the zombies before they do \nthe same to you. Can you save humanity from being overrun?",
+"Zip": "http://www.strout.net/files/zombies-win.zip",
+"Site": "http://codenautics.com/zombies",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Turn-Based Strategy/Zombies/Image.jpg",
+"dummy":0
+}
 ]	  	
 ]
 }

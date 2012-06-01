@@ -313,11 +313,12 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                if (refreshInstallationStatusNeeded)
+                if (refreshInstallationStatusNeeded) // avoid continuous calling of Directory.Exists via this mechanism
                 {
-                    isInstalled =   IsGrowable &&
-                                    Directory.Exists(GameFolder) &&
-                                    (DlAndInstallTask == null || DlAndInstallTask.IsFinished()) ;
+                    if (!IsGrowable)            // non-growable items are assumed installed by default
+                        isInstalled = true;
+                    else
+                        isInstalled =   Directory.Exists(GameFolder) && (DlAndInstallTask == null || DlAndInstallTask.IsFinished()) ;
                     refreshInstallationStatusNeeded = false;
                 }
                 return isInstalled;

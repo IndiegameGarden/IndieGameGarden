@@ -87,7 +87,7 @@ namespace IndiegameGarden.Menus
             {
                 string title = game.Name; 
                 string desc = game.Description + "\n";
-                if (game.IsInstalled || game.IsWebGame)
+                if (  (game.IsGrowable && game.IsInstalled) || game.IsWebGame)
                 {
                     if (game.GameID.Equals("igg"))
                         desc += "Restart IndiegameGarden now (with ESCAPE) to get the new version " + game.Version + ".";
