@@ -20,7 +20,7 @@ namespace IndiegameGarden.Menus
      */
     public class GardenGamesPanel: GamesPanel
     {
-        // below: UI constants
+        // below: UI constants; TODO find all layer refs and init globally
         const float LAYER_BACK = 1.0f;
         const float LAYER_FRONT = 0.0f;
         const float LAYER_ZOOMING_ITEM = 0.1f;
@@ -41,28 +41,30 @@ namespace IndiegameGarden.Menus
         const float PANEL_ZOOM_SPEED_ABORTQUITTING = 0.005f;
         static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-3f);
 
-        const float CURSOR_SCALE_REGULAR = 0.8f; //5.9375f;
+        const float        CURSOR_SCALE_REGULAR = 0.8f; 
         public const float CURSOR_DISCOVERY_RANGE = 1.3f;
         public const float CURSOR_DESTRUCTION_RANGE = 4f;
-        const float CURSOR_MARGIN_X = 0.15f;
-        const float CURSOR_MARGIN_Y = 0.15f;
-        static Vector2 CURSOR_INITIAL_POSITION = new Vector2(3f, 2f);
+        const float        CURSOR_MARGIN_X = 0.15f;
+        const float        CURSOR_MARGIN_Y = 0.15f;
+        static Vector2     CURSOR_INITIAL_POSITION = new Vector2(3f, 2f);
 
-        public const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; //0.6f; //0.54f; //1.5625f;
-        const float THUMBNAIL_SCALE_SELECTED = 0.51f; //0.7f; //0.65f; //2f;
+        public const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; 
+        const float        THUMBNAIL_SCALE_SELECTED = 0.51f; 
         public const float THUMBNAIL_MAX_WIDTH_PIXELS = 320f;
         public const float THUMBNAIL_MAX_HEIGHT_PIXELS = 240f;
-        const float THUMBNAIL_FADE_SPEED = 0.3f;
+        const float        THUMBNAIL_FADE_SPEED = 0.3f;
 
         static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f, 0.895f);
         static Vector2 INFOBOX_DESCRIPTION_HIDDEN_POSITION = new Vector2(0.05f, 0.97f);
         static Vector2 INFOBOX_ALL_HIDDEN_POSITION = new Vector2(0.05f, 1.15f);
+        const float    INFOBOX_SPEED_MOVE = 3.8f;
         static Vector2 HELPTEXT_SHOWN_POSITION = new Vector2(0.15f, 0.13f);
         static Vector2 HELPTEXT_HIDDEN_POSITION = new Vector2(0.15f, -0.2f);
+        const float    HELPTEXT_SPEED_MOVE = 3.8f;
         static Vector2 CREDITS_SHOWN_POSITION = new Vector2(0.4f, 0.145f);
         static Vector2 CREDITS_HIDDEN_POSITION = new Vector2(0.4f, -0.22f);
-        const float CREDITS_SCALE_DEFAULT = 0.6f;
-        const float INFOBOX_SPEED_MOVE = 3.8f;
+        const float    CREDITS_SCALE_DEFAULT = 0.6f;
+        const float    CREDITS_SPEED_MOVE = 3.8f;
         
         const float TIME_BEFORE_GAME_LAUNCH = 0.4f;
         const float TIME_BEFORE_EXIT = 1.1f;
@@ -72,8 +74,6 @@ namespace IndiegameGarden.Menus
         public double GridMaxX=99, GridMaxY=99; // TODO link to GameLib size (100)
 
         Dictionary<string, GameThumbnail> thumbnailsCache = new Dictionary<string, GameThumbnail>();
-
-        //GameCollection gamesCollection;
 
         // cursor is the graphics selection thingy         
         GameThumbnailCursor cursor;
@@ -114,19 +114,22 @@ namespace IndiegameGarden.Menus
             // info box - will be added to parent upon OnNewParent() event
             infoBox = new GameInfoBox();
             infoBox.Motion.Position = INFOBOX_ALL_HIDDEN_POSITION;
+            infoBox.Motion.TargetPos = INFOBOX_SHOWN_POSITION;
+            infoBox.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
 
             // controls help 
             controlsHelpBitmap = new Spritelet("keymap");
             controlsHelpBitmap.Motion.Scale = 0.5f;
             controlsHelpBitmap.Motion.Position = HELPTEXT_HIDDEN_POSITION;
-            controlsHelpBitmap.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
+            controlsHelpBitmap.Motion.TargetPos = HELPTEXT_SHOWN_POSITION;
+            controlsHelpBitmap.Motion.TargetPosSpeed = HELPTEXT_SPEED_MOVE;
 
             // credits
             creditsBitmap = new Spritelet("credits.png");
             creditsBitmap.Motion.Scale = CREDITS_SCALE_DEFAULT;
             creditsBitmap.Motion.Position = CREDITS_HIDDEN_POSITION;
             creditsBitmap.Motion.TargetPos = CREDITS_HIDDEN_POSITION;
-            creditsBitmap.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
+            creditsBitmap.Motion.TargetPosSpeed = CREDITS_SPEED_MOVE;
 
             // default zoom
             Motion.Zoom = PANEL_ZOOM_DETAILED_VIEW;
@@ -138,6 +141,7 @@ namespace IndiegameGarden.Menus
         public override void OnUpdateList(GameCollection gl)
         {
             this.gl = gl;
+            SelectGameBelowCursor();
         }
 
         // shorthand method to select the game currently indicated by cursor
@@ -148,12 +152,10 @@ namespace IndiegameGarden.Menus
                 GardenItem g = gl.FindGameAt(cursor.GridPosition);
                 SelectedGame = g;
                 infoBox.ClearProgressBar();
+                if (g != null && !g.IsVisible)  // reset back to null for invisible items. Not selectable.
+                    SelectedGame = null;
                 if (g != null)
-                {
                     g.Refresh();
-                    if (!g.IsVisible)  // reset back to null for invisible items. Not selectable.
-                        SelectedGame = null;
-                }
             }
         }
 
@@ -458,6 +460,7 @@ namespace IndiegameGarden.Menus
             {
                 GardenGame.Instance.music.FadeIn();
             }
+
             switch (inp)
             {
                 case UserInput.DOWN:
@@ -525,11 +528,8 @@ namespace IndiegameGarden.Menus
                                     // select once - zoom in on selected game
                                     Motion.ZoomTarget = PANEL_ZOOM_DETAILED_VIEW;
                                     Motion.ZoomSpeed = PANEL_ZOOM_SPEED_REGULAR; // 0.01f; 
-                                    //Motion.ZoomCenter = cursor.Motion.PositionAbs;
                                     Motion.ZoomCenterTarget = cursor.Motion;
                                     SelectedGame.Refresh();
-                                    //infoBox.Motion.TargetPos = INFOBOX_SHOWN_POSITION - new Vector2(0f,0.05f * (SelectedGame.DescriptionLineCount-1));
-                                    //infoBox.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
                                     selectionLevel++;
                                     break;
                                 case 1:
@@ -537,8 +537,6 @@ namespace IndiegameGarden.Menus
                                     isGameLaunchOngoing = true;
                                     break;
                             }
-
-
                         }
                     }
                     break;
@@ -568,24 +566,17 @@ namespace IndiegameGarden.Menus
             if (selectionLevel == 0)
             {
                 infoBox.Motion.TargetPos = INFOBOX_DESCRIPTION_HIDDEN_POSITION;
-                infoBox.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
             }
 
-            if (selectionLevel == 1)
+            if (selectionLevel == 1 && SelectedGame != null )
             {
-                int lnCount = 1;
-                if (SelectedGame != null)
-                {
-                    lnCount = SelectedGame.DescriptionLineCount;
-                }
+                int lnCount = SelectedGame.DescriptionLineCount;
                 infoBox.Motion.TargetPos = INFOBOX_SHOWN_POSITION - new Vector2(0f, 0.029f * (lnCount - 1));
-                infoBox.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
             }
 
             if (SelectedGame == null || SelectedGame.Name.Length == 0)
             {
                 infoBox.Motion.TargetPos = INFOBOX_ALL_HIDDEN_POSITION;
-                infoBox.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
             }
 
         }
