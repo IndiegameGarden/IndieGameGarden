@@ -361,7 +361,15 @@ namespace IndiegameGarden.Menus
                 if (g.GameID.Equals("igg_controls"))
                 {
                     controlsHelpBitmap.Motion.TargetPos = HELPTEXT_SHOWN_POSITION;
-                    g.Name = GardenConfig.Instance.ServerMsg;
+                    if (g.Name.Length == 0)
+                    {
+                        string msg = GardenConfig.Instance.ServerMsg;
+                        string[] msgLines = msg.Split(new char[] { '\n' },2);
+                        g.Name = msgLines[0];
+                        if (msgLines.Length > 1) 
+                            g.Description = msgLines[1];
+                        
+                    }
                 }
                 else
                 {

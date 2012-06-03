@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 
 using TTengine.Core;
+using TTengine.Util;
 using IndiegameGarden.Menus;
 using IndiegameGarden.Install;
 using NetServ.Net.Json;
@@ -65,7 +66,7 @@ namespace IndiegameGarden.Base
             set
             {
                 description = value;
-                lineCount = PerformLineCount(description);
+                lineCount = TTutil.LineCount(description);
             }
         }
 
@@ -84,21 +85,6 @@ namespace IndiegameGarden.Base
             }
         }
 
-        private int PerformLineCount(string s)
-        {
-            if (s.Length == 0)
-                return 0;
-            int result = 1;
-            foreach (char c in s)
-            {
-                if (c.Equals('\n'))
-                {
-                  result++;
-                }
-            }
-            return result;
-        }
-
         protected int lineCount = -1;
 
         public int DescriptionLineCount
@@ -106,7 +92,7 @@ namespace IndiegameGarden.Base
             get
             {
                 if (lineCount < 0)
-                    lineCount = PerformLineCount(description);
+                    lineCount = TTutil.LineCount(description);
                 return lineCount;
             }
         }
@@ -543,7 +529,7 @@ namespace IndiegameGarden.Base
         public GardenItem(JsonObject j)
         {
             try { GameID = j["ID"].ToString(); }
-            catch (Exception ex) { ; }
+            catch (Exception) { ; }
             try { Version = (int)((JsonNumber)j["Version"]).Value; }
             catch (Exception) { ;}
             try { VisibilityLabel = (int)((JsonNumber)j["Visible"]).Value; }

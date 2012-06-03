@@ -1,8 +1,6 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-AVoid downloading of igg_* items (only igg is ok)
-Add serverMsg2 with more text showing in small print.
 Test client version update in deployment version (make zips for auto-upgrade + portable app zip)
 Finalize gamelib in fmt3 (+ karate, ...)
 
@@ -18,6 +16,8 @@ Add mirrors to all thumbnail loading?
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-06-03 Add serverMsg2 with more text showing in small print.
+2012-06-01 AVoid downloading of igg_* items (only igg is ok)
 2012-06-01 Very first Selection of game doesn't work (on startup) -> fixed & cleanup up GardenGamesPanel code
 2012-05-31 Test final version assign to igg fix
 2012-05-31 Avoid thumb dl for gameID=""
