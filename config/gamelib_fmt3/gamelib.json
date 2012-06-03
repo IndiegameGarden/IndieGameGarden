@@ -72,14 +72,14 @@
 	"X": 1, "Y": 1, "DX": 2
 },
 {
- 	"ID": "dwarffortress",
-	"Name": "Dwarf Fortress 0.34.02",
-	"Descr": "Single-player fantasy game set in a randomly generated, persistent world. Amazingly, all visuals are ASCII.",
-	"Help": "You can maximize the window to see a larger map area during the game.",
-	"Zip": "www.bay12games.com/dwarves/df_34_02_win.zip",
-	"ZipMirrors": ["b12.wimbli.com/df_34_02_win.zip", "df.nucleardog.com/df_34_02_win.zip"],
-	"Site": "www.bay12games.com/dwarves/",
-	"Exe": "Dwarf Fortress.exe"
+	"ID": "gametitle",
+	"Name": "Game Title",
+	"Descr": "\"A Zelda-esque dungeon crawler, but you only have one hit point, various weapons are hidden to ease the difficulty\"",
+	"Cd": "Game Title",
+	"ThumbURL": "http://indie.indiegamegarden.com/thumbs/gametitle.jpg",
+	"Exe": "Game Title.exe",
+	"Zip": "www.glorioustrainwrecks.com/files/Game%20Title%20-%202012-02-22b.zip",
+	"Site": "www.glorioustrainwrecks.com/node/2258"
 },
 {
  	"ID": "foxaliens",
@@ -112,14 +112,14 @@
 },
 {},
 {
-	"ID": "gametitle",
-	"Name": "Game Title",
-	"Descr": "\"A Zelda-esque dungeon crawler, but you only have one hit point, various weapons are hidden to ease the difficulty\"",
-	"Cd": "Game Title",
-	"ThumbURL": "http://indie.indiegamegarden.com/thumbs/gametitle.jpg",
-	"Exe": "Game Title.exe",
-	"Zip": "www.glorioustrainwrecks.com/files/Game%20Title%20-%202012-02-22b.zip",
-	"Site": "www.glorioustrainwrecks.com/node/2258"
+ 	"ID": "dwarffortress",
+	"Name": "Dwarf Fortress 0.34.02",
+	"Descr": "Single-player fantasy game set in a randomly generated, persistent world. Amazingly, all visuals are ASCII.",
+	"Help": "You can maximize the window to see a larger map area during the game.",
+	"Zip": "www.bay12games.com/dwarves/df_34_02_win.zip",
+	"ZipMirrors": ["b12.wimbli.com/df_34_02_win.zip", "df.nucleardog.com/df_34_02_win.zip"],
+	"Site": "www.bay12games.com/dwarves/",
+	"Exe": "Dwarf Fortress.exe"
 },
 {
  	"ID": "YCPEMTDT2",
