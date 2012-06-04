@@ -1,10 +1,13 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
+Typing letters leads you to the named game (or closest description)
+Check screen back to normal after arvoesine
 Test client version update in deployment version (make zips for auto-upgrade + portable app zip)
 Finalize gamelib in fmt3 (+ karate, ...)
 
 AFTER ALPHA-3
+Show number of downloads still ongoing (graphics?)
 Make gamelib loading non-blocking
 .7z file unpacking using the 7-Zip DLLs
 Icon stays big while loading game -> maybe not nice.

@@ -92,7 +92,7 @@ namespace IndiegameGarden.Menus
                     if (game.GameID.Equals("igg"))
                         desc += "Restart IndiegameGarden now (with ESCAPE) to get the new version " + game.Version + ".";
                     else
-                        desc += "This "+game.ItemName+" now grows in your garden. Hold ENTER to play!\n";
+                        desc += "Yes, it's in your garden! Hold ENTER to play.\n";
                     //dlProgressBar.Visible = false;
                     dlProgressBar.ProgressTarget = 1.0f;
                     dlProgressBar.ProgressValue = 1.0f;
@@ -103,7 +103,7 @@ namespace IndiegameGarden.Menus
                     if (game.DlAndInstallTask == null)
                     {
 
-                        desc += "This " + game.ItemName + " is not yet in your garden. Hold ENTER to grow it.\n";
+                        desc += "This " + game.ItemName + " is not in your garden. Hold ENTER to grow it.\n";
                         dlProgressBar.Visible = false;
                         dlProgressBar.ProgressTarget = 0.0f;
                         dlProgressBar.ProgressValue = 0.0f;
