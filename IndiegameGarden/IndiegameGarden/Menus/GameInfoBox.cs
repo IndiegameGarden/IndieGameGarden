@@ -90,7 +90,7 @@ namespace IndiegameGarden.Menus
                 if (  (game.IsGrowable && game.IsInstalled) || game.IsWebGame)
                 {
                     if (game.IsIggClient)
-                        desc += "Restart IndiegameGarden now (with ESCAPE) to get the new version " + game.Version + ".";
+                        desc += "Hold ENTER now to start the new Indiegame Garden version " + game.Version + "!";
                     else
                         desc += "Yes, it's in your garden! Hold ENTER to play.\n";
                     //dlProgressBar.Visible = false;
