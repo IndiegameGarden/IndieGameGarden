@@ -172,15 +172,16 @@ namespace IndiegameGarden
             // update any other XNA components
             base.Update(gameTime);
 
+            // TODO document
             if (launcher != null && !launcher.IsFinished() && 
                 launcher.IsGameShowingWindow && loadingDisplay.IsLoadingState() )
             {
                 loadingDisplay.SetPlayingGame(3.0f);
             }
 
-            if (isExiting && !music.IsPlaying)
+            if (isExiting && !music.IsPlaying )
             {
-                Exit(); // finally exit XNA if music is faded out.
+                Exit(); // finally really exit XNA if music is faded out.
             }
         }
 
@@ -194,25 +195,21 @@ namespace IndiegameGarden
         }
 
         /// <summary>
-        /// indicate to game that asap we should clean up and exit
+        /// indicate to game that asap we should clean up and exit, no way back
         /// </summary>
-        public void ExitGame()
+        public void SignalExitGame()
         {
             isExiting = true;
-
             DownloadManager.Instance.PauseAll();
+        }
 
+        protected override void OnExiting(object sender, EventArgs args)
+        {
             // call dispose to abort all threads/activity for entire game library (GardenItems)
             if (GameLib != null)
                 GameLib.Dispose();
 
-            /*
-            if (mainScreenlet != null)
-                mainScreenlet.Dispose();
-            
-            if (loadingScreenlet != null)
-                loadingScreenlet.Dispose();
-            */
+            base.OnExiting(sender, args);
         }
 
         protected override void Dispose(bool disposing)
@@ -239,7 +236,7 @@ namespace IndiegameGarden
 
         public void ActionLaunchWebsitePlayGame(GardenItem g, GameThumbnail thumb)
         {
-            ITask t = new ThreadedTask(new SiteLauncherTask(g,g.ExeFile));
+            ITask t = new ThreadedTask(new SiteLauncherTask(g, g.ExeFile));
             t.Start();
             loadingDisplay.SetLoadingGame(g, thumb);
             music.FadeOut();

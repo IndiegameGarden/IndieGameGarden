@@ -174,21 +174,23 @@ namespace IndiegameGarden.Menus
         {
             base.OnUpdate(ref p);
 
+            GardenItem selGame = SelectedGame;
+
             // update info box
-            if (SelectedGame == null)
+            if (selGame == null)
             {
-                infoBox.SetGameInfo(SelectedGame);
+                infoBox.SetGameInfo(selGame);
             }
 
             // handle download/install/launching of a game
             if (isGameLaunchOngoing && timeLaunching < TIME_BEFORE_GAME_LAUNCH)
             {
                 timeLaunching += p.Dt;
-                GameThumbnail th = thumbnailsCache[SelectedGame.GameID];
+                GameThumbnail th = thumbnailsCache[selGame.GameID];
                 float sc = (1f + timeLaunching/3f);
                 th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED * sc; // blow up size of thumbnail while user requests launch
                 cursor.Motion.ScaleTarget = sc;
-                cursor.Motion.ScaleSpeed = th.Motion.ScaleSpeed / SelectedGame.ScaleIcon; // TODO correct ScaleIcon?
+                cursor.Motion.ScaleSpeed = th.Motion.ScaleSpeed / selGame.ScaleIcon; // TODO correct ScaleIcon?
             }
 
             if (!isGameLaunchOngoing)
@@ -201,27 +203,40 @@ namespace IndiegameGarden.Menus
             {
                 cursor.Motion.ScaleTarget = CURSOR_SCALE_REGULAR;
 
-                // check for mystery game                    
-                if (SelectedGame.GameID.Equals("igg_mysterygame"))
-                    throw new NotImplementedException("igg_mysterygame");
-                
-                GameThumbnail thumb = thumbnailsCache[SelectedGame.GameID];
-                if (SelectedGame.IsSystemPackage)
+                GameThumbnail thumb = thumbnailsCache[selGame.GameID];
+                if (selGame.IsIggClient)
                 {
-                    thumb.Motion.Add(new TemporaryScaleBlowup());
-                }
-                else if (SelectedGame.IsWebGame)
-                {
-                    GardenGame.Instance.ActionLaunchWebsitePlayGame(SelectedGame, thumb);
-                }
-                else if (SelectedGame.IsInstalled)
-                {
-                    GardenGame.Instance.music.FadeOut();
-                    GardenGame.Instance.ActionLaunchGame(SelectedGame, thumb);
+                    if (selGame.IsInstalled)
+                    {
+                        GardenGame.Instance.music.FadeOut();
+                        GardenGame.Instance.ActionLaunchGame(selGame, thumb);
+                        isExiting = true;
+                        timeExiting = TIME_BEFORE_EXIT;
+                    }
+                    else
+                    {
+                        GardenGame.Instance.ActionDownloadAndInstallGame(selGame);
+                    }
                 }
                 else
                 {
-                    GardenGame.Instance.ActionDownloadAndInstallGame(SelectedGame);
+                    if (selGame.IsSystemPackage)
+                    {
+                        thumb.Motion.Add(new TemporaryScaleBlowup());
+                    }
+                    else if (selGame.IsWebGame)
+                    {
+                        GardenGame.Instance.ActionLaunchWebsitePlayGame(selGame, thumb);
+                    }
+                    else if (selGame.IsInstalled)
+                    {
+                        GardenGame.Instance.music.FadeOut();
+                        GardenGame.Instance.ActionLaunchGame(selGame, thumb);
+                    }
+                    else
+                    {
+                        GardenGame.Instance.ActionDownloadAndInstallGame(selGame);
+                    }
                 }
                 isGameLaunchOngoing = false;
                 isGameLaunchConfirmed = false;
@@ -238,7 +253,7 @@ namespace IndiegameGarden.Menus
                     parentMenu.background.Motion.ScaleModifier = 1f / (1f + (timeExiting-TIME_BEFORE_EXIT) / 11f);
                     if (!isExitingUnstoppable)
                     {
-                        GardenGame.Instance.ExitGame();
+                        GardenGame.Instance.SignalExitGame();
                         isExitingUnstoppable = true;
                     }
                     return;
@@ -257,10 +272,10 @@ namespace IndiegameGarden.Menus
             //-- website launch
             if (isLaunchWebsite)
             {
-                if (SelectedGame != null)
+                if (selGame != null)
                 {
-                    GameThumbnail thumb = thumbnailsCache[SelectedGame.GameID];
-                    GardenGame.Instance.ActionLaunchWebsite(SelectedGame, thumb);
+                    GameThumbnail thumb = thumbnailsCache[selGame.GameID];
+                    GardenGame.Instance.ActionLaunchWebsite(selGame, thumb);
                 }
                 isLaunchWebsite = false;
             }
@@ -272,8 +287,8 @@ namespace IndiegameGarden.Menus
 
             // upd cache with possibly new items around cursor
             List<GardenItem> c = gl.GetItemsAround((int)cursor.GridPosition.X, (int)cursor.GridPosition.Y, 2);
-            if (SelectedGame != null)
-                c.Add(SelectedGame);
+            if (selGame != null)
+                c.Add(selGame);
             for (int i = c.Count - 1; i >= 0; i--)
             {
                 g = c[i];
@@ -351,9 +366,9 @@ namespace IndiegameGarden.Menus
             }
 
             // --- for selected game only
-            if (SelectedGame != null)
+            if (selGame != null)
             {
-                g = SelectedGame;
+                g = selGame;
                 // update text box with currently selected game info
                 infoBox.SetGameInfo(g);
 

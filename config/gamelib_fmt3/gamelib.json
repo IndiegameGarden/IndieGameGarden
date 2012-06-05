@@ -22,7 +22,7 @@
 "Name": "Update Indiegame Garden!",
 "Descr": "Hold ENTER to update Indiegame Garden itself. Once installed, simply restart to get the new version.",
 "Site": "indiegamegarden.com",
-"Exe": "TTengine.dll",
+"Exe": "IndiegameGarden.exe",
 "X": 2, "Y": 0
 },
 [

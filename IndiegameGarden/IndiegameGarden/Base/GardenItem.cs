@@ -341,6 +341,17 @@ namespace IndiegameGarden.Base
             }
         }
 
+        /// <summary>
+        /// check whether it is a downloadable update for the Indiegame Garden client
+        /// </summary>
+        public bool IsIggClient
+        {
+            get
+            {
+                return GameID.Equals("igg");
+            }
+        }
+
         public float InstallProgress
         {
             get
@@ -367,7 +378,7 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                if (GameID.Equals("igg"))
+                if (IsIggClient)
                     return true;
                 if (IsSectionId || IsSystemPackage)
                     return false;
