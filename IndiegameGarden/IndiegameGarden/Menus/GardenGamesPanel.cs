@@ -36,17 +36,18 @@ namespace IndiegameGarden.Menus
         const float PANEL_SIZE_X = 1.333f;
         const float PANEL_SIZE_Y = 1.0f;
         const float PANEL_ZOOM_TARGET_QUITTING = 0.01f;
-        const float PANEL_ZOOM_SPEED_QUITTING = 0.005f;
-        const float PANEL_ZOOM_SPEED_REGULAR = 0.005f;
-        const float PANEL_ZOOM_SPEED_ABORTQUITTING = 0.005f;
+        const float PANEL_ZOOM_SPEED_QUITTING = 0.008f;
+        const float PANEL_ZOOM_SPEED_REGULAR = 0.03f;
+        const float PANEL_ZOOM_SPEED_ABORTQUITTING = PANEL_ZOOM_SPEED_REGULAR;
         static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-3f);
 
         const float        CURSOR_SCALE_REGULAR = 0.8f; 
-        public const float CURSOR_DISCOVERY_RANGE = 10f;
-        public const float CURSOR_DESTRUCTION_RANGE = 22f;
+        const float        CURSOR_DISCOVERY_RANGE = 4f;
+        const float        CURSOR_FADEOUT_RANGE = 9f;
+        const float        CURSOR_DESTRUCTION_RANGE = 16f;
         const float        CURSOR_MARGIN_X = 0.15f;
         const float        CURSOR_MARGIN_Y = 0.15f;
-        static Vector2     CURSOR_INITIAL_POSITION = new Vector2(3f, 2f);
+        static Vector2     CURSOR_INITIAL_POSITION = new Vector2(3f, 1f);
 
         public const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; 
         const float        THUMBNAIL_SCALE_SELECTED = 0.51f; 
@@ -255,6 +256,7 @@ namespace IndiegameGarden.Menus
                     {
                         GardenGame.Instance.SignalExitGame();
                         isExitingUnstoppable = true;
+                        Motion.ZoomSpeed = PANEL_ZOOM_SPEED_QUITTING;
                     }
                     return;
                 }
@@ -286,7 +288,7 @@ namespace IndiegameGarden.Menus
             GardenItem g;
 
             // upd cache with possibly new items around cursor
-            List<GardenItem> c = gl.GetItemsAround((int)cursor.GridPosition.X, (int)cursor.GridPosition.Y, 2);
+            List<GardenItem> c = gl.GetItemsAround((int)cursor.GridPosition.X, (int)cursor.GridPosition.Y, (int) CURSOR_DISCOVERY_RANGE);
             if (selGame != null)
                 c.Add(selGame);
             for (int i = c.Count - 1; i >= 0; i--)
@@ -325,28 +327,31 @@ namespace IndiegameGarden.Menus
                 g = th.Game;
 
                 // check if out of range. If so, remove from cache later
-                if (cursor.GameletOutOfRange(th))
+                if (cursor.DistanceTo(th) > CURSOR_DESTRUCTION_RANGE)
                 {
                     toRemoveFromCache.Add(th);
                     th.Delete = true;
                 }
                 else
                 {
-                    // check if thnail visible and in range. If so, start displaying it (fade in)
-                    if (!th.Visible && cursor.GameletInRange(th))
+                    // check if thnail invvisible but in range. If so, start loading it
+                    if (!th.Visible && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE)
                     {
                         th.LoadInBackground();
                         th.ColorB.Intensity = 0f;
                     }
 
-                    if (th.IsLoaded() && cursor.GameletInRange(th))
+                    // check if thnail is loaded and still in range. If so, start displaying it (fade in)
+                    if (th.IsLoaded() && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE)
                     {
                         if (th.Game.IsGrowable)
                             th.ColorB.FadeTarget = (0.65f + 0.35f * g.InstallProgress);
                         else
                             th.ColorB.FadeTarget = 1f;
                     }
-                    else
+
+                    // check if thnail in range to fade out
+                    if (th.IsLoaded() && cursor.DistanceTo(th) > CURSOR_FADEOUT_RANGE)
                         th.ColorB.FadeTarget = 0f;
 
                 }
@@ -517,7 +522,7 @@ namespace IndiegameGarden.Menus
                     isExiting = true;
                     //selectionLevel = 0;
                     Motion.ZoomTarget = PANEL_ZOOM_TARGET_QUITTING ;
-                    Motion.ZoomSpeed = PANEL_ZOOM_SPEED_QUITTING ;
+                    Motion.ZoomSpeed = PANEL_ZOOM_SPEED_REGULAR ;
                     //Motion.ZoomCenter = cursor.Motion.PositionAbs;
                     //Motion.ZoomCenterTarget = cursor.Motion;
                     break;

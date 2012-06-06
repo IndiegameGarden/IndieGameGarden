@@ -172,17 +172,21 @@ namespace IndiegameGarden.Base
                     // calculate correct item position
                     if (!gi.IsPositionGiven)
                     {
-                        if (gi.IsPositionDeltaGiven)
-                            gi.Position = posPrevious + gi.PositionDelta;
-                        else
-                            gi.Position = posPrevious + Vector2.UnitX; // advance in standard way to the right
-
-                        // checking the automatic calculated game position with section width
-                        if (gi.PositionX >= sectionWidthHeight.X)
+                        gi.Position = posPrevious;
+                        do
                         {
-                            gi.PositionY += 1;
-                            gi.PositionX = 0;
-                        }
+                            if (gi.IsPositionDeltaGiven)
+                                gi.Position += gi.PositionDelta;
+                            else
+                                gi.Position += Vector2.UnitX; // advance in standard way to the right
+
+                            // checking the automatic calculated game position with section width
+                            if (gi.PositionX >= sectionWidthHeight.X)
+                            {
+                                gi.PositionY += 1;
+                                gi.PositionX = 0;
+                            }
+                        } while (gamesCollection.FindGameAt(gi.Position + childPosOffset) != null);
                     }                    
 
                     // update prev item position 
@@ -192,6 +196,8 @@ namespace IndiegameGarden.Base
                     gi.PositionX += (int) childPosOffset.X;
                     gi.PositionY += (int) childPosOffset.Y;
 
+                    // add to collection at specified position
+                    gamesCollection.Add(gi);
                 }
                 return null; // indicate array was last item.
             }
@@ -199,7 +205,6 @@ namespace IndiegameGarden.Base
             {
                 // process single leaf item
                 GardenItem ig = new GardenItem((JsonObject)j);
-                gamesCollection.Add(ig);
                 return ig;
             }
             else

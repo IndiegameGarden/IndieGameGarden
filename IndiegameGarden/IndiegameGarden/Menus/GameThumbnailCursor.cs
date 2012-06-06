@@ -26,35 +26,11 @@ namespace IndiegameGarden.Menus
         }
 
         /// <summary>
-        /// checks whether a Gamelet is in selection distance of this cursor
+        /// calculate the distance from cursor to given GameThumbnail in the grid
         /// </summary>
-        /// <param name="g">gamelet to check this cursor against</param>
-        /// <returns>true if in range</returns>
-        public bool GameletInRange(GameThumbnail g)
-        {
-            if (GridDistanceTo(g) <= GardenGamesPanel.CURSOR_DISCOVERY_RANGE)
-                return true;
-            return false;
-
-        }
-
-        public bool GameletInFadeOutRange(GameThumbnail g)
-        {
-            if (GridDistanceTo(g) > GardenGamesPanel.CURSOR_DISCOVERY_RANGE)
-                return true;
-            return false;
-
-        }
-
-        public bool GameletOutOfRange(GameThumbnail g)
-        {
-            if (GridDistanceTo(g) > GardenGamesPanel.CURSOR_DESTRUCTION_RANGE) //TODO
-                return true;
-            return false;
-
-        }
-
-        public float GridDistanceTo(GameThumbnail g)
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public float DistanceTo(GameThumbnail g)
         {
             Vector2 v = g.Game.PositionXY - GridPosition;
             return v.Length();

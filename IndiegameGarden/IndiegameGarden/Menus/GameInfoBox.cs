@@ -93,7 +93,6 @@ namespace IndiegameGarden.Menus
                         desc += "Hold ENTER now to start the new Indiegame Garden version " + game.Version + "!";
                     else
                         desc += "Yes, it's in your garden! Hold ENTER to play.\n";
-                    //dlProgressBar.Visible = false;
                     dlProgressBar.ProgressTarget = 1.0f;
                     dlProgressBar.ProgressValue = 1.0f;
                     dlProgressBar.Pulsing = false;

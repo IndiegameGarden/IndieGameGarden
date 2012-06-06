@@ -9,25 +9,25 @@
 "Scale": 2.7,
 "RotSpeed": 0.16,
 "FX": 0,
-"X": 3, "Y": 2
+"X": 3, "Y": 1
 },
 {
 "ID": "igg_credits",	  		
 "FX": 0,
-"Scale": 0.7,
+"Scale": 0.5,
 "X": 1, "Y": 0
 },
 {
 "ID": "igg",
-"Name": "Update Indiegame Garden!",
-"Descr": "Hold ENTER to update Indiegame Garden itself. Once installed, simply restart to get the new version.",
+"Name": "Update of Indiegame Garden!",
+"Descr": "Hold ENTER to update Indiegame Garden. Once installed, hold ENTER for the new version.",
 "Site": "indiegamegarden.com",
 "Exe": "IndiegameGarden.exe",
 "X": 2, "Y": 0
 },
 [
 { "ID": "section_music",
-	"X": 7, "Y": 6, "DX": 2
+	"X": 7, "Y": 0, "DX": 2
 },
 {
  	"ID": "igg_iconmusic",
@@ -68,7 +68,7 @@
 ],
 
 [
-{ "ID": "section_general",
+{ "ID": "section_top",
 	"X": 1, "Y": 1, "DX": 2
 },
 {
@@ -91,7 +91,6 @@
 	"Cd": "FOXLZRS",
 	"Version": 2
 },
-{},
 {
  	"ID": "wither",
 	"Name": "Wither",
@@ -122,14 +121,71 @@
 	"Exe": "Dwarf Fortress.exe"
 },
 {
- 	"ID": "YCPEMTDT2",
-	"Name": "You Can't Possibly Expect Me To Do That! 2",
-	"Descr": "The Space Station Catalyst Planet Exploration Crew is recruiting new members! If you can complete\nthe training exercise, you will become a member of the crew. Discover 5(erm, 4, or maybe 3) planets of\nvarying terrain, from firey tempests to temples overrun with foliage!",
-	"Zip": "http://64digits.com/games/5356/YCPEMTDT2_-_IHDUYATDMTO_v1.0.exe.zip",
-	"Exe": "YCPEMTDT2 - IHDUYATDMTO v1.0.exe",
-	"Site": "64digits.com/games/index.php?cmd=view_game&id=5356"
+"ID": "theyneedtobefed",
+"Name": "They Need To Be Fed",
+"Descr": "A perfection of my 360° gravity engine and gameplay. A casual, fresh and fun platformer. Walk upside down, \njump from one object to another. Objects start moving, rotating, and several other hazards are thrown your way \nto provide an exciting challenge. The game includes 5 worlds with each 7 levels to \nplay.",
+"Zip": "http://www.venbrux.com/games/TNTBF.zip",
+"Site": "http://www.venbrux.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/They Need To Be Fed/Image.jpg",
+"dummy":1
+},
+{
+"ID": "caph",
+"Name": "Caph",
+"Descr": "It is a sandbox game, based on physics. The game aim is to make contact red object with green object. You can \nuse various objects, solid, wire (rope), and bendable objects. Gravitation will help \nyou.",
+"Zip": "http://sourceforge.net/projects/caphgame/files/caph/caphgame-1.1/caph-1.1-mingw32.zip/download?use_mirror=?/caph-1.1-mingw32.zip",
+"Site": "http://caphgame.sourceforge.net",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Caph/Image.jpg",
+"dummy":1
+},
+{}
+],
+
+[
+{
+	"ID": "section_dutch",
+	"X": 3, "Y": 3, "DX": 2
+},
+{
+	"ID": "supercratebox",
+	"Name": "Super Crate Box",
+	"Descr": "Prepare for an arcade delight with tight controls, refreshing game mechanics, cracking retro art and a terribly hip chiptune soundtrack.",
+	"Exe": "supercratebox.exe",
+	"Zip": "www.supercratebox.com/download/supercratebox.rar",
+	"Site": "www.supercratebox.com"
+},
+{
+	"ID": "yetihunter",
+	"Name": "Yeti Hunter",
+	"Descr": "a Vlambeer game about hunting yetis - music by Kozilek",
+	"Help": "mouse=look, WASD=move, rmb=scope, lmb=shoot, SHIFT=run,\nR=restart, CTRL=duck/climb down trees, walk up a tree to climb",
+	"Exe": "YETI HUNTER.exe",
+	"Zip": "yetihunter.vlambeer.com/download.rar",
+	"Site": "yetihunter.vlambeer.com"
 },
 {},
+{
+ 	"ID": "mythicdefence",
+	"Name": "Mythic Defence - The rise of evil",
+	"Descr": "Tower defence with 25 waves of onslaught with 6 different races; over 30 different towers to choose from. Can you hold your line?",
+	"Zip": "www.creativegamechallenge.nl/games2009/cgc09025/cgc09025.zip",
+	"Site": "www.creativegamechallenge.nl/allegamescgc2009.php",
+	"Exe": "Mythic Defence - The rise of evil.exe"
+},
+{
+	"ID": "project-w",
+	"Name": "Project-W",
+	"Descr": "Platform/puzzle game to save various countries from flooding due to the rise of sea level. Use the levers to\nlead the water to deep underground, saving the planet.",
+	"Zip": "www.creativegamechallenge.nl/games2010/cgc10095/cgc10095.zip",
+	"Site": "www.creativegamechallenge.nl/allegamescgc2010.php"
+},
+{}		  		
+],
+
+[
+{ "ID": "section_general",
+	"X": 1, "Y": 5, "DX": 9
+},
 {
  	"ID": "recursion",
 	"Name": "Recursion",
@@ -354,24 +410,6 @@
 "dummy":1
 },
 {
-"ID": "theyneedtobefed",
-"Name": "They Need To Be Fed",
-"Descr": "A perfection of my 360° gravity engine and gameplay. A casual, fresh and fun platformer. Walk upside down, \njump from one object to another. Objects start moving, rotating, and several other hazards are thrown your way \nto provide an exciting challenge. The game includes 5 worlds with each 7 levels to \nplay.",
-"Zip": "http://www.venbrux.com/games/TNTBF.zip",
-"Site": "http://www.venbrux.com",
-"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/They Need To Be Fed/Image.jpg",
-"dummy":1
-},
-{
-"ID": "caph",
-"Name": "Caph",
-"Descr": "It is a sandbox game, based on physics. The game aim is to make contact red object with green object. You can \nuse various objects, solid, wire (rope), and bendable objects. Gravitation will help \nyou.",
-"Zip": "http://sourceforge.net/projects/caphgame/files/caph/caphgame-1.1/caph-1.1-mingw32.zip/download?use_mirror=?/caph-1.1-mingw32.zip",
-"Site": "http://caphgame.sourceforge.net",
-"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Caph/Image.jpg",
-"dummy":1
-},
-{
 "ID": "crayon",
 "Name": "Crayon",
 "Descr": "Crayon Physics is a physics based game where you have to guide a ball to the goal by using the power of your \ndrawings. ",
@@ -388,52 +426,23 @@
 "Site": "http://gottcode.org/gottet",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Gottet/Image.jpg",
 "dummy":1
-}
-],	  	
-[
-{
-	"ID": "section_dutch",
-	"X": 3, "Y": 3, "DX": 2
 },
-{
-	"ID": "supercratebox",
-	"Name": "Super Crate Box",
-	"Descr": "Prepare for an arcade delight with tight controls, refreshing game mechanics, cracking retro art and a terribly hip chiptune soundtrack.",
-	"Exe": "supercratebox.exe",
-	"Zip": "www.supercratebox.com/download/supercratebox.rar",
-	"Site": "www.supercratebox.com"
-},
-{
-	"ID": "yetihunter",
-	"Name": "Yeti Hunter",
-	"Descr": "a Vlambeer game about hunting yetis - music by Kozilek",
-	"Help": "mouse=look, WASD=move, rmb=scope, lmb=shoot, SHIFT=run,\nR=restart, CTRL=duck/climb down trees, walk up a tree to climb",
-	"Exe": "YETI HUNTER.exe",
-	"Zip": "yetihunter.vlambeer.com/download.rar",
-	"Site": "yetihunter.vlambeer.com"
-},
-{},
-{
- 	"ID": "mythicdefence",
-	"Name": "Mythic Defence - The rise of evil",
-	"Descr": "Tower defence with 25 waves of onslaught with 6 different races; over 30 different towers to choose from. Can you hold your line?",
-	"Zip": "www.creativegamechallenge.nl/games2009/cgc09025/cgc09025.zip",
-	"Site": "www.creativegamechallenge.nl/allegamescgc2009.php",
-	"Exe": "Mythic Defence - The rise of evil.exe"
-},
-{
-	"ID": "project-w",
-	"Name": "Project-W",
-	"Descr": "Platform/puzzle game to save various countries from flooding due to the rise of sea level. Use the levers to\nlead the water to deep underground, saving the planet.",
-	"Zip": "www.creativegamechallenge.nl/games2010/cgc10095/cgc10095.zip",
-	"Site": "www.creativegamechallenge.nl/allegamescgc2010.php"
-}		  		
+{}
 ],
+	  	
 [
 {
 	"ID": "section_experimental",
 	"Visible": 0,
 	"X": 5, "Y": 1, "DX": 5
+},
+{
+ 	"ID": "YCPEMTDT2",
+	"Name": "You Can't Possibly Expect Me To Do That! 2",
+	"Descr": "The Space Station Catalyst Planet Exploration Crew is recruiting new members! If you can complete\nthe training exercise, you will become a member of the crew. Discover 5(erm, 4, or maybe 3) planets of\nvarying terrain, from firey tempests to temples overrun with foliage!",
+	"Zip": "http://64digits.com/games/5356/YCPEMTDT2_-_IHDUYATDMTO_v1.0.exe.zip",
+	"Exe": "YCPEMTDT2 - IHDUYATDMTO v1.0.exe",
+	"Site": "64digits.com/games/index.php?cmd=view_game&id=5356"
 },
 {
 	"ID": "gametitle_lostlevels",
@@ -472,6 +481,13 @@
 	"Exe": "http://lowfuel.melnicek.cz/honeyblaster",
 	"ExeT": "lf-hb.exe"
 },
+{		  	
+ "Name": "Not Pokemon",
+ "ID": "1301",
+ "Zip": "www.glorioustrainwrecks.com/files/not-pokemon.zip",
+ "Descr": "Not Pokemon: Use WASD to move, ESC to quit! GOTTA CATCH 'EM ALL!",
+ "Site": "www.glorioustrainwrecks.com/node/1301"
+ },
 {
 	"ID": "1619",
 	"Name": "Eyeball 3D: Maze of Felsh",
@@ -481,13 +497,6 @@
 	"GTvotes": 2,
 	"Site": "www.glorioustrainwrecks.com/node/1619"
 },
-{		  	
- "Name": "Not Pokemon",
- "ID": "1301",
- "Zip": "www.glorioustrainwrecks.com/files/not-pokemon.zip",
- "Descr": "Not Pokemon: Use WASD to move, ESC to quit! GOTTA CATCH 'EM ALL!",
- "Site": "www.glorioustrainwrecks.com/node/1301"
- },
 {
  "Name": "Going Forward",
  "ID": "1339",
@@ -519,7 +528,9 @@
  "ThumbURL": "www.glorioustrainwrecks.com/files/screens/pnok.png",
  "Descr": "Player 1 uses a and d key, player 2 uses left/right arrows - try and push the squares into your opponents goal!",
  "Site": "www.glorioustrainwrecks.com/node/1342"
- }
-]	  	
+},
+{}
+]
+	  	
 ]
 }
