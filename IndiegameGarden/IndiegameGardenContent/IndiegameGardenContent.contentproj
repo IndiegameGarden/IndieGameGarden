@@ -106,6 +106,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="gamelib.bin">
+      <Name>gamelib</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="parc-by-gadl.png">
       <Name>parc-by-gadl</Name>
       <Importer>TextureImporter</Importer>

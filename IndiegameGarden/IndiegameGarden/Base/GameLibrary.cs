@@ -120,7 +120,7 @@ namespace IndiegameGarden.Base
             GardenItem iggItem = gamesCollection.FindGameNamed("igg");
             if (iggItem != null)
             {
-                iggItem.VisibilityLabel = (GardenConfig.Instance.NewestClientVersion > GardenConfig.Instance.ClientVersion) ? 1 : 0 ;
+                iggItem.VisibilityLabel = (GardenConfig.Instance.NewestClientVersion > GardenConfig.Instance.ClientVersion) ? (byte) 1 : (byte) 0 ;
                 iggItem.Version = GardenConfig.Instance.NewestClientVersion;
             }
         }

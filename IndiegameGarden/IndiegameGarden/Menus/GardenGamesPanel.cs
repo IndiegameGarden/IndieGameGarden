@@ -221,20 +221,20 @@ namespace IndiegameGarden.Menus
                 }
                 else
                 {
-                    if (selGame.IsSystemPackage)
-                    {
-                        thumb.Motion.Add(new TemporaryScaleBlowup());
-                    }
-                    else if (selGame.IsWebGame)
+                    if (selGame.IsWebGame)
                     {
                         GardenGame.Instance.ActionLaunchWebsitePlayGame(selGame, thumb);
+                    }
+                    else if (!selGame.IsGrowable)
+                    {
+                        thumb.Motion.Add(new TemporaryScaleBlowup());
                     }
                     else if (selGame.IsInstalled)
                     {
                         GardenGame.Instance.music.FadeOut();
                         GardenGame.Instance.ActionLaunchGame(selGame, thumb);
                     }
-                    else
+                    else // if (not installed)
                     {
                         GardenGame.Instance.ActionDownloadAndInstallGame(selGame);
                     }

@@ -94,7 +94,7 @@ namespace IndiegameGarden.Base
 #endif
 
             GardenID = DEFAULT_GARDEN_ID;
-            ServerMsg = "";
+            ServerMsg = "Enjoy your garden!\nBut watch out for the weeds.";
             ConfigFilesFolder = GetFolder("config");
             PackedFilesFolder = GetFolder("zips");
             UnpackedFilesFolder = GetFolder("games");
@@ -108,8 +108,8 @@ namespace IndiegameGarden.Base
             GameLibraryFilename = "gamelib.json";
             GameLibraryFilenameBin = "gamelib.bin";
             NewestGameLibraryVersion = KNOWN_GAMELIB_VERSION;
+            Magic = CONFIG_MAGIC_VALUE;
 
-            //ThumbnailsServerURL = "http://indie.indiegamegarden.com/thumbs/";
             ThumbnailsServerURL = "https://github.com/trancetrance/IndieGameGarden/raw/master/thumbs/";
             ConfigFilesServerURL = "https://github.com/trancetrance/IndieGameGarden/raw/master/config/gamelib_fmt3/";
             PackedFilesServerURL = "http://indie.indiegamegarden.com/zips/";
@@ -133,6 +133,8 @@ namespace IndiegameGarden.Base
             catch (Exception) { ; };
             try { NewestClientVersion = (int)GetValue("ClientVer"); }
             catch (Exception) { ; };
+            try { Magic = GetString("Magic"); }
+            catch (Exception) { ; };
 
         }
 
@@ -142,12 +144,10 @@ namespace IndiegameGarden.Base
         /// <returns></returns>
         public bool IsValid()
         {
-            if (!HasKey("Magic") ||
-                !GetString("Magic").Equals(GardenConfig.CONFIG_MAGIC_VALUE))
-            {
+            if (!Magic.Equals(GardenConfig.CONFIG_MAGIC_VALUE))
                 return false;
-            }
-            return hasLoadedFromFileOk;
+            else
+                return true;
         }
 
         public override void Reload()
@@ -215,6 +215,11 @@ namespace IndiegameGarden.Base
         /// version of the newest game library currently available (obtained from config server)
         /// </summary>
         public int NewestGameLibraryVersion { get; set; }
+
+        /// <summary>
+        /// magic value to check config integrity (loosely)
+        /// </summary>
+        public string Magic { get; set; }
 
         /// <summary>
         /// returns the version of current running client

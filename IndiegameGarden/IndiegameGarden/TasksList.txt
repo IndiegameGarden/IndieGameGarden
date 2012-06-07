@@ -3,8 +3,9 @@ IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 OPEN  [top issues first]
 Typing letters leads you to the named game (or closest description)
 Check screen back to normal after arvoesine
-Test client version update in deployment version (make zips for auto-upgrade + portable app zip)
+Test client version update in deployment version 
 Finalize gamelib in fmt3 (+ karate, ...)
+Make final zips (auto-upgrade + portable app zip)
 
 AFTER ALPHA-3
 Show number of downloads still ongoing (graphics?)
@@ -19,6 +20,7 @@ Add mirrors to all thumbnail loading?
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-06-07 IsGrowable fix: some igg_* items are growable. some not.
 2012-06-06 gamecompiler skips a grid position when game is already there.
 2012-06-06 zoom speed should be very high when escaping to birds-eye view
 2012-06-05 crash on selecting empty space -> could not be reproduced

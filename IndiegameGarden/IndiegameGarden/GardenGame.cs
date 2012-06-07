@@ -4,6 +4,7 @@
 // -> defines set in Visual Studio Profiles: DEBUG, RELEASE
 
 using System;
+using System.IO;
 using System.Threading;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -315,34 +316,39 @@ namespace IndiegameGarden
                 long blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 0;  // TODO const in config
                 if (!GardenConfig.Instance.IsValid() )
                     blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 30;  // TODO const in config
-                while (configDownloadThread.Status() == ITaskStatus.CREATED)
-                {
-                    // block until in RUNNING state
-                }
-                while (configDownloadThread.Status() == ITaskStatus.RUNNING && timer < blockingWaitPeriodTicks)
-                {
-                    Thread.Sleep(100);
-                    timer += (System.TimeSpan.TicksPerMillisecond * 100);
-                }
 
-                switch (dl.Status())
+                if (blockingWaitPeriodTicks > 0)
                 {
-                    case ITaskStatus.SUCCESS:
-                        GardenConfig.Instance = dl.NewConfig;
-                        break;
+                    while (configDownloadThread.Status() == ITaskStatus.CREATED)
+                    {
+                        // block until in RUNNING state
+                    }
+                    while (configDownloadThread.Status() == ITaskStatus.RUNNING && timer < blockingWaitPeriodTicks)
+                    {
+                        Thread.Sleep(100);
+                        timer += (System.TimeSpan.TicksPerMillisecond * 100);
+                    }
 
-                    case ITaskStatus.FAIL:
-                        initError = new Exception( dl.StatusMsg() );
-                        break;
+                    switch (dl.Status())
+                    {
+                        case ITaskStatus.SUCCESS:
+                            GardenConfig.Instance = dl.NewConfig;
+                            break;
 
-                    case ITaskStatus.CREATED:
-                    case ITaskStatus.RUNNING:
-                        // let the downloading simply finish in the background. Load it another time.
-                        break;
+                        case ITaskStatus.FAIL:
+                            initError = new Exception(dl.StatusMsg());
+                            break;
+
+                        case ITaskStatus.CREATED:
+                        case ITaskStatus.RUNNING:
+                            // let the downloading simply finish in the background. Load it another time.
+                            break;
+                    }
                 }
             }
 
             // if still not ok after attempted download, warn the user and exit
+            // a missing config counts as a valid one (then uses default params to create a new config)
             if (!GardenConfig.Instance.IsValid() )
             { 
                 TTengine.Util.MsgBox.Show("Could not load configuration", "Could not load configuration file. Is it missing or corrupted?"); 
@@ -359,14 +365,22 @@ namespace IndiegameGarden
                 GameLibraryDownloader gldl = new GameLibraryDownloader(GardenConfig.Instance.NewestGameLibraryVersion);
                 gldl.Start();
                 GameLib = new GameLibrary();
-                //GameLib.LoadJson(Config.NewestGameLibraryVersion);
                 GameLib.LoadBin(GardenConfig.Instance.NewestGameLibraryVersion);
             }
             catch (Exception ex)
             {
-                MsgBox.Show("Could not load game library file", "Could not load game library file. Technical:\n"+ex.Message+";\n"+ex.StackTrace); 
-                initError = ex;
-                return false;
+                // if fails, try loading default lib from file, as alternative
+                try
+                {
+                    GameLib = new GameLibrary();
+                    GameLib.LoadBin(Path.Combine(Content.RootDirectory, "gamelib.bin"));
+                }
+                catch (Exception)
+                {
+                    MsgBox.Show("Could not load game library file", "Could not load game library file. Technical:\n" + ex.Message + ";\n" + ex.StackTrace);
+                    initError = ex;
+                    return false;
+                }
             }
 
             return true;

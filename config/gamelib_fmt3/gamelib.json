@@ -123,8 +123,9 @@
 {
 "ID": "theyneedtobefed",
 "Name": "They Need To Be Fed",
-"Descr": "A perfection of my 360° gravity engine and gameplay. A casual, fresh and fun platformer. Walk upside down, \njump from one object to another. Objects start moving, rotating, and several other hazards are thrown your way \nto provide an exciting challenge. The game includes 5 worlds with each 7 levels to \nplay.",
-"Zip": "http://www.venbrux.com/games/TNTBF.zip",
+"Descr": "A casual, fresh and fun platformer. Walk upside down, jump from one object to another.\nIncludes 5 worlds with each 7 levels.",
+"Help": "Hint: full screen mode can be selected from the menu.",
+"Zip": "www.venbrux.com/games/TNTBF.zip",
 "Site": "http://www.venbrux.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/They Need To Be Fed/Image.jpg",
 "dummy":1
@@ -133,7 +134,7 @@
 "ID": "caph",
 "Name": "Caph",
 "Descr": "It is a sandbox game, based on physics. The game aim is to make contact red object with green object. You can \nuse various objects, solid, wire (rope), and bendable objects. Gravitation will help \nyou.",
-"Zip": "http://sourceforge.net/projects/caphgame/files/caph/caphgame-1.1/caph-1.1-mingw32.zip/download?use_mirror=?/caph-1.1-mingw32.zip",
+"Zip": "sourceforge.net/projects/caphgame/files/caph/caphgame-1.1/caph-1.1-mingw32.zip/download?use_mirror=?/caph-1.1-mingw32.zip",
 "Site": "http://caphgame.sourceforge.net",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Caph/Image.jpg",
 "dummy":1
@@ -206,7 +207,7 @@
 "ID": "gate88",
 "Name": "Gate88",
 "Descr": "Gate 88 is often described as like subspace but with the ability to build turrets and command fighters. While \na skillful pilot can decimate the enemy in one-on-one combat, a thoughtful player can overwhelm the opponent \nwith strategic turret and fighter placements. However, only those who truly understand the intricate details \nof both action and strategy will win the day.",
-"Zip": "http://www.queasygames.com/gate88/Gate88_Mar19_05.zip",
+"Zip": "www.queasygames.com/gate88/Gate88_Mar19_05.zip",
 "Site": "http://www.queasygames.com/gate88/",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Action/Gate88/Image.jpg",
 "dummy":0
@@ -215,7 +216,7 @@
 "ID": "zombiegrinder",
 "Name": "Zombie Grinder",
 "Descr": "Zombie Grinder is a multi-platform cooperative multiplayer arcade game, reminiscent in style and gameplay of \nretro games like Zombies Ate My Neighbors and Super Smash TV!, but with the added benefit of some newer game \nmechanics - achievements, ranking, player-customization, rpg style stats and so \nforth.",
-"Zip": "http://www.twindrills.com/uploads/game_updates/zombie_grinder/zombiegrinder_stub_win32.zip",
+"Zip": "www.twindrills.com/uploads/game_updates/zombie_grinder/zombiegrinder_stub_win32.zip",
 "Site": "http://www.twindrills.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Action/Zombie Grinder/Image.jpg",
 "Comment":"Requires network connection."
@@ -224,7 +225,7 @@
 "ID": "beacon",
 "Name": "Beacon",
 "Descr": "Beacon is a sprawling adventure-platformer involving SAD THINGS and MYSTERY. It also has a jetpack. It’ll \ntake you about 15 minutes to play.",
-"Zip": "http://wootfu.com/wp-content/uploads/2011/02/Beacon_v1_1_win.zip",
+"Zip": "wootfu.com/wp-content/uploads/2011/02/Beacon_v1_1_win.zip",
 "Site": "http://wootfu.com/beacon/",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Adventure/Beacon/Image.jpg",
 "dummy":0
@@ -233,7 +234,7 @@
 "ID": "quest",
 "Name": "Quest!",
 "Descr": "A fun-tivity for the whole family! Quest through 3 levels of varing difficulty! A Dragon has stole Item and it \nis up to you to go into depths of Mountain and defeat It once And for ALL! This is your... \nQuest!",
-"Zip": "http://gamejolt.com/data/games/1275/files/Quest%21.zip",
+"Zip": "gamejolt.com/data/games/1275/files/Quest%21.zip",
 "Site": "http://galaxy613.tumblr.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Adventure/Quest!/Image.jpg",
 "dummy":0
@@ -242,7 +243,7 @@
 "ID": "a7xpg",
 "Name": "A7Xpg",
 "Descr": "Old school chase action game, Control your ship and gather golds. The ship accelerates while holding the boost \nbutton. A boost power runs out about 1.5 seconds, so you have to push the boost button again to maintain the \nspeed.",
-"Zip": "http://www.asahi-net.or.jp/~cs8k-cyu/windows/a7xpg0_11.zip",
+"Zip": "www.asahi-net.or.jp/~cs8k-cyu/windows/a7xpg0_11.zip",
 "Site": "http://www.asahi-net.or.jp/~cs8k-cyu/windows/a7xpg_e.html",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/A7Xpg/Image.jpg",
 "dummy":0
@@ -251,7 +252,7 @@
 "ID": "annihilation",
 "Name": "Annihilation",
 "Descr": "Annihilation is an arena shooter that is inspired by Geometry Wars. Just shoot stuff, use your bombs in tight \nsituations and survive.",
-"Zip": "http://www.andynoble.co.uk/files/Annihilation.zip",
+"Zip": "www.andynoble.co.uk/files/Annihilation.zip",
 "Site": "http://www.andynoble.co.uk/main.htm",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Annihilation/Image.jpg",
 "dummy":0
@@ -260,7 +261,7 @@
 "ID": "blocksnbricks",
 "Name": "BLOCKS'N'BRICKS",
 "Descr": "Typical Breakout clone. destroy the bricks to progress to next level, Collect powerups, 50 maps, Written in \nless than 2 days.",
-"Zip": "http://xout.blackened-interactive.com/dump/new/BlockNBricks.zip",
+"Zip": "xout.blackened-interactive.com/dump/new/BlockNBricks.zip",
 "Site": "http://xout.blackened-interactive.com/Blocks/Blocks.html",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/BLOCKS'N'BRICKS/Image.jpg",
 "dummy":0
@@ -269,7 +270,7 @@
 "ID": "cobex",
 "Name": "COBEX",
 "Descr": "Cobex is an arcade game with abstract neon graphics where you have to colorize grids with your speedy ship. \nAvoid the enemies and score combo points on your recoloring mission!",
-"Zip": "http://www.tcksoft.co.uk/tcksoft-games/COBEX.zip",
+"Zip": "www.tcksoft.co.uk/tcksoft-games/COBEX.zip",
 "Site": "http://www.tcksoft.co.uk/downloads/remakes/cobex-cruising-on-broadway-extra/",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/COBEX/Image.jpg",
 "dummy":0
@@ -278,7 +279,7 @@
 "ID": "echoes",
 "Name": "Echoes",
 "Descr": "Echoes is essentially Asteroids and is a bit like Geometry Wars.",
-"Zip": "http://www.binaryzoo.com/games/echoes/echoes.zip",
+"Zip": "www.binaryzoo.com/games/echoes/echoes.zip",
 "Site": "http://www.binaryzoo.com/games/echoes/",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Echoes/Image.jpg",
 "dummy":0
@@ -287,7 +288,7 @@
 "ID": "flaw",
 "Name": "F.L.A.W",
 "Descr": "F.L.A.W. is a free top-down wizard fighting game that can be played by up to 5 players. The goal of the game \nis to survive as long as possible while more and more fireballs appear in the \narena.",
-"Zip": "http://sourceforge.net/projects/flaw/files/flaw/1.3.2/flaw_1.3.2_win32.zip/download?use_mirror=?/flaw_1.3.2_win32.zip",
+"Zip": "sourceforge.net/projects/flaw/files/flaw/1.3.2/flaw_1.3.2_win32.zip/download?use_mirror=?/flaw_1.3.2_win32.zip",
 "Site": "http://flaw.sourceforge.net",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/F.L.A.W/Image.jpg",
 "dummy":0
@@ -296,7 +297,7 @@
 "ID": "gridassault",
 "Name": "Grid Assault",
 "Descr": "Grid Assault is an arena shooter and is a clone of Geometry Wars. Shoot stuff, collect upgrades and survive \nfor 6 minutes…",
-"Zip": "http://members.home.nl/wdw/files/GridAssault98.zip",
+"Zip": "members.home.nl/wdw/files/GridAssault98.zip",
 "Site": "http://members.home.nl/wdw/grid.html",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Grid Assault/Image.jpg",
 "dummy":0
@@ -305,7 +306,7 @@
 "ID": "gridwars2",
 "Name": "GridWars 2",
 "Descr": "GridWars 2 is an arena shooter with glowing neon graphics. The game took its main inspiration from Geometry \nWars. Shoot stuff, collect power ups and use your bombs wisely. Great \nfun!",
-"Zip": "http://gridwars.marune.de/bin/gridwars_win.zip",
+"Zip": "gridwars.marune.de/bin/gridwars_win.zip",
 "Site": "http://gridwars.marune.de",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/GridWars 2/Image.jpg",
 "dummy":0
@@ -314,7 +315,7 @@
 "ID": "supersmashland",
 "Name": "Super Smash Land",
 "Descr": "Super Smash Land is a demake of the popular Super Smash Bros. series with Game Boy styled \ngraphics.",
-"Zip": "http://supersmashland.com/files/SmashLand-Final-1-1.zip",
+"Zip": "supersmashland.com/files/SmashLand-Final-1-1.zip",
 "Site": "http://supersmashland.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Super Smash Land/Image.jpg",
 "dummy":1
@@ -323,7 +324,7 @@
 "ID": "pouetchess",
 "Name": "pouetChess",
 "Descr": "pouetChess is a small 3D chess game for beginners. ",
-"Zip": "http://sourceforge.net/projects/pouetchess/files/pouetchess/0.2/pouetchess_0.2.0_win32.zip/download?use_mirror=?/pouetchess_0.2.0_win32.zip",
+"Zip": "sourceforge.net/projects/pouetchess/files/pouetchess/0.2/pouetchess_0.2.0_win32.zip/download?use_mirror=?/pouetchess_0.2.0_win32.zip",
 "Site": "http://pouetchess.sourceforge.net",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Board Games/pouetChess/Image.jpg",
 "dummy":1
@@ -332,7 +333,7 @@
 "ID": "patiencepack",
 "Name": "Patience Pack",
 "Descr": "Patience Pack (freeware) is a selection of 120 skill-testing card games, dice games and puzzles written for \nvarious age groups. Many are classic games such as Klondike, Yahtzee, Freecell, Mastermind, Snakes & Ladders \nand Mind Sweeper. Other games are original, including Enigma, Neural Net, Armor of God and Lost \nWorld.",
-"Zip": "http://patpack.abraham.me.uk/patpack.zip",
+"Zip": "patpack.abraham.me.uk/patpack.zip",
 "Site": "http://patpack.abraham.me.uk/index.php",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Card Games/Patience Pack/Image.jpg",
 "dummy":1
@@ -341,7 +342,7 @@
 "ID": "8bitkiller",
 "Name": "8bit killer",
 "Descr": "8bit killer is a first person shooter styled to resemble a NES game in look and feel AD 2488. A long war has \nput human race on the edge of self-extinction. Four years ago, a space creature known as Master Brain arrived \nwith the promise of a new dawn. Now, a huge army launched an attack to the few cities that are still on, \nfollowing the plan of the creature. A small group of soldiers have formed an alliance to defend those cities \nand kill the master brain. This games tells the story of their final \nmission.",
-"Zip": "http://www.locomalito.com/juegos/8bit_killer.zip",
+"Zip": "www.locomalito.com/juegos/8bit_killer.zip",
 "Site": "http://www.locomalito.com/juegos_8bit_killer.php",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/First Person Shooter/8bit killer/Image.jpg",
 "dummy":1
@@ -350,7 +351,7 @@
 "ID": "anuntitledstory",
 "Name": "An Untitled Story",
 "Descr": "In An Untitled Story, you begin as an egg in your nest, and the rest is up to you to figure out. Fight 18 \nunique bosses, traverse a huge game world, and unravel a mysterious storyline. The single player game features \nnon-linear progression and 5 difficulty levels for extra replay value. Also included is Heist Mode, a \nmultiplayer capture-the-flag-style versus mode.",
-"Zip": "http://mattmakesgames.com/games/AnUntitledStory.zip",
+"Zip": "mattmakesgames.com/games/AnUntitledStory.zip",
 "Site": "http://www.mattmakesgames.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/An Untitled Story/Image.jpg",
 "dummy":1
@@ -359,7 +360,7 @@
 "ID": "arvoesine",
 "Name": "Arvoesine",
 "Descr": "Arvoesine is a action platformer with NES styled graphics. Guide a roman soldier – that is armed with sword \nand spear – through 5 short levels.",
-"Zip": "http://alastairjohnjack.com/arvoesine1.2.zip",
+"Zip": "alastairjohnjack.com/arvoesine1.2.zip",
 "Site": "http://alastairjohnjack.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Arvoesine/Image.jpg",
 "dummy":1
@@ -368,7 +369,7 @@
 "ID": "blackfoot",
 "Name": "Blackfoot",
 "Descr": "Blackfoot is a platformer with a weasel. The gameplay consists of swirling around the woodlands, collecting \neggs and killing an animal for eating purposes at the end of each level. It also has light RPG elements which \nmeans that you get experience points that you can spend on abbilities like Speed, Acceleration and \nJump.",
-"Zip": "http://www.danfornace.com/blackfoot/Blackfoot-v2.zip",
+"Zip": "www.danfornace.com/blackfoot/Blackfoot-v2.zip",
 "Site": "http://www.danfornace.com/blackfoot/",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Blackfoot/Image.jpg",
 "dummy":1
@@ -377,7 +378,7 @@
 "ID": "mari0",
 "Name": "Mari0",
 "Descr": "Two genre defining games from completely different eras: Nintendo's Super Mario Bros. and Valve's Portal. \nThese two games managed to give Platformers and First-Person Puzzle Games a solid place in the video game \nworld. But what if Nintendo teamed up with Valve and recreated the famous Mario game with Portal gun \nmechanics? A complete from scratch recreation of Super Mario Bros. with a focus on perfectly imitating the \nfeel the 1985 classic gave us. Then give Mario a portal gun, add puzzle game mechanics from Portal and there \nyou go. And if that wasn't crazy enough, play 4-player coop, with everyone having their own Portal \ngun!",
-"Zip": "http://stabyourself.net/dl.php?file=mari0-1006/mari0-win.zip",
+"Zip": "stabyourself.net/dl.php?file=mari0-1006/mari0-win.zip",
 "Site": "http://stabyourself.net/mari0/",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Mari0/Image.jpg",
 "dummy":1
@@ -386,7 +387,7 @@
 "ID": "maru",
 "Name": "Maru",
 "Descr": "A surreal platformer adventure with a theme that’s integrated into the gameplay. The game is fairly \nshort.",
-"Zip": "http://www.venbrux.com/games/maru.zip",
+"Zip": "www.venbrux.com/games/maru.zip",
 "Site": "http://www.venbrux.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Maru/Image.jpg",
 "dummy":0
@@ -395,7 +396,7 @@
 "ID": "teeworlds",
 "Name": "Teeworlds",
 "Descr": "Teeworlds is a free online multiplayer game, available for all major operating systems. Battle with up to 16 \nplayers in a variety of game modes, including Team Deathmatch and Capture The Flag. You can even design your \nown maps!",
-"Zip": "http://teeworlds.com/files/teeworlds-0.6.1-win32.zip",
+"Zip": "teeworlds.com/files/teeworlds-0.6.1-win32.zip",
 "Site": "http://www.teeworlds.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Teeworlds/Image.jpg",
 "dummy":1
@@ -404,7 +405,7 @@
 "ID": "thegoonies",
 "Name": "The Goonies",
 "Descr": "The action takes place in the sleepy seaside town of Cauldron Point - down in an area known as the Goon Docks. \nThe Goonies are a group of local kids - Mikey, Brand, Mouth, Chunk and Data. One day they find an old treasure \nmap in Mikey's attic. Data figures that this must be the fabulous hidden treasure of the notorious local \npirate, One-Eyed Willy. The girls, Andy and Stef, join the other Goonies and the adventure begins. But the \nsecret underground tunnels they are exploring are actually the hideout of the Fratelli Gang, and the Goonies \nare soon trapped! The Goonies have a powerful ally on their side, however, in the form of the huge and amiable \nSloth.",
-"Zip": "http://braingames.jorito.net/goonies/downloads/theGoonies-1.4-1528.zip",
+"Zip": "braingames.jorito.net/goonies/downloads/theGoonies-1.4-1528.zip",
 "Site": "http://goonies.jorito.net",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/The Goonies/Image.jpg",
 "dummy":1
@@ -413,7 +414,7 @@
 "ID": "crayon",
 "Name": "Crayon",
 "Descr": "Crayon Physics is a physics based game where you have to guide a ball to the goal by using the power of your \ndrawings. ",
-"Zip": "http://www.kloonigames.com/download/crayon.zip",
+"Zip": "www.kloonigames.com/download/crayon.zip",
 "Site": "http://www.kloonigames.com/blog/games/crayon",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Crayon/Image.jpg",
 "dummy":1
@@ -422,7 +423,7 @@
 "ID": "gottet",
 "Name": "Gottet",
 "Descr": "Gottet is a simple tetris clone.",
-"Zip": "http://gottcode.org/gottet/Gottet_1.0.4.zip",
+"Zip": "gottcode.org/gottet/Gottet_1.0.4.zip",
 "Site": "http://gottcode.org/gottet",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Gottet/Image.jpg",
 "dummy":1
@@ -440,7 +441,7 @@
  	"ID": "YCPEMTDT2",
 	"Name": "You Can't Possibly Expect Me To Do That! 2",
 	"Descr": "The Space Station Catalyst Planet Exploration Crew is recruiting new members! If you can complete\nthe training exercise, you will become a member of the crew. Discover 5(erm, 4, or maybe 3) planets of\nvarying terrain, from firey tempests to temples overrun with foliage!",
-	"Zip": "http://64digits.com/games/5356/YCPEMTDT2_-_IHDUYATDMTO_v1.0.exe.zip",
+	"Zip": "64digits.com/games/5356/YCPEMTDT2_-_IHDUYATDMTO_v1.0.exe.zip",
 	"Exe": "YCPEMTDT2 - IHDUYATDMTO v1.0.exe",
 	"Site": "64digits.com/games/index.php?cmd=view_game&id=5356"
 },
@@ -468,7 +469,7 @@
 	"Descr": "Blocks, nothing but blocks... destroy blocks, use your grappling hook, collect the key, find the exit door.",
 	"Help": "Hint: you can zoom out to an overall map by pressing 'v'",
 	"Exe": "spacemass.exe",
-	"Zip": "http://dl.dropbox.com/u/3536006/forumz/spacemass.exe",
+	"Zip": "dl.dropbox.com/u/3536006/forumz/spacemass.exe",
 	"Site": "www.darshell.co.nr"
 },
 {},		  	
