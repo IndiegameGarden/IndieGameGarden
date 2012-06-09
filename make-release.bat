@@ -1,5 +1,9 @@
 @echo off
-echo Making release/distribution versions of IGG
+
+rem Version number of to be released IGG client
+set VER=4
+
+echo Making release/distribution version %VER% of IGG
 cd config\gamelib_fmt3
 rm -f gamelib.zip
 7z a -tzip gamelib.zip gamelib.bin
@@ -11,12 +15,12 @@ xcopy /S /D IndiegameGarden\IndiegameGarden\bin\x86\Release\*.dll distribution\I
 xcopy /S /D IndiegameGarden\IndiegameGarden\bin\x86\Release\Content distribution\IndiegameGarden_data\config\igg\Content\
 
 rem final distro zips
-rm -f installers/IndiegameGarden_rel.zip
-rm -f installers/igg_vx.zip
+rm -f installers/IndiegameGarden_Alpha-%VER%.zip
+rm -f installers/igg_v%VER%.zip
 cd distribution
-7z a -tzip -r ../installers/IndiegameGarden_rel.zip *
+7z a -tzip -r ../installers/IndiegameGarden_Alpha-%VER%.zip *
 cd IndiegameGarden_data\config\igg
-7z a -tzip -r ../../../../installers/igg_vx.zip *
+7z a -tzip -r ../../../../installers/igg_v%VER%.zip *
 echo Release files done.
 cd ..\..\..\..
 dir installers\*.zip
