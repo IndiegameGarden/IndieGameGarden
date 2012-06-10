@@ -39,6 +39,7 @@ namespace GameLibCompiler
         string GAMELIB_JSON_PATH = Path.Combine(CONFIG_DIR, GAMELIB_TARGET_DIR, GAMELIB_JSON_FILE);
         string GAMELIB_BIN_PATH = Path.Combine(CONFIG_DIR, GAMELIB_TARGET_DIR, GAMELIB_BIN_FILE);
         string GAMELIB_UNPACKED_PATH = Path.Combine(CONFIG_DIR, GAMELIB_UNPACKED_TARGET_DIR, GAMELIB_BIN_FILE);
+        string GAMELIB_UNPACKED_DIR_PATH = Path.Combine(CONFIG_DIR, GAMELIB_UNPACKED_TARGET_DIR);
         string GAMELIB_CONTENTFOLDER_PATH = Path.Combine(CONTENT_TARGET_DIR, GAMELIB_BIN_FILE);
 
         public void Run()
@@ -82,6 +83,14 @@ namespace GameLibCompiler
             // copy to gamelib unpacking location
             Log("Copying master " + GAMELIB_BIN_FILE + " to unpacking location " + GAMELIB_UNPACKED_TARGET_DIR);
             File.Copy(GAMELIB_BIN_PATH, GAMELIB_CONTENTFOLDER_PATH,true);
+            try
+            {
+                Directory.CreateDirectory(GAMELIB_UNPACKED_DIR_PATH);
+            }
+            catch (Exception)
+            {
+                ;
+            }
             File.Copy(GAMELIB_BIN_PATH, GAMELIB_UNPACKED_PATH, true);
 
             Log("\nDone - press any key.");

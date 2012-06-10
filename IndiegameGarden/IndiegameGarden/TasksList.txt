@@ -2,10 +2,6 @@ IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
 Check screen back to normal after arvoesine
-(Testers) Test client version update in deployment version 
-Make final zips (auto-upgrade + portable app zip)
-
-AFTER ALPHA-3
 Typing letters leads you to the named game (or closest description)
 Show number of downloads still ongoing (graphics?)
 Make gamelib loading non-blocking
