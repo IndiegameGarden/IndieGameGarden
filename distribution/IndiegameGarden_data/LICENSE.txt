@@ -148,3 +148,14 @@ issues (mono/Silverlight) goes to M. David Peterson. Visual Basic stylesheet
 contributed by Michael Thaler and Rüdiger Klaehn. Initial code for the Visual 
 Studio "Custom Tool" by Shaun Cooley. Thanks also to Michael Giagnocavo, 
 for numerous good ideas from real usage. 
+______________________________________________________________________________
+
+[Entries in the game library]
+
+Part of the thumbnails and text for downloadable games is used from the
+Game Downloader project by Dev-Fire, licensed under GPL V3.0.
+Thanks a lot to all Game Downloader contributors for making this available!
+http://dev-fire-gd.sourceforge.net/about.html
+http://www.gnu.org/licenses/quick-guide-gplv3.html
+
+
