@@ -24,3 +24,8 @@ cd IndiegameGarden_data\config\igg
 echo Release files done.
 cd ..\..\..\..
 dir installers\*.zip
+
+cd installers
+cat ../ftp-release.script | sed s/\$VER/%VER%/ > ftp-release-ver.script
+ftp -n -s:ftp-release-ver.script
+cd ..
