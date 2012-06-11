@@ -95,8 +95,11 @@ namespace IndiegameGarden
 
             // basic XNA graphics manager init here (before Initialize() and LoadContent() )
             graphics = new GraphicsDeviceManager(this);
-            myWindowWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            
+            // DEBUG: insert below values eg = 1024; to test other resolutions 
+            myWindowWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width; 
             myWindowHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+
             graphics.PreferredBackBufferWidth = myWindowWidth;
             graphics.PreferredBackBufferHeight = myWindowHeight;
             graphics.IsFullScreen = false;

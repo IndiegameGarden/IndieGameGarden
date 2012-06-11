@@ -1,7 +1,8 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Check screen back to normal after arvoesine
+Check out the pending check-exe gamelib entries, see if can be added to gamelib
+Check screen back to normal after arvoesine -> check on other PC
 Typing letters leads you to the named game (or closest description)
 Show number of downloads still ongoing (graphics?)
 Make gamelib loading non-blocking
