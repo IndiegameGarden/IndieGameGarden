@@ -80,21 +80,6 @@ namespace GameLibCompiler
             Log("Bin load test 2: " + (t1 - t0) + " ms.");
             int c = gl.GetList().Count;
 
-            // copy to gamelib unpacking location
-            Log("Copying master " + GAMELIB_BIN_FILE + " to unpacking location " + GAMELIB_UNPACKED_TARGET_DIR);
-            File.Copy(GAMELIB_BIN_PATH, GAMELIB_CONTENTFOLDER_PATH,true);
-            try
-            {
-                Directory.CreateDirectory(GAMELIB_UNPACKED_DIR_PATH);
-            }
-            catch (Exception)
-            {
-                ;
-            }
-            File.Copy(GAMELIB_BIN_PATH, GAMELIB_UNPACKED_PATH, true);
-
-            Log("\nDone - press any key.");
-            Console.ReadKey();
         }
 
         void Log(string s)

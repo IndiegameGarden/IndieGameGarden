@@ -190,6 +190,7 @@
     <Content Include="GameThumbnail.png" />
     <Content Include="TasksList.txt" />
     <Content Include="Tests.txt" />
+    <Content Include="Servers.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\TTengine\TTengine\TTengine.csproj">

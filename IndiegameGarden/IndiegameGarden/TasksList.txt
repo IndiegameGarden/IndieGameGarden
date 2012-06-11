@@ -12,6 +12,7 @@ Threadpool for tasks and/or downloading (find out if needed there)
 Test swf file handling, add support for .swf search in zip? or direct browser launch.
 Test disk free before growing game
 Add mirrors to all thumbnail loading?
+Download size indication (MB)
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
@@ -194,10 +195,9 @@ CLOSED  [date order]
 2012-01-04 Fix bug that a game is never launched
 
 SKIPPED [date order]
-2012-05-05 Add for certain games that loading takes a while. -> not seen in netw connected configurations.
+2012-05-05 Add for certain games that loading takes a while. -> not seen in netw connected configurations, so skipping for now.
 2012-05-05 Bg rotates faster upon downloading
-2012-03-30 Optionally avoid .exe / cd-path in database, default is try first .exe found or first folder found with a .exe -> creates issue with install state check
-2012-01-28 Display a progress bar when launching starts with bar speed set by config file
+2012-01-28 Display a progress bar when launching starts with bar speed set by config file -> not same on all machines
 
 MAYBE SOME TIME
 Easter egg with sprites from OpenGameArt in menu
