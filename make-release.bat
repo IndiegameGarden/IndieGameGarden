@@ -9,11 +9,11 @@ set VER=4
 call build-gamelib.bat
 
 echo Copying for release/distribution version %VER% of IGG
-copy config\gamelib_fmt3\gamelib-config.json distribution\IndiegameGarden_data\config
-copy config\gamelib_fmt3\gamelib.zip distribution\IndiegameGarden_data\zips\igg_gamelib_fmt3.zip
-xcopy /S /D IndiegameGarden\IndiegameGarden\bin\x86\Release\*.exe distribution\IndiegameGarden_data\config\igg\
-xcopy /S /D IndiegameGarden\IndiegameGarden\bin\x86\Release\*.dll distribution\IndiegameGarden_data\config\igg\
-xcopy /S /D IndiegameGarden\IndiegameGarden\bin\x86\Release\Content distribution\IndiegameGarden_data\config\igg\Content\
+copy /Y config\gamelib_fmt3\gamelib-config.json distribution\IndiegameGarden_data\config
+copy /Y config\gamelib_fmt3\gamelib.zip distribution\IndiegameGarden_data\zips\igg_gamelib_fmt3.zip
+xcopy /S /D /Y IndiegameGarden\IndiegameGarden\bin\x86\Release\*.exe distribution\IndiegameGarden_data\config\igg\
+xcopy /S /D /Y IndiegameGarden\IndiegameGarden\bin\x86\Release\*.dll distribution\IndiegameGarden_data\config\igg\
+xcopy /S /D /Y IndiegameGarden\IndiegameGarden\bin\x86\Release\Content distribution\IndiegameGarden_data\config\igg\Content\
 
 echo Creating final distro zips
 rm -f installers/IndiegameGarden_Alpha-%VER%.zip
