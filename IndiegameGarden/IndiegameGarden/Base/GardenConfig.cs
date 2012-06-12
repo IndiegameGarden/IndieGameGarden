@@ -31,13 +31,13 @@ namespace IndiegameGarden.Base
         /// 2 = ALPHA-2
         /// 3 = ALPHA-3
         /// </summary>
-        public const int    IGG_CLIENT_VERSION = 3;
+        public const int    IGG_CLIENT_VERSION = 5;
         /// <summary>
         /// update for a new build -> quick bootstrap to load a known version of gamelib. This version number
         /// starts again at 1 each time a new gamelib format ("fmt") version is released.
         /// For example "fmt3" in the source refers to gamelib format version 3.
         /// </summary>
-        public const int    KNOWN_GAMELIB_VERSION = 1;
+        public const int    KNOWN_GAMELIB_VERSION = 2;
 
         public const string DATA_PATH_DEBUG = "..\\..\\..\\..\\.."; // for testing in Visual Studio
         public const string DATA_PATH = "..\\.."; // for deployment version when embedded in games folder

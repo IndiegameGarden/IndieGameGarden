@@ -26,9 +26,9 @@ echo Release files zipped, showing below.
 cd ..\..\..\..
 dir installers\*.zip
 
-echo Uploading release zips to server
-cd installers
-cat ../ftp-release.script | sed s/\$VER/%VER%/ > ftp-release-ver.script
-ftp -n -s:ftp-release-ver.script
-cd ..
+rem echo Uploading release zips to server
+rem cd installers
+rem cat ../ftp-release.script | sed s/\$VER/%VER%/ > ftp-release-ver.script
+rem ftp -n -s:ftp-release-ver.script
+rem cd ..
 

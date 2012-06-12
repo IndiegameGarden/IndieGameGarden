@@ -1,6 +1,7 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
+Make version with new music (Dream Journal 2?)
 Check out the pending check-exe gamelib entries, see if can be added to gamelib
 Check screen back to normal after arvoesine -> check on other PC
 Typing letters leads you to the named game (or closest description)
