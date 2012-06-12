@@ -4,7 +4,7 @@ rem Files are copied into the 'distribution' folder, then zipped.
 rem This bat file requires Cygwin install.
 
 rem ClientVer version number of to be released IGG client
-set VER=4
+set VER=5
 
 call build-gamelib.bat
 
