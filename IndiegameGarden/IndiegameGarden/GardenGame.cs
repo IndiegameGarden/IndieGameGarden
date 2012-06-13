@@ -274,7 +274,7 @@ namespace IndiegameGarden
                 }
                 if (g.IsMusic)
                 {
-                    music.Play(g.ExeFilepath , 0.5f ); // TODO vary audio volume per track.
+                    music.Play(g.ExeFilepath , 0.5f , 0f); // TODO vary audio volume per track.
                 }
             }
         }

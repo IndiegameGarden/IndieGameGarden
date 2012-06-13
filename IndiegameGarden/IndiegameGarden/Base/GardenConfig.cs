@@ -165,6 +165,17 @@ namespace IndiegameGarden.Base
         }
 
         /// <summary>
+        /// check whether a config has been loaded successfully from a file
+        /// </summary>
+        public bool HasLoadedFromFileOk
+        {
+            get
+            {
+                return hasLoadedFromFileOk;
+            }
+        }
+
+        /// <summary>
         /// the unique ID of this garden (may be changed by config server, may be unused as well)
         /// </summary>
         public string GardenID { get; set; }

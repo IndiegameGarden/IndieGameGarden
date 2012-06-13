@@ -60,7 +60,15 @@ namespace IndiegameGarden.Base
             else
             {
                 status = ITaskStatus.RUNNING;
-                StartInternal();
+                try
+                {
+                    StartInternal();
+                }
+                catch (Exception ex)
+                {
+                    status = ITaskStatus.FAIL;
+                    statusMsg = ex.ToString();
+                }
             }
         }
 

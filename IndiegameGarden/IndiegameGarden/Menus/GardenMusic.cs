@@ -42,7 +42,7 @@ namespace IndiegameGarden.Menus
 
         public void PlayDefaultSong()
         {
-            Play( GardenGame.Instance.Content.RootDirectory + "\\Torley_Cataplasm.ogg", 0.5);
+            Play( GardenGame.Instance.Content.RootDirectory + "\\Torley_Pure_Space.ogg", 0.45, 20f);
         }
 
         public void PlayLastSong()
@@ -50,7 +50,7 @@ namespace IndiegameGarden.Menus
             if (lastMusicFile == null)
                 PlayDefaultSong();
             else
-                Play(lastMusicFile, 0.5);
+                Play(lastMusicFile, 0.5, 0f);
         }
 
         public bool IsPlaying
@@ -68,14 +68,16 @@ namespace IndiegameGarden.Menus
             GardenMusic parent;
             string musicFile;
             double volume;
+            double musicStartTime;
             bool isAbort = false;
 
-            public MusicLoader(GardenMusic parent, string musicFile, double volume)
+            public MusicLoader(GardenMusic parent, string musicFile, double volume, double musicStartTime)
                 : base()
             {
                 this.parent = parent;
                 this.musicFile = musicFile;
                 this.volume = volume;
+                this.musicStartTime = musicStartTime;
             }
 
             protected override void StartInternal()
@@ -99,7 +101,7 @@ namespace IndiegameGarden.Menus
 
                     SampleSoundEvent ev = new SampleSoundEvent(musicFile);
                     ev.Amplitude = volume;
-                    parent.soundScript.AddEvent(parent.rp.Time + 0.3, ev);
+                    parent.soundScript.AddEvent(parent.rp.Time - musicStartTime, ev);
                     if (isAbort)
                     {
                         status = ITaskStatus.FAIL;
@@ -236,9 +238,9 @@ namespace IndiegameGarden.Menus
         /// change music to another music track
         /// </summary>
         /// <param name="musicFile">filename of a .wav or .ogg music file to play</param>
-        public void Play(string musicFile, double volume)
+        public void Play(string musicFile, double volume, double musicStartTime)
         {
-            ITask t = new ThreadedTask(new MusicLoader(this, musicFile, volume));
+            ITask t = new ThreadedTask(new MusicLoader(this, musicFile, volume, musicStartTime));
             UserWantsMusic = true;
             t.Start();
         }
