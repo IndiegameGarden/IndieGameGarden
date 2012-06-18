@@ -1,7 +1,6 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Make version with new music (Dream Journal 2?)
 Check out the pending check-exe gamelib entries, see if can be added to gamelib
 Check screen back to normal after arvoesine -> check on other PC
 Typing letters leads you to the named game (or closest description)
@@ -18,6 +17,8 @@ Download size indication (MB)
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-06-18 GameInfoBox should go down upon exit; credits/helptext boxes go up
+2012-06-18 Make version with new music (Dream Journal 2?)
 2012-06-07 Finalize gamelib in fmt3 
 2012-06-07 IsGrowable fix: some igg_* items are growable. some not.
 2012-06-06 gamecompiler skips a grid position when game is already there.
