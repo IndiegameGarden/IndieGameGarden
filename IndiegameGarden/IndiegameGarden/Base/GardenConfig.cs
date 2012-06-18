@@ -1,5 +1,7 @@
 ﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
+//#define INSTALLER_VERSION
+
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -31,7 +33,7 @@ namespace IndiegameGarden.Base
         /// 2 = ALPHA-2
         /// 3 = ALPHA-3
         /// </summary>
-        public const int    IGG_CLIENT_VERSION = 5;
+        public const int    IGG_CLIENT_VERSION = 6;
         /// <summary>
         /// update for a new build -> quick bootstrap to load a known version of gamelib. This version number
         /// starts again at 1 each time a new gamelib format ("fmt") version is released.
@@ -39,8 +41,10 @@ namespace IndiegameGarden.Base
         /// </summary>
         public const int    KNOWN_GAMELIB_VERSION = 3;
 
-        public const string DATA_PATH_DEBUG = "..\\..\\..\\..\\.."; // for testing in Visual Studio
-        public const string DATA_PATH = "..\\.."; // for deployment version when embedded in games folder
+        /// <summary>
+        /// specifies base data-dir for IndiegameGarden from which all folders are referenced
+        /// </summary>
+        public const string DATA_PATH = "..\\.."; 
         
         public const string DEFAULT_CONFIG_FILEPATH = "config\\gamelib-config.json";
 
@@ -50,11 +54,7 @@ namespace IndiegameGarden.Base
 
         public GardenConfig()
         {
-#if DEBUG
-            jsonFilePath = Path.Combine(DATA_PATH_DEBUG, DEFAULT_CONFIG_FILEPATH);
-#else
             jsonFilePath = Path.Combine(DATA_PATH, DEFAULT_CONFIG_FILEPATH);
-#endif
             hasLoadedFromFileOk = true;
             try
             {
@@ -87,12 +87,11 @@ namespace IndiegameGarden.Base
         {
             // NOTE DataPath should be set FIRST of all.
             // check whether in Visual studio debugging mode
-#if DEBUG
-            DataPath = Path.GetFullPath(DATA_PATH_DEBUG);
-#else
-            DataPath = Path.GetFullPath(DATA_PATH);
-#endif
-
+  #if INSTALLER_VERSION
+           DataPath = Path.Combine( Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) , "IndiegameGarden" );
+  #else
+           DataPath = Path.GetFullPath(DATA_PATH);
+  #endif
             GardenID = DEFAULT_GARDEN_ID;
             ServerMsg = "Enjoy your garden!\nBut watch out for the weeds.";
             ConfigFilesFolder = GetFolder("config");
