@@ -177,6 +177,13 @@
 	"Zip": "www.creativegamechallenge.nl/games2010/cgc10095/cgc10095.zip",
 	"Site": "www.creativegamechallenge.nl/allegamescgc2010.php"
 },
+{
+ "Name": "Seven Dimensions",
+ "ID": "sevendimensions",
+ "Zip": "www.marries.nl/wp-content/uploads/2012/06/SevenDimensions.zip",
+ "Site": "www.marries.nl/games/seven-dimensions/",
+ "Descr": "A 7D FPS? Yes. Navigate and shoot in 1+3+3=7 abstract dimensions simultaneously. It definitely has an FPS feel\neven though the look is way different. Check the website (W key) for detailed instructions."
+},
 {}		  		
 ],
 

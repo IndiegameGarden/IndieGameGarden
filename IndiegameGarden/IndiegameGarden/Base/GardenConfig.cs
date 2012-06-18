@@ -37,7 +37,7 @@ namespace IndiegameGarden.Base
         /// starts again at 1 each time a new gamelib format ("fmt") version is released.
         /// For example "fmt3" in the source refers to gamelib format version 3.
         /// </summary>
-        public const int    KNOWN_GAMELIB_VERSION = 2;
+        public const int    KNOWN_GAMELIB_VERSION = 3;
 
         public const string DATA_PATH_DEBUG = "..\\..\\..\\..\\.."; // for testing in Visual Studio
         public const string DATA_PATH = "..\\.."; // for deployment version when embedded in games folder

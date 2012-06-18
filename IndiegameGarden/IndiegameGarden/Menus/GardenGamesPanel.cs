@@ -544,8 +544,13 @@ namespace IndiegameGarden.Menus
 
                 case UserInput.START_SELECT:
                     if (SelectedGame != null)
-                    {                        
-                        GameThumbnail th = thumbnailsCache[SelectedGame.GameID];
+                    {
+                        GameThumbnail th = null;
+                        try
+                        {
+                            th = thumbnailsCache[SelectedGame.GameID];
+                        }
+                        catch (Exception) { ; }
                         if (th != null)
                         {
                             switch (selectionLevel)
