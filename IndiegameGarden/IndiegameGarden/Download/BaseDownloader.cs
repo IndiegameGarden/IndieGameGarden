@@ -183,6 +183,9 @@ namespace IndiegameGarden.Download
                             status = ITaskStatus.FAIL;
                             statusMsg = "Couldn't move downloaded file to " + localFile + ": " + ex.ToString();
                         }
+                        finally {
+                            TryDeleteFile(tempFile);
+                        }
                     }
                 }
             }
