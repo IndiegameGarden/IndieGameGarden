@@ -49,12 +49,14 @@ namespace IndiegameGarden
             }
         }
 
+        /*
         static void ReportErrorHttpPost(Exception ex)
         {
             string u = "http://indieget.appspot.com/errPost" ;
             string payload = ex + "\n" + ex.TargetSite + "\n" + ex.StackTrace;
             HttpPost.HttpPostText(u,payload);
         }
+         */
 
         /// <summary>
         /// misuse HTTP GET to deliver an error report to the server log
@@ -64,7 +66,7 @@ namespace IndiegameGarden
             try
             {
                 const int MAX_URL_LENGTH = 2000;
-                string u = "http://indieget.appspot.com/err?ex=" + ex + "&ts=" + ex.TargetSite + "&st=" + ex.StackTrace;
+                string u = "http://indieget.appspot.com/err?v="+ GardenConfig.Instance.ClientVersion + "&ex=" + ex + "&ts=" + ex.TargetSite + "&st=" + ex.StackTrace;
                 u = u.Replace(' ', '-'); // avoid the %20 substitution to save space
                 u = u.Replace('\\', '/');
                 u = u.Replace("\r", "");
