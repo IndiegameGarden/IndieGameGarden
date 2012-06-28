@@ -45,7 +45,7 @@ namespace IndiegameGarden
             catch(Exception ex) {
                 ReportErrorOverNetwork(ex);
                 MsgBox.Show("IndiegameGarden: critical error",
-                            "Critical error - sorry! " + ex.Message + "\n" + ex.ToString() );                
+                            "Critical error - sorry, it's still in Beta! " + ex.Message + "\n" + ex.ToString() );                
             }
         }
 

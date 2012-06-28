@@ -9,7 +9,7 @@
 #define MyAppDirName "IndiegameGarden"
 
 ; Enter the name of your game and a version number here
-#define MyAppVerName "Indiegame Garden Alpha-2"
+#define MyAppVerName "Indiegame Garden Beta-6"
  
 ; Enter the name of your company, or just your name
 #define MyCompany "IndiegameGarden.com"
@@ -24,7 +24,7 @@
 #define MyAppExeName "IndiegameGarden.exe"
  
 ; Enter the location where XNA Game Studio is installed
-#define MyGameStudioLocation "C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0"
+; #define MyGameStudioLocation "C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0"
  
 ; Enter the name for the correct version of the XNA Framework MSI
 #define XNARedist "xnafx40_redist.msi"
@@ -41,10 +41,10 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppDirName}
 DefaultGroupName={#MyAppName}
-OutputBaseFilename={#MyAppDirName}_Setup_Alpha-2
+OutputBaseFilename={#MyAppDirName}_Setup
 Compression=lzma
 SolidCompression=yes
-SetupIconFile = "C:\dev\TT\IndiegameGarden\IndiegameGarden\IndiegameGarden\game.ico"
+SetupIconFile = ".\IndiegameGarden\IndiegameGarden\game.ico"
  
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
@@ -72,7 +72,7 @@ begin
   case CurUninstallStep of
     usPostUninstall:
       begin
-        MsgBox('Uninstall finished. Any downloaded content and games are' #13 #13 'still in the folder C:\Program Files\{#MyAppName}.', mbInformation, MB_OK);
+        MsgBox('Uninstall finished. Any downloaded content and installed games are' #13 #13 'still in the IndiegameGarden folder, which is inside the Windows Local Data folder of the current user.', mbInformation, MB_OK);
         // ...insert code to perform post-uninstall tasks here...
       end;
   end;

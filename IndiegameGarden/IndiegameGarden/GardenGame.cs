@@ -1,8 +1,5 @@
 ﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 ﻿
-// defines for global settings (debug etc)
-// -> defines set in Visual Studio Profiles: DEBUG, RELEASE
-
 using System;
 using System.IO;
 using System.Threading;

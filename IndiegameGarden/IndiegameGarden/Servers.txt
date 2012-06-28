@@ -24,6 +24,8 @@ http://indie.indiegamegarden.com/zips/igg_v<ClientVer>.zip
 
 IGG client first install version
 http://www.indiegamegarden.com/alpha/IndiegameGarden_Alpha<ClientVer>.zip
+http://www.indiegamegarden.com/beta/IndiegameGarden_Beta<ClientVer>.zip
+http://www.indiegamegarden.com/beta/IndiegameGarden.zip
 
 Downloadable games
 [original website]

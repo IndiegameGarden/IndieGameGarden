@@ -1,8 +1,5 @@
 ﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
-// if defined, creates version that is suitable to deploy as a WIndows installer. It stores app data in a local appdata folder instead of next to the program code.
-#define INSTALLER_VERSION
-
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -16,6 +13,12 @@ namespace IndiegameGarden.Base
      */
     public class GardenConfig: JSONStore
     {
+         
+        /// <summary>
+        /// if true, creates version that is suitable to deploy as a WIndows installer. It stores app data in a local appdata folder instead of next to the program code.
+        /// </summary>
+        public const bool IS_INSTALLER_VERSION = true;
+
         /// <summary>
         /// checking config file integrity (somewhat)
         /// </summary>
@@ -43,7 +46,7 @@ namespace IndiegameGarden.Base
         public const int    KNOWN_GAMELIB_VERSION = 3;
 
         /// <summary>
-        /// specifies base data-dir for IndiegameGarden from which all folders are referenced
+        /// specifies default base data-dir for IndiegameGarden from which all folders are referenced
         /// </summary>
         public const string DATA_PATH = "..\\.."; 
         
@@ -166,11 +169,11 @@ namespace IndiegameGarden.Base
         {
             // NOTE DataPath should be set FIRST of all.
             // check whether in Visual studio debugging mode
-  #if INSTALLER_VERSION
-           DataPath = Path.Combine( Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) , "IndiegameGarden" );
-  #else
-           DataPath = Path.GetFullPath(DATA_PATH);
-  #endif
+            if (GardenConfig.IS_INSTALLER_VERSION)
+              DataPath = Path.Combine( Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) , "IndiegameGarden" );
+            else
+              DataPath = Path.GetFullPath(DATA_PATH);
+  
             GardenID = DEFAULT_GARDEN_ID;
             ServerMsg = "Enjoy your garden!\nBut watch out for the weeds.";
             ConfigFilesFolder = GetFolder("config");
