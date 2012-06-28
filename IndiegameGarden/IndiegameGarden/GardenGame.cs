@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using System.Diagnostics;
 using System.Runtime.InteropServices; 
 
@@ -109,6 +110,7 @@ namespace IndiegameGarden
 
         protected override void Initialize()
         {
+            GardenConfig.Instance.VerifyDataPath();
             // finally call base to enumnerate all (gfx) Game components to init
             base.Initialize();
         }
@@ -116,6 +118,10 @@ namespace IndiegameGarden
         protected override void LoadContent()
         {
             base.LoadContent();
+
+            // frame border
+            Form frm = (Form)Form.FromHandle(Window.Handle);
+            frm.FormBorderStyle = FormBorderStyle.None;
 
             // music engine
             musicEngine = MusicEngine.GetInstance();
@@ -198,13 +204,28 @@ namespace IndiegameGarden
             base.Draw(gameTime);
         }
 
+        class DownloadsAllPausedTask : Task
+        {
+            protected override void StartInternal()
+            {
+                // below method may block for long times when worker threads won't stop
+                DownloadManager.Instance.PauseAll();
+            }
+
+            protected override void AbortInternal()
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         /// <summary>
         /// indicate to game that asap we should clean up and exit, no way back
         /// </summary>
         public void SignalExitGame()
         {
             isExiting = true;
-            DownloadManager.Instance.PauseAll();
+            ITask t = new ThreadedTask(new DownloadsAllPausedTask());
+            t.Start(); 
         }
 
         protected override void OnExiting(object sender, EventArgs args)
@@ -354,7 +375,7 @@ namespace IndiegameGarden
             // a missing config counts as a valid one (then uses default params to create a new config)
             if (!GardenConfig.Instance.IsValid() )
             { 
-                TTengine.Util.MsgBox.Show("Could not load configuration", "Could not load configuration file. Is it missing or corrupted?"); 
+                MsgBox.Show("Could not load configuration", "Could not load configuration file. Is it missing or corrupted?"); 
                 return false;
             }
             return true;

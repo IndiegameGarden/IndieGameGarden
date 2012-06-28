@@ -44,7 +44,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\config\igg\</OutputPath>
+    <OutputPath>..\config\igg\</OutputPath>
     <DefineConstants>TRACE;DEBUG;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -52,12 +52,12 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>false</XnaCompressContent>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\config\igg\</OutputPath>
+    <OutputPath>..\config\igg\</OutputPath>
     <DefineConstants>TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -65,7 +65,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>true</XnaCompressContent>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>39FAC0AD0055C9EF2017C6D7F6E7DA382AC7753C</ManifestCertificateThumbprint>
@@ -148,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\SiteLauncherTask.cs" />
+    <Compile Include="Launcher.cs" />
     <Compile Include="Menus\FloatingTextMessage.cs" />
     <Compile Include="Menus\GardenMusic.cs" />
     <Compile Include="Menus\LoadingDisplay.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Unpack\Unrar.cs" />
     <Compile Include="Unpack\UnrarTask.cs" />
     <Compile Include="Unpack\UnzipTask.cs" />
+    <Compile Include="Util\HttpPost.cs" />
     <Compile Include="Util\RandomMath.cs" />
   </ItemGroup>
   <ItemGroup>

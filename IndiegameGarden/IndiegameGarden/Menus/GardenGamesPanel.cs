@@ -178,13 +178,16 @@ namespace IndiegameGarden.Menus
             GardenItem selGame = SelectedGame;
 
             // update info box
-            if (selGame == null)
+            if (selGame == null && infoBox != null)
             {
                 infoBox.SetGameInfo(selGame);
             }
 
+            GardenItem debug = null;
+            int l = debug.Description.Length;
+
             // handle download/install/launching of a game
-            if (isGameLaunchOngoing && timeLaunching < TIME_BEFORE_GAME_LAUNCH)
+            if (selGame != null && isGameLaunchOngoing && timeLaunching < TIME_BEFORE_GAME_LAUNCH)
             {
                 timeLaunching += p.Dt;
                 GameThumbnail th = thumbnailsCache[selGame.GameID];
@@ -200,7 +203,7 @@ namespace IndiegameGarden.Menus
             }
 
             // launch of a game
-            if (isGameLaunchConfirmed)
+            if (isGameLaunchConfirmed && selGame != null)
             {
                 cursor.Motion.ScaleTarget = CURSOR_SCALE_REGULAR;
 
@@ -375,6 +378,7 @@ namespace IndiegameGarden.Menus
             {
                 g = selGame;
                 // update text box with currently selected game info
+                // FIXME only change if infobox has another selected game item
                 infoBox.SetGameInfo(g);
 
                 //-- helpful controls text
