@@ -17,7 +17,7 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// if true, creates version that is suitable to deploy as a WIndows installer. It stores app data in a local appdata folder instead of next to the program code.
         /// </summary>    
-        public const bool IS_INSTALLER_VERSION = true;
+        public const bool IS_INSTALLER_VERSION = false;
 
         /// <summary>
         /// value is constant for a build! update this manually for new version builds.

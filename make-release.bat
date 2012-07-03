@@ -16,14 +16,14 @@ xcopy /S /D /Y IndiegameGarden\config\igg\*.dll distribution\IndiegameGarden_dat
 xcopy /S /D /Y IndiegameGarden\config\igg\Content distribution\IndiegameGarden_data\config\igg\Content\
 
 echo Creating final distro zips
-rm -f installers/IndiegameGarden_Alpha-%VER%.zip
+rm -f installers/IndiegameGarden_Beta-%VER%.zip
 rm -f installers/igg_v%VER%.zip
 cd distribution
-7z a -tzip -r ../installers/IndiegameGarden_Alpha-%VER%.zip *
+7z a -tzip -r ../installers/IndiegameGarden_Beta-%VER%.zip *
 cd IndiegameGarden_data\config\igg
 7z a -tzip -r ../../../../installers/igg_v%VER%.zip *
 cd ..\..\..\..
-copy /Y installers\IndiegameGarden_Alpha-%VER%.zip installers\IndiegameGarden.zip
+copy /Y installers\IndiegameGarden_Beta-%VER%.zip installers\IndiegameGarden.zip
 echo Release files zipped, showing below.
 dir installers\*.zip
 
