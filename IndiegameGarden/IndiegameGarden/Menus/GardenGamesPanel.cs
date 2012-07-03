@@ -183,9 +183,6 @@ namespace IndiegameGarden.Menus
                 infoBox.SetGameInfo(selGame);
             }
 
-            GardenItem debug = null;
-            int l = debug.Description.Length;
-
             // handle download/install/launching of a game
             if (selGame != null && isGameLaunchOngoing && timeLaunching < TIME_BEFORE_GAME_LAUNCH)
             {

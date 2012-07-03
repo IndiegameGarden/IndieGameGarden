@@ -19,7 +19,7 @@ namespace IndiegameGarden
         {
             try
             {
-                if (args.Length == 0)
+                if (GardenConfig.IS_INSTALLER_VERSION)
                 {
                     // behave as a launcher (potentially)
                     using (Launcher launcher = new Launcher())

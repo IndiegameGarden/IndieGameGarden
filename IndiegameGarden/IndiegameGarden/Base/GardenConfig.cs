@@ -20,30 +20,34 @@ namespace IndiegameGarden.Base
         public const bool IS_INSTALLER_VERSION = true;
 
         /// <summary>
-        /// checking config file integrity (somewhat)
-        /// </summary>
-        public const string CONFIG_MAGIC_VALUE = "f20fj239jf0a9w";
-        /// <summary>
-        /// garden ID default when no ID assigned yet by server (this assignment is optional)
-        /// </summary>
-        public const string DEFAULT_GARDEN_ID = "42";
-        /// <summary>
-        /// auth for server communication
-        /// </summary>
-        public const string IGG_CLIENT_AUTH_KEY = "sreqZRVmzJVqdsrKuCwJTnumI";
-        /// <summary>
         /// value is constant for a build! update this manually for new version builds.
         /// 1 = ALPHA-1
         /// 2 = ALPHA-2
         /// 3 = ALPHA-3
         /// </summary>
-        public const int    IGG_CLIENT_VERSION = 6;
+        public const int IGG_CLIENT_VERSION = 6;
+
         /// <summary>
         /// update for a new build -> quick bootstrap to load a known version of gamelib. This version number
         /// starts again at 1 each time a new gamelib format ("fmt") version is released.
         /// For example "fmt3" in the source refers to gamelib format version 3.
         /// </summary>
-        public const int    KNOWN_GAMELIB_VERSION = 3;
+        public const int KNOWN_GAMELIB_VERSION = 3;
+
+        /// <summary>
+        /// checking config file integrity (somewhat)
+        /// </summary>
+        public const string CONFIG_MAGIC_VALUE = "f20fj239jf0a9w";
+        
+        /// <summary>
+        /// garden ID default when no ID assigned yet by server (this assignment is optional)
+        /// </summary>
+        public const string DEFAULT_GARDEN_ID = "42";
+        
+        /// <summary>
+        /// auth for server communication
+        /// </summary>
+        public const string IGG_CLIENT_AUTH_KEY = "sreqZRVmzJVqdsrKuCwJTnumI";
 
         /// <summary>
         /// specifies default base data-dir for IndiegameGarden from which all folders are referenced
@@ -103,7 +107,6 @@ namespace IndiegameGarden.Base
             if (!CopyFiles("config")) return false;
             if (!CopyFiles("thumbs")) return false;
             if (!CopyFiles("zips")) return false;
-            if (!CopyFiles("games")) return false;
 
             return true;
         }

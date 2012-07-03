@@ -107,7 +107,8 @@ namespace IndiegameGarden
 
         protected override void Initialize()
         {
-            GardenConfig.Instance.VerifyDataPath();
+            if (GardenConfig.IS_INSTALLER_VERSION)
+                GardenConfig.Instance.VerifyDataPath();
             // finally call base to enumnerate all (gfx) Game components to init
             base.Initialize();
         }
