@@ -49,8 +49,15 @@ namespace IndiegameGardenLauncher
                     System.IO.Directory.SetCurrentDirectory(IGG_PATH);
                     System.IO.Directory.SetCurrentDirectory(iggDir);
                     Process proc = System.Diagnostics.Process.Start(IGG_EXECUTABLE);
-                    if (proc != null)
-                        SetForegroundWindow(proc.MainWindowHandle.ToInt32());
+                    try
+                    {
+                        if (proc != null)
+                            SetForegroundWindow(proc.MainWindowHandle.ToInt32());
+                    }
+                    catch (Exception)
+                    {
+                        ;
+                    }
                 }else{
                     MsgBox.Show(ERROR_BOX_TITLE, "IndiegameGarden's executable not found in " + IGG_PATH + ";\nlikely a damaged installation.");
                 }

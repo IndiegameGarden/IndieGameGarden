@@ -18,7 +18,10 @@
 #define MyAppURL "http://www.indiegamegarden.com/"
  
 ; Enter the path to your game project - check Visual Studio properties for the path
-#define MyAppLocation ".\distribution"
+#define MyAppLocation ".\distribution\IndiegameGarden_data"
+
+; Enter the folder where the executable is stored within MyAppLocation
+#define MyAppSubFolder "config\igg"
  
 ; Enter the name of your game executable
 #define MyAppExeName "IndiegameGarden.exe"
@@ -55,16 +58,16 @@ Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:Ad
 [Files]
 
 ; The game itself
-Source: {#MyAppLocation}\{#MyAppExeName}; DestDir: {app}; Flags: ignoreversion
+Source: {#MyAppLocation}\{#MyAppSubFolder}\{#MyAppExeName}; DestDir: {app}\{#MyAppSubFolder}; Flags: ignoreversion
 Source: {#MyAppLocation}\*; DestDir: {app}; Flags: ignoreversion recursesubdirs createallsubdirs
  
 [Icons]
-Name: {group}\{#MyAppName}; Filename: {app}\{#MyAppExeName}
+Name: {group}\{#MyAppName}; Filename: {app}\{#MyAppSubFolder}\{#MyAppExeName}
 Name: {group}\{cm:UninstallProgram,{#MyAppName}}; Filename: {uninstallexe}
-Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppExeName}; Tasks: desktopicon
+Name: {commondesktop}\{#MyAppName}; Filename: {app}\{#MyAppSubFolder}\{#MyAppExeName}; Tasks: desktopicon
  
 [Run]
-Filename: {app}\{#MyAppExeName}; Description: {cm:LaunchProgram,{#MyAppName}}; Flags: nowait postinstall skipifsilent
+Filename: {app}\{#MyAppSubFolder}\{#MyAppExeName}; Description: {cm:LaunchProgram,{#MyAppName}}; Flags: nowait postinstall skipifsilent
 
 [Code]
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
@@ -72,7 +75,7 @@ begin
   case CurUninstallStep of
     usPostUninstall:
       begin
-        MsgBox('Uninstall finished. Any downloaded content and installed games are' #13 #13 'still in the IndiegameGarden folder, which is inside the Windows Local Data folder of the current user.', mbInformation, MB_OK);
+        MsgBox('Uninstall finished. Any downloaded content and installed games are still in the' #13 'IndiegameGarden folder, which is inside the Windows Local Data folder of the current user.', mbInformation, MB_OK);
         // ...insert code to perform post-uninstall tasks here...
       end;
   end;
