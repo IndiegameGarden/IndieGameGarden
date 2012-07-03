@@ -85,6 +85,10 @@ namespace IndiegameGarden
 
         public GardenGame()
         {
+            // frame border
+            Form frm = (Form)Form.FromHandle(Window.Handle);
+            frm.FormBorderStyle = FormBorderStyle.None;
+
             Instance = this;
             Content.RootDirectory = "Content";
 
@@ -116,10 +120,6 @@ namespace IndiegameGarden
         protected override void LoadContent()
         {
             base.LoadContent();
-
-            // frame border
-            Form frm = (Form)Form.FromHandle(Window.Handle);
-            frm.FormBorderStyle = FormBorderStyle.None;
 
             // music engine
             musicEngine = MusicEngine.GetInstance();
