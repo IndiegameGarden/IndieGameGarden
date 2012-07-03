@@ -18,7 +18,7 @@
 #define MyAppURL "http://www.indiegamegarden.com/"
  
 ; Enter the path to your game project - check Visual Studio properties for the path
-#define MyAppLocation "C:\dev\TT\IndiegameGarden\distribution"
+#define MyAppLocation ".\distribution"
  
 ; Enter the name of your game executable
 #define MyAppExeName "IndiegameGarden.exe"

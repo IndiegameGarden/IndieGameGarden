@@ -22,8 +22,9 @@ cd distribution
 7z a -tzip -r ../installers/IndiegameGarden_Alpha-%VER%.zip *
 cd IndiegameGarden_data\config\igg
 7z a -tzip -r ../../../../installers/igg_v%VER%.zip *
-echo Release files zipped, showing below.
 cd ..\..\..\..
+copy /Y installers\IndiegameGarden_Alpha-%VER%.zip installers\IndiegameGarden.zip
+echo Release files zipped, showing below.
 dir installers\*.zip
 
 rem echo Uploading release zips to server
