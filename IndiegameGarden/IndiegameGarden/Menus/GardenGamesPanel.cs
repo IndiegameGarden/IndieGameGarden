@@ -605,7 +605,7 @@ namespace IndiegameGarden.Menus
                 if (selectionLevel == 1 && SelectedGame != null)
                 {
                     int lnCount = SelectedGame.DescriptionLineCount;
-                    infoBox.Motion.TargetPos = INFOBOX_SHOWN_POSITION - new Vector2(0f, 0.029f * (lnCount - 1));
+                    infoBox.Motion.TargetPos = INFOBOX_SHOWN_POSITION - new Vector2(0f, 0.015f + 0.029f * (lnCount - 1));
                 }
 
                 if (SelectedGame == null || SelectedGame.Name.Length == 0)
