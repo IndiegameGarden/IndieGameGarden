@@ -12,3 +12,4 @@ cd ..\..
 
 echo Don't forget to increase GameLibVer in gamelib-config.json
 echo and commit changes to repository to release.
+
