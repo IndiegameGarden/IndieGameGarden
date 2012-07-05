@@ -8,7 +8,6 @@ Show number of downloads still ongoing (graphics?)
 Make gamelib loading non-blocking
 .7z file unpacking using the 7-Zip DLLs
 Icon stays big while loading game -> maybe not nice.
-Location for downloaded content in Windows 7 -> determine & implement (installer version)
 Threadpool for tasks and/or downloading (find out if needed there)
 Test swf file handling, add support for .swf search in zip? or direct browser launch.
 Test disk free before growing game
@@ -17,6 +16,7 @@ Download size indication (MB)
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-07-04 Location for downloaded content in Windows 7 -> determine & implement (installer version)
 2012-06-18 GameInfoBox should go down upon exit; credits/helptext boxes go up
 2012-06-18 Make version with new music (Dream Journal 2?)
 2012-06-07 Finalize gamelib in fmt3 

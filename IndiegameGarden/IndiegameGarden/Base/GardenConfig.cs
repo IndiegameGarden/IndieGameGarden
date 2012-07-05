@@ -17,7 +17,7 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// if true, creates version that is suitable to deploy as a WIndows installer. It stores app data in a local appdata folder instead of next to the program code.
         /// </summary>    
-        public const bool IS_INSTALLER_VERSION = true;
+        public const bool IS_INSTALLER_VERSION=false;
 
         /// <summary>
         /// value is constant for a build! update this manually for new version builds.
@@ -25,14 +25,14 @@ namespace IndiegameGarden.Base
         /// 2 = ALPHA-2
         /// 3 = ALPHA-3
         /// </summary>
-        public const int IGG_CLIENT_VERSION = 6;
+        public const int IGG_CLIENT_VERSION=6;
 
         /// <summary>
         /// update for a new build -> quick bootstrap to load a known version of gamelib. This version number
         /// starts again at 1 each time a new gamelib format ("fmt") version is released.
         /// For example "fmt3" in the source refers to gamelib format version 3.
         /// </summary>
-        public const int KNOWN_GAMELIB_VERSION = 3;
+        public const int KNOWN_GAMELIB_VERSION=2;
 
         /// <summary>
         /// checking config file integrity (somewhat)

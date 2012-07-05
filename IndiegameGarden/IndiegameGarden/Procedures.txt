@@ -1,0 +1,7 @@
+
+*** Building a new IGG client for Portable App distribution or In-Program Updatable distribution
+- set    GardenConfig.IS_INSTALLER_VERSION = false
+- update GardenConfig.IGG_CLIENT_VERSION (one higher than last release)
+- update GardenConfig.KNOWN_GAMELIB_VERSION and check if equal to gamelib-config.json "GameLibVer".
+- run build.bat
+

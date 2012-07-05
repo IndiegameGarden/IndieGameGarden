@@ -3,8 +3,7 @@ rem Make a release version of new IGG client based on latest Release build
 rem Files are copied into the 'distribution' folder, then zipped.
 rem This bat file requires Cygwin install.
 
-rem ClientVer version number of to be released IGG client
-set VER=6
+call set-versions.bat
 
 call build-gamelib.bat
 
