@@ -209,11 +209,14 @@
     <Compile Include="Util\RandomMath.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="fmodex.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
-    <Content Include="TasksList.txt" />
-    <Content Include="Tests.txt" />
-    <Content Include="Servers.txt" />
+    <None Include="unrar.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\TTengine\TTengine\TTengine.csproj">
