@@ -1,0 +1,208 @@
+IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
+
+OPEN  [top issues first]
+Check out the pending check-exe gamelib entries, see if can be added to gamelib
+Check screen back to normal after arvoesine -> check on other PC
+Typing letters leads you to the named game (or closest description)
+Show number of downloads still ongoing (graphics?)
+Make gamelib loading non-blocking
+.7z file unpacking using the 7-Zip DLLs
+Icon stays big while loading game -> maybe not nice.
+Threadpool for tasks and/or downloading (find out if needed there)
+Test swf file handling, add support for .swf search in zip? or direct browser launch.
+Test disk free before growing game
+Add mirrors to all thumbnail loading?
+Download size indication (MB)
+Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
+
+CLOSED  [date order]
+2012-07-04 Location for downloaded content in Windows 7 -> determine & implement (installer version)
+2012-06-18 GameInfoBox should go down upon exit; credits/helptext boxes go up
+2012-06-18 Make version with new music (Dream Journal 2?)
+2012-06-07 Finalize gamelib in fmt3 
+2012-06-07 IsGrowable fix: some igg_* items are growable. some not.
+2012-06-06 gamecompiler skips a grid position when game is already there.
+2012-06-06 zoom speed should be very high when escaping to birds-eye view
+2012-06-05 crash on selecting empty space -> could not be reproduced
+2012-06-05 run igg icon with enter to start new version (resolves also crash on running igg client new version )
+2012-06-03 Add serverMsg2 with more text showing in small print.
+2012-06-01 AVoid downloading of igg_* items (only igg is ok)
+2012-06-01 Very first Selection of game doesn't work (on startup) -> fixed & cleanup up GardenGamesPanel code
+2012-05-31 Test final version assign to igg fix
+2012-05-31 Avoid thumb dl for gameID=""
+2012-05-31 Fix igg icon (should not be visible in new v3 install) -> remove ShowBelowClientVersion in general; incl bug selecting igg icon when not shown
+2012-05-29 Music starts again if user presses M after play has ended
+2012-05-29 Update distro folder to v3 client & update config dtChk & fix crash issue
+2012-05-28 Harmonize version numbers (alpha3 = client-v3 = x.3.y etc.
+2012-05-27 Remove thumburl entries from new gamelib
+2012-05-27 Press of ESC in game-loading-screen (after 'enjoy' msg) gets back to garden right away
+2012-05-27 Cursor start location is wrong
+2012-05-27 Easier gamelib update flow / server operation
+2012-05-26 Add more games; calicoland; 
+2012-05-26 insert correct size thumbnails in git
+2012-05-26 Music should go off when starting webgame and window is not foreground
+2012-05-24 Cursor size behaves weird when selecting
+2012-05-24 Catch crc error and replace with nicer message.
+2012-05-24 FIXMEs -> done
+2012-05-24 FIXME fixed: downloading retries can now be set per download item. (MyDownloader lib changed see this git change)
+2012-05-24 Report exceptions to server; for collecting good debug info from the field; or save to a file -> already done before
+2012-05-24 Bug loading screen stays too long after quickly exiting a game - still the case?
+2012-05-24 Bug music goes on after zoom-out
+2012-05-24 If exiting while downloading zip/rar -> file not deleted. -> fix by downloading to a temp file then moving it to dest.
+2012-05-22 Default music should be already-loaded in garden selection.
+2012-05-22 Ogg files wrap in zip for extra reliability check (CRC) and future multi-track downloads
+2012-05-22 bugfix progress bar was jumping back to 0%
+2012-05-21 Gamelib upgrading from server fully depends on client version number -> solved in server code (uses clver=n parameter)
+2012-05-21 Credits bitmap shows up in wrong place initially
+2012-05-21 Scale bitmap to a max height (240?)
+2012-05-21 Rotating sun - want it back please!
+2012-05-20 Bug descriptoins don't show well.
+2012-05-20 Add support for web games (via browser instance?) - with launch screen showing no thread blocks.
+2012-05-17 Memory mgt for thumbs: free up least recently seen thumbs from memory -> done earlier
+2012-05-17 Missing music icons after refactor -> enabled thumburl data
+2012-05-14 Scaling down texture in memory (see http://forums.create.msdn.com/forums/t/24124.aspx, "texture copy" function in lib?)
+2012-05-09 Autodetection of CdPath and ExeFile if not given in gamelib. -> already fixed earlier.
+2012-05-09 Only start launching game when ENTER is released again (issue of popup boxes missed etc)
+2012-05-08 Bug too wide area of thumbnails loaded - only start downloading when near
+2012-05-05 Check GardenMusic for existence of .ogg file (less fragile) -> already done for Alpha-2
+2012-05-05 Desktop resolution: check for minimum resolution? -> not needed, it scales.
+2012-05-05 Autoscaling of thumbnail size if no size given. -> was already done earlier.
+2012-05-05 Loading from server file corruptions? -> only seen on 3G connection, ignore
+2012-05-05 Background sometimes not shows? -> solved with new TTengine png texture loading
+2012-05-05 Bug of background garbled after certain games? -> see above
+2012-05-03 Hide launch/title for non-visible icons
+2012-05-03 Fix 1280x1024 res text width (to test with 1280x768)
+2012-05-03 Test client install and first run from website
+2012-05-02 Get rid of debug vs deployment path difference!
+2012-05-02 Bugfix use of M key when no music playing
+2012-05-02 Bug: loading while playing, loading 2 games at once -> should have no dep. on relative dir.
+2012-05-01 Resolution check for credits image -> use higher rez png, better when scaled.
+2012-05-01 Fix crash when music file not there -> tests now file presence in music task.
+2012-04-30 Test on 4:3 resolution for item visibility
+2012-04-28 Loading bar overlaps with title/text (replace by percent in title only? or circle?)
+2012-04-27 Upload music files to server
+2012-04-27 credits go left top and are bitmap
+2012-04-24 Change text "exit this game to return to garden" when loading not show it.
+2012-04-23 Controls help in a bitmap
+2012-04-23 Check starman directx 8 -> only on some PCs
+2012-04-23 Fix bouncy behavior at startup with cursor
+2012-04-23 Fade out music when exiting : do better?
+2012-04-22 Music pausing to be fixed. -> 5000 ms hack in TTMusicEngine
+2012-04-21 Text not fully shown on widescreen lowres?
+2012-04-21 Spacing different on res 1366 x 768 (vs 1440 x 900) - need to scale all bitmap things with 768/900 as well in engine.
+2012-04-21 Icons will only fade in after being downloaded.
+2012-04-13 Bug scrolling in zoomed-out mode is ridiculous
+2012-04-13 Loading websites - long delay (did not occur?)
+2012-04-12 Option to mute music
+2012-04-12 Refactored MotionBehavior to TTengine Motion class
+2012-04-11 Fix the exit bug popup
+2012-04-10 Music skip bug due to TTengine sample tracking - hack in TTMusicEngine to disable.
+2012-04-10 Show game thumbnail in loading screen (center)
+2012-04-05 game icon halo effect and fading fixed
+2012-04-05 Option to restart failed installs in same session
+2012-04-05 "Problem during growth" with empty error message (file not found? should retry?) if no netw conn.
+2012-04-05 Beautify cursor image
+2012-04-04 corrupt image loading fix
+2012-03-30 Check all FIXMEs in code
+2012-03-29 Coordinates idea: if X/Y not given, use default DX=1/DY=0. Explicit DX/DY can be given also, relative to previous.
+2012-03-29 Coordinates idea: section ID has width (DX) parameter. If width full, jumps to next row.
+2012-03-29 Progress bars keeps showing just after an install. Cleared upon next keypress.
+2012-03-28 Delete game folder after a failed install (not only ZIP)
+2012-03-28 If no site specified in "Zip" field (i.e. slashes missing), prepend default DL location
+2012-03-28 If "Zip" field not defined, use default mirror location
+2012-03-28 Avoid JPG/PNG selection, just try both in thumbs downloader.
+2012-03-27 upd foxaliens to new zip; add zips of all games in mirror
+2012-03-27 bugfix in launcher. Now works to find highest version no matter what other versions are available.
+2012-03-27 change 'data' dir from launcher into less generic, recognizable name + use now 'config' for igg launches
+2012-03-27 Add more scribble graphics denoting garden sections
+2012-03-27 Delete a zip after a failed unzip attempt.
+2012-03-27 After reselecting game, realtime testing if folder/zip still exists.
+2012-03-27 Game icon
+2012-03-27 Allow multiple game directories, one for downloaded games, one for system files, maybe one for music
+2012-03-27 Complete music credits
+2012-03-22 Item names should be more accurate - not only 'game'
+2012-03-22 Client uses client version nr in config request url.
+2012-03-22 Recursive game sections in json game lib 
+2012-03-21 Use lock(graphicsDevice) for the Spritelet init-time texture loading, to prevent mutual collissions.
+2012-03-21 Put new music track loading in a ThreadedTask
+2012-03-21 Add partly transparent garden graphics: written scribbles showing the various garden sections -> solved using nonpremultiplied png load support.
+2012-03-20 Add credits icon with credits text in top menu
+2012-03-20 Add music downloading and playing from the game framework; Music loading from URLs specified in configuration file
+2012-03-20 Fix bg picture transparency
+2012-03-20 Bg picture gradually scales up larger
+2012-03-19 Remove dependency of igg client updating on gamelib info -> only get client info from config.
+2012-03-19 Only show client update when using older client version
+2012-03-19 Remove saturation code (check if better)
+2012-03-19 Fix getting client version (not from server, but in client info itself - built in?)
+2012-03-18 Server message shown on screen.
+2012-03-17 Icon growth during download
+2012-03-17 Show keyboard controls in message on startup
+2012-03-16 Add default mirror of own server to all game downloads, where name on server equals the local zipfilename
+2012-03-16 Add self-downloading of latest IGG code, in different versions. 
+2012-03-14 Allow loading of gamelib new version from server 
+2012-03-14 Allow PNG type thumbnails also besides JPG. -> "PNG" field 0/1 in JSON.
+2012-03-14 Put loader threads in lower priority
+2012-03-14 Allow to visit the game's website directly from igg -> SiteLauncherTask class and W key
+2012-03-13 Allow loading of config from server (where config includes URL/mirror locations etc)
+2012-03-13 Add image-display-only thumbnails (that do not execute)
+2012-03-13 Show a text message in loading screen with some help for the player (for windowed games) -> "HelpText" field.
+2012-03-13 Show downloading with an animated something (or a grow speed value :) -> text pulsing shows DL rate.
+2012-03-12 Add TTMusicEngine and one music file
+2012-02-24 Check thumbs downloading (work?)
+2012-02-24 Fix progress bar bug going from 100% to lower %
+2012-02-24 Fix rar download/install
+2012-02-24 Fix to call abort on all tasks when exiting (eg from GameLibrary, GameCollection or GardenGame)
+2012-02-24 Fix file not deleted on abort while downloading bug; add removedownload not called
+2012-02-22 Fix File.Delete bug on Abort() in basedownloader.
+2012-02-19 Remove (try) downl file if downl was aborted
+2012-02-19 Game dl/install in one go doesnt work in some cases
+2012-02-19 Use 90% of progress bar for download and last 10% for install (grow metaphor)
+2012-02-19 Show quickly (with icons?) on one line, the dl and install state of a game -> use progress bar
+2012-02-18 Remove _v1 for files, only use versions when version > 1 in general.
+2012-02-09 Download config with unique client id from cloud server
+2012-01-29 Bug Thumbnail is mutilated on display (sides removed)
+2012-01-29 Update loading screen: show igg information. 
+2012-01-28 Update loading screen: revert to 'playing' after some seconds (if window handle can be found to game??)
+2012-01-26 Update loading screen: show title, show an animation
+2012-01-25 Test .zip/.rar progress bars for unpacking -> works ok , further testing for alpha-1
+2012-01-25 Version number included in .zip file name and in game folder (to test) -> was done earlier, testing goes into alpha-1 tests later.
+2012-01-25 Only hide gameinfo panel when a cursor key or esc is pressed -> was already done earlier.
+2012-01-25 Zoom out returning to menu after having played a game -> not needed in current layout.
+2012-01-25 Text obstructed by thumbnails. (Get its own spritebatch?)
+2012-01-25 Cursor should have no black interior rectangle
+2012-01-25 Loading icon should have no black border.
+2012-01-24 Move code to TTengine v2.0 style. Fix all layout bugs introduced by version 2.x TTengine.
+2012-01-23 No drawing when loading or playing a game, use suppressdraw
+2012-01-23 Display a message when launching starts; black background
+2012-01-23 Mouse should be shown when loading a game.
+2012-01-23 Graphics/window now sized to cover entire desktop ; Test launcher in fullscreen mode
+2012-01-22 Downloader progress for .exe file not showing correct percentages?
+2012-01-21 Program itself located in a versioned folder in 'games'; Launcher app finds latest IGG .exe in local datastore.
+2012-01-21 Configuration loading from json file (was not impl)
+2012-01-20 Thumbnail downloads: limit to only items displayed at the time; for more even load distribution.
+2012-01-20 Bugfix .Exe download process shouldn't rename the file
+2012-01-19 Add support for direct .exe download and run without unpacking, via property ExeFileURL
+2012-01-19 Fix bug in rendering caused by dual Screenlets new design.
+2012-01-13 No further jump-zooming in on selecting game (for download, install or play). Implement subtle zooming if enter held.
+2012-01-13 Fixed multiple progress bar bugs
+2012-01-13 Added Abort() to some download/install tasks
+2012-01-13 Test progress bar width bug
+2012-01-13 Bug downloading + bar does not disappear after downloading and installing done.
+2012-01-10 Need refactoring of menu/panel interoperation. Menu should only send UI events to panel and panel keeps state.
+2012-01-10 Fixed threads alive forever issues, added Dispose() to Gamelets
+2012-01-09 Refactoring of file/folder/url/path config in GardenConfig, now cleaner.
+2012-01-06 Implement and test SetForegroundWindow function used in launching
+2012-01-06 Put all data in a 'data' directory, hiding the clutter - code now allows this. To be tested in final alpha release. Special Launcher app now used as a clutter-free entry point to app.
+2012-01-06 Refactor Tasks to exclude threading and have blocking Start(), add a separate ThreadedTask to provide threading to any ITask
+2012-01-06 Refactor Unzipper/Unrarrer to proper Tasks
+2012-01-04 Fix bug that a game is never launched
+
+SKIPPED [date order]
+2012-05-05 Add for certain games that loading takes a while. -> not seen in netw connected configurations, so skipping for now.
+2012-05-05 Bg rotates faster upon downloading
+2012-01-28 Display a progress bar when launching starts with bar speed set by config file -> not same on all machines
+
+MAYBE SOME TIME
+Easter egg with sprites from OpenGameArt in menu
+Mystery game icon
+Key/option to abort download or install of a game
