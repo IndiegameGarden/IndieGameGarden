@@ -30,6 +30,8 @@ namespace IndiegameGarden
                         {
                             using (GardenGame game = new GardenGame())
                             {
+                                AppDomain.CurrentDomain.UnhandledException +=
+                                    new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
                                 game.Run();
                             }
                         }
@@ -39,6 +41,8 @@ namespace IndiegameGarden
                 {
                     using (GardenGame game = new GardenGame())
                     {
+                        AppDomain.CurrentDomain.UnhandledException +=
+                            new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
                         game.Run();
                     }
                 }
@@ -49,6 +53,21 @@ namespace IndiegameGarden
                             "Critical error - sorry, it's still in Beta! " + ex.Message + "\n" + ex.ToString() );                
             }
         }
+
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            try
+            {
+                Exception ex = (Exception)e.ExceptionObject;
+                ReportErrorOverNetwork(ex); // TODO code duplication
+                MsgBox.Show("IndiegameGarden: critical error",
+                            "Critical error - sorry, it's still in Beta! " + ex.Message + "\n" + ex.ToString());
+            }
+            finally
+            {
+                ;
+            }
+        }   
 
         /*
         static void ReportErrorHttpPost(Exception ex)

@@ -172,14 +172,11 @@ namespace IndiegameGarden
             if (!musicEngine.Initialize())
                 throw new Exception(musicEngine.StatusMsg);
 
-            Thread t = new Thread(new ThreadStart(GardenInitAdditional));
+            Thread t = new Thread(new ThreadStart(GardenInitInBackground));
             t.Start();
         }
 
-        void GardenInitAdditional() {
-
-            //FIXME handle exceptions from Thread, MsgBox + report
-            //throw new Exception("generic");
+        void GardenInitInBackground() {
 
             // music
             music = new GardenMusic();
