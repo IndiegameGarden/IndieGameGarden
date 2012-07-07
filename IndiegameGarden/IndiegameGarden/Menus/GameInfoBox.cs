@@ -24,7 +24,11 @@ namespace IndiegameGarden.Menus
         ProgressBar dlProgressBar;
         GameTextBox titleBox;
         GameTextBox descriptionBox;
-        GardenItem game;
+        
+        /// <summary>
+        /// the game for which info will be displayed, or null if none yet
+        /// </summary>
+        public GardenItem game;
 
         public GameInfoBox()
             : base()

@@ -375,8 +375,8 @@ namespace IndiegameGarden.Menus
             {
                 g = selGame;
                 // update text box with currently selected game info
-                // FIXME only change if infobox has another selected game item
-                infoBox.SetGameInfo(g);
+                if( g != infoBox.game)
+                    infoBox.SetGameInfo(g);
 
                 //-- helpful controls text
                 if (g.GameID.Equals("igg_controls") && !isExiting)
