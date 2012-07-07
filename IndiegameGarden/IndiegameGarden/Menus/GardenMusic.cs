@@ -116,6 +116,7 @@ namespace IndiegameGarden.Menus
                             parent.oldSongs.Add(parent.currentSong);
                         }
                         parent.currentSong = ev;
+                        parent.currentSong.Amplitude = 0;
                         parent.currentSongStartTime = parent.rp.Time;
                         parent.FadeIn();
                     }

@@ -8,6 +8,17 @@ using TTengine.Core;
 namespace IndiegameGarden.Base
 {
     /**
+     * State of startup of software, may display splash screen for example
+     */
+    public class StateStartup : State
+    {
+        public override void OnEntry(Gamelet g)
+        {
+            GardenGame.Instance.IsMouseVisible = false;
+        }
+    }
+
+    /**
      * State of browsing main menu, no active game
      */
     public class StateBrowsingMenu: State

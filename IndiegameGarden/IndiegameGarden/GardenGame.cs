@@ -64,6 +64,11 @@ namespace IndiegameGarden
         LoadingDisplay loadingDisplay;
 
         /// <summary>
+        /// startup splash screen graphic
+        /// </summary>
+        public Spritelet SplashScreen;
+
+        /// <summary>
         /// launches a game selected by user (one at a time!)
         /// </summary>
         GameLauncherTask launcher;
@@ -111,8 +116,12 @@ namespace IndiegameGarden
 
         protected override void Initialize()
         {
+            //IGameComponent c = new SplashComponent(this);
             if (GardenConfig.IS_INSTALLER_VERSION)
-                GardenConfig.Instance.VerifyDataPath();
+            {
+                if (!GardenConfig.Instance.VerifyDataPath())
+                    throw new Exception("Fatal Error - Could not create folders in " + GardenConfig.Instance.DataPath);
+            }
             // finally call base to enumnerate all (gfx) Game components to init
             base.Initialize();
         }
@@ -120,13 +129,11 @@ namespace IndiegameGarden
         protected override void LoadContent()
         {
             base.LoadContent();
+            GardenInit();
+        }
 
-            // music engine
-            musicEngine = MusicEngine.GetInstance();
-            musicEngine.AudioPath = ".";
-            if (!musicEngine.Initialize())
-                throw new Exception(musicEngine.StatusMsg);
-
+        void GardenInit()
+        {
             // loading screen
             loadingScreenlet = new Screenlet(myWindowWidth, myWindowHeight);
             TTengineMaster.ActiveScreen = loadingScreenlet;
@@ -138,9 +145,9 @@ namespace IndiegameGarden
             // from here on, main screen
             mainScreenlet = new Screenlet(myWindowWidth, myWindowHeight);
             TTengineMaster.ActiveScreen = mainScreenlet;
-            mainScreenlet.ActiveInState = new StateBrowsingMenu();
+            //mainScreenlet.ActiveInState = new StateBrowsingMenu();
             TreeRoot = new FixedTimestepPhysics();
-            TreeRoot.SetNextState(new StateBrowsingMenu()); // set the initial state
+            TreeRoot.SetNextState(new StateStartup()); // set the initial state
 
             TreeRoot.Add(mainScreenlet);
             TreeRoot.Add(loadingScreenlet);
@@ -149,6 +156,34 @@ namespace IndiegameGarden
             // graphics bitmap scaling that adapts to screen resolution 
             mainScreenlet.Motion.Scale = ((float)myWindowHeight) / 900f;
             loadingScreenlet.Motion.Scale = mainScreenlet.Motion.Scale;
+
+            //
+            Spritelet SplashScreen = new Spritelet("igglogo");
+            SplashScreen.DrawInfo.LayerDepth = 1f;
+            SplashScreen.ActiveInState = new StateStartup();
+            //l.Duration = 17.5f;
+            SplashScreen.Motion.Position = mainScreenlet.Center;
+            //l.Motion.Add(new MyFuncyModifier( delegate(float v) { return 1f-(float)Math.Sqrt((18f-v)/18f); }, "Scale" ));
+            mainScreenlet.Add(SplashScreen);
+
+            // music engine
+            musicEngine = MusicEngine.GetInstance();
+            musicEngine.AudioPath = ".";
+            if (!musicEngine.Initialize())
+                throw new Exception(musicEngine.StatusMsg);
+
+            Thread t = new Thread(new ThreadStart(GardenInitAdditional));
+            t.Start();
+        }
+
+        void GardenInitAdditional() {
+
+            //FIXME handle exceptions from Thread, MsgBox + report
+            //throw new Exception("generic");
+
+            // music
+            music = new GardenMusic();
+            TreeRoot.AddNextUpdate(music);
 
             // MyDownloader configuration
             myDownloaderProtocol = new HttpFtpProtocolExtension();
@@ -159,17 +194,16 @@ namespace IndiegameGarden
             {
                 // game chooser menu
                 GameChooserMenu menu = new GameChooserMenu();
-                mainScreenlet.Add(menu);
+                menu.ActiveInState = new StateBrowsingMenu();
+                mainScreenlet.AddNextUpdate(menu);
             }
             else
             {
                 Exit();
             }
 
-            // music
-            music = new GardenMusic();
-            TreeRoot.Add(music);
-
+            // activate next phase
+            TreeRoot.SetNextState(new StateBrowsingMenu());
         }
 
         protected override void Update(GameTime gameTime)
@@ -192,6 +226,15 @@ namespace IndiegameGarden
                 Exit(); // finally really exit XNA if music is faded out.
             }
         }
+
+        /*
+         *             SpriteBatch spriteBatch = new SpriteBatch(GraphicsDevice);
+            Texture2D splashScreen = Content.Load<Texture2D>("igglogo");
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            spriteBatch.Draw(splashScreen, new Vector2(0, 0), Color.White);
+            spriteBatch.End();
+            GraphicsDevice.Present();
+*/
 
         protected override void Draw(GameTime gameTime)
         {
@@ -237,6 +280,7 @@ namespace IndiegameGarden
 
         protected override void Dispose(bool disposing)
         {
+            IsMouseVisible = true;
             if (configDownloadThread != null)
             {
                 configDownloadThread.Abort();
@@ -372,7 +416,8 @@ namespace IndiegameGarden
             // if still not ok after attempted download, warn the user and exit
             // a missing config counts as a valid one (then uses default params to create a new config)
             if (!GardenConfig.Instance.IsValid() )
-            { 
+            {
+                IsMouseVisible = true;
                 MsgBox.Show("Could not load configuration", "Could not load configuration file. Is it missing or corrupted?"); 
                 return false;
             }
@@ -399,6 +444,7 @@ namespace IndiegameGarden
                 }
                 catch (Exception)
                 {
+                    IsMouseVisible = true;
                     MsgBox.Show("Could not load game library file", "Could not load game library file. Technical:\n" + ex.Message + ";\n" + ex.StackTrace);
                     initError = ex;
                     return false;

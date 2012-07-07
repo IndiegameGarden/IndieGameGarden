@@ -104,9 +104,9 @@ namespace IndiegameGarden.Base
             if (!VerifyFolder("games")) return false;
 
             // copy over some initial files if needed (only if dir is empty)           
-            if (!CopyFiles("config")) return false;
-            if (!CopyFiles("thumbs")) return false;
-            if (!CopyFiles("zips")) return false;
+            //if (!CopyFiles("config")) return false;
+            //if (!CopyFiles("thumbs")) return false;
+            //if (!CopyFiles("zips")) return false;
 
             return true;
         }

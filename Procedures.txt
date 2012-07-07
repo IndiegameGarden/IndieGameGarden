@@ -3,13 +3,13 @@
 - set    GardenConfig.IS_INSTALLER_VERSION = false
 - update GardenConfig.IGG_CLIENT_VERSION and GardenConfig.KNOWN_GAMELIB_VERSION 
 - run build.bat and check version numbers shown
-- run make-release.bat
+- run make-release.bat and check .zip files output
 
 *** Building a new IGG client Installer Version (for InnoSetup)
 - set    GardenConfig.IS_INSTALLER_VERSION = true
-- update GardenConfig.IGG_CLIENT_VERSION and GardenConfig.KNOWN_GAMELIB_VERSION 
+- update GardenConfig.IGG_CLIENT_VERSION and GardenConfig.KNOWN_GAMELIB_VERSION if needed
 - run build.bat and check version numbers shown
-- run InnoSetup with bare-setup.iss, target 'install'
+- Publish game from Visual Studio with wizard
 
 *** Updating gamelib to new version
 - edit config/gamelib_fmt3/gamelib.json
