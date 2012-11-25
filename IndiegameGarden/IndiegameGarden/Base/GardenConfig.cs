@@ -13,11 +13,6 @@ namespace IndiegameGarden.Base
      */
     public class GardenConfig: JSONStore
     {
-         
-        /// <summary>
-        /// if true, creates version that is suitable to deploy as a WIndows installer. It stores app data in a local appdata folder instead of next to the program code.
-        /// </summary>    
-        public const bool IS_INSTALLER_VERSION=false;
 
         /// <summary>
         /// value is constant for a build! update this manually for new version builds.
@@ -25,36 +20,14 @@ namespace IndiegameGarden.Base
         /// 2 = ALPHA-2
         /// 3 = ALPHA-3
         /// </summary>
-        public const int IGG_CLIENT_VERSION=6;
-
-        /// <summary>
-        /// update for a new build -> quick bootstrap to load a known version of gamelib. This version number
-        /// starts again at 1 each time a new gamelib format ("fmt") version is released.
-        /// For example "fmt3" in the source refers to gamelib format version 3.
-        /// </summary>
-        public const int KNOWN_GAMELIB_VERSION=2;
-
-        /// <summary>
-        /// checking config file integrity (somewhat)
-        /// </summary>
-        public const string CONFIG_MAGIC_VALUE = "f20fj239jf0a9w";
-        
-        /// <summary>
-        /// garden ID default when no ID assigned yet by server (this assignment is optional)
-        /// </summary>
-        public const string DEFAULT_GARDEN_ID = "42";
-        
-        /// <summary>
-        /// auth for server communication
-        /// </summary>
-        public const string IGG_CLIENT_AUTH_KEY = "sreqZRVmzJVqdsrKuCwJTnumI";
+        public const int IGG_CLIENT_VERSION=7;
 
         /// <summary>
         /// specifies default base data-dir for IndiegameGarden from which all folders are referenced
         /// </summary>
-        public const string DATA_PATH = "..\\.."; 
+        public const string DATA_PATH = "."; 
         
-        public const string DEFAULT_CONFIG_FILEPATH = "config\\gamelib-config.json";
+        public const string DEFAULT_CONFIG_FILEPATH = "Content\\gamelib-config.json";
 
         bool hasLoadedFromFileOk = false;
 
@@ -87,28 +60,6 @@ namespace IndiegameGarden.Base
             {
                 instance = value;
             }
-        }
-
-        /// <summary>
-        /// verify that the IGG data path is valid. If needed, create directories to get a valid
-        /// data path.
-        /// </summary>
-        /// <returns>true if proper datapath existence was verified, false if not (and could not be created)</returns>
-        public bool VerifyDataPath()
-        {
-            // verify and/or create all individual folders
-            if (!VerifyFolder(".")) return false;
-            if (!VerifyFolder("config")) return false;
-            if (!VerifyFolder("thumbs")) return false;
-            if (!VerifyFolder("zips")) return false;
-            if (!VerifyFolder("games")) return false;
-
-            // copy over some initial files if needed (only if dir is empty)           
-            //if (!CopyFiles("config")) return false;
-            //if (!CopyFiles("thumbs")) return false;
-            //if (!CopyFiles("zips")) return false;
-
-            return true;
         }
 
         /// <summary>
@@ -172,23 +123,17 @@ namespace IndiegameGarden.Base
         {
             // NOTE DataPath should be set FIRST of all.
             // check whether in Visual studio debugging mode
-            if (GardenConfig.IS_INSTALLER_VERSION)
-              DataPath = Path.Combine( Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) , "IndiegameGarden" );
-            else
-              DataPath = Path.GetFullPath(DATA_PATH);
+            DataPath = Path.GetFullPath(DATA_PATH);
   
-            GardenID = DEFAULT_GARDEN_ID;
             ServerMsg = "Enjoy your garden!\nBut watch out for the weeds.";
-            ConfigFilesFolder = GetFolder("config");
-            PackedFilesFolder = GetFolder("zips");
-            UnpackedFilesFolder = GetFolder("games");
-            ThumbnailsFolder = GetFolder("thumbs");
+            ConfigFilesFolder = "Content";
+            UnpackedFilesFolder = ".";
+            PackedFilesFolder = Path.Combine(Path.GetTempPath() , "IndiegameGarden" ); 
+            ThumbnailsFolder = "Content";
 
             ConfigFilename = "gamelib-config.json";
             GameLibraryFilename = "gamelib.json";
             GameLibraryFilenameBin = "gamelib.bin";
-            NewestGameLibraryVersion = KNOWN_GAMELIB_VERSION;
-            Magic = CONFIG_MAGIC_VALUE;
 
             ThumbnailsServerURL = "https://github.com/trancetrance/IndieGameGarden/raw/master/thumbs/";
             ConfigFilesServerURL = "https://github.com/trancetrance/IndieGameGarden/raw/master/config/gamelib_fmt3/";
@@ -205,29 +150,9 @@ namespace IndiegameGarden.Base
             catch (Exception) { ; };
             try { PackedFilesServerURL = GetString("PackedFilesServerURL"); }
             catch (Exception) { ; };
-            try { GardenID = GetString("Garden"); }
-            catch (Exception) { ; };
             try { ServerMsg = GetString("ServerMsg"); }
             catch (Exception) { ; };
-            try { NewestGameLibraryVersion = (int)GetValue("GameLibVer"); }
-            catch (Exception) { ; };
-            try { NewestClientVersion = (int)GetValue("ClientVer"); }
-            catch (Exception) { ; };
-            try { Magic = GetString("Magic"); }
-            catch (Exception) { ; };
 
-        }
-
-        /// <summary>
-        /// check whether this config is valid e.g. by checking for certain mandatory properties.
-        /// </summary>
-        /// <returns></returns>
-        public bool IsValid()
-        {
-            if (!Magic.Equals(GardenConfig.CONFIG_MAGIC_VALUE))
-                return false;
-            else
-                return true;
         }
 
         public override void Reload()
@@ -256,11 +181,6 @@ namespace IndiegameGarden.Base
         }
 
         /// <summary>
-        /// the unique ID of this garden (may be changed by config server, may be unused as well)
-        /// </summary>
-        public string GardenID { get; set; }
-
-        /// <summary>
         /// special message from config server e.g. showing issues or news
         /// </summary>
         public string ServerMsg { get; set; }
@@ -276,14 +196,14 @@ namespace IndiegameGarden.Base
         public string ConfigFilesFolder { get; set; }
 
         /// <summary>
-        /// abs folder path name where packed files (zip, rar, etc) of games are stored
-        /// </summary>
-        public string PackedFilesFolder { get; set; }
-
-        /// <summary>
-        /// abs folder path where unpacked folders of games reside
+        /// abs folder path where unpacked games reside
         /// </summary>
         public string UnpackedFilesFolder { get; set; }
+
+        /// <summary>
+        /// abs folder path where unpacked games reside
+        /// </summary>
+        public string PackedFilesFolder { get; set; }
 
         /// <summary>
         /// abs folder path where thumbnails are stored
@@ -304,30 +224,6 @@ namespace IndiegameGarden.Base
         /// name of the binary version of game library file
         /// </summary>
         public string GameLibraryFilenameBin { get; set; }
-
-        /// <summary>
-        /// version of the newest game library currently available (obtained from config server)
-        /// </summary>
-        public int NewestGameLibraryVersion { get; set; }
-
-        /// <summary>
-        /// magic value to check config integrity (loosely)
-        /// </summary>
-        public string Magic { get; set; }
-
-        /// <summary>
-        /// returns the version of current running client
-        /// </summary>
-        public int ClientVersion { 
-            get {
-                return IGG_CLIENT_VERSION;
-            }
-        }
-
-        /// <summary>
-        /// returns newest available known client version (obtained from config server)
-        /// </summary>
-        public int NewestClientVersion { get; set; }
 
         /// <summary>
         /// url of the thumbnails server (incl path to thumbnails folder if any)
@@ -384,16 +280,6 @@ namespace IndiegameGarden.Base
         }
 
         /// <summary>
-        /// get path to a game's packed file (.zip, .rar)
-        /// </summary>
-        /// <param name="g"></param>
-        /// <returns></returns>
-        public string GetPackedFilepath(GardenItem g)
-        {
-            return PackedFilesFolder + "\\" + GetPackedFileName(g);
-        }
-
-        /// <summary>
         /// the name of the packed file (eg .zip or .rar) once it is downloaded. May differ
         /// from the name of the archive as stored on the web which is included in PackedFileURL.
         /// </summary>
@@ -402,7 +288,10 @@ namespace IndiegameGarden.Base
             return g.GameIDwithVersion + "." + g.PackedFileExtension;
         }
 
-
+        public string GetPackedFilepath(GardenItem g)
+        {
+            return Path.Combine(PackedFilesFolder, GetPackedFileName(g));
+        }
 
     }
 }

@@ -482,13 +482,7 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                string folder;
-                // if system package then it's located in config files folder
-                if (IsSystemPackage)
-                    folder = GardenConfig.Instance.ConfigFilesFolder;
-                else
-                    folder = GardenConfig.Instance.UnpackedFilesFolder;
-                return Path.Combine(folder , GameIDwithVersion);
+                return ".";
             }
         }
 

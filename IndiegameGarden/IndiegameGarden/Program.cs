@@ -20,31 +20,11 @@ namespace IndiegameGarden
         {
             try
             {
-                if (GardenConfig.IS_INSTALLER_VERSION)
+                using (GardenGame game = new GardenGame())
                 {
-                    // behave as a launcher (potentially)
-                    using (Launcher launcher = new Launcher())
-                    {
-                        bool couldLaunch = launcher.Run();
-                        if (!couldLaunch)
-                        {
-                            using (GardenGame game = new GardenGame())
-                            {
-                                AppDomain.CurrentDomain.UnhandledException +=
-                                    new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-                                game.Run();
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    using (GardenGame game = new GardenGame())
-                    {
-                        AppDomain.CurrentDomain.UnhandledException +=
-                            new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-                        game.Run();
-                    }
+                    AppDomain.CurrentDomain.UnhandledException +=
+                        new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+                    game.Run();
                 }
             }
             catch(Exception ex) {
@@ -101,7 +81,7 @@ namespace IndiegameGarden
                 try
                 {
                     const int MAX_URL_LENGTH = 2000;
-                    string u = "http://indieget.appspot.com/err?v=" + GardenConfig.Instance.ClientVersion + "&ex=" + ex + "&ts=" + ex.TargetSite + "&st=" + ex.StackTrace;
+                    string u = "http://indieget.appspot.com/err?v=" + GardenConfig.IGG_CLIENT_VERSION + "&ex=" + ex + "&ts=" + ex.TargetSite + "&st=" + ex.StackTrace;
                     u = u.Replace(' ', '-'); // avoid the %20 substitution to save space
                     u = u.Replace('\\', '/');
                     u = u.Replace("\r", "");

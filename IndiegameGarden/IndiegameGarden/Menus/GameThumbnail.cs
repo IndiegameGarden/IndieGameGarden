@@ -70,13 +70,12 @@ namespace IndiegameGarden.Menus
          * internal Task to load a thumbnail from disk, or download it first if not available.
          * To be called in a separate thread e.g. by using a ThreadedTask.
          */
-        class GameThumbnailLoadTask : ThumbnailDownloader
+        class GameThumbnailLoadTask : Task
         {
             // my parent - where to load for/to
             GameThumbnail parent;
 
-            public GameThumbnailLoadTask(GameThumbnail th): 
-                base(th.Game)
+            public GameThumbnailLoadTask(GameThumbnail th)
             {
                 parent = th;
             }
@@ -86,32 +85,11 @@ namespace IndiegameGarden.Menus
             /// </summary>
             protected override void StartInternal()
             {
-                if (File.Exists(parent.ThumbnailFilepath))
-                {
-                    bool ok = parent.LoadTextureFromFile();
-                    if (ok)
-                        status = ITaskStatus.SUCCESS;
-                    else
-                        status = ITaskStatus.FAIL;
-                }
+                bool ok = parent.LoadTextureFromFile();
+                if (ok)
+                    status = ITaskStatus.SUCCESS;
                 else
-                {
-                    // first run the base downloading task now. If that is ok, then load from file downloaded.
-                    base.StartInternal();
-
-                    if (File.Exists(parent.ThumbnailFilepath) && IsSuccess() )
-                    {
-                        bool ok = parent.LoadTextureFromFile();
-                        if (ok)
-                            status = ITaskStatus.SUCCESS;
-                        else
-                            status = ITaskStatus.FAIL;
-                    }
-                    else
-                    {
-                        status = ITaskStatus.FAIL;
-                    }
-                }
+                    status = ITaskStatus.FAIL;
 
                 // after a successful load, enable the thumbnail.
                 if (IsSuccess())
@@ -119,6 +97,12 @@ namespace IndiegameGarden.Menus
                     parent.Enable();
                 }
             }
+
+            protected override void AbortInternal()
+            {
+                throw new NotImplementedException();
+            }
+
         } // class
 
         public GameThumbnail(GardenItem game)

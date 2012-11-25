@@ -116,12 +116,6 @@ namespace IndiegameGarden
 
         protected override void Initialize()
         {
-            //IGameComponent c = new SplashComponent(this);
-            if (GardenConfig.IS_INSTALLER_VERSION)
-            {
-                if (!GardenConfig.Instance.VerifyDataPath())
-                    throw new Exception("Fatal Error - Could not create folders in " + GardenConfig.Instance.DataPath);
-            }
             // finally call base to enumnerate all (gfx) Game components to init
             base.Initialize();
         }
@@ -187,7 +181,7 @@ namespace IndiegameGarden
             Settings.Default.MaxRetries = 0;
 
             // load config
-            if ((GardenConfig.Instance != null) && DownloadConfig() && LoadGameLibrary())
+            if ((GardenConfig.Instance != null) && LoadGameLibrary())
             {
                 // game chooser menu
                 GameChooserMenu menu = new GameChooserMenu();
@@ -364,90 +358,20 @@ namespace IndiegameGarden
             }
         }
 
-        protected bool DownloadConfig()
-        {
-            // download config - if needed or if could not be loaded
-            ConfigDownloader dl = new ConfigDownloader(GardenConfig.Instance);
-            configDownloadThread = new ThreadedTask(dl);
-            if (dl.IsDownloadNeeded() )
-            {
-                // start the task
-                configDownloadThread.Start();
-                
-                // then wait for a short while until success of the task thread
-                long timer = 0;
-                long blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 0;  // TODO const in config
-                if (!GardenConfig.Instance.IsValid() )
-                    blockingWaitPeriodTicks = System.TimeSpan.TicksPerSecond * 30;  // TODO const in config
-
-                if (blockingWaitPeriodTicks > 0)
-                {
-                    while (configDownloadThread.Status() == ITaskStatus.CREATED)
-                    {
-                        // block until in RUNNING state
-                    }
-                    while (configDownloadThread.Status() == ITaskStatus.RUNNING && timer < blockingWaitPeriodTicks)
-                    {
-                        Thread.Sleep(100);
-                        timer += (System.TimeSpan.TicksPerMillisecond * 100);
-                    }
-
-                    switch (dl.Status())
-                    {
-                        case ITaskStatus.SUCCESS:
-                            GardenConfig.Instance = dl.NewConfig;
-                            break;
-
-                        case ITaskStatus.FAIL:
-                            initError = new Exception(dl.StatusMsg());
-                            break;
-
-                        case ITaskStatus.CREATED:
-                        case ITaskStatus.RUNNING:
-                            // let the downloading simply finish in the background. Load it another time.
-                            break;
-                    }
-                }
-            }
-
-            // if still not ok after attempted download, warn the user and exit
-            // a missing config counts as a valid one (then uses default params to create a new config)
-            if (!GardenConfig.Instance.IsValid() )
-            {
-                IsMouseVisible = true;
-                MsgBox.Show("Could not load configuration", "Could not load configuration file. Is it missing or corrupted?"); 
-                return false;
-            }
-            return true;
-        }
-
         protected bool LoadGameLibrary()
         {
-            // load game library
             try
             {
-                GameLibraryDownloader gldl = new GameLibraryDownloader(GardenConfig.Instance.NewestGameLibraryVersion);
-                gldl.Start();
                 GameLib = new GameLibrary();
-                GameLib.LoadBin(GardenConfig.Instance.NewestGameLibraryVersion);
+                GameLib.LoadBin(Path.Combine(Content.RootDirectory, "gamelib.bin"));
             }
             catch (Exception ex)
             {
-                // if fails, try loading default lib from file, as alternative
-                try
-                {
-                    GameLib = new GameLibrary();
-                    GameLib.LoadBin(Path.Combine(Content.RootDirectory, "gamelib.bin"));
-                }
-                catch (Exception)
-                {
-                    IsMouseVisible = true;
-                    MsgBox.Show("Could not load game library file", "Could not load game library file. Technical:\n" + ex.Message + ";\n" + ex.StackTrace);
-                    initError = ex;
-                    return false;
-                }
+                IsMouseVisible = true;
+                MsgBox.Show("Could not load game library file", "Could not load game library file. Technical:\n" + ex.Message + ";\n" + ex.StackTrace);
+                initError = ex;
+                return false;
             }
-
             return true;
         }
 

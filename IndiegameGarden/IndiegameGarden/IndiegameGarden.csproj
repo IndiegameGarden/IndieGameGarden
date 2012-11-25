@@ -167,16 +167,13 @@
     <Compile Include="Base\ThreadedTask.cs" />
     <Compile Include="Download\BaseDownloader.cs" />
     <Compile Include="Download\BaseProtocolProvider.cs" />
-    <Compile Include="Download\ConfigDownloader.cs" />
     <Compile Include="Download\FtpProtocolProvider.cs" />
-    <Compile Include="Download\GameLibraryDownloader.cs" />
     <Compile Include="Download\HttpFtpProtocolExtension.cs" />
     <Compile Include="Download\HttpProtocolProvider.cs" />
     <Compile Include="Download\IHttpFtpProtocolParameters.cs" />
     <Compile Include="Base\ITask.cs" />
     <Compile Include="Download\ProxyParameters.cs" />
     <Compile Include="Download\GameDownloader.cs" />
-    <Compile Include="Download\ThumbnailDownloader.cs" />
     <Compile Include="Install\GameDownloadAndInstallTask.cs" />
     <Compile Include="Install\InstallTask.cs" />
     <Compile Include="Menus\ColorChangeBehavior.cs" />

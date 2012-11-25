@@ -95,7 +95,6 @@ namespace IndiegameGarden.Base
             json = new JSONStore(libraryFile); // TODO use all json files in there?
             gamesCollection = new GameCollection(GardenSizeX, GardenSizeY, new List<GardenItem>()); 
             ParseJson(json);
-            FinalizeGamelibForUse();
         }
 
         /// <summary>
@@ -107,21 +106,6 @@ namespace IndiegameGarden.Base
             using (var file = File.OpenRead(libraryFile))
             {
                 gamesCollection = new GameCollection(GardenSizeX, GardenSizeY, Serializer.Deserialize<List<GardenItem>>(file));             
-            }
-            FinalizeGamelibForUse();
-        }
-
-        /// <summary>
-        /// last init steps that are taken after loading a gamelib into gamesCollection
-        /// </summary>
-        void FinalizeGamelibForUse()
-        {
-            // make 'igg' item only visible if there's a newer clientversion to download
-            GardenItem iggItem = gamesCollection.FindGameNamed("igg");
-            if (iggItem != null)
-            {
-                iggItem.VisibilityLabel = (GardenConfig.Instance.NewestClientVersion > GardenConfig.Instance.ClientVersion) ? (byte) 1 : (byte) 0 ;
-                iggItem.Version = GardenConfig.Instance.NewestClientVersion;
             }
         }
 
