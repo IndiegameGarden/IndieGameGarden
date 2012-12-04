@@ -15,17 +15,12 @@ namespace IndiegameGarden.Base
     {
          
         /// <summary>
-        /// if true, creates version that is suitable to deploy as a WIndows installer. It stores app data in a local appdata folder instead of next to the program code.
-        /// </summary>    
-        public const bool IS_INSTALLER_VERSION=false;
-
-        /// <summary>
         /// value is constant for a build! update this manually for new version builds.
         /// 1 = ALPHA-1
         /// 2 = ALPHA-2
         /// 3 = ALPHA-3
         /// </summary>
-        public const int IGG_CLIENT_VERSION=6;
+        public const int IGG_CLIENT_VERSION=7;
 
         /// <summary>
         /// update for a new build -> quick bootstrap to load a known version of gamelib. This version number
@@ -52,7 +47,7 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// specifies default base data-dir for IndiegameGarden from which all folders are referenced
         /// </summary>
-        public const string DATA_PATH = "..\\.."; 
+        public const string DATA_PATH = "."; 
         
         public const string DEFAULT_CONFIG_FILEPATH = "config\\gamelib-config.json";
 
@@ -172,10 +167,8 @@ namespace IndiegameGarden.Base
         {
             // NOTE DataPath should be set FIRST of all.
             // check whether in Visual studio debugging mode
-            if (GardenConfig.IS_INSTALLER_VERSION)
-              DataPath = Path.Combine( Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) , "IndiegameGarden" );
-            else
-              DataPath = Path.GetFullPath(DATA_PATH);
+            DataPath = Path.Combine( Path.GetTempPath() , "IndiegameGarden-v8" );
+            DataPath = Path.GetFullPath(DataPath);
   
             GardenID = DEFAULT_GARDEN_ID;
             ServerMsg = "Enjoy your garden!\nBut watch out for the weeds.";
