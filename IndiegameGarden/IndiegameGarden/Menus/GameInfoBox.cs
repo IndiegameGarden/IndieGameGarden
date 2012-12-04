@@ -34,7 +34,7 @@ namespace IndiegameGarden.Menus
             : base()
         {
             InitComponents();
-            MySpriteBatch = new SpriteBatch(Screen.graphicsDevice);
+            MySpriteBatch = new TTSpriteBatch(Screen.graphicsDevice);
         }
 
         private void InitComponents()
