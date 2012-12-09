@@ -116,12 +116,8 @@ namespace IndiegameGarden
 
         protected override void Initialize()
         {
-            //IGameComponent c = new SplashComponent(this);
-            if (GardenConfig.IS_INSTALLER_VERSION)
-            {
-                if (!GardenConfig.Instance.VerifyDataPath())
-                    throw new Exception("Fatal Error - Could not create folders in " + GardenConfig.Instance.DataPath);
-            }
+            if (!GardenConfig.Instance.VerifyDataPath())
+                throw new Exception("Fatal Error - Could not create folders in " + GardenConfig.Instance.DataPath);
             // finally call base to enumnerate all (gfx) Game components to init
             base.Initialize();
         }

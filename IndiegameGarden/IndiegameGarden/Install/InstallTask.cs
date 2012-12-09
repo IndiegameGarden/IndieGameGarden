@@ -37,7 +37,7 @@ namespace IndiegameGarden.Install
             }
             else
             {
-                unpacker = new UnpackerTask(GardenConfig.Instance.GetPackedFilepath(game),
+                unpacker = new UnpackerTask(game.PackedFilePath,
                                             destFolder,
                                             game.ExeFile);
                 if (File.Exists(unpacker.Filename))

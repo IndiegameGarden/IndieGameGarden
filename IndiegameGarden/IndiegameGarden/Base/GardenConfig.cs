@@ -27,7 +27,7 @@ namespace IndiegameGarden.Base
         /// starts again at 1 each time a new gamelib format ("fmt") version is released.
         /// For example "fmt3" in the source refers to gamelib format version 3.
         /// </summary>
-        public const int KNOWN_GAMELIB_VERSION=2;
+        public const int KNOWN_GAMELIB_VERSION=1;
 
         /// <summary>
         /// checking config file integrity (somewhat)
@@ -37,12 +37,12 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// garden ID default when no ID assigned yet by server (this assignment is optional)
         /// </summary>
-        public const string DEFAULT_GARDEN_ID = "42";
+        public const string DEFAULT_GARDEN_ID = "427";
         
         /// <summary>
         /// auth for server communication
         /// </summary>
-        public const string IGG_CLIENT_AUTH_KEY = "sreqZRVmzJVqdsrKuCwJTnumI";
+        //public const string IGG_CLIENT_AUTH_KEY = "sreqZRVmzJVqdsrKuCwJTnumI";
 
         /// <summary>
         /// specifies default base data-dir for IndiegameGarden from which all folders are referenced
@@ -167,8 +167,10 @@ namespace IndiegameGarden.Base
         {
             // NOTE DataPath should be set FIRST of all.
             // check whether in Visual studio debugging mode
-            DataPath = Path.Combine( Path.GetTempPath() , "IndiegameGarden-v8" );
+            // ... or Path.GetTempPath()
+            DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "IndiegameGarden");
             DataPath = Path.GetFullPath(DataPath);
+            BundleDataPath = Path.GetFullPath(".");
   
             GardenID = DEFAULT_GARDEN_ID;
             ServerMsg = "Enjoy your garden!\nBut watch out for the weeds.";
@@ -184,8 +186,9 @@ namespace IndiegameGarden.Base
             Magic = CONFIG_MAGIC_VALUE;
 
             ThumbnailsServerURL = "https://github.com/trancetrance/IndieGameGarden/raw/master/thumbs/";
-            ConfigFilesServerURL = "https://github.com/trancetrance/IndieGameGarden/raw/master/config/gamelib_fmt3/";
+            ConfigFilesServerURL = "http://indie.indiegamegarden.com/gamelib_fmt4/"; // https://github.com/trancetrance/IndieGameGarden/raw/master/config/gamelib_fmt3/";
             PackedFilesServerURL = "http://indie.indiegamegarden.com/zips/";
+            BundleFilesServerURL = "http://www.indiegamegarden.com/";
 
             jsonFilePath = ConfigFilesFolder + "\\" + ConfigFilename;
 
@@ -264,6 +267,11 @@ namespace IndiegameGarden.Base
         public string DataPath { get; set; }
 
         /// <summary>
+        /// a folder path, abs or rel, pointing to the bundle location where all .exe file downloads go to
+        /// </summary>
+        public string BundleDataPath { get; set; }
+
+        /// <summary>
         /// abs folder path where config files are stored
         /// </summary>
         public string ConfigFilesFolder { get; set; }
@@ -336,6 +344,7 @@ namespace IndiegameGarden.Base
         /// url of a mirror server storing packed files (incl path) for all or most games
         /// </summary>
         public string PackedFilesServerURL { get; set; }
+        public string BundleFilesServerURL { get; set; }
 
         /// <summary>
         /// prepend the DataPath location to a simple folder name, in order to locate the folder properly
@@ -375,27 +384,6 @@ namespace IndiegameGarden.Base
         {
             return ThumbnailsServerURL + thumbnailFilename; 
         }
-
-        /// <summary>
-        /// get path to a game's packed file (.zip, .rar)
-        /// </summary>
-        /// <param name="g"></param>
-        /// <returns></returns>
-        public string GetPackedFilepath(GardenItem g)
-        {
-            return PackedFilesFolder + "\\" + GetPackedFileName(g);
-        }
-
-        /// <summary>
-        /// the name of the packed file (eg .zip or .rar) once it is downloaded. May differ
-        /// from the name of the archive as stored on the web which is included in PackedFileURL.
-        /// </summary>
-        public string GetPackedFileName(GardenItem g)
-        {
-            return g.GameIDwithVersion + "." + g.PackedFileExtension;
-        }
-
-
 
     }
 }

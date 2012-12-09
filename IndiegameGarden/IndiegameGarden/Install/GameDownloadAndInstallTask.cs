@@ -67,7 +67,7 @@ namespace IndiegameGarden.Install
                 // install failed? remove the zip file and the game dir
                 if (status == ITaskStatus.FAIL)
                 {
-                    string fn = GardenConfig.Instance.GetPackedFilepath(game);
+                    string fn = game.PackedFilePath;
                     if (fn != null && fn.Length > 0)
                     {
                         try
@@ -79,16 +79,19 @@ namespace IndiegameGarden.Install
                             ; // TODO?
                         }
                     }
-                    fn = game.GameFolder;
-                    if (fn != null && fn.Length > 0)
+                    if (!game.IsBundleItem)
                     {
-                        try
+                        fn = game.GameFolder;
+                        if (fn != null && fn.Length > 0)
                         {
-                            Directory.Delete(fn,true);
-                        }
-                        catch (Exception)
-                        {
-                            ; // TODO?
+                            try
+                            {
+                                Directory.Delete(fn, true);
+                            }
+                            catch (Exception)
+                            {
+                                ; // TODO?
+                            }
                         }
                     }
                 }

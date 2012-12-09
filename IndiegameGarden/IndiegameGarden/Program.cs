@@ -20,31 +20,11 @@ namespace IndiegameGarden
         {
             try
             {
-                if (GardenConfig.IS_INSTALLER_VERSION)
+                AppDomain.CurrentDomain.UnhandledException +=
+                    new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+                using (GardenGame game = new GardenGame())
                 {
-                    // behave as a launcher (potentially)
-                    using (Launcher launcher = new Launcher())
-                    {
-                        bool couldLaunch = launcher.Run();
-                        if (!couldLaunch)
-                        {
-                            using (GardenGame game = new GardenGame())
-                            {
-                                AppDomain.CurrentDomain.UnhandledException +=
-                                    new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-                                game.Run();
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    using (GardenGame game = new GardenGame())
-                    {
-                        AppDomain.CurrentDomain.UnhandledException +=
-                            new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-                        game.Run();
-                    }
+                    game.Run();
                 }
             }
             catch(Exception ex) {

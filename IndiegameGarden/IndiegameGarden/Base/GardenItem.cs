@@ -139,6 +139,8 @@ namespace IndiegameGarden.Base
         {
             get
             {
+                if (IsBundleItem)
+                    return GardenConfig.Instance.BundleFilesServerURL + ExeFile;
                 if (!packedFileURL.Contains("/"))
                 {
                     if (packedFileURL.Length == 0)
@@ -152,6 +154,45 @@ namespace IndiegameGarden.Base
             set
             {
                 packedFileURL = value;
+            }
+        }
+
+        /// <summary>
+        /// the name of the packed file (eg .zip or .rar or .exe) once it is downloaded. May differ
+        /// from the name of the archive as stored on the web which is included in PackedFileURL.
+        /// </summary>
+        public string PackedFileName{
+            get
+            {
+                // check for .exe which are stored locally in DataPath
+                if (IsBundleItem)
+                    return ExeFile;
+                else
+                    return GameIDwithVersion + "." + PackedFileExtension;
+            }
+        }
+
+        /// <summary>
+        /// get path to a game's packed file (.zip, .rar)
+        /// </summary>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        public string PackedFilePath
+        {
+            get
+            {
+                return Path.Combine(PackedFileFolder, PackedFileName );
+            }
+        }
+
+        public string PackedFileFolder
+        {
+            get
+            {
+                if (IsBundleItem)
+                    return GardenConfig.Instance.BundleDataPath;
+                else
+                    return GardenConfig.Instance.PackedFilesFolder;
             }
         }
 
@@ -275,7 +316,7 @@ namespace IndiegameGarden.Base
         {
             GardenItem g = new GardenItem();
             g.Version = version;
-            g.GameID = "igg_gamelib_fmt3"; // TODO to config constants?
+            g.GameID = "igg_gamelib_fmt4"; // TODO to config constants?
             g.ExeFile = "gamelib.bin";
             g.PackedFileURL = GardenConfig.Instance.ConfigFilesServerURL + "gamelib.zip";
             return g;
@@ -296,7 +337,10 @@ namespace IndiegameGarden.Base
         public string ExeFilepath
         {
             get {
-                return GameFolder + "\\" + CdPath + "\\" + ExeFile;
+                if (IsBundleItem)
+                    return Path.Combine(GameFolder, ExeFile);
+                else
+                    return GameFolder + "\\" + CdPath + "\\" + ExeFile;
             }
         }
 
@@ -311,10 +355,17 @@ namespace IndiegameGarden.Base
             {
                 if (refreshInstallationStatusNeeded) // avoid continuous calling of Directory.Exists via this mechanism
                 {
-                    if (!IsGrowable)            // non-growable items are assumed installed by default
-                        isInstalled = true;
+                    if (!IsBundleItem)
+                    {
+                        if (!IsGrowable)            // non-growable items are assumed installed by default
+                            isInstalled = true;
+                        else
+                            isInstalled = Directory.Exists(GameFolder) && (DlAndInstallTask == null || DlAndInstallTask.IsFinished());
+                    }
                     else
-                        isInstalled =   Directory.Exists(GameFolder) && (DlAndInstallTask == null || DlAndInstallTask.IsFinished()) ;
+                    {
+                        isInstalled = File.Exists(ExeFilepath) && (DlAndInstallTask == null || DlAndInstallTask.IsFinished());
+                    }
                     refreshInstallationStatusNeeded = false;
                 }
                 return isInstalled;
@@ -465,6 +516,21 @@ namespace IndiegameGarden.Base
             }
         }
 
+        /// <summary>
+        /// checks whether this item is a bundle-item, which means it is a single .exe
+        /// and can be stored in another location i.e. the GardenConfig.BundleDataPath
+        /// </summary>
+        public bool IsBundleItem
+        {
+            get
+            {
+                // if (!PackedFileURL.Contains("/") && PackedFileURL.EndsWith(".exe"))
+                if (ExeFile.Equals(packedFileURL))
+                    return true;
+                return false;
+            }
+        }
+
         public string PackedFileExtension
         {
             get
@@ -482,6 +548,9 @@ namespace IndiegameGarden.Base
         {
             get
             {
+                // if bundle, then special path
+                if (IsBundleItem)
+                    return GardenConfig.Instance.BundleDataPath;
                 string folder;
                 // if system package then it's located in config files folder
                 if (IsSystemPackage)
@@ -598,8 +667,12 @@ namespace IndiegameGarden.Base
             catch (Exception) { ;}
             
             // update with default mirror location, only if a main location is defined
-            // if no main location is given, use default location as main DL location which assumes a .zip file type too.
-            string defaultDownloadLoc = GardenConfig.Instance.PackedFilesServerURL + GardenConfig.Instance.GetPackedFileName(this);
+            // if no main location is given, use default location as main DL location 
+            string defaultDownloadLoc;
+            if (!IsBundleItem)
+                defaultDownloadLoc = GardenConfig.Instance.PackedFilesServerURL + PackedFileName;
+            else
+                defaultDownloadLoc = GardenConfig.Instance.BundleFilesServerURL + PackedFileName;
             if (PackedFileURL.Length > 0)
                 packedFileMirrors.Add( defaultDownloadLoc );
             else

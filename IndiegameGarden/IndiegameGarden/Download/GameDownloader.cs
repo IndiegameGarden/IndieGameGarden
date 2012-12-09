@@ -17,14 +17,14 @@ namespace IndiegameGarden.Download
         public GameDownloader(GardenItem game): base()
         {
             this.game= game;
-            this.segmentsUsedInDownload = 3;
+            this.segmentsUsedInDownload = 1;
         }
 
         protected override void StartInternal()
         {
             status = ITaskStatus.RUNNING;
-            string fn = GardenConfig.Instance.GetPackedFileName(game);
-            string toLocalFolder = GardenConfig.Instance.PackedFilesFolder;
+            string fn = game.PackedFileName;
+            string toLocalFolder = game.PackedFileFolder;
             string filePath = Path.Combine(toLocalFolder , fn);
             if (File.Exists(filePath))
             {
@@ -33,7 +33,7 @@ namespace IndiegameGarden.Download
             }
             else
             {
-                MaxRetries = 4;
+                MaxRetries = 3;
                 InternalDoDownload(game.PackedFileURL, fn, toLocalFolder, false, game.PackedFileMirrors);
             }
         }
