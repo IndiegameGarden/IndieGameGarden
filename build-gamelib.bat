@@ -9,9 +9,5 @@ cd IndiegameGarden\GameLibCompiler\bin\Release\
 GameLibCompiler.exe
 cd ..\..\..\..
 
-echo Copy gamelib.bin to unpacked location for local playtesting
-mkdir IndiegameGarden\config\igg_gamelib_fmt4_v%LIBVER%
-copy config\gamelib_fmt4\gamelib.bin IndiegameGarden\config\igg_gamelib_fmt4_v%LIBVER%\gamelib.bin
-
-echo Copy new gamelib.bin to IGG client Content folder
-copy config\gamelib_fmt4\gamelib.bin IndiegameGarden\IndiegameGardenContent\gamelib.bin
+echo Copy new gamelib_fmt%FORMATVER%\gamelib.bin to IGG client Content folder
+copy config\gamelib_fmt%FORMATVER%\gamelib.bin IndiegameGarden\IndiegameGardenContent\gamelib.bin

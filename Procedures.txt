@@ -1,19 +1,11 @@
 
-*** Building a new IGG client for Portable App distribution or In-Program Updatable distribution
-- set    GardenConfig.IS_INSTALLER_VERSION = false
-- update GardenConfig.IGG_CLIENT_VERSION and GardenConfig.KNOWN_GAMELIB_VERSION 
+*** Building a new IGG client
 - run build.bat and check version numbers shown
-- run make-release.bat and check .zip files output
-
-*** Building a new IGG client Installer Version (for InnoSetup)
-- set    GardenConfig.IS_INSTALLER_VERSION = true
-- update GardenConfig.IGG_CLIENT_VERSION and GardenConfig.KNOWN_GAMELIB_VERSION if needed
-- run build.bat and check version numbers shown
-- Publish game from Visual Studio with wizard
+- run make-release.bat 
 
 *** Updating gamelib to new version
-- edit config/gamelib_fmt3/gamelib.json
+- edit config/gamelib_fmt4/gamelib.json
 - run build-gamelib.bat
 - run make-release-gamelib.bat
 - check GameLibVer in gamelib-config.json
-- commit and push with git contents of gamelib_fmt3
+- publish gamelib.zip to site

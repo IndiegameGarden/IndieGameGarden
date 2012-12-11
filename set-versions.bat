@@ -7,15 +7,22 @@ set CLVER=7
 rem IGG game library version
 set LIBVER=1
 
+rem IGG game library format id
+set FORMATVER=4
+
 echo set-versions.bat info:
 echo         CLVER=%CLVER%
 echo         LIBVER=%LIBVER%
-echo GardenConfig.cs info:
+echo         FORMATVER=%FORMATVER%
 set GCONF=IndiegameGarden/IndiegameGarden/Base/GardenConfig.cs
+set LIBCONF=config/gamelib_fmt%FORMATVER%/gamelib-config.json
+echo         GCONF=%GCONF%
+echo         LIBCONF=%LIBCONF%
+echo -
+echo GardenConfig.cs info:
 grep -i 'IGG_CLIENT_VERSION=' %GCONF%
 grep -i 'KNOWN_GAMELIB_VERSION=' %GCONF%
 grep -i 'IS_INSTALLER_VERSION=' %GCONF%
 echo gamelib-config.json info (ClientVer is typically one behind):
-set LIBCONF=config/gamelib_fmt4/gamelib-config.json
 grep -i 'GameLibVer' %LIBCONF%
 grep -i 'ClientVer' %LIBCONF%

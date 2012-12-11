@@ -5,7 +5,7 @@ Variables used
 - <ClientVer> denotes client version number
 - <GameLibVer> denotes the GameLib version
 
-GameLib zip (latest version)
+TODO, update: GameLib zip (latest version)
 https://github.com/trancetrance/IndieGameGarden/blob/master/config/gamelib_fmt3/gamelib.zip
 - update of this file requires a GameLibVer version number increase in 'GameLib config'
 - use build-gamelib.bat to compile the JSON and create the .bin file for local test
@@ -13,11 +13,14 @@ https://github.com/trancetrance/IndieGameGarden/blob/master/config/gamelib_fmt3/
 - downloaded by IGG client when <GameLibVer> increase detected
 - locally stored in zips/igg_gamelib_fmt3_v<GameLibVer>.zip
 
-GameLib config
+GameLib config fmt3
 https://github.com/trancetrance/IndieGameGarden/blob/master/config/gamelib_fmt3/gamelib-config.json
 - keys in here set <ClientVer> and <GameLibVer>
 - a future gamelib ProtoBuffers serialization format will be called gamelib_fmt4
 - is downloaded periodically by IGG client
+
+GameLib config fmt4
+http://indie.indiegamegarden.com/gamelib_fmt4/gamelib-config.json
 
 IGG client update
 http://indie.indiegamegarden.com/zips/igg_v<ClientVer>.zip

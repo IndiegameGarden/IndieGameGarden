@@ -5,7 +5,7 @@ rem First builds it.
 call build-gamelib.bat
 
 echo Zipping gamelib.bin
-cd config\gamelib_fmt4
+cd config\gamelib_fmt%FORMATVER%
 rm -f gamelib.zip
 7z a -tzip gamelib.zip gamelib.bin
 cd ..\..
