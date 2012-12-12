@@ -1,6 +1,10 @@
 ﻿IndiegameGarden description of "Non-Unit" tests
 These tests can't be performed automatically at this moment.
 
+IGG INSTALL TESTS
+- try running Igg without existing appdata folder, with/without network
+- try running Igg without existing config data in appdata folder, with/without network
+
 NETWORK TESTS
 - try game install without network connection
 - try game install with main URL not responding, while mirror site is available
