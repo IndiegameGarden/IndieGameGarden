@@ -345,7 +345,7 @@ namespace IndiegameGarden.Menus
                     if (th.IsLoaded() && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE)
                     {
                         if (th.Game.IsGrowable)
-                            th.ColorB.FadeTarget = (0.65f + 0.35f * g.InstallProgress);
+                            th.ColorB.FadeTarget = 1f; // (0.65f + 0.35f * g.InstallProgress);
                         else
                             th.ColorB.FadeTarget = 1f;
                     }
