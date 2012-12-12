@@ -8,4 +8,4 @@
 - run build-gamelib.bat
 - run make-release-gamelib.bat
 - check GameLibVer in gamelib-config.json
-- publish gamelib.zip to site
+- publish gamelib.zip to website via FTP (see Servers.txt)
