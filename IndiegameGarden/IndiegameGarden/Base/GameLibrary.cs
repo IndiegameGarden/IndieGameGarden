@@ -116,13 +116,6 @@ namespace IndiegameGarden.Base
         /// </summary>
         void FinalizeGamelibForUse()
         {
-            // make 'igg' item only visible if there's a newer clientversion to download
-            GardenItem iggItem = gamesCollection.FindGameNamed("igg");
-            if (iggItem != null)
-            {
-                iggItem.VisibilityLabel = (GardenConfig.Instance.NewestClientVersion > GardenConfig.Instance.ClientVersion) ? (byte) 1 : (byte) 0 ;
-                iggItem.Version = GardenConfig.Instance.NewestClientVersion;
-            }
         }
 
         public void Dispose()

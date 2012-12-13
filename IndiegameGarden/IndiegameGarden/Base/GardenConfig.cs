@@ -100,7 +100,7 @@ namespace IndiegameGarden.Base
 
             // copy over some initial files if needed (only if dir is empty)           
             //if (!CopyFiles("config")) return false;
-            //if (!CopyFiles("thumbs")) return false;
+            if (!CopyFiles("thumbs")) return false;
             //if (!CopyFiles("zips")) return false;
 
             return true;
@@ -126,7 +126,8 @@ namespace IndiegameGarden.Base
                     {
                         string filename = Path.GetFileName(filepath);
                         string destFile = Path.Combine(dest, filename);
-                        File.Copy(filepath, destFile, false);
+                        if (!File.Exists(destFile))
+                            File.Copy(filepath, destFile, false);  // set to NOT overwrite any existing file of same name
                     }
                 }
                 return true;
@@ -173,7 +174,7 @@ namespace IndiegameGarden.Base
             BundleDataPath = Path.GetFullPath(".");
   
             GardenID = DEFAULT_GARDEN_ID;
-            ServerMsg = "Enjoy your garden!\nBut watch out for the weeds.";
+            ServerMsg = "Enjoy your garden!\nIn case just a handful of icons show, try restarting while connected to the network.";
             ConfigFilesFolder = GetFolder("config");
             PackedFilesFolder = GetFolder("zips");
             UnpackedFilesFolder = GetFolder("games");

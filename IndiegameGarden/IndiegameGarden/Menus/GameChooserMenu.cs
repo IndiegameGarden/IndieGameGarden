@@ -62,7 +62,7 @@ namespace IndiegameGarden.Menus
             Add(bg);
             background = bg;
 
-            // logo
+            // logo that floats in top right
             Spritelet logo = new Spritelet("igglogo");
             Add(logo);
             logo.DrawInfo.Alpha = 0.7f;
@@ -72,7 +72,7 @@ namespace IndiegameGarden.Menus
             logo.Add(fadeIn);
             fadeIn.Alpha = 0f;
             fadeIn.FadeAlphaToTarget(0.9344f, 6f);
-            logo.Motion.Add(new SineModifier("ScaleModifier", 0.03124f, 0.07344f, 1.0f));
+            logo.Motion.Add(new SineModifier("ScaleModifier", 0.06124f, 0.07144f, 1.0f));
 
             // set my panel and games list
             Add(panel);

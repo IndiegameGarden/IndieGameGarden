@@ -220,15 +220,6 @@ namespace IndiegameGarden
             }
         }
 
-        /*
-         *             SpriteBatch spriteBatch = new SpriteBatch(GraphicsDevice);
-            Texture2D splashScreen = Content.Load<Texture2D>("igglogo");
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            spriteBatch.Draw(splashScreen, new Vector2(0, 0), Color.White);
-            spriteBatch.End();
-            GraphicsDevice.Present();
-*/
-
         protected override void Draw(GameTime gameTime)
         {
             // draw all my gamelet items

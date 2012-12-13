@@ -16,6 +16,8 @@ Download size indication (MB)
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-12-13 Disable self-updating code (no use in v1.7.x)
+2012-12-13 Shader and visual appearance (halo) adapted
 2012-12-13 Icons scaling issue
 --------<starting for version 1.7.x>----------
 2012-07-04 Location for downloaded content in Windows 7 -> determine & implement (installer version)

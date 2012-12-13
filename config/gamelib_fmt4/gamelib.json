@@ -14,17 +14,9 @@
 "Scale": 0.5,
 "X": 1, "Y": 0
 },
-{
-"ID": "igg",
-"Name": "Update of Indiegame Garden!",
-"Descr": "Hold ENTER to update Indiegame Garden. Once installed, hold ENTER for the new version.",
-"Site": "indiegamegarden.com",
-"Exe": "IndiegameGarden.exe",
-"X": 2, "Y": 0
-},
 [
 { "ID": "section_music",
-	"X": 7, "Y": 0, "DX": 2
+	"X": 9, "Y": 0, "DX": 2
 },
 {
  	"ID": "igg_iconmusic",
