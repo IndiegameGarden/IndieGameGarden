@@ -310,9 +310,9 @@ namespace IndiegameGarden.Menus
                     th.Motion.ScaleTarget = 0.05f;
                     th.Motion.ScaleSpeed = 0.01f; // TODO const
 
-                    th.DrawInfo.LayerDepth = LAYER_GRID_ITEMS + ((float)th.ID) * float.Epsilon;
+                    th.DrawInfo.LayerDepth = LAYER_GRID_ITEMS + ((float)th.ID) * 0.0000001f;
                     th.Visible = false;
-                    th.ColorB.Intensity = 0.0f;
+                    th.ColorB.Alpha = 0.0f;
 
                     // special case thumbnails 
                     if (g.GameID.Equals("igg_controls"))
@@ -338,21 +338,27 @@ namespace IndiegameGarden.Menus
                     if (!th.Visible && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE)
                     {
                         th.LoadInBackground();
-                        th.ColorB.Intensity = 0f;
+                        th.ColorB.Alpha = 0f;
                     }
 
                     // check if thnail is loaded and still in range. If so, start displaying it (fade in)
                     if (th.IsLoaded() && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE)
                     {
                         if (th.Game.IsGrowable)
-                            th.ColorB.FadeTarget = 1f; // (0.65f + 0.35f * g.InstallProgress);
+                        {
+                            th.ColorB.AlphaTarget = 1f; // (0.65f + 0.35f * g.InstallProgress);
+                            th.ColorB.SaturationTarget = (0.15f + 0.85f * g.InstallProgress);
+                        }
                         else
-                            th.ColorB.FadeTarget = 1f;
+                        {
+                            th.ColorB.AlphaTarget = 1f;
+                            th.ColorB.SaturationTarget = 1f;
+                        }
                     }
 
                     // check if thnail in range to fade out
                     if (th.IsLoaded() && cursor.DistanceTo(th) > CURSOR_FADEOUT_RANGE)
-                        th.ColorB.FadeTarget = 0f;
+                        th.ColorB.AlphaTarget = 0f;
 
                 }
 

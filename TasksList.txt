@@ -1,7 +1,6 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Icons scaling issue
 Check out the pending check-exe gamelib entries, see if can be added to gamelib
 Check screen back to normal after arvoesine -> check on other PC
 Typing letters leads you to the named game (or closest description)
@@ -17,6 +16,8 @@ Download size indication (MB)
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
 
 CLOSED  [date order]
+2012-12-13 Icons scaling issue
+--------<starting for version 1.7.x>----------
 2012-07-04 Location for downloaded content in Windows 7 -> determine & implement (installer version)
 2012-06-18 GameInfoBox should go down upon exit; credits/helptext boxes go up
 2012-06-18 Make version with new music (Dream Journal 2?)

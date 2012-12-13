@@ -16,19 +16,19 @@ namespace IndiegameGarden.Menus
         {
             ColorB = new ColorChangeBehavior();
             Add(ColorB);
-            ColorB.FadeTarget = 0.0f;
-            ColorB.Intensity = 0f;
+            ColorB.AlphaTarget = 0.0f;
+            ColorB.Alpha = 0f;
             ColorB.FadeSpeed = 0.3f;
         }
 
         public void FadeIn()
         {
-            ColorB.FadeTarget = 1.0f;
+            ColorB.AlphaTarget = 1.0f;
         }
 
         public void FadeOut()
         {
-            ColorB.FadeTarget = 0f;
+            ColorB.AlphaTarget = 0f;
         }
 
     }

@@ -50,8 +50,8 @@ namespace IndiegameGarden.Menus
             public override void OnEntry(Gamelet g)
             {
                 base.OnEntry(g);
-                loadingDisplay.iggNameBox.ColorB.Intensity = 0f;
-                loadingDisplay.iggNameBox.ColorB.FadeTarget = 0f;
+                loadingDisplay.iggNameBox.ColorB.Alpha = 0f;
+                loadingDisplay.iggNameBox.ColorB.AlphaTarget = 0f;
                 if (loadingDisplay.gameIcon != null)
                     loadingDisplay.gameIcon.Visible = true;
             }
@@ -105,7 +105,7 @@ namespace IndiegameGarden.Menus
             {
                 base.OnUpdate(g, ref p);
                 // fade in 
-                loadingDisplay.iggNameBox.ColorB.FadeTarget = 1.0f;
+                loadingDisplay.iggNameBox.ColorB.AlphaTarget = 1.0f;
 
                 if (SimTime <= 1f || isFirstDraw)
                 {
@@ -183,8 +183,8 @@ namespace IndiegameGarden.Menus
             iggNameBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.94f);
             iggNameBox.Motion.Scale = 0.7f;
             iggNameBox.DrawInfo.DrawColor = Color.Transparent;
-            iggNameBox.ColorB.Intensity = 0f;
-            iggNameBox.ColorB.FadeTarget = 0.0f;
+            iggNameBox.ColorB.Alpha = 0f;
+            iggNameBox.ColorB.AlphaTarget = 0.0f;
             iggNameBox.ColorB.FadeSpeed = 1.0f;
             Add(iggNameBox);
 

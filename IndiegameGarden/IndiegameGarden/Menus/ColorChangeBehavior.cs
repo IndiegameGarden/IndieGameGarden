@@ -8,16 +8,22 @@ using Microsoft.Xna.Framework;
 namespace IndiegameGarden.Menus
 {
     /// <summary>
-    /// provides color/intensity fading features to the parent Gamelet
+    /// provides color/intensity fading and alpha fading features to the parent Gamelet
     /// </summary>
     public class ColorChangeBehavior: Gamelet
     {
         protected float intensity = 1.0f;
+        protected float saturation = 1.0f;
 
         /// <summary>
-        /// target for Fade value
+        /// target for ALpha value
         /// </summary>
-        public float FadeTarget = 1.0f;
+        public float AlphaTarget = 1.0f;
+
+        /// <summary>
+        /// target for Saturation value 
+        /// </summary>
+        public float SaturationTarget = 1.0f;
 
         /// <summary>
         /// speed of fading towards FadeTarget
@@ -27,7 +33,7 @@ namespace IndiegameGarden.Menus
         /// <summary>
         /// the intensity of displaying thumbnail (amount color/brightness) between 0f...1f (max)
         /// </summary>
-        public float Intensity
+        public float Alpha
         {
             get
             {
@@ -36,7 +42,24 @@ namespace IndiegameGarden.Menus
             set
             {
                 intensity = value;
-                DrawInfo.DrawColor = new Color(intensity, intensity, intensity, intensity); //DrawInfo.DrawColor.A); // TODO allow drawcolor?
+                DrawInfo.Alpha = intensity;
+            }
+
+        }
+
+        /// <summary>
+        /// the intensity of displaying thumbnail (amount color/brightness) between 0f...1f (max)
+        /// </summary>
+        public float Saturation
+        {
+            get
+            {
+                return saturation;
+            }
+            set
+            {
+                saturation = value;
+                DrawInfo.R = saturation;
             }
 
         }
@@ -46,10 +69,10 @@ namespace IndiegameGarden.Menus
         /// </summary>
         /// <param name="fadeValue"></param>
         /// <param name="timeDuration"></param>
-        public void FadeToTarget(float fadeValue, float timeDuration)
+        public void FadeAlphaToTarget(float fadeValue, float timeDuration)
         {
-            FadeTarget = fadeValue;
-            FadeSpeed = Math.Abs((fadeValue - Intensity) / timeDuration);
+            AlphaTarget = fadeValue;
+            FadeSpeed = Math.Abs((fadeValue - Alpha) / timeDuration);
         }
 
         protected override void OnNewParent()
@@ -63,20 +86,37 @@ namespace IndiegameGarden.Menus
             base.OnUpdate(ref p);
 
             // handle fading over time
-            if (FadeTarget > Intensity)
+            if (AlphaTarget > Alpha)
             {
-                Intensity += FadeSpeed * p.Dt;
-                if (FadeTarget < Intensity)
-                    Intensity = FadeTarget;
-                DrawInfo.Alpha = Intensity;
+                Alpha += FadeSpeed * p.Dt;
+                if (AlphaTarget < Alpha)
+                    Alpha = AlphaTarget;
+                DrawInfo.Alpha = Alpha;
             }
-            else if (FadeTarget < Intensity)
+            else if (AlphaTarget < Alpha)
             {
-                Intensity -= FadeSpeed * p.Dt;
-                if (FadeTarget > Intensity)
-                    Intensity = FadeTarget;
-                DrawInfo.Alpha = Intensity;
+                Alpha -= FadeSpeed * p.Dt;
+                if (AlphaTarget > Alpha)
+                    Alpha = AlphaTarget;
+                DrawInfo.Alpha = Alpha;
             }
+        
+            // handle fading over time
+            if (SaturationTarget > saturation)
+            {
+                saturation += FadeSpeed * p.Dt;
+                if (SaturationTarget < saturation)
+                    saturation = SaturationTarget;
+                DrawInfo.R = saturation;
+            }
+            else if (SaturationTarget < Saturation)
+            {
+                saturation -= FadeSpeed * p.Dt;
+                if (SaturationTarget > saturation)
+                    Saturation = SaturationTarget;
+                DrawInfo.R = saturation;
+            }
+
         }
 
     }

@@ -25,15 +25,15 @@ sampler_state
 // shader uses 'color', the DrawColor, for special effects that are set per sprite:
 // color.a - transparency result 0...1
 // color.r - saturation 0...1 (0=black&white, 1=colored-full)
-// color.g - intensity 0 (dark)...1 (light)
+// NO:color.g - intensity 0 (dark)...1 (light)
+// color.g/color.b - MSB and LSB of halo effect timer value
 //
-// alternative: color.r/g/b used as a 'time' variable.
 //
 float4 PixelShaderFunction(float4 color : COLOR0, float2 texCoord : TEXCOORD0) : COLOR0
 {
 	float4 tex = tex2D(TextureSampler, ((texCoord - Center)/ShadowBoxScale+Center) ) ;		  
 	float4 res ;
-	float time = color.r * 65536 + color.g*256 + color.b ;
+	float time = 16*(color.g*256 + color.b) ;
 
 	float alpha ;
 	float2 vDif = texCoord - Center ;
@@ -44,7 +44,7 @@ float4 PixelShaderFunction(float4 color : COLOR0, float2 texCoord : TEXCOORD0) :
 	float t = -time;
 	float2 vTexSample = Center + (lWarped * vDifNorm) + (Velocity * t * 0.8334 * vDifNorm); 
 	res = tex2D(TextureSampler, vTexSample ) ;		  
-	alpha = 1-1.95*lDif; //2.0*lDif; //*lDif ;//*2.5;
+	alpha = 1-1.95*lDif-(1-color.r); //2.0*lDif; //*lDif ;//*2.5;
 	if (alpha < 0)
 		alpha = 0;
 	res *= alpha;
@@ -83,18 +83,17 @@ float4 PixelShaderFunction(float4 color : COLOR0, float2 texCoord : TEXCOORD0) :
 	}
 	
 	// apply saturation technique http://lukhezo.com/2011/03/12/saturationdesaturation-with-hlslpixel-shaders-and-wpf/
-	/*
+	
 	float alphaBackup = res.a;
 	float3  LuminanceWeights = float3(0.299,0.587,0.114);
 	float    luminance = dot(res,LuminanceWeights);
+	// use draw() call's input byte color.r to control saturation level:
 	res = lerp(luminance, res, color.r);
 	// apply color fade
-	res *= color.g;
+	// NO res *= color.g;
 	//retain the alpha
-	res.a = alphaBackup * color.a;
-	*/
-	//res *= color;
-
+	res.a = alphaBackup; // * color.a;
+	
 	// apply alpha factor
 	res *= color.a; 
 	return res ;

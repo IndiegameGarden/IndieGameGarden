@@ -70,8 +70,8 @@ namespace IndiegameGarden.Menus
             logo.Motion.Position = new Vector2(Screen.AspectRatio - 0.24f, 0.04f);
             ColorChangeBehavior fadeIn = new ColorChangeBehavior();
             logo.Add(fadeIn);
-            fadeIn.Intensity = 0f;
-            fadeIn.FadeToTarget(0.9344f, 6f);
+            fadeIn.Alpha = 0f;
+            fadeIn.FadeAlphaToTarget(0.9344f, 6f);
             logo.Motion.Add(new SineModifier("ScaleModifier", 0.03124f, 0.07344f, 1.0f));
 
             // set my panel and games list

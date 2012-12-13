@@ -262,7 +262,10 @@ namespace IndiegameGarden.Menus
             if (EffectEnabled)
             {
                 Motion.ScaleModifier *= (1f / 0.7f); // this extends image for shader fx region, see .fx file
-                haloTime += p.Dt; // move the 'halo' of the icon onwards as long as it's visible.
+                if (Game.IsInstalled)
+                    haloTime += p.Dt; // move the 'halo' of the icon onwards as long as it's visible.
+                else
+                    haloTime = 0f;
             }
         }
 
@@ -278,11 +281,12 @@ namespace IndiegameGarden.Menus
             {
                 // this is a conversion from 'halotime' to the time format that can be given to the pixel shader
                 // via the 'draw color' parameter
-                int t = (int) (haloTime * 256);
+                double warpedTime = 20 * (1 + Math.Sin(1.5f * MathHelper.Pi + MathHelper.TwoPi * 0.05 * (double)haloTime )); 
+                int t = (int) (warpedTime * 16);
                 int c3 = t % 256;
                 int c2 = ((t - c3)/256) % 256;
-                int c1 = ((t - c2 - c3)/65536) % 256;
-                col = new Color(c1, c2, c3, col.A);
+                //int c1 = ((t - c2 - c3)/65536) % 256;
+                col = new Color(col.R, c2, c3, col.A); // (intensity, timeMSB, timeLSB, alpha) passed to shader
             }
             MySpriteBatch.Draw(Texture, DrawInfo.DrawPosition, null, col,
                    Motion.RotateAbs, DrawInfo.DrawCenter, DrawInfo.DrawScale, SpriteEffects.None, DrawInfo.LayerDepth);
