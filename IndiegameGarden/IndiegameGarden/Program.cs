@@ -29,7 +29,7 @@ namespace IndiegameGarden
             }
             catch(Exception ex) {
                 ReportErrorOverNetwork(ex);
-                MsgBox.Show("IndiegameGarden: critical error",
+                MsgBox.Show("Indiegame Garden: critical error",
                             "Critical error - sorry, it's still in Beta! " + ex.Message + "\n" + ex.ToString() );                
             }
         }
@@ -40,7 +40,7 @@ namespace IndiegameGarden
             {
                 Exception ex = (Exception)e.ExceptionObject;
                 ReportErrorOverNetwork(ex); // TODO code duplication
-                MsgBox.Show("IndiegameGarden: critical error",
+                MsgBox.Show("Indiegame Garden: critical error",
                             "Critical error - sorry, it's still in Beta! " + ex.Message + "\n" + ex.ToString());
             }
             finally
