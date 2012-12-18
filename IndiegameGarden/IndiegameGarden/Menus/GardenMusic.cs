@@ -42,7 +42,7 @@ namespace IndiegameGarden.Menus
 
         public void PlayDefaultSong()
         {
-            Play( GardenGame.Instance.Content.RootDirectory + "\\Torley_Pure_Space.ogg", 0.45, 20f);
+            Play( GardenGame.Instance.Content.RootDirectory + "\\Torley_Departuring.ogg", 0.5, 0f);
         }
 
         public void PlayLastSong()

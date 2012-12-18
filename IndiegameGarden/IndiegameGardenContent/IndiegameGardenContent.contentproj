@@ -140,8 +140,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Torley_Pure_Space.ogg">
-      <Name>Torley_Pure_Space</Name>
+    <None Include="Torley_Departuring.ogg">
+      <Name>Torley_Departuring</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
