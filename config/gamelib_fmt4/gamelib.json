@@ -9,7 +9,8 @@
 "X": 3, "Y": 1
 },
 {
-"ID": "igg_credits",	  		
+"ID": "igg_credits",	  	
+"Site": "www.indiegamegarden.com",	
 "FX": 0,
 "Scale": 0.5,
 "X": 1, "Y": 0

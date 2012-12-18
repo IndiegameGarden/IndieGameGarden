@@ -274,7 +274,7 @@ namespace IndiegameGarden.Menus
             //-- website launch
             if (isLaunchWebsite)
             {
-                if (selGame != null)
+                if (selGame != null && selGame.DeveloperWebsiteURL.Length > 0 )
                 {
                     GameThumbnail thumb = thumbnailsCache[selGame.GameID];
                     GardenGame.Instance.ActionLaunchWebsite(selGame, thumb);

@@ -24,11 +24,6 @@ namespace IndiegameGarden.Base
         public Process Proc = null;
 
         /// <summary>
-        /// the game whose website that is to be launched
-        /// </summary>
-        public GardenItem Game;
-
-        /// <summary>
         /// flag set true once the game window shows up during launch
         /// </summary>
         public bool IsGameShowingWindow = false;
@@ -40,16 +35,24 @@ namespace IndiegameGarden.Base
         [DllImportAttribute("User32.dll")]
         private static extern IntPtr SetForegroundWindow(int hWnd);
 
-        public SiteLauncherTask(GardenItem g): this(g,g.DeveloperWebsiteURL)
+        /// <summary>
+        /// start a site-launcher task using the standard GardenItem.DeveloperWebsiteURL
+        /// </summary>
+        /// <param name="g">the GardenItem whose website to start</param>
+        public SiteLauncherTask(GardenItem g): this(g.DeveloperWebsiteURL)
         {
         }
 
-        public SiteLauncherTask(GardenItem g, string url)
-        {
-            this.Game = g;
+        /// <summary>
+        /// start a site-launcher task for a specific URL.
+        /// </summary>
+        /// <param name="url">any http:// or file:// or other URL or local launchable filepath.</param>      
+        public SiteLauncherTask(string url)
+        {            
             if (url.Length > 0)
             {
-                if (!url.ToLower().StartsWith("http://"))
+                // scheme check
+                if (!url.Contains("://")) // && !url.StartsWith(")
                 {
                     url = "http://" + url;
                 }

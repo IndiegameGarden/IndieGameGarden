@@ -116,6 +116,8 @@ namespace IndiegameGarden.Base
         /// </summary>
         void FinalizeGamelibForUse()
         {
+            GardenItem g = gamesCollection.FindGameNamed("igg_controls");
+            g.DeveloperWebsiteURL = "file://" + GardenConfig.Instance.DataPath.Replace("\\","/");
         }
 
         public void Dispose()

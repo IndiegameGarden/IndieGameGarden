@@ -287,7 +287,7 @@ namespace IndiegameGarden
 
         public void ActionLaunchWebsitePlayGame(GardenItem g, GameThumbnail thumb)
         {
-            ITask t = new ThreadedTask(new SiteLauncherTask(g, g.ExeFile));
+            ITask t = new ThreadedTask(new SiteLauncherTask(g.ExeFile));
             t.Start();
             loadingDisplay.SetLoadingGame(g, thumb);
             music.FadeOut();
