@@ -34,7 +34,7 @@ namespace IndiegameGarden.Download
             else
             {
                 MaxRetries = 3;
-                InternalDoDownload(game.PackedFileURL, fn, toLocalFolder, false, game.PackedFileMirrors);
+                InternalDoDownload_MirrorRetry(game.PackedFileURL, fn, toLocalFolder, false, game.PackedFileMirrors);
             }
         }
 

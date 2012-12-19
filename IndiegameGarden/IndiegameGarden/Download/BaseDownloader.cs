@@ -108,15 +108,41 @@ namespace IndiegameGarden.Download
         }
 
         /// <summary>
+        /// perform a download with mirrors, retrying each mirror in case main url fails. 
+        /// Has blocking wait and sets ITask status to FAIL in case of failure.
+        /// </summary>
+        /// <param name="urlPath">full URL of file, optionally leaving out protocol http://</param>
+        /// <param name="filename">local name under which to store the file</param>
+        /// <param name="toLocalFolder">local folder where to store file</param>
+        /// <param name="overwriteExisting">if true, overwrites any existing file 'filename'</param>
+        /// <param name="mirrors">optional set of mirrors for urlPath, may be empty string[] for none</param>
+        protected void InternalDoDownload_MirrorRetry(string urlPath, string filename, string toLocalFolder, bool overwriteExisting, string[] mirrors)
+        {
+            InternalDoDownload(urlPath, filename, toLocalFolder, overwriteExisting, mirrors);
+            if (status == ITaskStatus.SUCCESS)
+                return;
+            status = ITaskStatus.RUNNING; // reset back status from FAIL to running
+            for (int i = 0; i < mirrors.Length; i++)
+            {
+                // try each one of the mirrors as main url
+                InternalDoDownload(mirrors[i], filename, toLocalFolder, overwriteExisting, mirrors);
+                if (status == ITaskStatus.SUCCESS)
+                    return;
+                status = ITaskStatus.RUNNING; // reset back status from FAIL to running
+            }
+            status = ITaskStatus.FAIL;
+        }
+
+        /// <summary>
         /// class-internal method to perform a download with mirrors. Has blocking wait and sets ITask status to FAIL
         /// in case of failure.
         /// </summary>
         /// <param name="urlPath">full URL of file, optionally leaving out protocol http://</param>
         /// <param name="filename">local name under which to store the file</param>
         /// <param name="toLocalFolder">local folder where to store file</param>
-        /// <param name="mirrors">optional set of mirrors for urlPath, may be empty string[] for none</param>
         /// <param name="overwriteExisting">if true, overwrites any existing file 'filename'</param>
-        protected void InternalDoDownload(string urlPath, string filename, string toLocalFolder, bool overwriteExisting, string[] mirrors )
+        /// <param name="mirrors">optional set of mirrors for urlPath, may be empty string[] for none</param>
+        protected void InternalDoDownload(string urlPath, string filename, string toLocalFolder, bool overwriteExisting, string[] mirrors)
         {
             localFile = toLocalFolder + "\\" + filename;
             
@@ -144,11 +170,11 @@ namespace IndiegameGarden.Download
             {
                 downloader.MaxRetries = MaxRetries;
                 downloader.Start();
-                if (downloader != null)
+                if (downloader != null) // null may happen, see below
                 {
 
                     downloader.WaitForConclusion();
-                    if (downloader == null)  // case may happen! (on basedownloader cleanup in other thread)
+                    if (downloader == null)  // null may happen! (on basedownloader cleanup in other thread)
                     {
                         status = ITaskStatus.FAIL;
                         statusMsg = "Download aborted";
