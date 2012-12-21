@@ -112,6 +112,7 @@ namespace IndiegameGarden
             graphics.IsFullScreen = false;
             IsFixedTimeStep = false;            
             graphics.SynchronizeWithVerticalRetrace = true;
+            IsMouseVisible = true;
         }
 
         protected override void Initialize()

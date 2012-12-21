@@ -14,7 +14,7 @@ namespace IndiegameGarden.Base
     {
         public override void OnEntry(Gamelet g)
         {
-            GardenGame.Instance.IsMouseVisible = false;
+            //GardenGame.Instance.IsMouseVisible = false;
         }
     }
 
@@ -25,7 +25,7 @@ namespace IndiegameGarden.Base
     {
         public override void OnEntry(Gamelet g)
         {
-            GardenGame.Instance.IsMouseVisible = false;
+            //GardenGame.Instance.IsMouseVisible = false;
         }
     }
 
@@ -52,7 +52,7 @@ namespace IndiegameGarden.Base
         public override void OnEntry(Gamelet g)
         {
             base.OnEntry(g);
-            GardenGame.Instance.IsMouseVisible = true;
+            //GardenGame.Instance.IsMouseVisible = true;
         }
 
         public override void OnUpdate(Gamelet g, ref UpdateParams p)
@@ -69,7 +69,7 @@ namespace IndiegameGarden.Base
         public override void OnExit(Gamelet g)
         {
             base.OnExit(g);
-            GardenGame.Instance.IsMouseVisible = false;
+            //GardenGame.Instance.IsMouseVisible = false;
             if (fadeInMusicWhenDone)
                 GardenGame.Instance.music.FadeIn();
         }
