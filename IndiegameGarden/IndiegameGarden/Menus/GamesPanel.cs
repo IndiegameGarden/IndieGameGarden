@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Xna.Framework;
 using TTengine.Core;
 using IndiegameGarden.Base;
 
@@ -15,7 +16,7 @@ namespace IndiegameGarden.Menus
     {
 
         public enum UserInput { LEFT, RIGHT, UP, DOWN, START_EXIT, STOP_EXIT, 
-                                START_SELECT, STOP_SELECT, LAUNCH_WEBSITE, TOGGLE_MUSIC };
+                                START_SELECT, STOP_SELECT, POSITION_SELECT, LAUNCH_WEBSITE, TOGGLE_MUSIC };
 
         // stores the current list obtained with OnUpdateList()
         protected GameCollection gl = null;
@@ -63,5 +64,11 @@ namespace IndiegameGarden.Menus
         /// <param name="inp">category of user input from the enum</param>
         public abstract void OnUserInput(UserInput inp);
 
+        /// <summary>
+        /// user input in selecting items on screen is directed to this method
+        /// </summary>
+        /// <param name="inp">category of user input from the enum</param>
+        /// <param name="pointerPos">pointer position input by user</param>
+        public abstract void OnUserInput(GamesPanel.UserInput inp, Vector2 pointerPos);
     }
 }

@@ -36,6 +36,7 @@ namespace IndiegameGarden.Menus
         // the game thumbnails or items selection panel
         GamesPanel panel;
         KeyboardState prevKeyboardState = Keyboard.GetState();
+        Vector2 pointerPos, lastPointerPos;
 
         /// <summary>
         /// construct new menu
@@ -164,13 +165,40 @@ namespace IndiegameGarden.Menus
             lastKeypressTime = p.SimTime;
             prevKeyboardState = st;
         }
-       
+
+        protected void MouseControls(ref UpdateParams p)
+        {
+            MouseState st = Mouse.GetState();
+
+            if (st.LeftButton == ButtonState.Released && wasEnterPressed)
+            {
+                wasEnterPressed = false;
+                panel.OnUserInput(GamesPanel.UserInput.STOP_SELECT);
+            }
+
+            if (st.LeftButton == ButtonState.Pressed)
+            {
+                if (!wasEnterPressed)
+                {
+                    lastPointerPos = pointerPos;
+                    pointerPos = new Vector2(st.X, st.Y); //new Vector2(0.5f,0.5f);
+                    panel.OnUserInput(GamesPanel.UserInput.POSITION_SELECT, pointerPos);
+                    if ((pointerPos - lastPointerPos).Length() < 2f)
+                    {
+                        panel.OnUserInput(GamesPanel.UserInput.START_SELECT);
+                    }                    
+                }
+                wasEnterPressed = true;
+            }
+        }
+
         protected override void OnUpdate(ref UpdateParams p)
         {
             base.OnUpdate(ref p);
 
-            // check keyboard inputs from user
+            // check keyboard/mouse inputs from user
             KeyboardControls(ref p);
+            MouseControls(ref p);
         }
 
     }

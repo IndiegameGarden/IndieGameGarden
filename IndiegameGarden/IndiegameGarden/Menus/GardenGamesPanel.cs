@@ -481,6 +481,18 @@ namespace IndiegameGarden.Menus
             //
         }
 
+        public override void OnUserInput(GamesPanel.UserInput inp, Vector2 pointerPos)
+        {
+            int dummy = 3;
+            //((mousepos / screenheight - screen.center) / motionparent.zoom ) + MotionParent.zoomcenter
+            Vector2 panelPos = (((pointerPos / Screen.HeightPixels) - Screen.Center) / Motion.MotionParent.Zoom) + Motion.MotionParent.ZoomCenter;
+            
+            Vector2 gridPos = new Vector2(panelPos.X / PANEL_DELTA_GRID_X, panelPos.Y / PANEL_DELTA_GRID_Y) + PanelShiftPos;
+            //cursor.Motion.TargetPos = (cursor.GridPosition - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
+            //cursor.Motion.TargetPos = panelPos;
+            cursor.GridPosition = gridPos;
+        }
+
         public override void OnUserInput(GamesPanel.UserInput inp)
         {
             // HACK: for web games launch, make sure that music is turned back on upon next user input after play
