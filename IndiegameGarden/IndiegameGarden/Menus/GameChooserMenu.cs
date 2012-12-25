@@ -33,6 +33,7 @@ namespace IndiegameGarden.Menus
         float lastKeypressTime = 0;
         bool wasEscPressed = false;
         bool wasEnterPressed = false;
+        bool wasMouseButPressed = false;
         // the game thumbnails or items selection panel
         GamesPanel panel;
         KeyboardState prevKeyboardState = Keyboard.GetState();
@@ -170,25 +171,25 @@ namespace IndiegameGarden.Menus
         {
             MouseState st = Mouse.GetState();
 
-            if (st.LeftButton == ButtonState.Released && wasEnterPressed)
+            if (st.LeftButton == ButtonState.Released && wasMouseButPressed)
             {
-                wasEnterPressed = false;
+                wasMouseButPressed = false;
                 panel.OnUserInput(GamesPanel.UserInput.STOP_SELECT);
             }
 
             if (st.LeftButton == ButtonState.Pressed)
             {
-                if (!wasEnterPressed)
+                if (!wasMouseButPressed)
                 {
                     lastPointerPos = pointerPos;
-                    pointerPos = new Vector2(st.X, st.Y); //new Vector2(0.5f,0.5f);
+                    pointerPos = new Vector2(st.X, st.Y); 
                     panel.OnUserInput(GamesPanel.UserInput.POSITION_SELECT, pointerPos);
-                    if ((pointerPos - lastPointerPos).Length() < 2f)
-                    {
-                        panel.OnUserInput(GamesPanel.UserInput.START_SELECT);
-                    }                    
+                    //if ((pointerPos - lastPointerPos).Length() < 30f)
+                    //{
+                     //   panel.OnUserInput(GamesPanel.UserInput.START_SELECT);
+                    //}                    
                 }
-                wasEnterPressed = true;
+                wasMouseButPressed = true;
             }
         }
 

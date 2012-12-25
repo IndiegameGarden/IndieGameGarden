@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 using TTengine.Core;
 using TTengine.Modifiers;
-
+using TTengine.Util;
 using IndiegameGarden.Base;
 using IndiegameGarden.Util;
 
@@ -483,14 +483,22 @@ namespace IndiegameGarden.Menus
 
         public override void OnUserInput(GamesPanel.UserInput inp, Vector2 pointerPos)
         {
-            int dummy = 3;
             //((mousepos / screenheight - screen.center) / motionparent.zoom ) + MotionParent.zoomcenter
-            Vector2 panelPos = (((pointerPos / Screen.HeightPixels) - Screen.Center) / Motion.MotionParent.Zoom) + Motion.MotionParent.ZoomCenter;
+            Vector2 panelPos = (((pointerPos / Screen.HeightPixels) - Screen.Center) / Motion.Zoom) + Motion.ZoomCenter;
             
-            Vector2 gridPos = new Vector2(panelPos.X / PANEL_DELTA_GRID_X, panelPos.Y / PANEL_DELTA_GRID_Y) + PanelShiftPos;
+            Vector2 gridPos = new Vector2( panelPos.X / PANEL_DELTA_GRID_X, panelPos.Y / PANEL_DELTA_GRID_Y) + PanelShiftPos;
+            TTutil.Round(ref gridPos);
             //cursor.Motion.TargetPos = (cursor.GridPosition - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
             //cursor.Motion.TargetPos = panelPos;
+
+            if (gridPos.Equals(cursor.GridPosition))
+            {
+                OnUserInput(GamesPanel.UserInput.START_SELECT);
+            }
+
             cursor.GridPosition = gridPos;
+
+            SelectGameBelowCursor();
         }
 
         public override void OnUserInput(GamesPanel.UserInput inp)
