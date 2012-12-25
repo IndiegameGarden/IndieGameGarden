@@ -59,8 +59,8 @@ namespace IndiegameGarden.Menus
         static Vector2 INFOBOX_DESCRIPTION_HIDDEN_POSITION = new Vector2(0.05f, 0.97f);
         static Vector2 INFOBOX_ALL_HIDDEN_POSITION = new Vector2(0.05f, 1.15f);
         const float    INFOBOX_SPEED_MOVE = 3.8f;
-        static Vector2 HELPTEXT_SHOWN_POSITION = new Vector2(0.15f, 0.13f);
-        static Vector2 HELPTEXT_HIDDEN_POSITION = new Vector2(0.15f, -0.2f);
+        static Vector2 HELPTEXT_SHOWN_POSITION = new Vector2(0.18f, 0.15f);
+        static Vector2 HELPTEXT_HIDDEN_POSITION = new Vector2(0.18f, -0.2f);
         const float    HELPTEXT_SPEED_MOVE = 3.8f;
         static Vector2 CREDITS_SHOWN_POSITION = new Vector2(0.4f, 0.145f);
         static Vector2 CREDITS_HIDDEN_POSITION = new Vector2(0.4f, -0.22f);
@@ -121,7 +121,7 @@ namespace IndiegameGarden.Menus
 
             // controls help 
             helpTextBitmap = new Spritelet("keymap");
-            helpTextBitmap.Motion.Scale = 0.5f;
+            helpTextBitmap.Motion.Scale = 0.52f;
             helpTextBitmap.Motion.Position = HELPTEXT_HIDDEN_POSITION;
             helpTextBitmap.Motion.TargetPos = HELPTEXT_SHOWN_POSITION;
             helpTextBitmap.Motion.TargetPosSpeed = HELPTEXT_SPEED_MOVE;
