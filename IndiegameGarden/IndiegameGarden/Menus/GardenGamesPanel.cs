@@ -68,6 +68,7 @@ namespace IndiegameGarden.Menus
         const float    CREDITS_SPEED_MOVE = 3.8f;
         
         const float TIME_BEFORE_GAME_LAUNCH = 0.4f;
+        const float TIME_AFTER_GAME_LAUNCH_CANCELS = 4f;
         const float TIME_BEFORE_EXIT = 1.1f;
         const float TIME_BEFORE_EXIT_CONTINUES = 0.6f;
 
@@ -184,9 +185,10 @@ namespace IndiegameGarden.Menus
             }
 
             // handle download/install/launching of a game
+            if (isGameLaunchOngoing)
+                timeLaunching += p.Dt;
             if (selGame != null && isGameLaunchOngoing && timeLaunching < TIME_BEFORE_GAME_LAUNCH)
             {
-                timeLaunching += p.Dt;
                 GameThumbnail th = thumbnailsCache[selGame.GameID];
                 float sc = (1f + timeLaunching/3f);
                 th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED * sc; // blow up size of thumbnail while user requests launch
@@ -601,7 +603,7 @@ namespace IndiegameGarden.Menus
 
                 case UserInput.STOP_SELECT:
                     // if not launched long enough, reset - no action
-                    if (timeLaunching < TIME_BEFORE_GAME_LAUNCH)
+                    if (timeLaunching < TIME_BEFORE_GAME_LAUNCH | timeLaunching > TIME_AFTER_GAME_LAUNCH_CANCELS)
                     {                        
                         isGameLaunchConfirmed = false;
                     }
