@@ -170,12 +170,15 @@ namespace IndiegameGarden.Base
         /// to the external DataPath folder location.
         /// </summary>
         /// <param name="folderName"></param>
-        /// <returns></returns>
+        /// <returns>true if copy succeeded or not needed anymore or source folder not present,
+        /// false when copy failed</returns>
         protected bool CopyFiles(string folderName)
         {
             try
             {
                 string src = Path.GetFullPath(Path.Combine(COPY_FILES_SRC_PATH, folderName));
+                if (!Directory.Exists(src))
+                    return true;
                 string dest = Path.GetFullPath(Path.Combine(DataPath, folderName));
                 // check if source, dest not identical
                 if (!src.Equals(dest))
