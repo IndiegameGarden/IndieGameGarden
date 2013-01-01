@@ -135,6 +135,13 @@
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Caph/Image.jpg",
 "dummy":1
 },
+{
+"ID":"alexadventure",
+"Name":"Alex Adventure",
+"Descr": "Retro exploration/platform game with puzzle elements",
+"Zip": "http://tomvert.free.fr/Alex-Adventure.zip",
+"Site": "http://tomvert.free.fr/"
+}
 {}
 ],
 
