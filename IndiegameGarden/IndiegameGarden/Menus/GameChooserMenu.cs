@@ -198,8 +198,11 @@ namespace IndiegameGarden.Menus
             base.OnUpdate(ref p);
 
             // check keyboard/mouse inputs from user
-            KeyboardControls(ref p);
-            MouseControls(ref p);
+            if (GardenGame.Instance.IsActive)
+            {
+                KeyboardControls(ref p);
+                MouseControls(ref p);
+            }
         }
 
     }
