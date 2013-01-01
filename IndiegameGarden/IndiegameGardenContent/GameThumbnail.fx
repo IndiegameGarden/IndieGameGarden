@@ -1,4 +1,4 @@
-// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
+// (c) 2010-2013 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 // variables set from the outside - must be same for all sprites in a batch rendered with this shader.
 // linear time - for animation control
