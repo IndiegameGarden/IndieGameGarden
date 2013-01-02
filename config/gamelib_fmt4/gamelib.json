@@ -66,7 +66,7 @@
 
 [
 { "ID": "section_top",
-	"X": 1, "Y": 1, "DX": 2
+	"X": 1, "Y": 1, "DX": 3
 },
 {
 	"ID": "gametitle",
@@ -141,14 +141,20 @@
 "Descr": "Retro exploration/platform game with puzzle elements",
 "Zip": "http://tomvert.free.fr/Alex-Adventure.zip",
 "Site": "http://tomvert.free.fr/"
-}
+},
+{
+"ID":"coldgearz",
+"Name":"Coldgearz",
+"Descr": "Platform shooter for old skool gamers. Press \"W\" for detailed unit descriptions on the Andygames website.",
+"Site": "http://www.andygames.com/cg_page.html"
+},
 {}
 ],
 
 [
 {
 	"ID": "section_dutch",
-	"X": 3, "Y": 2, "DX": 2
+	"X": 4, "Y": 2, "DX": 2
 },
 {
 	"ID": "supercratebox",
@@ -209,7 +215,7 @@
 
 [
 { "ID": "section_general",
-	"X": 1, "Y": 5, "DX": 9
+	"X": 1, "Y": 4, "DX": 8
 },
 {
  	"ID": "recursion",
@@ -459,7 +465,7 @@
 {
 	"ID": "section_experimental",
 	"Visible": 0,
-	"X": 4, "Y": 1, "DX": 5
+	"X": 5, "Y": 1, "DX": 4
 },
 {
  	"ID": "YCPEMTDT2",
