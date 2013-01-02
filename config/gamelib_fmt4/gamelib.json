@@ -148,6 +148,13 @@
 "Descr": "Platform shooter for old skool gamers. Press \"W\" for detailed unit descriptions on the Andygames website.",
 "Site": "http://www.andygames.com/cg_page.html"
 },
+{
+"ID":"glumbuster",
+"Name":"Glum Buster",
+"Descr": "An original video game where glum must be busted. Very nice art style.\nDonations can be made at the website (press \"W\").",
+"Site": "http://glumbuster.com",
+"Zip": "http://cosmind.powweb.com/blog/GlumBuster/GlumBuster.zip"
+},
 {}
 ],
 
