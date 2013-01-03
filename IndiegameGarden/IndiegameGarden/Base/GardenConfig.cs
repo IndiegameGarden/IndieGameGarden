@@ -21,6 +21,9 @@ namespace IndiegameGarden.Base
         /// 2 = ALPHA-2
         /// 3 = ALPHA-3
         /// 4 = BETA-4
+        /// 5 = BETA-5
+        /// 6 = BETA-6
+        /// 7 = Indiegame Garden 7
         /// etc.
         /// </summary>
         public const int IGG_CLIENT_VERSION=7;
