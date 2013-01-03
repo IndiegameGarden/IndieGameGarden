@@ -525,7 +525,7 @@ namespace IndiegameGarden.Base
             get
             {
                 // if (!PackedFileURL.Contains("/") && PackedFileURL.EndsWith(".exe"))
-                if (ExeFile.Equals(packedFileURL))
+                if (ExeFile.Equals(packedFileURL) && ExeFile.Length > 0)
                     return true;
                 return false;
             }
