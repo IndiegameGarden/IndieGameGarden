@@ -26,7 +26,6 @@ namespace IndiegameGarden
                     new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
                 using (GardenGame game = new GardenGame())
                 {
-                    throw new Exception("bla");
                     game.Run();
                 }
             }
