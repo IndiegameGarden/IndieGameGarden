@@ -155,6 +155,13 @@
 "Site": "http://glumbuster.com",
 "Zip": "http://cosmind.powweb.com/blog/GlumBuster/GlumBuster.zip"
 },
+{
+"ID":"in60seconds",
+"Name":"In 60 Seconds",
+"Descr": "A metroidvania, probably the only one where you are limited to a 60 second period of play time.\nPress \"W\" for the YouTube spoiler :)",
+"Site": "http://www.youtube.com/watch?v=h6zu-ImiEFQ",
+"Zip": "in60seconds.rar"
+},
 {}
 ],
 
