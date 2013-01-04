@@ -1,4 +1,4 @@
-﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
+﻿// (c) 2010-2013 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
 using System.IO;
@@ -131,10 +131,12 @@ namespace IndiegameGarden.Menus
             // effect is still off if no bitmap loaded yet
             EffectEnabled = false;
             // first-time texture init
+            /*
             if (DefaultTexture == null)
             {
                 DefaultTexture = GardenGame.Instance.Content.Load<Texture2D>("ball-supernova2");
             }
+             */
             // use default texture as long as thumbnail not loaded yet
             Texture = DefaultTexture;
         }
@@ -276,21 +278,23 @@ namespace IndiegameGarden.Menus
             if (positionParam != null)
                 positionParam.SetValue(Motion.Position);
 
-            Color col = DrawInfo.DrawColor;
-            if (EffectEnabled)
+            if (Texture != null)
             {
-                // this is a conversion from 'halotime' to the time format that can be given to the pixel shader
-                // via the 'draw color' parameter
-                double warpedTime = 20 * (1 + Math.Sin(1.5f * MathHelper.Pi + MathHelper.TwoPi * 0.05 * (double)haloTime )); 
-                int t = (int) (warpedTime * 16);
-                int c3 = t % 256;
-                int c2 = ((t - c3)/256) % 256;
-                //int c1 = ((t - c2 - c3)/65536) % 256;
-                col = new Color(col.R, c2, c3, col.A); // (intensity, timeMSB, timeLSB, alpha) passed to shader
+                Color col = DrawInfo.DrawColor;
+                if (EffectEnabled)
+                {
+                    // this is a conversion from 'halotime' to the time format that can be given to the pixel shader
+                    // via the 'draw color' parameter
+                    double warpedTime = 20 * (1 + Math.Sin(1.5f * MathHelper.Pi + MathHelper.TwoPi * 0.05 * (double)haloTime));
+                    int t = (int)(warpedTime * 16);
+                    int c3 = t % 256;
+                    int c2 = ((t - c3) / 256) % 256;
+                    //int c1 = ((t - c2 - c3)/65536) % 256;
+                    col = new Color(col.R, c2, c3, col.A); // (intensity, timeMSB, timeLSB, alpha) passed to shader
+                }
+                MySpriteBatch.Draw(Texture, DrawInfo.DrawPosition, null, col,
+                       Motion.RotateAbs, DrawInfo.DrawCenter, DrawInfo.DrawScale, SpriteEffects.None, DrawInfo.LayerDepth);
             }
-            MySpriteBatch.Draw(Texture, DrawInfo.DrawPosition, null, col,
-                   Motion.RotateAbs, DrawInfo.DrawCenter, DrawInfo.DrawScale, SpriteEffects.None, DrawInfo.LayerDepth);
-
         }
     }
 }

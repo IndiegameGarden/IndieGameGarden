@@ -1,4 +1,4 @@
-// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
+// (c) 2010-2013 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
 using System.Threading;
@@ -13,6 +13,8 @@ namespace IndiegameGarden
 #if WINDOWS || XBOX
     static class Program
     {
+        static string CRITICAL_ERROR_MSG = "Critical error - just reported to our server in the Google cloud, to help fix it.\n";
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -30,7 +32,7 @@ namespace IndiegameGarden
             catch(Exception ex) {
                 ReportErrorOverNetwork(ex);
                 MsgBox.Show("Indiegame Garden: critical error",
-                            "Critical error - sorry, it's still in Beta! " + ex.Message + "\n" + ex.ToString() );                
+                            CRITICAL_ERROR_MSG + ex.Message + "\n" + ex.ToString() );                
             }
         }
 
@@ -39,9 +41,9 @@ namespace IndiegameGarden
             try
             {
                 Exception ex = (Exception)e.ExceptionObject;
-                ReportErrorOverNetwork(ex); // TODO code duplication
+                ReportErrorOverNetwork(ex); 
                 MsgBox.Show("Indiegame Garden: critical error",
-                            "Critical error - sorry, it's still in Beta! " + ex.Message + "\n" + ex.ToString());
+                            CRITICAL_ERROR_MSG + ex.Message + "\n" + ex.ToString());
             }
             finally
             {

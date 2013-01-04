@@ -1,4 +1,4 @@
-﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
+﻿// (c) 2010-2013 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
 using System.IO;
@@ -21,17 +21,10 @@ namespace IndiegameGarden
         /// </summary>
         const string IGG_DIR = "config";
 
-        //const string IGG_PATH = DATA_DIR + "\\" + IGG_DIR;
-
         /// <summary>
         /// what is the IndiegameGarden executable within the igg* folders ?
         /// </summary>
         const string IGG_EXECUTABLE = "IndiegameGarden.exe";
-
-        /// <summary>
-        /// title of any error message box
-        /// </summary>
-        const string ERROR_BOX_TITLE = "IndiegameGarden Fatal Error (Sorry, it's still in Beta!)";
 
         //Import the SetForeground API to activate it
         [DllImportAttribute("User32.dll")]

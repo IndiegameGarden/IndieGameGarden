@@ -1,4 +1,4 @@
-﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
+﻿// (c) 2010-2013 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
 using System.IO;
@@ -198,8 +198,11 @@ namespace IndiegameGarden.Menus
             base.OnUpdate(ref p);
 
             // check keyboard/mouse inputs from user
-            KeyboardControls(ref p);
-            MouseControls(ref p);
+            if (GardenGame.Instance.IsActive)
+            {
+                KeyboardControls(ref p);
+                MouseControls(ref p);
+            }
         }
 
     }

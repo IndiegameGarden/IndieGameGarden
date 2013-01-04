@@ -1,4 +1,4 @@
-﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
+﻿// (c) 2010-2013 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
 using System.IO;
@@ -21,6 +21,9 @@ namespace IndiegameGarden.Base
         /// 2 = ALPHA-2
         /// 3 = ALPHA-3
         /// 4 = BETA-4
+        /// 5 = BETA-5
+        /// 6 = BETA-6
+        /// 7 = Indiegame Garden 7
         /// etc.
         /// </summary>
         public const int IGG_CLIENT_VERSION=7;
@@ -170,12 +173,15 @@ namespace IndiegameGarden.Base
         /// to the external DataPath folder location.
         /// </summary>
         /// <param name="folderName"></param>
-        /// <returns></returns>
+        /// <returns>true if copy succeeded or not needed anymore or source folder not present,
+        /// false when copy failed</returns>
         protected bool CopyFiles(string folderName)
         {
             try
             {
                 string src = Path.GetFullPath(Path.Combine(COPY_FILES_SRC_PATH, folderName));
+                if (!Directory.Exists(src))
+                    return true;
                 string dest = Path.GetFullPath(Path.Combine(DataPath, folderName));
                 // check if source, dest not identical
                 if (!src.Equals(dest))

@@ -66,7 +66,7 @@
 
 [
 { "ID": "section_top",
-	"X": 1, "Y": 1, "DX": 2
+	"X": 1, "Y": 1, "DX": 3
 },
 {
 	"ID": "gametitle",
@@ -135,13 +135,40 @@
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Caph/Image.jpg",
 "dummy":1
 },
+{
+"ID":"alexadventure",
+"Name":"Alex Adventure",
+"Descr": "Retro exploration/platform game with puzzle elements",
+"Zip": "http://tomvert.free.fr/Alex-Adventure.zip",
+"Site": "http://tomvert.free.fr/"
+},
+{
+"ID":"coldgearz",
+"Name":"Coldgearz",
+"Descr": "Platform shooter for old skool gamers. Press \"W\" for detailed unit descriptions on the Andygames website.",
+"Site": "http://www.andygames.com/cg_page.html"
+},
+{
+"ID":"glumbuster",
+"Name":"Glum Buster",
+"Descr": "An original video game where glum must be busted. Very nice art style.\nDonations can be made at the website (press \"W\").",
+"Site": "http://glumbuster.com",
+"Zip": "http://cosmind.powweb.com/blog/GlumBuster/GlumBuster.zip"
+},
+{
+"ID":"in60seconds",
+"Name":"In 60 Seconds",
+"Descr": "A metroidvania, probably the only one where you are limited to a 60 second period of play time.\nPress \"W\" for the YouTube spoiler :)",
+"Site": "http://www.youtube.com/watch?v=h6zu-ImiEFQ",
+"Zip": "in60seconds.rar"
+},
 {}
 ],
 
 [
 {
 	"ID": "section_dutch",
-	"X": 3, "Y": 2, "DX": 2
+	"X": 4, "Y": 2, "DX": 2
 },
 {
 	"ID": "supercratebox",
@@ -202,7 +229,7 @@
 
 [
 { "ID": "section_general",
-	"X": 1, "Y": 5, "DX": 9
+	"X": 1, "Y": 4, "DX": 8
 },
 {
  	"ID": "recursion",
@@ -452,7 +479,7 @@
 {
 	"ID": "section_experimental",
 	"Visible": 0,
-	"X": 4, "Y": 1, "DX": 5
+	"X": 5, "Y": 1, "DX": 4
 },
 {
  	"ID": "YCPEMTDT2",

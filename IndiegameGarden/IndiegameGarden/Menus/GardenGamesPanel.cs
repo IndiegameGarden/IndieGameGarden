@@ -1,4 +1,4 @@
-﻿// (c) 2010-2012 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
+﻿// (c) 2010-2013 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
 using System.Collections.Generic;
@@ -42,9 +42,9 @@ namespace IndiegameGarden.Menus
         static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-3f);
 
         const float        CURSOR_SCALE_REGULAR = 0.8f; 
-        const float        CURSOR_DISCOVERY_RANGE = 4f;
-        const float        CURSOR_FADEOUT_RANGE = 9f;
-        const float        CURSOR_DESTRUCTION_RANGE = 16f;
+        const float        CURSOR_DISCOVERY_RANGE = 7f;
+        const float        CURSOR_FADEOUT_RANGE = 15f;
+        const float        CURSOR_DESTRUCTION_RANGE = 24f;
         const float        CURSOR_MARGIN_X = 0.15f;
         const float        CURSOR_MARGIN_Y = 0.15f;
         static Vector2     CURSOR_INITIAL_POSITION = new Vector2(3f, 1f);
