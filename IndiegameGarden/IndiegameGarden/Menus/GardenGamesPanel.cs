@@ -64,7 +64,7 @@ namespace IndiegameGarden.Menus
         const float    HELPTEXT_SPEED_MOVE = 3.8f;
         static Vector2 CREDITS_SHOWN_POSITION = new Vector2(0.4f, 0.145f);
         static Vector2 CREDITS_HIDDEN_POSITION = new Vector2(0.4f, -0.22f);
-        const float    CREDITS_SCALE_DEFAULT = 0.6f;
+        const float    CREDITS_SCALE_DEFAULT = 1f;
         const float    CREDITS_SPEED_MOVE = 3.8f;
         
         const float TIME_BEFORE_GAME_LAUNCH = 0.4f;
@@ -121,7 +121,7 @@ namespace IndiegameGarden.Menus
 
             // controls help 
             helpTextBitmap = new Spritelet("keymap");
-            helpTextBitmap.Motion.Scale = 0.52f;
+            helpTextBitmap.Motion.Scale = 1f;
             helpTextBitmap.Motion.Position = HELPTEXT_HIDDEN_POSITION;
             helpTextBitmap.Motion.TargetPos = HELPTEXT_SHOWN_POSITION;
             helpTextBitmap.Motion.TargetPosSpeed = HELPTEXT_SPEED_MOVE;
