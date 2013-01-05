@@ -42,9 +42,9 @@ namespace IndiegameGarden.Menus
         static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-3f);
 
         const float        CURSOR_SCALE_REGULAR = 0.8f; 
-        const float        CURSOR_DISCOVERY_RANGE = 7f;
-        const float        CURSOR_FADEOUT_RANGE = 15f;
-        const float        CURSOR_DESTRUCTION_RANGE = 24f;
+        const float        CURSOR_DISCOVERY_RANGE = 6f;
+        const float        CURSOR_FADEOUT_RANGE = 12f;
+        const float        CURSOR_DESTRUCTION_RANGE = 18f;
         const float        CURSOR_MARGIN_X = 0.15f;
         const float        CURSOR_MARGIN_Y = 0.15f;
         static Vector2     CURSOR_INITIAL_POSITION = new Vector2(3f, 1f);
@@ -59,10 +59,11 @@ namespace IndiegameGarden.Menus
         static Vector2 INFOBOX_DESCRIPTION_HIDDEN_POSITION = new Vector2(0.05f, 0.97f);
         static Vector2 INFOBOX_ALL_HIDDEN_POSITION = new Vector2(0.05f, 1.15f);
         const float    INFOBOX_SPEED_MOVE = 3.8f;
-        static Vector2 HELPTEXT_SHOWN_POSITION = new Vector2(0.18f, 0.15f);
+        static Vector2 HELPTEXT_SHOWN_POSITION = new Vector2(0.18f, 0.17f);
         static Vector2 HELPTEXT_HIDDEN_POSITION = new Vector2(0.18f, -0.2f);
+        const float    HELPTEXT_SCALE_DEFAULT = 1.0f;
         const float    HELPTEXT_SPEED_MOVE = 3.8f;
-        static Vector2 CREDITS_SHOWN_POSITION = new Vector2(0.4f, 0.145f);
+        static Vector2 CREDITS_SHOWN_POSITION = new Vector2(0.4f, 0.165f);
         static Vector2 CREDITS_HIDDEN_POSITION = new Vector2(0.4f, -0.22f);
         const float    CREDITS_SCALE_DEFAULT = 1f;
         const float    CREDITS_SPEED_MOVE = 3.8f;
@@ -121,7 +122,7 @@ namespace IndiegameGarden.Menus
 
             // controls help 
             helpTextBitmap = new Spritelet("keymap");
-            helpTextBitmap.Motion.Scale = 1f;
+            helpTextBitmap.Motion.Scale = HELPTEXT_SCALE_DEFAULT;
             helpTextBitmap.Motion.Position = HELPTEXT_HIDDEN_POSITION;
             helpTextBitmap.Motion.TargetPos = HELPTEXT_SHOWN_POSITION;
             helpTextBitmap.Motion.TargetPosSpeed = HELPTEXT_SPEED_MOVE;

@@ -17,7 +17,7 @@
 },
 [
 { "ID": "section_music",
-	"X": 10, "Y": 0, "DX": 2
+	"X": 13, "Y": 0, "DX": 2
 },
 {
  	"ID": "igg_iconmusic",
@@ -66,7 +66,7 @@
 
 [
 { "ID": "section_top",
-	"X": 1, "Y": 1, "DX": 3
+	"X": 1, "Y": 1, "DX": 4
 },
 {
 	"ID": "gametitle",
@@ -136,6 +136,15 @@
 "dummy":1
 },
 {
+"ID": "spelunky",
+"Name": "Spelunky",
+"Descr": "Spelunky is a cave exploration / treasure-hunting game inspired by classic platform games and roguelikes, \nwhere the goal is to grab as much treasure from the cave as possible. Every time you play the cave's layout \nwill be different. Use your wits, your reflexes, and the items available to you to survive and go ever deeper! \nPerhaps at the end you may find what you're looking for...",
+"Zip": "http://www.derekyu.com/games/spelunky_1_1.zip",
+"Site": "http://www.spelunkyworld.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Spelunky/Image.jpg",
+"Exe": "Spelunky.exe"
+},
+{
 "ID":"alexadventure",
 "Name":"Alex Adventure",
 "Descr": "Retro exploration/platform game with puzzle elements",
@@ -168,7 +177,7 @@
 [
 {
 	"ID": "section_dutch",
-	"X": 4, "Y": 2, "DX": 2
+	"X": 6, "Y": 2, "DX": 2
 },
 {
 	"ID": "supercratebox",
@@ -229,7 +238,7 @@
 
 [
 { "ID": "section_general",
-	"X": 1, "Y": 4, "DX": 8
+	"X": 1, "Y": 6, "DX": 7
 },
 {
  	"ID": "recursion",
@@ -472,6 +481,46 @@
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Gottet/Image.jpg",
 "dummy":1
 },
+{
+"ID": "deadcyborg",
+"Name": "Dead Cyborg",
+"Descr": "A free, donation based hard-sci-fi adventure game for Windows, Mac and Linux. The story is about the meaning \nof life... and death... in a rusty post-apocalyptic metal and concrete world. Story: You are a human being who \nhas waken up in a cryotank... you have no memories, but you find some messages from the past... from \nyourself... You don't feel good... maybe this is a radioactive and toxic place ... you may not have much \ntime... You find some stupid robots... with strange answers to your \nquestions.",
+"Zip": "http://deadcyborg.com/deadcyborg_episode1_v002.zip",
+"Site": "http://deadcyborg.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Adventure/Dead Cyborg/Image.jpg",
+"Cd": "deadcyborg_episode1",
+"Exe": "start_game.bat"
+},
+{
+"ID": "vertigo",
+"Name": "vertigo",
+"Descr": "The Xenophis, a Vulcan exploratory vessel, has incidentally found the mythical sector of Firia where the \nplanets, only reachable through warp tunnels, are told to be made of staggering ice and liquid fire. As a \nprecautionary act, the Xenophis crew are attempting to launch interstellar probes, significantly altered to \nexist within the Firia atmosphere, in order to learn more of this magnificent piece of the galaxy. However, \nevidence shows that the former inhabitants do not like outsiders. You are the probe, and your mission is to \nmaneuver your way to the other end of the warp tunnel. You are equipped with two shields, one to protect you \nfrom icy drones, and another from fiery ones. However, only one shield can be active at a time. WARNING: Be \nquick; your nerves will be tested.",
+"Zip": "http://www.vertigo-game.com/downloads/latest/windows/Vertigo.zip",
+"Site": "http://www.vertigo-game.com",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/vertigo/Image.jpg",
+"Cd": "Vertigo\\bin",
+"Exe": "Vertigo.exe"
+},
+{
+"ID": "yofrankie",
+"Name": "Yo Frankie!",
+"Descr": "The original project goal was to work on a cross platform game (at least Linux, Windows, OS X), using Blender \nfor modeling and animation, Crystal Space as 3D engine and delivery platform, and Python for some magic \nscripting to glue things together. The purpose was to not only make a compelling 3D game experience, but \nespecially to improve and validate the open source 3D game creation pipeline, with industry-standard \nconditions.",
+"Zip": "http://download.blender.org/apricot/yofrankie_1_1b_bge.zip",
+"Site": "http://www.yofrankie.org",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Yo Frankie!/Image.jpg",
+"Cd": "yofrankie_1_1b_bge\\yofrankie-win32",
+"Exe": "yofrankie_player.exe"
+},
+{
+"ID": "racer",
+"Name": "Racer",
+"Descr": "Racer is a free car simulation project, focusing on realism. It also stimulates users to create their own \ncontent (cars and tracks) by using simple file formats.",
+"Zip": "http://www.racer.nl/download/racer0655.zip",
+"Site": "http://www.racer.nl",
+"ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Racing/Racer/Image.jpg",
+"Cd": "racer0655",
+"Exe": "racer.exe"
+},
 {}
 ],
 	  	
@@ -479,7 +528,7 @@
 {
 	"ID": "section_experimental",
 	"Visible": 0,
-	"X": 5, "Y": 1, "DX": 4
+	"X": 9, "Y": 1, "DX": 3
 },
 {
  	"ID": "YCPEMTDT2",
