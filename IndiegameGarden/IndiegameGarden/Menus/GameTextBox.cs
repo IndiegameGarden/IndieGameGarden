@@ -28,7 +28,6 @@ namespace IndiegameGarden.Menus
         {
             ColorB = new ColorChangeBehavior();
             Add(ColorB);
-
             txt = "";
             Init(fontName);
         }

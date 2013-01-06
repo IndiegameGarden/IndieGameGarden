@@ -71,7 +71,7 @@ namespace IndiegameGarden
         /// <summary>
         /// launches a game selected by user (one at a time!)
         /// </summary>
-        GameLauncherTask launcher;
+        public GameLauncherTask launcher;
 
         public GardenMusic music;
 

@@ -16,7 +16,9 @@ namespace IndiegameGarden.Menus
     public class LoadingDisplay: Drawlet 
     {
         const float TIME_SHOW_PLAYING_MESSAGE = 4.0f;
-        const float LEFT_POSITION = 0.10f;
+        const float LEFT_POSITION = 0.15f;
+        const double MIN_MENU_CHANGE_DELAY = 0.2f;
+        const float TIME_ESC_PRESS_TO_EXIT = 0.8f;
 
         GameTextBox tbox;
         GameTextBox iggNameBox;
@@ -24,6 +26,12 @@ namespace IndiegameGarden.Menus
         GardenItem game;
         Spritelet gameIcon;
         float nextStateTimer = -1f;
+        KeyboardState prevKeyboardState = Keyboard.GetState();
+        float lastKeypressTime = 0;
+        bool wasEscPressed = false;
+        bool wasEnterPressed = false;
+        bool isExiting = false;
+        float timeExiting = 0f;
 
         /// <summary>
         /// base class for my state classes
@@ -121,10 +129,14 @@ namespace IndiegameGarden.Menus
                     g.SetNextState(new StateLoadingDisplay_Empty(loadingDisplay));
                 }
 
-                // check keyboard - if esc, get back to garden state
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                {
-                    g.SetNextState(new StateBrowsingMenu());
+                // check keyboard - if esc, get back to garden state                
+                if (loadingDisplay.isExiting){
+                    loadingDisplay.timeExiting += p.Dt;
+                    if (loadingDisplay.timeExiting > TIME_ESC_PRESS_TO_EXIT)
+                    {
+                        //GardenGame.Instance.TreeRoot.SetNextState(new StateBrowsingMenu());
+                        GardenGame.Instance.launcher.Abort();
+                    }
                 }
             }
 
@@ -162,6 +174,17 @@ namespace IndiegameGarden.Menus
                     GardenGame.Instance.SuppressDraw();
                 }
 
+                // check keyboard - if esc, get back to garden state                
+                if (loadingDisplay.isExiting)
+                {
+                    loadingDisplay.timeExiting += p.Dt;
+                    if (loadingDisplay.timeExiting > TIME_ESC_PRESS_TO_EXIT)
+                    {
+                        //GardenGame.Instance.TreeRoot.SetNextState(new StateBrowsingMenu());
+                        GardenGame.Instance.launcher.Abort();
+                    }
+                }
+
             }
 
             public override void OnDraw(Gamelet g)
@@ -179,9 +202,9 @@ namespace IndiegameGarden.Menus
             Add(tbox);
 
             iggNameBox = new GameTextBox("GameDescriptionFont");
-            iggNameBox.Text = "Indiegame Garden        Exit this game to return to the garden";
+            iggNameBox.Text = "Indiegame Garden        Exit current game or hold ESC to return to the garden";
             iggNameBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.94f);
-            iggNameBox.Motion.Scale = 0.7f;
+            iggNameBox.Motion.Scale = 0.75f;
             iggNameBox.DrawInfo.DrawColor = Color.Transparent;
             iggNameBox.ColorB.Alpha = 0f;
             iggNameBox.ColorB.AlphaTarget = 0.0f;
@@ -248,5 +271,127 @@ namespace IndiegameGarden.Menus
             return IsInState(new StateLoadingDisplay_Playing(this));
         }
 
+        public void OnUserInput(GamesPanel.UserInput inp)
+        {
+            if (inp == GamesPanel.UserInput.START_EXIT)
+            {
+                isExiting = true;
+            }
+            if (inp == GamesPanel.UserInput.STOP_EXIT)
+            {
+                isExiting = false;
+            }
+
+            if (inp != GamesPanel.UserInput.STOP_EXIT && 
+                inp != GamesPanel.UserInput.STOP_SELECT)
+            {
+            }
+        }
+
+        /// <summary>
+        /// handles all keyboard input into the loading screen
+        /// </summary>
+        /// <param name="p">UpdateParams from TTEngine OnUpdate()</param>
+        protected void KeyboardControls(ref UpdateParams p)
+        {
+            KeyboardState st = Keyboard.GetState();
+
+            // time bookkeeping
+            float timeSinceLastKeypress = p.SimTime - lastKeypressTime;
+
+            // -- check all relevant key releases
+            if (!st.IsKeyDown(Keys.Escape) && wasEscPressed)
+            {
+                wasEscPressed = false;
+                OnUserInput(GamesPanel.UserInput.STOP_EXIT);
+            }
+
+            if (!st.IsKeyDown(Keys.Enter) && wasEnterPressed)
+            {
+                wasEnterPressed = false;
+                OnUserInput(GamesPanel.UserInput.STOP_SELECT);
+            }
+
+            // for new keypresses - only proceed if a key pressed and some minimal delay has passed...            
+            if (timeSinceLastKeypress < MIN_MENU_CHANGE_DELAY)
+                return;
+            // if no keys pressed, skip further checks
+            if (st.GetPressedKeys().Length == 0)
+            {
+                prevKeyboardState = st;
+                return;
+            }
+
+
+            // -- esc key
+            if (st.IsKeyDown(Keys.Escape))
+            {
+                if (!wasEscPressed)
+                {
+                    OnUserInput(GamesPanel.UserInput.START_EXIT);
+                }
+                wasEscPressed = true;
+            }
+
+            // -- website launch key
+            if (st.IsKeyDown(Keys.W) && !prevKeyboardState.IsKeyDown(Keys.W))
+            {
+                OnUserInput(GamesPanel.UserInput.LAUNCH_WEBSITE);
+            }
+
+            // -- music togglekey
+            if (st.IsKeyDown(Keys.M) && !prevKeyboardState.IsKeyDown(Keys.M))
+            {
+                OnUserInput(GamesPanel.UserInput.TOGGLE_MUSIC);
+            }
+
+            // -- a navigation key is pressed - check keys and generate action(s)
+            if (st.IsKeyDown(Keys.Left))
+            {
+                OnUserInput(GamesPanel.UserInput.LEFT);
+            }
+            if (st.IsKeyDown(Keys.Right))
+            {
+                OnUserInput(GamesPanel.UserInput.RIGHT);
+            }
+
+            if (st.IsKeyDown(Keys.Up))
+            {
+                OnUserInput(GamesPanel.UserInput.UP);
+            }
+
+            if (st.IsKeyDown(Keys.Down))
+            {
+                OnUserInput(GamesPanel.UserInput.DOWN);
+            }
+
+            if (st.IsKeyDown(Keys.Enter))
+            {
+                if (!wasEnterPressed)
+                    OnUserInput(GamesPanel.UserInput.START_SELECT);
+                wasEnterPressed = true;
+            }
+
+            // (time) bookkeeping for next keypress
+            lastKeypressTime = p.SimTime;
+            prevKeyboardState = st;
+        }
+
+        protected override void OnUpdate(ref UpdateParams p)
+        {
+            base.OnUpdate(ref p);
+            if (GardenGame.Instance.IsActive)
+            {
+                KeyboardControls(ref p);
+            }
+            if (isExiting)
+            {
+                Motion.Scale = 1f - timeExiting / 3f;
+            }
+            else
+            {
+                Motion.Scale = 1f;
+            }
+        }
     }
 }
