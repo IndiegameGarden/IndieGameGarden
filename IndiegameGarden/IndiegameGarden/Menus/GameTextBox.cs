@@ -64,14 +64,19 @@ namespace IndiegameGarden.Menus
 
             // scaling with resolutions
             //             descriptionBox.Motion.Scale = ((float)Screen.WidthPixels) / 1440f; // 768f / ((float)Screen.HeightPixels); // +(((float)Screen.WidthPixels) - 1440f) / 1440f;
-            float sc = Motion.ScaleAbs; // *((float)Screen.WidthPixels) / 1440f; // HACK
+            float sc = Motion.ScaleAbs; // *((float)Screen.WidthPixels) / 1440f;
             float scRatio = (float) (Screen.AspectRatio / 1.6f);
             Vector2 vScale = new Vector2( sc * scRatio, sc );
+            // apply alpha to RGB values
+            Color txtDrawColor = new Color(DrawInfo.DrawColor.ToVector3() * DrawInfo.Alpha);
+            txtDrawColor.A = DrawInfo.DrawColor.A;
+            Color shdDrawColor = new Color(shadowDrawColor.ToVector3() * DrawInfo.Alpha);
+            shdDrawColor.A = DrawInfo.DrawColor.A;
             try
             {
-                MySpriteBatch.DrawString(font, txt, pos + new Vector2(1f, 1f), shadowDrawColor,
+                MySpriteBatch.DrawString(font, txt, pos + new Vector2(1f, 1f), shdDrawColor,
                                         Motion.RotateAbs, origin, vScale, SpriteEffects.None, DrawInfo.LayerDepth + 0.00001f); // TODO the const
-                MySpriteBatch.DrawString(font, txt, pos, DrawInfo.DrawColor,
+                MySpriteBatch.DrawString(font, txt, pos, txtDrawColor,
                                         Motion.RotateAbs, origin, vScale, SpriteEffects.None, DrawInfo.LayerDepth);
             }
             catch (Exception)

@@ -18,7 +18,7 @@ namespace IndiegameGarden.Menus
         const float TIME_SHOW_PLAYING_MESSAGE = 4.0f;
         const float LEFT_POSITION = 0.15f;
         const double MIN_MENU_CHANGE_DELAY = 0.2f;
-        const float TIME_ESC_PRESS_TO_EXIT = 0.8f;
+        const float TIME_ESC_PRESS_TO_EXIT = 1.8f;
 
         GameTextBox tbox;
         GameTextBox iggNameBox;
@@ -31,6 +31,7 @@ namespace IndiegameGarden.Menus
         bool wasEscPressed = false;
         bool wasEnterPressed = false;
         bool isExiting = false;
+        bool willExitSoon = false;
         float timeExiting = 0f;
 
         /// <summary>
@@ -134,9 +135,15 @@ namespace IndiegameGarden.Menus
                     loadingDisplay.timeExiting += p.Dt;
                     if (loadingDisplay.timeExiting > TIME_ESC_PRESS_TO_EXIT)
                     {
-                        //GardenGame.Instance.TreeRoot.SetNextState(new StateBrowsingMenu());
-                        GardenGame.Instance.launcher.Abort();
+                        loadingDisplay.willExitSoon = true;
                     }
+                }
+
+                // perform real exit operation (abort launcher task) when ESC released
+                if (!loadingDisplay.isExiting && loadingDisplay.willExitSoon)
+                {
+                    GardenGame.Instance.launcher.Abort();
+                    to do: // do not progress to next global state until user has released esc button? or do not consider that as a new ESC press (even better)
                 }
             }
 
@@ -180,9 +187,14 @@ namespace IndiegameGarden.Menus
                     loadingDisplay.timeExiting += p.Dt;
                     if (loadingDisplay.timeExiting > TIME_ESC_PRESS_TO_EXIT)
                     {
-                        //GardenGame.Instance.TreeRoot.SetNextState(new StateBrowsingMenu());
-                        GardenGame.Instance.launcher.Abort();
+                        loadingDisplay.willExitSoon = true;
                     }
+                }
+
+                // perform real exit operation (abort launcher task) when ESC released
+                if (!loadingDisplay.isExiting && loadingDisplay.willExitSoon)
+                {
+                    GardenGame.Instance.launcher.Abort();
                 }
 
             }
@@ -205,7 +217,7 @@ namespace IndiegameGarden.Menus
             iggNameBox.Text = "Indiegame Garden        Exit current game or hold ESC to return to the garden";
             iggNameBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.94f);
             iggNameBox.Motion.Scale = 0.75f;
-            iggNameBox.DrawInfo.DrawColor = Color.Transparent;
+            iggNameBox.DrawInfo.DrawColor = new Color(245,245,245,0);
             iggNameBox.ColorB.Alpha = 0f;
             iggNameBox.ColorB.AlphaTarget = 0.0f;
             iggNameBox.ColorB.FadeSpeed = 1.0f;
@@ -235,6 +247,8 @@ namespace IndiegameGarden.Menus
         public void SetLoadingGame(GardenItem g, GameThumbnail thumb)
         {
             SetNextState(new StateLoadingDisplay_Loading(this));
+            Motion.Scale = 0.9f;
+            Motion.ScaleTarget = 0.9f;
             game = g;
             gameIcon.Texture = thumb.Texture;
             //gameIcon.Motion.Scale = thumb.Motion.Scale * 1.4f * g.ScaleIcon;
@@ -276,16 +290,15 @@ namespace IndiegameGarden.Menus
             if (inp == GamesPanel.UserInput.START_EXIT)
             {
                 isExiting = true;
+                timeExiting = 0f;
+                willExitSoon = false;
             }
             if (inp == GamesPanel.UserInput.STOP_EXIT)
             {
                 isExiting = false;
+                timeExiting = 0f;
             }
 
-            if (inp != GamesPanel.UserInput.STOP_EXIT && 
-                inp != GamesPanel.UserInput.STOP_SELECT)
-            {
-            }
         }
 
         /// <summary>
@@ -377,6 +390,11 @@ namespace IndiegameGarden.Menus
             prevKeyboardState = st;
         }
 
+        public void ExitSoon()
+        {
+            willExitSoon = true;
+        }
+
         protected override void OnUpdate(ref UpdateParams p)
         {
             base.OnUpdate(ref p);
@@ -386,11 +404,15 @@ namespace IndiegameGarden.Menus
             }
             if (isExiting)
             {
-                Motion.Scale = 1f - timeExiting / 3f;
+                Motion.ScaleTarget = 1f;
+                if (timeExiting > 0.29f)
+                    Motion.ScaleTarget = 1f - (timeExiting / TIME_ESC_PRESS_TO_EXIT) * 0.2f;
+                Motion.ScaleSpeed = 0.01f;
             }
             else
             {
-                Motion.Scale = 1f;
+                Motion.ScaleTarget = 1f;
+                Motion.ScaleSpeed = 0.02f;
             }
         }
     }
