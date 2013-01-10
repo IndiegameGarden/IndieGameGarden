@@ -59,6 +59,8 @@ namespace IndiegameGarden.Menus
             public override void OnEntry(Gamelet g)
             {
                 base.OnEntry(g);
+                loadingDisplay.willExitSoon = false;
+                loadingDisplay.isExiting = false;
                 loadingDisplay.iggNameBox.ColorB.Alpha = 0f;
                 loadingDisplay.iggNameBox.ColorB.AlphaTarget = 0f;
                 if (loadingDisplay.gameIcon != null)
@@ -139,11 +141,12 @@ namespace IndiegameGarden.Menus
                     }
                 }
 
-                // perform real exit operation (abort launcher task) when ESC released
+                // perform real exit operation (abort launcher task) when ESC already released
                 if (!loadingDisplay.isExiting && loadingDisplay.willExitSoon)
                 {
                     GardenGame.Instance.launcher.Abort();
-                    to do: // do not progress to next global state until user has released esc button? or do not consider that as a new ESC press (even better)
+                    loadingDisplay.willExitSoon = false;
+                    //to do: // do not progress to next global state until user has released esc button? or do not consider that as a new ESC press (even better)
                 }
             }
 
@@ -195,6 +198,7 @@ namespace IndiegameGarden.Menus
                 if (!loadingDisplay.isExiting && loadingDisplay.willExitSoon)
                 {
                     GardenGame.Instance.launcher.Abort();
+                    loadingDisplay.willExitSoon = false;
                 }
 
             }
