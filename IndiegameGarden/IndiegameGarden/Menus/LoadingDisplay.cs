@@ -411,12 +411,12 @@ namespace IndiegameGarden.Menus
                 Motion.ScaleTarget = 1f;
                 if (timeExiting > 0.29f)
                     Motion.ScaleTarget = 1f - (timeExiting / TIME_ESC_PRESS_TO_EXIT) * 0.2f;
-                Motion.ScaleSpeed = 0.01f;
+                Motion.ScaleSpeed = 0.005f;
             }
             else
             {
                 Motion.ScaleTarget = 1f;
-                Motion.ScaleSpeed = 0.02f;
+                Motion.ScaleSpeed = 0.01f;
             }
         }
     }
