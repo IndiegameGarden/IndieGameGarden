@@ -1,21 +1,21 @@
 IndiegameGarden Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-Check out the pending check-exe gamelib entries, see if can be added to gamelib
 Check screen back to normal after arvoesine -> check on other PC
+Icon stays big while loading game -> maybe not nice.
 Typing letters leads you to the named game (or closest description)
 Show number of downloads still ongoing (graphics?)
 Make gamelib loading non-blocking
 .7z file unpacking using the 7-Zip DLLs
-Icon stays big while loading game -> maybe not nice.
 Threadpool for tasks and/or downloading (find out if needed there)
-Test swf file handling, add support for .swf search in zip? or direct browser launch.
 Test disk free before growing game
 Add mirrors to all thumbnail loading?
 Download size indication (MB)
 Faster thumbs downloading thread abortion on exit? -> need to check MyDownloader abort feature; not in now.
+Test swf file handling, add support for .swf search in zip? or direct browser launch.
 
 CLOSED  [date order]
+2013-01-11 Check out pending check-exe gamelib entries, and add to gamelib
 2012-12-19 Bugfix GameDownloader only now mirrors are used in game downloading upon 404; was not the case
 2012-12-13 Disable self-updating code (no use in v1.7.x)
 2012-12-13 Shader and visual appearance (halo) adapted

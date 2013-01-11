@@ -412,8 +412,8 @@
 {
 "ID": "arvoesine",
 "Name": "Arvoesine",
-"Descr": "Arvoesine is a action platformer with NES styled graphics. Guide a roman soldier – that is armed with sword \nand spear – through 5 short levels.",
-"Zip": "alastairjohnjack.com/arvoesine1.2.zip",
+"Descr": "Arvoesine is a action platformer with NES styled graphics. Guide a roman soldier – that is armed with sword \nand spear – through 5 short levels. Use X to select. Arrows move. Z/X/C for sword/jump/spear.",
+"Zip": "http://dropcanvas.com/3zmpb/1",
 "Site": "http://alastairjohnjack.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Arvoesine/Image.jpg",
 "dummy":1

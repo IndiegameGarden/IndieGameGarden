@@ -1,4 +1,7 @@
 
+*** Testing a new gamelib locally
+-  
+
 *** Building a new IGG client
 - run build.bat and check version numbers shown
 - run make-release.bat 
