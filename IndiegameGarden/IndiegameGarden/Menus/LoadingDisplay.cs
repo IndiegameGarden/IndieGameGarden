@@ -19,6 +19,7 @@ namespace IndiegameGarden.Menus
         const float LEFT_POSITION = 0.15f;
         const double MIN_MENU_CHANGE_DELAY = 0.2f;
         const float TIME_ESC_PRESS_TO_EXIT = 1.8f;
+        const float SCALE_AT_LOADING_START = 0.95f;
 
         GameTextBox tbox;
         GameTextBox iggNameBox;
@@ -251,8 +252,8 @@ namespace IndiegameGarden.Menus
         public void SetLoadingGame(GardenItem g, GameThumbnail thumb)
         {
             SetNextState(new StateLoadingDisplay_Loading(this));
-            Motion.Scale = 0.9f;
-            Motion.ScaleTarget = 0.9f;
+            Motion.Scale = SCALE_AT_LOADING_START;
+            Motion.ScaleTarget = SCALE_AT_LOADING_START;
             game = g;
             gameIcon.Texture = thumb.Texture;
             //gameIcon.Motion.Scale = thumb.Motion.Scale * 1.4f * g.ScaleIcon;
@@ -416,7 +417,7 @@ namespace IndiegameGarden.Menus
             else
             {
                 Motion.ScaleTarget = 1f;
-                Motion.ScaleSpeed = 0.01f;
+                Motion.ScaleSpeed = 0.006f;
             }
         }
     }

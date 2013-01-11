@@ -119,8 +119,8 @@
 {
 "ID": "theyneedtobefed",
 "Name": "They Need To Be Fed",
-"Descr": "A casual, fresh and fun platformer. Walk upside down, jump from one object to another.\nIncludes 5 worlds with each 7 levels.",
-"Help": "Hint: full screen mode can be selected from the menu.",
+"Descr": "A casual, fresh and fun platformer. Walk upside down, jump from one object to another.\nIncludes 5 worlds with each 7 levels. Use space as the select/jump key.",
+"Help": "Hint: full screen mode can be selected from the menu. Use space as the select/jump key.",
 "Zip": "www.venbrux.com/games/TNTBF.zip",
 "Site": "http://www.venbrux.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/They Need To Be Fed/Image.jpg",
@@ -376,7 +376,7 @@
 {
 "ID": "pouetchess",
 "Name": "pouetChess",
-"Descr": "pouetChess is a small 3D chess game for beginners. ",
+"Descr": "pouetChess is a small 3D chess game for beginners.\nLeft mouse button to move pieces, right mouse button to change the view.",
 "Zip": "sourceforge.net/projects/pouetchess/files/pouetchess/0.2/pouetchess_0.2.0_win32.zip/download?use_mirror=?/pouetchess_0.2.0_win32.zip",
 "Site": "http://pouetchess.sourceforge.net",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Board Games/pouetChess/Image.jpg",
