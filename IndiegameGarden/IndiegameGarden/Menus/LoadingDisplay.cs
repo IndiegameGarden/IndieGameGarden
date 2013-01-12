@@ -19,6 +19,7 @@ namespace IndiegameGarden.Menus
         const float LEFT_POSITION = 0.15f;
         const double MIN_MENU_CHANGE_DELAY = 0.2f;
         const float TIME_ESC_PRESS_TO_EXIT = 1.8f;
+        const float SCALE_AT_LOADING_START = 0.95f;
 
         GameTextBox tbox;
         GameTextBox iggNameBox;
@@ -59,6 +60,8 @@ namespace IndiegameGarden.Menus
             public override void OnEntry(Gamelet g)
             {
                 base.OnEntry(g);
+                loadingDisplay.willExitSoon = false;
+                loadingDisplay.isExiting = false;
                 loadingDisplay.iggNameBox.ColorB.Alpha = 0f;
                 loadingDisplay.iggNameBox.ColorB.AlphaTarget = 0f;
                 if (loadingDisplay.gameIcon != null)
@@ -139,11 +142,12 @@ namespace IndiegameGarden.Menus
                     }
                 }
 
-                // perform real exit operation (abort launcher task) when ESC released
+                // perform real exit operation (abort launcher task) when ESC already released
                 if (!loadingDisplay.isExiting && loadingDisplay.willExitSoon)
                 {
                     GardenGame.Instance.launcher.Abort();
-                    to do: // do not progress to next global state until user has released esc button? or do not consider that as a new ESC press (even better)
+                    loadingDisplay.willExitSoon = false;
+                    //to do: // do not progress to next global state until user has released esc button? or do not consider that as a new ESC press (even better)
                 }
             }
 
@@ -195,6 +199,7 @@ namespace IndiegameGarden.Menus
                 if (!loadingDisplay.isExiting && loadingDisplay.willExitSoon)
                 {
                     GardenGame.Instance.launcher.Abort();
+                    loadingDisplay.willExitSoon = false;
                 }
 
             }
@@ -247,8 +252,8 @@ namespace IndiegameGarden.Menus
         public void SetLoadingGame(GardenItem g, GameThumbnail thumb)
         {
             SetNextState(new StateLoadingDisplay_Loading(this));
-            Motion.Scale = 0.9f;
-            Motion.ScaleTarget = 0.9f;
+            Motion.Scale = SCALE_AT_LOADING_START;
+            Motion.ScaleTarget = SCALE_AT_LOADING_START;
             game = g;
             gameIcon.Texture = thumb.Texture;
             //gameIcon.Motion.Scale = thumb.Motion.Scale * 1.4f * g.ScaleIcon;
@@ -407,12 +412,12 @@ namespace IndiegameGarden.Menus
                 Motion.ScaleTarget = 1f;
                 if (timeExiting > 0.29f)
                     Motion.ScaleTarget = 1f - (timeExiting / TIME_ESC_PRESS_TO_EXIT) * 0.2f;
-                Motion.ScaleSpeed = 0.01f;
+                Motion.ScaleSpeed = 0.005f;
             }
             else
             {
                 Motion.ScaleTarget = 1f;
-                Motion.ScaleSpeed = 0.02f;
+                Motion.ScaleSpeed = 0.006f;
             }
         }
     }

@@ -3,8 +3,12 @@
 - run build.bat and check version numbers shown
 - run make-release.bat 
 
-*** Updating gamelib to new version
+*** Editing and Testing a new gamelib locally
 - edit config/gamelib_fmt4/gamelib.json
+- run test-gamelib.bat
+- run igg
+
+*** Updating gamelib to new version
 - run build-gamelib.bat
 - run make-release-gamelib.bat
 - check GameLibVer in gamelib-config.json

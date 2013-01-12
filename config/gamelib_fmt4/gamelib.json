@@ -119,8 +119,8 @@
 {
 "ID": "theyneedtobefed",
 "Name": "They Need To Be Fed",
-"Descr": "A casual, fresh and fun platformer. Walk upside down, jump from one object to another.\nIncludes 5 worlds with each 7 levels.",
-"Help": "Hint: full screen mode can be selected from the menu.",
+"Descr": "A casual, fresh and fun platformer. Walk upside down, jump from one object to another.\nIncludes 5 worlds with each 7 levels. Use space as the select/jump key.",
+"Help": "Hint: full screen mode can be selected from the menu. Use space as the select/jump key.",
 "Zip": "www.venbrux.com/games/TNTBF.zip",
 "Site": "http://www.venbrux.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/They Need To Be Fed/Image.jpg",
@@ -268,7 +268,7 @@
 {
 "ID": "zombiegrinder",
 "Name": "Zombie Grinder",
-"Descr": "Zombie Grinder is a multi-platform cooperative multiplayer arcade game, reminiscent in style and gameplay of \nretro games like Zombies Ate My Neighbors and Super Smash TV!, but with the added benefit of some newer game \nmechanics - achievements, ranking, player-customization, rpg style stats and so forth.",
+"Descr": "Zombie Grinder is a multi-platform cooperative multiplayer arcade game, reminiscent in style and gameplay of \nretro games like Zombies Ate My Neighbors and Super Smash TV!, but with the added benefit of some newer\ngame mechanics - achievements, ranking, player-customization, rpg style stats and so forth.",
 "Zip": "www.twindrills.com/uploads/game_updates/zombie_grinder/zombiegrinder_stub_win32.zip",
 "Site": "http://www.twindrills.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Action/Zombie Grinder/Image.jpg",
@@ -376,7 +376,7 @@
 {
 "ID": "pouetchess",
 "Name": "pouetChess",
-"Descr": "pouetChess is a small 3D chess game for beginners. ",
+"Descr": "pouetChess is a small 3D chess game for beginners.\nLeft mouse button to move pieces, right mouse button to change the view.",
 "Zip": "sourceforge.net/projects/pouetchess/files/pouetchess/0.2/pouetchess_0.2.0_win32.zip/download?use_mirror=?/pouetchess_0.2.0_win32.zip",
 "Site": "http://pouetchess.sourceforge.net",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Board Games/pouetChess/Image.jpg",
@@ -412,8 +412,8 @@
 {
 "ID": "arvoesine",
 "Name": "Arvoesine",
-"Descr": "Arvoesine is a action platformer with NES styled graphics. Guide a roman soldier – that is armed with sword \nand spear – through 5 short levels.",
-"Zip": "alastairjohnjack.com/arvoesine1.2.zip",
+"Descr": "Arvoesine is a action platformer with NES styled graphics. Guide a roman soldier – that is armed with sword \nand spear – through 5 short levels. Use X to select. Arrows move. Z/X/C for sword/jump/spear.",
+"Zip": "http://dropcanvas.com/3zmpb/1",
 "Site": "http://alastairjohnjack.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Arvoesine/Image.jpg",
 "dummy":1
@@ -457,7 +457,7 @@
 {
 "ID": "thegoonies",
 "Name": "The Goonies",
-"Descr": "The action takes place in the sleepy seaside town of Cauldron Point - down in an area known as the Goon Docks. \nThe Goonies are a group of local kids - Mikey, Brand, Mouth, Chunk and Data. One day they find an old treasure \nmap in Mikey's attic. Data figures that this must be the fabulous hidden treasure of the notorious local \npirate, One-Eyed Willy. The girls, Andy and Stef, join the other Goonies and the adventure begins. But the \nsecret underground tunnels they are exploring are actually the hideout of the Fratelli Gang, and the Goonies \nare soon trapped! The Goonies have a powerful ally on their side, however, in the form of the huge and amiable \nSloth.",
+"Descr": "The action takes place in the sleepy seaside town of Cauldron Point - down in an area known as the Goon Docks. \nThe Goonies are a group of local kids - Mikey, Brand, Mouth, Chunk and Data. One day they find an old treasure \nmap in Mikey's attic. Data figures that this must be the fabulous hidden treasure of the notorious local \npirate, One-Eyed Willy. The girls, Andy and Stef, join the other Goonies and the adventure begins. But the \nsecret underground tunnels they are exploring are actually the hideout of the Fratelli Gang, and the Goonies \nare soon trapped! The Goonies have a powerful ally on their side, however, in the form of the huge and amiable Sloth.",
 "Zip": "braingames.jorito.net/goonies/downloads/theGoonies-1.4-1528.zip",
 "Site": "http://goonies.jorito.net",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/The Goonies/Image.jpg",
@@ -484,7 +484,7 @@
 {
 "ID": "deadcyborg",
 "Name": "Dead Cyborg",
-"Descr": "A free, donation based hard-sci-fi adventure game for Windows, Mac and Linux. The story is about the meaning \nof life... and death... in a rusty post-apocalyptic metal and concrete world. Story: You are a human being who \nhas waken up in a cryotank... you have no memories, but you find some messages from the past... from \nyourself... You don't feel good... maybe this is a radioactive and toxic place ... you may not have much \ntime... You find some stupid robots... with strange answers to your \nquestions.",
+"Descr": "A donation based hard-sci-fi adventure game. The story is about the meaning \nof life... and death... in a rusty post-apocalyptic metal and concrete world. You are a human being who \nhas woken up in a cryotank.",
 "Zip": "http://deadcyborg.com/deadcyborg_episode1_v002.zip",
 "Site": "http://deadcyborg.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Adventure/Dead Cyborg/Image.jpg",
@@ -494,7 +494,7 @@
 {
 "ID": "vertigo",
 "Name": "vertigo",
-"Descr": "The Xenophis, a Vulcan exploratory vessel, has incidentally found the mythical sector of Firia where the \nplanets, only reachable through warp tunnels, are told to be made of staggering ice and liquid fire. As a \nprecautionary act, the Xenophis crew are attempting to launch interstellar probes, significantly altered to \nexist within the Firia atmosphere, in order to learn more of this magnificent piece of the galaxy. However, \nevidence shows that the former inhabitants do not like outsiders. You are the probe, and your mission is to \nmaneuver your way to the other end of the warp tunnel. You are equipped with two shields, one to protect you \nfrom icy drones, and another from fiery ones. However, only one shield can be active at a time. WARNING: Be \nquick; your nerves will be tested.",
+"Descr": "The Xenophis, a Vulcan exploratory vessel, has incidentally found the mythical sector of Firia where the planets,\nonly reachable through warp tunnels, are told to be made of staggering ice and liquid fire.\nTunnel game requiring fast reflexes.",
 "Zip": "http://www.vertigo-game.com/downloads/latest/windows/Vertigo.zip",
 "Site": "http://www.vertigo-game.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/vertigo/Image.jpg",
@@ -504,7 +504,7 @@
 {
 "ID": "yofrankie",
 "Name": "Yo Frankie!",
-"Descr": "The original project goal was to work on a cross platform game (at least Linux, Windows, OS X), using Blender \nfor modeling and animation, Crystal Space as 3D engine and delivery platform, and Python for some magic \nscripting to glue things together. The purpose was to not only make a compelling 3D game experience, but \nespecially to improve and validate the open source 3D game creation pipeline, with industry-standard \nconditions.",
+"Descr": "Project for cross platform game using Blender, Crystal Space and Python. The purpose was to improve\nand validate an open source 3D game creation pipeline, but it's also a playable game.",
 "Zip": "http://download.blender.org/apricot/yofrankie_1_1b_bge.zip",
 "Site": "http://www.yofrankie.org",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Arcade/Yo Frankie!/Image.jpg",
@@ -514,7 +514,7 @@
 {
 "ID": "racer",
 "Name": "Racer",
-"Descr": "Racer is a free car simulation project, focusing on realism. It also stimulates users to create their own \ncontent (cars and tracks) by using simple file formats.",
+"Descr": "Racer is a free car simulation project, focusing on realism. Use the mouse to drive and mouse buttons to change gears.",
 "Zip": "http://www.racer.nl/download/racer0655.zip",
 "Site": "http://www.racer.nl",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Racing/Racer/Image.jpg",
