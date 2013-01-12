@@ -71,10 +71,8 @@
 {
 	"ID": "gametitle",
 	"Name": "Game Title",
-	"Descr": "\"A Zelda-esque dungeon crawler, but you only have one hit point, various weapons are hidden to ease the difficulty\"",
+	"Descr": "\"A Zelda-esque dungeon crawler, but you only have one hit point; various weapons are hidden to ease the difficulty\"",
 	"ThumbURL": "http://indie.indiegamegarden.com/thumbs/gametitle.jpg",
-	"Exe": "Game Title.exe",
-	"Zip": "Game Title.exe",
 	"Site": "www.glorioustrainwrecks.com/node/2258"
 },
 {
