@@ -42,8 +42,10 @@ namespace IndiegameGarden.Menus
         static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-3f);
 
         const float        CURSOR_SCALE_REGULAR = 0.8f; 
-        const float        CURSOR_DISCOVERY_RANGE = 6f;
-        const float        CURSOR_FADEOUT_RANGE = 12f;
+        float               CURSOR_DISCOVERY_RANGE = 0.4f;
+        const float         CURSOR_DISCOVERY_RANGE_MIN = 1f;
+        const float         CURSOR_DISCOVERY_RANGE_MAX = 6f; 
+        const float CURSOR_FADEOUT_RANGE = 12f;
         const float        CURSOR_DESTRUCTION_RANGE = 18f;
         const float        CURSOR_MARGIN_X = 0.15f;
         const float        CURSOR_MARGIN_Y = 0.15f;
@@ -324,6 +326,7 @@ namespace IndiegameGarden.Menus
             }
                 
             // visit all cached items and adjust positions, visibility, etc.
+            int thumbnailLoadsStarted = 0;
             List<GameThumbnail> toRemoveFromCache = new List<GameThumbnail>();
             foreach(GameThumbnail th in thumbnailsCache.Values)
             {
@@ -338,10 +341,11 @@ namespace IndiegameGarden.Menus
                 else
                 {
                     // check if thnail invvisible but in range. If so, start loading it
-                    if (!th.Visible && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE)
+                    if (!th.Visible && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE && thumbnailLoadsStarted == 0)
                     {
                         th.LoadInBackground();
                         th.ColorB.Alpha = 0f;
+                        thumbnailLoadsStarted++;
                     }
 
                     // check if thnail is loaded and still in range. If so, start displaying it (fade in)
@@ -374,6 +378,14 @@ namespace IndiegameGarden.Menus
                 th.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT;
 
             } // end for loop over all games
+
+            // increase discover range if no thumbnails loaded this time
+            if (thumbnailLoadsStarted == 0)
+            {
+                if (CURSOR_DISCOVERY_RANGE < CURSOR_DISCOVERY_RANGE_MAX)
+                    CURSOR_DISCOVERY_RANGE += 0.2f;
+            }
+
             foreach (GameThumbnail th in toRemoveFromCache)
             {
                 thumbnailsCache.Remove(th.Game.GameID);
