@@ -42,11 +42,11 @@ namespace IndiegameGarden.Menus
         static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-3f);
 
         const float        CURSOR_SCALE_REGULAR = 0.8f; 
-        float               CURSOR_DISCOVERY_RANGE = 0.4f;
+        float               CURSOR_DISCOVERY_RANGE = 1f;
         const float         CURSOR_DISCOVERY_RANGE_MIN = 1f;
-        const float         CURSOR_DISCOVERY_RANGE_MAX = 6f; 
-        const float CURSOR_FADEOUT_RANGE = 12f;
-        const float        CURSOR_DESTRUCTION_RANGE = 18f;
+        const float         CURSOR_DISCOVERY_RANGE_MAX = 3.5f; 
+        const float         CURSOR_FADEOUT_RANGE = 5.5f;
+        const float        CURSOR_DESTRUCTION_RANGE = 8f;
         const float        CURSOR_MARGIN_X = 0.15f;
         const float        CURSOR_MARGIN_Y = 0.15f;
         static Vector2     CURSOR_INITIAL_POSITION = new Vector2(3f, 1f);
@@ -310,7 +310,7 @@ namespace IndiegameGarden.Menus
                     //th.Position = new Vector2(RandomMath.RandomBetween(-0.4f,2.0f), RandomMath.RandomBetween(-0.4f,1.4f) );
                     //th.Scale = RandomMath.RandomBetween(0.01f, 0.09f); 
                     // create with new position and scale
-                    th.Motion.Position = Screen.Center;
+                    th.Motion.Position = new Vector2(0f,0f);
                     th.Motion.Scale = 0.05f;
                     th.Motion.ScaleTarget = 0.05f;
                     th.Motion.ScaleSpeed = 0.01f; // TODO const
@@ -343,18 +343,18 @@ namespace IndiegameGarden.Menus
                     // check if thnail invvisible but in range. If so, start loading it
                     if (!th.Visible && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE && thumbnailLoadsStarted == 0)
                     {
-                        th.LoadInBackground();
                         th.ColorB.Alpha = 0f;
-                        thumbnailLoadsStarted++;
+                        if(th.LoadInBackground())
+                            thumbnailLoadsStarted++;                                                
                     }
 
                     // check if thnail is loaded and still in range. If so, start displaying it (fade in)
-                    if (th.IsLoaded() && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE)
+                    else if (th.IsLoaded() && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE)
                     {
                         if (th.Game.IsGrowable)
                         {
                             th.ColorB.AlphaTarget = 1f; // (0.65f + 0.35f * g.InstallProgress);
-                            th.ColorB.SaturationTarget = (0.15f + 0.85f * g.InstallProgress);
+                            th.ColorB.SaturationTarget = (0.8f + 0.2f * g.InstallProgress);
                         }
                         else
                         {
@@ -364,26 +364,44 @@ namespace IndiegameGarden.Menus
                     }
 
                     // check if thnail in range to fade out
-                    if (th.IsLoaded() && cursor.DistanceTo(th) > CURSOR_FADEOUT_RANGE)
+                    if (th.IsLoaded() && cursor.DistanceTo(th) >= CURSOR_FADEOUT_RANGE)
+                    {
                         th.ColorB.AlphaTarget = 0f;
+                        th.ColorB.FadeSpeed = THUMBNAIL_FADE_SPEED*2.5f;
+                        th.IsFadingOut = true;
+                        th.Motion.ScaleTarget = 0.001f;
+                        th.Motion.ScaleSpeed = 0.014f;
+                        th.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT * 1.4f;
+                        if (th.Motion.PositionAbsZoomed.Y < 0.5f)
+                            th.Motion.TargetPos = new Vector2(th.Motion.Position.X,-0.1f);
+                        else
+                            th.Motion.TargetPos = new Vector2(th.Motion.Position.X, 1.1f);
+
+                    }
+                    else
+                    {
+                        th.IsFadingOut = false;
+                    }
 
                 }
 
-                th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
-                th.ColorB.FadeSpeed = THUMBNAIL_FADE_SPEED; // TODO do this only once per th?
-
-                // coordinate position where to move a game thumbnail to 
-                Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
-                th.Motion.TargetPos = targetPos;
-                th.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT;
+                if (!th.IsFadingOut)
+                {
+                    th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
+                    th.ColorB.FadeSpeed = THUMBNAIL_FADE_SPEED; // TODO do this only once per th?
+                    // coordinate position where to move a game thumbnail to 
+                    Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
+                    th.Motion.TargetPos = targetPos;
+                    th.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT;
+                }                
 
             } // end for loop over all games
 
             // increase discover range if no thumbnails loaded this time
-            if (thumbnailLoadsStarted == 0)
+            if (thumbnailLoadsStarted == 0 && GameThumbnail.IsNewDownloadAllowed)
             {
                 if (CURSOR_DISCOVERY_RANGE < CURSOR_DISCOVERY_RANGE_MAX)
-                    CURSOR_DISCOVERY_RANGE += 0.2f;
+                    CURSOR_DISCOVERY_RANGE += 0.02f;
             }
 
             foreach (GameThumbnail th in toRemoveFromCache)

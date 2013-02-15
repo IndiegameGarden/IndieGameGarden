@@ -155,7 +155,7 @@ namespace IndiegameGarden
             loadingScreenlet.Motion.Scale = mainScreenlet.Motion.Scale;
 
             //
-            Spritelet SplashScreen = new Spritelet("igglogo");
+            Spritelet SplashScreen = new Spritelet("ball-supernova2");
             SplashScreen.DrawInfo.LayerDepth = 1f;
             SplashScreen.ActiveInState = new StateStartup();
             //l.Duration = 17.5f;

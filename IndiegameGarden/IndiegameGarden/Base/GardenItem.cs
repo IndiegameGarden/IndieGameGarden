@@ -316,7 +316,7 @@ namespace IndiegameGarden.Base
         {
             GardenItem g = new GardenItem();
             g.Version = version;
-            g.GameID = "igg_gamelib_fmt4"; // TODO to config constants?
+            g.GameID = "gwg_gamelib_fmt4"; // TODO to config constants?
             g.ExeFile = "gamelib.bin";
             g.PackedFileURL = GardenConfig.Instance.ConfigFilesServerURL + "gamelib.zip";
             return g;
@@ -427,7 +427,7 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                return GameID.StartsWith("igg_gamelib");
+                return GameID.StartsWith("gwg_gamelib");
             }
         }
 
@@ -528,6 +528,30 @@ namespace IndiegameGarden.Base
                 if (ExeFile.Equals(packedFileURL) && ExeFile.Length > 0 )
                     return true;
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// checks whether this item is a valid 'trainwreck' game that can be included in the library.
+        /// Invalid ones are e.g. without downloadable file, or that require Klik 'n Play runtime.
+        /// or swf?
+        /// </summary>
+        public bool IsValidWreck
+        {
+            get
+            {
+                if (IsSectionId || IsSystemPackage || IsMusic || IsPositionGiven)
+                    return true;
+
+                // if no downloadable file at all
+                if (packedFileURL.Length == 0)
+                    return false;
+
+                // if 7zip archive (not supported yet)
+                if (packedFileURL.ToLower().EndsWith(".7z"))
+                    return false;
+
+                return true;
             }
         }
 
@@ -680,5 +704,17 @@ namespace IndiegameGarden.Base
 
         }
 
+        /// <summary>
+        /// specific processing for 'wrecks' to fix issues in the json lib during game compilation.
+        /// </summary>
+        public void WreckProcessing()
+        {
+            // swf file items become web items
+            if (packedFileURL.ToLower().EndsWith(".swf"))
+            {
+                ExeFile = packedFileURL;
+                packedFileURL = "";
+            }
+        }
     }
 }

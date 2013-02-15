@@ -65,7 +65,7 @@ namespace IndiegameGarden.Menus
             background = bg;
 
             // logo that floats in top right
-            Spritelet logo = new Spritelet("igglogo");
+            Spritelet logo = new Spritelet("ball-supernova2");
             Add(logo);
             logo.DrawInfo.Alpha = 0.7f;
             logo.Motion.Scale = 0.55f;

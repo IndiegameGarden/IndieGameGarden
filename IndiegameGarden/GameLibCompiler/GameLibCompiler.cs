@@ -52,6 +52,8 @@ namespace GameLibCompiler
             GameLib.LoadJson(GAMELIB_JSON_PATH);
             t1 = Environment.TickCount;
             Log("Json load: " + (t1 - t0) + " ms.");
+            Log("Library matrix size: X by Y = " + GameLib.GardenSizeX + " by " + GameLib.GardenSizeY);
+            Log(GameLib.GetList().Count + " items loaded in library.");
 
             // save
             using (var file = File.Create(GAMELIB_BIN_PATH))

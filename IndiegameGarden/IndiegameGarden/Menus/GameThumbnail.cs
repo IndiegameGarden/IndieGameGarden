@@ -31,6 +31,8 @@ namespace IndiegameGarden.Menus
         /// </summary>
         public GardenItem Game;
 
+        public bool IsFadingOut = false;
+
         /// <summary>
         /// actual/intended full path to local thumbnail file (the file may or may not exist)
         /// </summary>
@@ -41,6 +43,21 @@ namespace IndiegameGarden.Menus
                 return GardenConfig.Instance.GetThumbnailFilepath(Game);
             }
         }
+
+        public static int MaxConcurrentDownloads = 2;
+
+        public static bool IsNewDownloadAllowed
+        {
+            get
+            {
+                return (numLoadingTasksActive < MaxConcurrentDownloads);
+            }
+        }
+
+        /// <summary>
+        /// number of thumbnail loading tasks ongoing. Used to limit downloads to MaxConcurrentDownloads
+        /// </summary>
+        static volatile int numLoadingTasksActive = 0;
 
         /// <summary>
         /// thumbnail loading task
@@ -72,12 +89,13 @@ namespace IndiegameGarden.Menus
          */
         class GameThumbnailLoadTask : ThumbnailDownloader
         {
+
             // my parent - where to load for/to
             GameThumbnail parent;
 
             public GameThumbnailLoadTask(GameThumbnail th): 
                 base(th.Game)
-            {
+            {                
                 parent = th;
             }
 
@@ -86,20 +104,9 @@ namespace IndiegameGarden.Menus
             /// </summary>
             protected override void StartInternal()
             {
-                if (File.Exists(parent.ThumbnailFilepath))
-                {
-                    bool ok = parent.LoadTextureFromFile();
-                    if (ok)
-                        status = ITaskStatus.SUCCESS;
-                    else
-                        status = ITaskStatus.FAIL;
-                }
-                else
-                {
-                    // first run the base downloading task now. If that is ok, then load from file downloaded.
-                    base.StartInternal();
-
-                    if (File.Exists(parent.ThumbnailFilepath) && IsSuccess() )
+                numLoadingTasksActive++;
+                try{
+                    if (File.Exists(parent.ThumbnailFilepath))
                     {
                         bool ok = parent.LoadTextureFromFile();
                         if (ok)
@@ -109,14 +116,33 @@ namespace IndiegameGarden.Menus
                     }
                     else
                     {
-                        status = ITaskStatus.FAIL;
+                        // first run the base downloading task now. If that is ok, then load from file downloaded.                    
+                        base.StartInternal();
+
+                        if (File.Exists(parent.ThumbnailFilepath) && IsSuccess())
+                        {
+                            bool ok = parent.LoadTextureFromFile();
+                            if (ok)
+                                status = ITaskStatus.SUCCESS;
+                            else
+                                status = ITaskStatus.FAIL;
+                        }
+                        else
+                        {
+                            status = ITaskStatus.FAIL;
+                        }
+
+                    }
+
+                    // after a successful load, enable the thumbnail.
+                    if (IsSuccess())
+                    {
+                        parent.Enable();
                     }
                 }
-
-                // after a successful load, enable the thumbnail.
-                if (IsSuccess())
+                finally
                 {
-                    parent.Enable();
+                    numLoadingTasksActive--;
                 }
             }
         } // class
@@ -162,14 +188,21 @@ namespace IndiegameGarden.Menus
         /// <summary>
         /// trigger the background loading in a thread of the game's thumbnail image.
         /// Does nothing if loading already in progress or finished.
+        /// Does nothing if too many downloads already ongoing.
         /// </summary>
-        public void LoadInBackground()
+        /// <returns>true if loading was started</returns>
+        public bool LoadInBackground()
         {
             if (loaderTask == null)
             {
-                loaderTask = new ThreadedTask(new GameThumbnailLoadTask(this));
-                loaderTask.Start();
+                if (IsNewDownloadAllowed)
+                {                    
+                    loaderTask = new ThreadedTask(new GameThumbnailLoadTask(this));
+                    loaderTask.Start();
+                    return true;
+                }
             }
+            return false;
         }
 
         /// <summary>
@@ -179,6 +212,7 @@ namespace IndiegameGarden.Menus
         {
             Visible = true;
             EffectEnabled = (Texture != DefaultTexture);
+            
             if (loaderTask == null)
             {
                 loaderTask = new ThreadedTask(new GameThumbnailLoadTask(this));
@@ -231,6 +265,48 @@ namespace IndiegameGarden.Menus
             }
             return true;
         }
+
+        /*
+        protected Texture2D ScaleTexture(Texture2D tex, int x, int y)
+        {
+            GraphicsDevice cGraphicsDevice = Screen.graphicsDevice;
+            int iTextureWidth = x;
+            int iTextureHeight = y;
+
+            // Backup the Graphics Device's Depth Stencil Buffer 
+            DepthStencilBuffer cOldDepthStencilBuffer = cGraphicsDevice.DepthStencilBuffer;
+
+            // Create the Render Target to draw the scaled Texture to 
+            RenderTarget2D cNewRenderTarget = new RenderTarget2D(cGraphicsDevice, iTextureWidth, iTextureHeight);
+            RenderTarget2D cOldRenderTarget = cGraphicsDevice.GetRenderTargets
+            // Set the given Graphics Device to draw to the new Render Target 
+            cGraphicsDevice.SetRenderTarget(cNewRenderTarget);
+
+            // Make sure the Graphic Device's Depth Stencil Buffer is large enough 
+            //cGraphicsDevice.DepthStencilBuffer = new DepthStencilBuffer(cGraphicsDevice, iTextureWidth, iTextureHeight, cGraphicsDevice.DepthStencilBuffer.Format);
+
+            // Clear the scene 
+            cGraphicsDevice.Clear(Color.Black);
+
+            // Create the new SpriteBatch that will be used to scale the Texture 
+            SpriteBatch cSpriteBatch = new SpriteBatch(cGraphicsDevice);
+
+            // Draw the scaled Texture 
+            cSpriteBatch.Begin(); // (SpriteBlendMode.None);
+            cSpriteBatch.Draw(tex, new Rectangle(0, 0, iTextureWidth, iTextureHeight), Color.White);
+            cSpriteBatch.End();
+
+            // Restore the given Graphics Device's Render Target 
+            cGraphicsDevice.SetRenderTarget(cOldRenderTarget);
+
+            // Restore the given Graphics Device's Depth Stencil 
+            //cGraphicsDevice.DepthStencilBuffer = cOldDepthStencilBuffer;
+
+            // Set the Texture To Return to the scaled Texture 
+            //Texture2D cTextureToReturn = cNewRenderTarget.GetTexture();
+            return cNewRenderTarget;
+        }
+         */
 
         protected override void OnUpdate(ref UpdateParams p)
         {

@@ -38,7 +38,7 @@ namespace IndiegameGarden.Base
         /// <summary>
         /// checking config file integrity (somewhat) by comparing loaded config Magic to below value
         /// </summary>
-        public const string CONFIG_MAGIC_VALUE = "f20fj239jf0a9w";
+        public const string CONFIG_MAGIC_VALUE = "gwgfj239jf0a9w";
         
         /// <summary>
         /// garden ID default when no ID assigned yet by server (this assignment is not yet implemented)
@@ -104,7 +104,7 @@ namespace IndiegameGarden.Base
             UnpackedFilesFolder = GetFolder("games");
             ThumbnailsFolder = GetFolder("thumbs");
 
-            ConfigFilename = "gamelib-config.json";
+            ConfigFilename = "gwg-config.json";
             GameLibraryFilename = "gamelib.json";
             GameLibraryFilenameBin = "gamelib.bin";
             NewestGameLibraryVersion = KNOWN_GAMELIB_VERSION;

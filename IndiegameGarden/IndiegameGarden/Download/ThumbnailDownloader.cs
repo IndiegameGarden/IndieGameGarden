@@ -29,9 +29,10 @@ namespace IndiegameGarden.Download
         protected override void StartInternal()
         {
             string filename = gi.ThumbnailFile;
-            string urlDl = gi.ThumbnailURL; 
+            string urlDl = gi.ThumbnailURL;
+            string iggUrlDl = GardenConfig.Instance.GetThumbnailURL(gi.GameIDwithVersion + ".png");
             string toLocalFolder = GardenConfig.Instance.ThumbnailsFolder;
-            InternalDoDownload(urlDl, filename, toLocalFolder, true);
+            InternalDoDownload(urlDl, filename, toLocalFolder, true, new string[]{iggUrlDl,urlDl} );
         }
 
     }
