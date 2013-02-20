@@ -18,6 +18,7 @@ namespace IndiegameGarden.Menus
         const float TIME_SHOW_PLAYING_MESSAGE = 4.0f;
         const float LEFT_POSITION = 0.15f;
         const double MIN_MENU_CHANGE_DELAY = 0.2f;
+        const double MAX_KEY_PRESSING_TIME = 3f;
         const float TIME_ESC_PRESS_TO_EXIT = 1.8f;
         const float SCALE_AT_LOADING_START = 0.95f;
 
@@ -219,7 +220,7 @@ namespace IndiegameGarden.Menus
             Add(tbox);
 
             iggNameBox = new GameTextBox("GameDescriptionFont");
-            iggNameBox.Text = "Indiegame Garden        Exit current game or hold ESC to return to the garden";
+            iggNameBox.Text = "Glorious Wreckz Garden        Exit current game or hold ESC to return to the garden";
             iggNameBox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.94f);
             iggNameBox.Motion.Scale = 0.75f;
             iggNameBox.DrawInfo.DrawColor = new Color(245,245,245,0);
@@ -324,10 +325,11 @@ namespace IndiegameGarden.Menus
                 OnUserInput(GamesPanel.UserInput.STOP_EXIT);
             }
 
-            if (!st.IsKeyDown(Keys.Enter) && wasEnterPressed)
+            if (st.IsKeyDown(Keys.Enter) && wasEnterPressed && timeSinceLastKeypress > MAX_KEY_PRESSING_TIME )
             {
-                wasEnterPressed = false;
-                OnUserInput(GamesPanel.UserInput.STOP_SELECT);
+                int a = 3;
+                //OnUserInput(GamesPanel.UserInput.STOP_SELECT);
+                //lastKeypressTime = p.SimTime; // assume next round gonna be a new keypress
             }
 
             // for new keypresses - only proceed if a key pressed and some minimal delay has passed...            

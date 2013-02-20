@@ -27,7 +27,7 @@ namespace IndiegameGarden.Menus
         float textScale = 1f;
 
         public ProgressBar()
-            : base("birch-progress-bar")
+            : base("citybar")
         {
             progressValue = 0f;
             progressValueTarget = 0f;

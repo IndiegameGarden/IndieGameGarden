@@ -157,12 +157,12 @@ namespace IndiegameGarden.Menus
             // effect is still off if no bitmap loaded yet
             EffectEnabled = false;
             // first-time texture init
-            /*
+            
             if (DefaultTexture == null)
             {
                 DefaultTexture = GardenGame.Instance.Content.Load<Texture2D>("ball-supernova2");
             }
-             */
+            
             // use default texture as long as thumbnail not loaded yet
             Texture = DefaultTexture;
         }

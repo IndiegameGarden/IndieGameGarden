@@ -173,10 +173,23 @@ namespace IndiegameGarden.Base
             DirectoryInfo gameFolderInfo = new DirectoryInfo(".");
             if(!gameFolderInfo.Exists)
                 return;
-            FileInfo[] aFi = gameFolderInfo.GetFiles("*.exe", SearchOption.AllDirectories);
-            if (aFi.Length == 0)
-                return;
 
+            // try various executable types
+            string[] aExeTypes = { "*.exe" , "*.bat", "*.swf", "*.jar" , "index.html", "*.html", "*.zip" , "README*" };
+            FileInfo[] aFi = new FileInfo[] { };
+            for (int i = 0; i < aExeTypes.Length; i++)
+            {
+                aFi = gameFolderInfo.GetFiles("*.exe", SearchOption.AllDirectories);
+                if (aFi.Length > 0)
+                    break; // exit loop if an item found
+            }
+
+            // stop trying if no items found
+            if (aFi.Length == 0)
+            {
+                return;
+            }
+            
             // get the exe's name and store in gi
             FileInfo exeFile = aFi[0];
             gi.ExeFile = exeFile.Name;

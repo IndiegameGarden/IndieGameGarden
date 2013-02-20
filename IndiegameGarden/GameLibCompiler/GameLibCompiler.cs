@@ -30,7 +30,7 @@ namespace GameLibCompiler
         /// For local testing, the new gamelib files need to be in here. This is not checked into
         /// the version control server.
         /// </summary>
-        const string GAMELIB_UNPACKED_TARGET_DIR = "igg_gamelib_fmt4";
+        //const string GAMELIB_UNPACKED_TARGET_DIR = "gwg_gamelib_fmt4";
 
         const string GAMELIB_JSON_FILE = "gamelib.json";
 
@@ -38,8 +38,8 @@ namespace GameLibCompiler
         
         string GAMELIB_JSON_PATH = Path.Combine(CONFIG_DIR, GAMELIB_TARGET_DIR, GAMELIB_JSON_FILE);
         string GAMELIB_BIN_PATH = Path.Combine(CONFIG_DIR, GAMELIB_TARGET_DIR, GAMELIB_BIN_FILE);
-        string GAMELIB_UNPACKED_PATH = Path.Combine(CONFIG_DIR, GAMELIB_UNPACKED_TARGET_DIR, GAMELIB_BIN_FILE);
-        string GAMELIB_UNPACKED_DIR_PATH = Path.Combine(CONFIG_DIR, GAMELIB_UNPACKED_TARGET_DIR);
+        //string GAMELIB_UNPACKED_PATH = Path.Combine(CONFIG_DIR, GAMELIB_UNPACKED_TARGET_DIR, GAMELIB_BIN_FILE);
+        //string GAMELIB_UNPACKED_DIR_PATH = Path.Combine(CONFIG_DIR, GAMELIB_UNPACKED_TARGET_DIR);
         //string GAMELIB_CONTENTFOLDER_PATH = Path.Combine(CONTENT_TARGET_DIR, GAMELIB_BIN_FILE);
 
         public void Run()

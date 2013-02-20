@@ -487,7 +487,7 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                return GameID.StartsWith("igg");
+                return GameID.StartsWith("igg") || GameID.StartsWith("gwg");
             }
         }
 
@@ -543,8 +543,8 @@ namespace IndiegameGarden.Base
                 if (IsSectionId || IsSystemPackage || IsMusic || IsPositionGiven)
                     return true;
 
-                // if no downloadable file at all
-                if (packedFileURL.Length == 0)
+                // if no downloadable file at all, for a non-web-game
+                if (!IsWebGame && packedFileURL.Length == 0)
                     return false;
 
                 // if 7zip archive (not supported yet)
@@ -709,12 +709,19 @@ namespace IndiegameGarden.Base
         /// </summary>
         public void WreckProcessing()
         {
+            // items without thumbnail get the default one
+            if (packedFileURL.Length > 0 && thumbnailURL.Length == 0 && !IsSystemPackage && !IsSectionId )
+            {
+                thumbnailURL = GardenConfig.Instance.ThumbnailsServerURL + "default.jpg";
+            }
+
             // swf file items become web items
             if (packedFileURL.ToLower().EndsWith(".swf"))
             {
                 ExeFile = packedFileURL;
                 packedFileURL = "";
             }
+
         }
     }
 }

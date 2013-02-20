@@ -26,7 +26,7 @@ namespace IndiegameGarden.Menus
         /// <summary>
         /// UI constants
         /// </summary>
-        const double MIN_MENU_CHANGE_DELAY = 0.2f; 
+        const double MIN_MENU_CHANGE_DELAY = 0.3f; 
         
         GameCollection gamesList;
 
@@ -52,23 +52,23 @@ namespace IndiegameGarden.Menus
             gamesList = GardenGame.Instance.GameLib.GetList();
 
             // background
-            Spritelet bg = new Spritelet("parc-by-gadl.png");
-            bg.Motion.Position = new Vector2(0.66667f, 0.22f);
+            Spritelet bg = new Spritelet("wee2");
+            bg.Motion.Position = new Vector2(0.68f, 0.425f);
             bg.DrawInfo.LayerDepth = 1f;
             //bg.DrawInfo.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
             // bg color 169, 157, 241
-            bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/70.0f; }, "Rotate"));
-            bg.Motion.Add(new MyFuncyModifier(delegate(float v) { return (0.45f + 0.75f * (float) Math.Sqrt(v/430.0)); }, "Scale"));
-            bg.Motion.TargetPos = new Vector2(0.66667f, 0.9f);
+            bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/20.0f; }, "Rotate"));
+            bg.Motion.Add(new MyFuncyModifier(delegate(float v) { return (1.45f + 0.25f * (float) Math.Sqrt(v/430.0)); }, "Scale"));
+            bg.Motion.TargetPos = new Vector2(0.66667f, 0.75f);
             bg.Motion.TargetPosSpeed = 0.004f;
             Add(bg);
             background = bg;
 
             // logo that floats in top right
-            Spritelet logo = new Spritelet("ball-supernova2");
+            Spritelet logo = new Spritelet("gtlogo");
             Add(logo);
             logo.DrawInfo.Alpha = 0.7f;
-            logo.Motion.Scale = 0.55f;
+            logo.Motion.Scale = 0.7f;
             logo.Motion.Position = new Vector2(Screen.AspectRatio - 0.24f, 0.04f);
             ColorChangeBehavior fadeIn = new ColorChangeBehavior();
             logo.Add(fadeIn);
@@ -101,6 +101,12 @@ namespace IndiegameGarden.Menus
             }
 
             if (!st.IsKeyDown(Keys.Enter) && wasEnterPressed)
+            {
+                wasEnterPressed = false;
+                panel.OnUserInput(GamesPanel.UserInput.STOP_SELECT);
+            }
+
+            if (st.IsKeyDown(Keys.Enter) && wasEnterPressed)
             {
                 wasEnterPressed = false;
                 panel.OnUserInput(GamesPanel.UserInput.STOP_SELECT);

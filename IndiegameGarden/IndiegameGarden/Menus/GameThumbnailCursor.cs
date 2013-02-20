@@ -43,7 +43,7 @@ namespace IndiegameGarden.Menus
         public void SetToGame(GardenItem g)
         {
             Motion.TargetPos = g.Position;
-            Motion.TargetPosSpeed = 4f; // TODO constant?
+            Motion.TargetPosSpeed = 3.2f; // TODO constant?
             GridPosition = g.Position;
         }
 

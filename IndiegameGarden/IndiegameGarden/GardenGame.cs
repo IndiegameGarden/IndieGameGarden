@@ -148,14 +148,14 @@ namespace IndiegameGarden
 
             TreeRoot.Add(mainScreenlet);
             TreeRoot.Add(loadingScreenlet);
-            mainScreenlet.DrawInfo.DrawColor = new Color(169 * 2 / 3, 157 * 2 / 3, 241 * 2 / 3); // Color.Black;
+            mainScreenlet.DrawInfo.DrawColor = Color.Black; // new Color(169 * 2 / 3, 157 * 2 / 3, 241 * 2 / 3); // Color.Black;
 
             // graphics bitmap scaling that adapts to screen resolution 
             mainScreenlet.Motion.Scale = ((float)myWindowHeight) / 900f;
             loadingScreenlet.Motion.Scale = mainScreenlet.Motion.Scale;
 
             //
-            Spritelet SplashScreen = new Spritelet("ball-supernova2");
+            Spritelet SplashScreen = new Spritelet("gtlogo");
             SplashScreen.DrawInfo.LayerDepth = 1f;
             SplashScreen.ActiveInState = new StateStartup();
             //l.Duration = 17.5f;
