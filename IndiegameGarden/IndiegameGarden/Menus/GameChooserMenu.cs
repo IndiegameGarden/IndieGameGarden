@@ -67,12 +67,13 @@ namespace IndiegameGarden.Menus
             // logo that floats in top right
             Spritelet logo = new Spritelet("gtlogo");
             Add(logo);
-            logo.DrawInfo.Alpha = 0.7f;
+            logo.DrawInfo.Alpha = 0.0f;
             logo.Motion.Scale = 0.7f;
             logo.Motion.Position = new Vector2(Screen.AspectRatio - 0.24f, 0.04f);
             ColorChangeBehavior fadeIn = new ColorChangeBehavior();
-            logo.Add(fadeIn);
+            //logo.Add(fadeIn);
             fadeIn.Alpha = 0f;
+            fadeIn.AlphaTarget = 0f;
             fadeIn.FadeAlphaToTarget(0.9344f, 6f);
             logo.Motion.Add(new SineModifier("ScaleModifier", 0.06124f, 0.07144f, 1.0f));
 
@@ -106,15 +107,17 @@ namespace IndiegameGarden.Menus
                 panel.OnUserInput(GamesPanel.UserInput.STOP_SELECT);
             }
 
-            if (st.IsKeyDown(Keys.Enter) && wasEnterPressed)
-            {
-                wasEnterPressed = false;
-                panel.OnUserInput(GamesPanel.UserInput.STOP_SELECT);
-            }
-
             // for new keypresses - only proceed if a key pressed and some minimal delay has passed...            
             if (timeSinceLastKeypress < MIN_MENU_CHANGE_DELAY)
                 return;
+
+            if (st.IsKeyDown(Keys.Enter) && wasEnterPressed && timeSinceLastKeypress > 2.7f)
+            {
+                //wasEnterPressed = false;
+                //panel.OnUserInput(GamesPanel.UserInput.STOP_SELECT);
+            }
+
+            
             // if no keys pressed, skip further checks
             if (st.GetPressedKeys().Length == 0)
             {
@@ -129,6 +132,7 @@ namespace IndiegameGarden.Menus
                 if (!wasEscPressed)
                 {
                     panel.OnUserInput(GamesPanel.UserInput.START_EXIT);
+                    lastKeypressTime = p.SimTime;
                 }
                 wasEscPressed = true;
             }
@@ -137,39 +141,46 @@ namespace IndiegameGarden.Menus
             if (st.IsKeyDown(Keys.W) && !prevKeyboardState.IsKeyDown(Keys.W))
             {
                 panel.OnUserInput(GamesPanel.UserInput.LAUNCH_WEBSITE);
+                lastKeypressTime = p.SimTime;
             }
 
             // -- music togglekey
             if (st.IsKeyDown(Keys.M) && !prevKeyboardState.IsKeyDown(Keys.M))
             {
                 panel.OnUserInput(GamesPanel.UserInput.TOGGLE_MUSIC);
+                lastKeypressTime = p.SimTime;
             }
 
             // -- a navigation key is pressed - check keys and generate action(s)
             if (st.IsKeyDown(Keys.Left)) {
-                panel.OnUserInput(GamesPanel.UserInput.LEFT);                
+                panel.OnUserInput(GamesPanel.UserInput.LEFT);
+                lastKeypressTime = p.SimTime;
             }
             if (st.IsKeyDown(Keys.Right)) {
                 panel.OnUserInput(GamesPanel.UserInput.RIGHT);
+                lastKeypressTime = p.SimTime;
             }
 
             if (st.IsKeyDown(Keys.Up)) {
                 panel.OnUserInput(GamesPanel.UserInput.UP);
+                lastKeypressTime = p.SimTime;
             }
 
             if (st.IsKeyDown(Keys.Down)){
                 panel.OnUserInput(GamesPanel.UserInput.DOWN);
+                lastKeypressTime = p.SimTime;
             }
 
             if (st.IsKeyDown(Keys.Enter))
             {
                 if (!wasEnterPressed)
+                {
+                    lastKeypressTime = p.SimTime;
                     panel.OnUserInput(GamesPanel.UserInput.START_SELECT);
+                }
                 wasEnterPressed = true;
             }
-
-            // (time) bookkeeping for next keypress
-            lastKeypressTime = p.SimTime;
+            
             prevKeyboardState = st;
         }
 

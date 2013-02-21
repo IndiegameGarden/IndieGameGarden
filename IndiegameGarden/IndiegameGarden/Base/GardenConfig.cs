@@ -108,11 +108,10 @@ namespace IndiegameGarden.Base
             GameLibraryFilename = "gamelib.json";
             GameLibraryFilenameBin = "gamelib.bin";
             NewestGameLibraryVersion = KNOWN_GAMELIB_VERSION;
-            Magic = "xyz"; // dummy magic value. Will only be used for validation once loaded from JSON.
+            Magic = "gwgfj239jf0a9w"; // dummy magic value. Will only be used for validation once loaded from JSON.
 
-            //ThumbnailsServerURL = "https://github.com/trancetrance/IndieGameGarden/raw/master/thumbs/";
             ThumbnailsServerURL = "http://indie.indiegamegarden.com/thumbs/";
-            ConfigFilesServerURL = "http://indie.indiegamegarden.com/gamelib_fmt4/"; // https://github.com/trancetrance/IndieGameGarden/raw/master/config/gamelib_fmt3/";
+            ConfigFilesServerURL = "http://indie.indiegamegarden.com/gwg_gamelib_fmt4/"; 
             PackedFilesServerURL = "http://indie.indiegamegarden.com/zips/";
             BundleFilesServerURL = "http://www.indiegamegarden.com/";
 

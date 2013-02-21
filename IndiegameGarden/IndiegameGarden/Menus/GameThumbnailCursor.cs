@@ -20,7 +20,7 @@ namespace IndiegameGarden.Menus
         public Vector2 GridPosition = Vector2.Zero;        
 
         public GameThumbnailCursor()
-            : base("cursor2","GameThumbnailCursor")
+            : base("cursor3","GameThumbnailCursor")
         {
             DrawInfo.LayerDepth = 0.95f;
         }

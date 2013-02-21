@@ -41,7 +41,7 @@ namespace IndiegameGarden.Menus
         const float PANEL_ZOOM_SPEED_ABORTQUITTING = PANEL_ZOOM_SPEED_REGULAR;
         static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-3f);
 
-        const float        CURSOR_SCALE_REGULAR = 0.8f; 
+        const float        CURSOR_SCALE_REGULAR = 0.28f; 
         float               CURSOR_DISCOVERY_RANGE = 1f;
         const float         CURSOR_DISCOVERY_RANGE_MIN = 1f;
         const float         CURSOR_DISCOVERY_RANGE_MAX = 3.5f; 
@@ -49,7 +49,7 @@ namespace IndiegameGarden.Menus
         const float        CURSOR_DESTRUCTION_RANGE = 8f;
         const float        CURSOR_MARGIN_X = 0.15f;
         const float        CURSOR_MARGIN_Y = 0.15f;
-        static Vector2     CURSOR_INITIAL_POSITION = new Vector2(3f, 1f);
+        static Vector2     CURSOR_INITIAL_POSITION = new Vector2(3f, 0f);
 
         public const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; 
         const float        THUMBNAIL_SCALE_SELECTED = 0.51f; 
@@ -115,6 +115,7 @@ namespace IndiegameGarden.Menus
             cursor.Motion.Position = CURSOR_INITIAL_POSITION * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
             cursor.Motion.TargetPos = CURSOR_INITIAL_POSITION * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
             cursor.GridPosition = CURSOR_INITIAL_POSITION;
+            cursor.Motion.Add(new MyFuncyModifier(delegate(float v) { return v / 0.5f; }, "Rotate"));
 
             // info box - will be added to parent upon OnNewParent() event
             infoBox = new GameInfoBox();
@@ -195,7 +196,7 @@ namespace IndiegameGarden.Menus
                 GameThumbnail th = thumbnailsCache[selGame.GameID];
                 float sc = (1f + timeLaunching/3f);
                 th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED * sc; // blow up size of thumbnail while user requests launch
-                cursor.Motion.ScaleTarget = sc;
+                cursor.Motion.ScaleTarget = CURSOR_SCALE_REGULAR * sc;
                 cursor.Motion.ScaleSpeed = th.Motion.ScaleSpeed / selGame.ScaleIcon; // TODO correct ScaleIcon?
             }
 
@@ -664,6 +665,8 @@ namespace IndiegameGarden.Menus
                 if (selectionLevel == 1 && SelectedGame != null)
                 {
                     int lnCount = SelectedGame.DescriptionLineCount;
+                    if (lnCount < 1)
+                        lnCount = 1;
                     infoBox.Motion.TargetPos = INFOBOX_SHOWN_POSITION - new Vector2(0f, 0.015f + 0.029f * (lnCount - 1));
                 }
 

@@ -42,7 +42,8 @@ namespace IndiegameGarden.Menus
             set
             {
                 intensity = value;
-                DrawInfo.Alpha = intensity;
+                if (DrawInfo != null)
+                    DrawInfo.Alpha = intensity;
             }
 
         }

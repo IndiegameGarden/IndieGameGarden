@@ -19,7 +19,7 @@ namespace IndiegameGarden.Menus
     public class GameInfoBox: Drawlet
     {
         // relative position w.r.t. right of user's display
-        static Vector2 PROGRESS_BAR_POSITION_RELATIVE = new Vector2(-0.32f, 0.0f);
+        static Vector2 PROGRESS_BAR_POSITION_RELATIVE = new Vector2(-0.5f, 0.0f);
 
         ProgressBar dlProgressBar;
         GameTextBox titleBox;
@@ -44,7 +44,7 @@ namespace IndiegameGarden.Menus
             dlProgressBar.Visible = false;
             dlProgressBar.ProgressValue = 0f;
             dlProgressBar.ProgressTarget = 0f;
-            dlProgressBar.BarWidth = 0.4f;
+            dlProgressBar.BarWidth = 1f;
             dlProgressBar.DrawInfo.LayerDepth = 0.04f;
             Add(dlProgressBar);
 
