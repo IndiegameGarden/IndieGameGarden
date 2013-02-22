@@ -196,6 +196,7 @@ namespace IndiegameGarden.Menus
                 GameThumbnail th = thumbnailsCache[selGame.GameID];
                 float sc = (1f + timeLaunching/3f);
                 th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED * sc; // blow up size of thumbnail while user requests launch
+                th.Motion.ScaleSpeed = 0.02f;
                 cursor.Motion.ScaleTarget = CURSOR_SCALE_REGULAR * sc;
                 cursor.Motion.ScaleSpeed = th.Motion.ScaleSpeed / selGame.ScaleIcon; // TODO correct ScaleIcon?
             }

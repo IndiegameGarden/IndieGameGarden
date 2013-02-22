@@ -715,8 +715,10 @@ namespace IndiegameGarden.Base
                 thumbnailURL = GardenConfig.Instance.ThumbnailsServerURL + "default.jpg";
             }
 
-            // swf file items become web items
-            if (packedFileURL.ToLower().EndsWith(".swf"))
+            // swf and html file items become web items
+            if (packedFileURL.ToLower().EndsWith(".swf") ||
+                packedFileURL.ToLower().EndsWith(".html") ||
+                packedFileURL.ToLower().EndsWith(".htm") )
             {
                 ExeFile = packedFileURL;
                 packedFileURL = "";
