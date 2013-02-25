@@ -10,10 +10,20 @@
 },
 {
 "ID": "igg_credits",	  	
-"Site": "www.indiegamegarden.com",	
+"Site": "indiegamegarden.com",	
 "FX": 0,
 "Scale": 0.5,
 "X": 1, "Y": 0
+},
+{
+"ID": "indiegamegarden",	  	
+"Name": "Indiegame Garden 7",
+"Descr": "It's like the more thoughtful big brother of Glorious Wreckz Garden. Try it here!\nExplore, download and play free games. Grow your garden!",
+"Zip": "indiegamegarden.com/Indiegame Garden 7.exe",
+"Exe": "Indiegame Garden 7.exe",
+"ThumbURL": "igg.png",
+"Site": "indiegamegarden.com",	
+"X": 5, "Y": 0
 },
 [
 { "ID": "section_music",
@@ -26,14 +36,13 @@
 	"X": -1, "Y": 0
 },
 {
-	"ID": "Torley_Aurelic",
-	"Name": "\"Aurelic\" by Torley",
-	"Descr": "From the album \"Glitch Piano\". Hit \"W\" for Torley's website. (CC BY-NC-SA license.)",
-	"Zip": "Torley_Aurelic.zip",
-	"Exe": "Torley_Aurelic.ogg",
-	"Site": "music.torley.com",
-	"ThumbURL": "torley.png",
-	"X":0,"Y": 1
+	"ID": "ProducerSnafu_OhMyGlob",
+	"Name": "\"Oh My Glob\" by Producer Snafu",
+	"Descr": "Yeah, it's the title song of Glorious Wreckz Garden!\nFrom the album \"Bitches Don't Know Bout My Beeps\". Hit \"W\" for Snafu's website. (CC BY-NC-ND license.)",
+	"Zip": "ProducerSnafu_OhMyGlob.zip",
+	"Exe": "ProducerSnafu_OhMyGlob.ogg",
+	"ThumbURL": "producersnafu.png",
+	"Site": "producersnafu.bandcamp.com"
 },
 {
 	"ID": "Torley_Zalgone",
@@ -47,18 +56,18 @@
 {
 	"ID": "Torley_Departuring",
 	"Name": "\"Departuring\" by Torley",
-	"Descr": "Hey, this is the title track of Indiegame Garden 7.\nFrom the album \"Dream Journal 2\". Hit \"W\" for Torley's website. (CC BY-NC-SA license.)",
+	"Descr": "From the album \"Dream Journal 2\". Hit \"W\" for Torley's website. (CC BY-NC-SA license.)",
 	"Zip": "Torley_Departuring.zip",
 	"Exe": "Torley_Departuring.ogg",
 	"ThumbURL": "torley.png",
 	"Site": "music.torley.com"
 },
 {
-	"ID": "Space-Explorers_Sublime",
-	"Name": "\"Sublime\" by Space Explorer(s)",
+	"ID": "Space-Explorers_Galaxius",
+	"Name": "\"Galaxius\" by Space Explorer(s)",
 	"Descr": "Hit \"W\" for Space Explorer(s) website. (CC BY license.)",
-	"Zip": "Space-Explorers_Sublime.zip",
-	"Exe": "Space-Explorers_Sublime.ogg",
+	"Zip": "Space-Explorers_Galaxius.zip",
+	"Exe": "Space-Explorers_Galaxius.ogg",
 	"Site": "spaceexplorers.bandcamp.com",
 	"ThumbURL": "Space-Explorers.png"
 }
