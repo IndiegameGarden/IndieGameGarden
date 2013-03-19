@@ -44,9 +44,9 @@ namespace IndiegameGarden.Menus
         const float        CURSOR_SCALE_REGULAR = 0.28f; 
         float               CURSOR_DISCOVERY_RANGE = 1f;
         const float         CURSOR_DISCOVERY_RANGE_MIN = 1f;
-        const float         CURSOR_DISCOVERY_RANGE_MAX = 3.5f; 
-        const float         CURSOR_FADEOUT_RANGE = 5.5f;
-        const float        CURSOR_DESTRUCTION_RANGE = 8f;
+        const float         CURSOR_DISCOVERY_RANGE_MAX = 2.9f; 
+        const float         CURSOR_FADEOUT_RANGE = 5.4f;
+        const float        CURSOR_DESTRUCTION_RANGE = 7.8f;
         const float        CURSOR_MARGIN_X = 0.15f;
         const float        CURSOR_MARGIN_Y = 0.15f;
         static Vector2     CURSOR_INITIAL_POSITION = new Vector2(3f, 0f);
@@ -115,7 +115,7 @@ namespace IndiegameGarden.Menus
             cursor.Motion.Position = CURSOR_INITIAL_POSITION * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
             cursor.Motion.TargetPos = CURSOR_INITIAL_POSITION * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
             cursor.GridPosition = CURSOR_INITIAL_POSITION;
-            cursor.Motion.Add(new MyFuncyModifier(delegate(float v) { return v / 0.5f; }, "Rotate"));
+            cursor.Motion.Add(new MyFuncyModifier(delegate(float v) { return v / 10.3f; }, "Rotate"));
 
             // info box - will be added to parent upon OnNewParent() event
             infoBox = new GameInfoBox();
@@ -323,7 +323,7 @@ namespace IndiegameGarden.Menus
 
                     // special case thumbnails 
                     if (g.GameID.Equals("igg_controls"))
-                        th.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/22.3f; }, "Rotate"));
+                        th.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/6.3f; }, "Rotate"));
                 }
             }
                 
@@ -339,57 +339,59 @@ namespace IndiegameGarden.Menus
                 {
                     toRemoveFromCache.Add(th);
                     th.Delete = true;
+                    continue;
                 }
-                else
+
+                // check if thnail invvisible but in range. If so, start loading it
+                if (!th.Visible && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE && thumbnailLoadsStarted == 0)
                 {
-                    // check if thnail invvisible but in range. If so, start loading it
-                    if (!th.Visible && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE && thumbnailLoadsStarted == 0)
-                    {
-                        th.ColorB.Alpha = 0f;
-                        if(th.LoadInBackground())
-                            thumbnailLoadsStarted++;                                                
-                    }
+                    th.ColorB.Alpha = 0f;
+                    if(th.LoadInBackground())
+                        thumbnailLoadsStarted++;                                                
+                }
 
-                    // check if thnail is loaded and still in range. If so, start displaying it (fade in)
-                    else if (th.IsLoaded() && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE)
+                // check if thnail is loaded and still in range. If so, start displaying it (fade in)
+                if (th.IsLoaded() && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE)
+                {
+                    if (th.Game.IsGrowable)
                     {
-                        if (th.Game.IsGrowable)
-                        {
-                            th.ColorB.AlphaTarget = 1f; // (0.65f + 0.35f * g.InstallProgress);
-                            th.ColorB.SaturationTarget = (0.8f + 0.2f * g.InstallProgress);
-                        }
-                        else
-                        {
-                            th.ColorB.AlphaTarget = 1f;
-                            th.ColorB.SaturationTarget = 1f;
-                        }
-                    }
-
-                    // check if thnail in range to fade out
-                    if (th.IsLoaded() && cursor.DistanceTo(th) >= CURSOR_FADEOUT_RANGE)
-                    {
-                        th.ColorB.AlphaTarget = 0f;
-                        th.ColorB.FadeSpeed = THUMBNAIL_FADE_SPEED*2.5f;
-                        th.IsFadingOut = true;
-                        th.Motion.ScaleTarget = 0.001f;
-                        th.Motion.ScaleSpeed = 0.014f;
-                        th.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT * 1.4f;
-                        if (th.Motion.PositionAbsZoomed.Y < 0.5f)
-                            th.Motion.TargetPos = new Vector2(th.Motion.Position.X,-0.1f);
-                        else
-                            th.Motion.TargetPos = new Vector2(th.Motion.Position.X, 1.1f);
-
+                        th.ColorB.AlphaTarget = 1f; // (0.65f + 0.35f * g.InstallProgress);
+                        th.ColorB.SaturationTarget = (0.8f + 0.2f * g.InstallProgress);
                     }
                     else
                     {
-                        th.IsFadingOut = false;
+                        th.ColorB.AlphaTarget = 1f;
+                        th.ColorB.SaturationTarget = 1f;
                     }
-
                 }
 
+                // check if thnail is in range to fade out
+                if (th.IsLoaded() && cursor.DistanceTo(th) >= CURSOR_FADEOUT_RANGE)
+                {
+                    th.ColorB.AlphaTarget = 0f;
+                    th.ColorB.FadeSpeed = THUMBNAIL_FADE_SPEED*2.5f;
+                    th.IsFadingOut = true;
+                    th.Motion.ScaleTarget = 0.001f;
+                    th.Motion.ScaleSpeed = 0.014f;
+                    th.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT * 0.5f;
+                    if (th.Motion.PositionAbsZoomed.Y < 0.5f)
+                        th.Motion.TargetPos = new Vector2(th.Motion.Position.X,-0.5f);
+                    else
+                        th.Motion.TargetPos = new Vector2(th.Motion.Position.X, 1.5f);
+
+                }
+                else
+                {
+                    th.IsFadingOut = false;
+                }
+
+                // set target position and scale of each active thumbnail
                 if (!th.IsFadingOut)
                 {
-                    th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
+                    float scaleBasedOnPosition = 1f  -0.025f * (g.PositionXY - cursor.GridPosition).LengthSquared();
+                    if (scaleBasedOnPosition < 0.1f)
+                        scaleBasedOnPosition = 0.1f;
+                    th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED * scaleBasedOnPosition;
                     th.ColorB.FadeSpeed = THUMBNAIL_FADE_SPEED; // TODO do this only once per th?
                     // coordinate position where to move a game thumbnail to 
                     Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);

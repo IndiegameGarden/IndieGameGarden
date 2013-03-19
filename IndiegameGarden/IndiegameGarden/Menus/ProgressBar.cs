@@ -27,7 +27,7 @@ namespace IndiegameGarden.Menus
         float textScale = 1f;
 
         public ProgressBar()
-            : base("water-progbar")
+            : base("water-progbar") //("citybar4") 
         {
             progressValue = 0f;
             progressValueTarget = 0f;

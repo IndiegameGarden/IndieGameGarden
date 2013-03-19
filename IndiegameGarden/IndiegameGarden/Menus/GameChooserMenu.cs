@@ -57,8 +57,8 @@ namespace IndiegameGarden.Menus
             bg.DrawInfo.LayerDepth = 1f;
             //bg.DrawInfo.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
             // bg color 169, 157, 241
-            bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/20.0f; }, "Rotate"));
-            bg.Motion.Add(new MyFuncyModifier(delegate(float v) { return (1.45f + 0.25f * (float) Math.Sqrt(v/430.0)); }, "Scale"));
+            bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/24.7f; }, "Rotate"));
+            bg.Motion.Add(new MyFuncyModifier(delegate(float v) { return (1.25f + 0.45f * (float) Math.Sqrt(v/430.0)); }, "Scale"));
             bg.Motion.TargetPos = new Vector2(0.66667f, 0.75f);
             bg.Motion.TargetPosSpeed = 0.004f;
             Add(bg);
@@ -69,12 +69,12 @@ namespace IndiegameGarden.Menus
             Add(logo);
             logo.DrawInfo.Alpha = 0.0f;
             logo.Motion.Scale = 0.7f;
-            logo.Motion.Position = new Vector2(Screen.AspectRatio - 0.24f, 0.04f);
-            ColorChangeBehavior fadeIn = new ColorChangeBehavior();
+            logo.Motion.Position = new Vector2(Screen.AspectRatio - 0.24f, 0.06f);
+            //ColorChangeBehavior fadeIn = new ColorChangeBehavior();
             //logo.Add(fadeIn);
-            fadeIn.Alpha = 0f;
-            fadeIn.AlphaTarget = 0f;
-            fadeIn.FadeAlphaToTarget(0.9344f, 6f);
+            //fadeIn.Alpha = 0f;
+            //fadeIn.AlphaTarget = 0f;
+            //fadeIn.FadeAlphaToTarget(0.9344f, 6f);
             logo.Motion.Add(new SineModifier("ScaleModifier", 0.06124f, 0.07144f, 1.0f));
 
             // set my panel and games list
