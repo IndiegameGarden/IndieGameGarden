@@ -41,7 +41,7 @@ namespace IndiegameGarden.Menus
         }
 
         public void PlayDefaultSong()
-        {
+        { // fixme file not found in cases
             Play( GardenGame.Instance.Content.RootDirectory + "\\music.ogg", 0.5, 0f);
         }
 
