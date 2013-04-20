@@ -28,11 +28,11 @@ namespace IndiegameGarden.Menus
         const float LAYER_GRID_ITEMS = 0.9f;
 
         const float PANEL_ZOOM_STARTUP = 0.45f;
-        const float PANEL_ZOOM_REGULAR = 0.45f; //0.16f;
-        const float PANEL_ZOOM_DETAILED_VIEW = 1.5f; //2.857f;
+        const float PANEL_ZOOM_REGULAR = 1.00f; //0.16f;
+        const float PANEL_ZOOM_DETAILED_VIEW = 2.5f; //2.857f;
         const float PANEL_DELTA_GRID_X = 0.16f;
         const float PANEL_DELTA_GRID_Y = 0.12f;
-        const float PANEL_SPEED_SHIFT = 4.2f;
+        const float PANEL_SPEED_SHIFT = 3.2f;
         const float PANEL_SIZE_X = 1.333f;
         const float PANEL_SIZE_Y = 1.0f;
         const float PANEL_ZOOM_TARGET_QUITTING = 0.01f;
@@ -44,9 +44,9 @@ namespace IndiegameGarden.Menus
         const float        CURSOR_SCALE_REGULAR = 0.28f; 
         float               CURSOR_DISCOVERY_RANGE = 1f;
         const float         CURSOR_DISCOVERY_RANGE_MIN = 1f;
-        const float         CURSOR_DISCOVERY_RANGE_MAX = 2.9f; 
-        const float         CURSOR_FADEOUT_RANGE = 5.4f;
-        const float        CURSOR_DESTRUCTION_RANGE = 7.8f;
+        const float         CURSOR_DISCOVERY_RANGE_MAX = 2.7f; 
+        const float         CURSOR_FADEOUT_RANGE = 4.4f;
+        const float        CURSOR_DESTRUCTION_RANGE = 6.3f;
         const float        CURSOR_MARGIN_X = 0.15f;
         const float        CURSOR_MARGIN_Y = 0.15f;
         static Vector2     CURSOR_INITIAL_POSITION = new Vector2(3f, 0f);
