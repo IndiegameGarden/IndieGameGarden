@@ -57,9 +57,9 @@ namespace IndiegameGarden.Menus
             bg.DrawInfo.LayerDepth = 1f;
             //bg.DrawInfo.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
             // bg color 169, 157, 241
-            bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/24.7f; }, "Rotate"));
-            bg.Motion.Add(new MyFuncyModifier(delegate(float v) { return (1.25f + 0.45f * (float) Math.Sqrt(v/430.0)); }, "Scale"));
-            bg.Motion.TargetPos = new Vector2(0.66667f, 0.75f);
+            bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/44.7f; }, "Rotate"));
+            bg.Motion.Add(new MyFuncyModifier(delegate(float v) { return (10.5f + 0.95f * (float) Math.Sqrt(v/430.0)); }, "Scale"));
+            bg.Motion.TargetPos = new Vector2(Screen.Width/2.0f + 0.1f, 0.75f);
             bg.Motion.TargetPosSpeed = 0.004f;
             Add(bg);
             background = bg;
