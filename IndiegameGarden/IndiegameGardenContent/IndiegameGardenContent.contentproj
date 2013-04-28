@@ -63,13 +63,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WhiteTexture.png">
-      <Name>WhiteTexture</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="GameThumbnailCursor.fx">
       <Name>GameThumbnailCursor</Name>
       <Importer>EffectImporter</Importer>
@@ -102,13 +95,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cursor2.png">
-      <Name>cursor2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="keymap.png">
       <Name>keymap</Name>
       <Importer>TextureImporter</Importer>
@@ -138,22 +124,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="citybar.png">
-      <Name>citybar</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="cursor3.png">
       <Name>cursor3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="citybar2.png">
-      <Name>citybar2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

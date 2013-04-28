@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Indiegame Garden, where indie games grow!")]
-[assembly: AssemblyProduct("IndiegameGarden")]
-[assembly: AssemblyDescription("Indiegame Garden, where indie games grow!")]
+[assembly: AssemblyTitle("Glorious Wreckz Garden")]
+[assembly: AssemblyProduct("Glorious Wreckz Garden")]
+[assembly: AssemblyDescription("Glorious Wreckz Garden")]
 [assembly: AssemblyCompany("IndiegameGarden.com")]
-[assembly: AssemblyCopyright("Copyright © IndiegameGarden.com 2011-2012")]
+[assembly: AssemblyCopyright("Copyright © IndiegameGarden.com 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -22,7 +22,7 @@ using System.Runtime.InteropServices;
 // On Windows, the following GUID is for the ID of the typelib if this
 // project is exposed to COM. On other platforms, it unique identifies the
 // title storage container when deploying this assembly to the device.
-[assembly: Guid("eb35aa52-cd6e-4384-bc1e-24e56e463ffa")]
+[assembly: Guid("eb35aa52-cd6e-4384-bc1e-24e56e463ffb")]
 
 // Version information for an assembly consists of the following four values:
 //

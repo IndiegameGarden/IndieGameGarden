@@ -8,6 +8,6 @@ call set-versions.bat
 call build-gamelib.bat
 
 echo Copying for release/distribution version %CLVER% of IGG with gamelib version %LIBVER%
-xcopy /D /Y IndiegameGarden\IndiegameGarden\bin\x86\Release\*.exe distribution\
+xcopy /D /Y IndiegameGarden\IndiegameGarden\bin\x86\Release\IndieGameGarden.exe distribution\GloriousWreckzGarden.exe
 xcopy /D /Y IndiegameGarden\IndiegameGarden\bin\x86\Release\*.dll distribution\
 xcopy /D /Y IndiegameGarden\IndiegameGarden\bin\x86\Release\Content distribution\Content\

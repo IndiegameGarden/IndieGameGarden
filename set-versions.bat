@@ -15,7 +15,7 @@ echo         CLVER=%CLVER%
 echo         LIBVER=%LIBVER%
 echo         FORMATVER=%FORMATVER%
 set GCONF=IndiegameGarden/IndiegameGarden/Base/GardenConfig.cs
-set LIBCONF=config/gamelib_fmt%FORMATVER%/gamelib-config.json
+set LIBCONF=config/gamelib_fmt%FORMATVER%/gwg-config.json
 echo         GCONF=%GCONF%
 echo         LIBCONF=%LIBCONF%
 echo -
