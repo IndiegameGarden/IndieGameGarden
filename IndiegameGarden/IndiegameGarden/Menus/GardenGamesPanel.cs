@@ -27,7 +27,7 @@ namespace IndiegameGarden.Menus
         const float LAYER_DODGING_ITEM = 0.3f;
         const float LAYER_GRID_ITEMS = 0.9f;
 
-        const float PANEL_ZOOM_REGULAR = 0.4f;
+        const float PANEL_ZOOM_REGULAR = 0.8f;
         const float PANEL_DELTA_GRID_X = 0.16f;
         const float PANEL_DELTA_GRID_Y = 0.12f;
         const float PANEL_SPEED_SHIFT = 3.2f;
@@ -386,10 +386,7 @@ namespace IndiegameGarden.Menus
                 // set target position and scale of each active thumbnail
                 if (!th.IsFadingOut)
                 {
-                    float scaleBasedOnPosition = 1f  -0.025f * (g.PositionXY - cursor.GridPosition).LengthSquared();
-                    if (scaleBasedOnPosition < 0.1f)
-                        scaleBasedOnPosition = 0.1f;
-                    th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED * scaleBasedOnPosition;
+                    th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
                     th.ColorB.FadeSpeed = THUMBNAIL_FADE_SPEED; // TODO do this only once per th?
                     // coordinate position where to move a game thumbnail to 
                     Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
@@ -398,13 +395,6 @@ namespace IndiegameGarden.Menus
                 }                
 
             } // end for loop over all games
-
-            // increase discover range if no thumbnails loaded this time
-            if (thumbnailLoadsStarted == 0 && GameThumbnail.IsNewDownloadAllowed)
-            {
-                if (CURSOR_DISCOVERY_RANGE < CURSOR_DISCOVERY_RANGE_MAX)
-                    CURSOR_DISCOVERY_RANGE += 0.02f;
-            }
 
             foreach (GameThumbnail th in toRemoveFromCache)
             {
