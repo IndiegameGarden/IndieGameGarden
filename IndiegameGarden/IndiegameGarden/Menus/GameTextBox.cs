@@ -49,7 +49,7 @@ namespace IndiegameGarden.Menus
 
         private void Init(string fontName)
         {
-            font = GardenGame.Instance.Content.Load<SpriteFont>(fontName);
+            font = BentoGame.Instance.Content.Load<SpriteFont>(fontName);
         }
 
         protected override void OnDraw(ref DrawParams p)

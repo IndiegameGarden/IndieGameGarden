@@ -93,7 +93,7 @@ namespace IndiegameGarden.Base
                             {
                                 IsGameShowingWindow = true;
                                 SetForegroundWindow(gameWindowHandle);
-                                //GardenGame.Instance.DebugMsg.Text = "Handle: " + Proc.MainWindowHandle.ToInt32();
+                                //BentoGame.Instance.DebugMsg.Text = "Handle: " + Proc.MainWindowHandle.ToInt32();
                                 n++;
                             }
                         }

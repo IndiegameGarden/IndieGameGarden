@@ -13,7 +13,7 @@ namespace IndiegameGarden
 #if WINDOWS || XBOX
     static class Program
     {
-        static string CRITICAL_ERROR_MSG = "Critical error - just reported to our server in the Google cloud, to help fix it.\n";
+        static string CRITICAL_ERROR_MSG = "Critical error - just reported to our server in the cloud, to help fix it.\n";
 
         /// <summary>
         /// The main entry point for the application.
@@ -24,14 +24,14 @@ namespace IndiegameGarden
             {
                 AppDomain.CurrentDomain.UnhandledException +=
                     new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-                using (GardenGame game = new GardenGame())
+                using (BentoGame game = new BentoGame())
                 {
                     game.Run();
                 }
             }
             catch(Exception ex) {
                 ReportErrorOverNetwork(ex);
-                MsgBox.Show("Indiegame Garden: critical error",
+                MsgBox.Show("Bento Box: critical error",
                             CRITICAL_ERROR_MSG + ex.Message + "\n" + ex.ToString() );                
             }
         }
@@ -41,8 +41,8 @@ namespace IndiegameGarden
             try
             {
                 Exception ex = (Exception)e.ExceptionObject;
-                ReportErrorOverNetwork(ex); 
-                MsgBox.Show("Indiegame Garden: critical error",
+                ReportErrorOverNetwork(ex);
+                MsgBox.Show("Bento Box: critical error",
                             CRITICAL_ERROR_MSG + ex.Message + "\n" + ex.ToString());
             }
             finally
@@ -50,15 +50,6 @@ namespace IndiegameGarden
                 ;
             }
         }   
-
-        /*
-        static void ReportErrorHttpPost(Exception ex)
-        {
-            string u = "http://indieget.appspot.com/errPost" ;
-            string payload = ex + "\n" + ex.TargetSite + "\n" + ex.StackTrace;
-            HttpPost.HttpPostText(u,payload);
-        }
-         */
 
         static void ReportErrorOverNetwork(Exception ex)
         {
@@ -99,8 +90,6 @@ namespace IndiegameGarden
 
                     if (u.Length > MAX_URL_LENGTH)
                         u = u.Substring(0, MAX_URL_LENGTH);
-                    //Downloader downloader = DownloadManager.Instance.Add(ResourceLocation.FromURL(u), new ResourceLocation[] { },
-                    //                                "dummy_file_should_not_be_created_23048230948209348230894432.tmp", 1, true);
                     HttpPost.HttpPostText(u, "x");
                 }
                 catch (Exception)

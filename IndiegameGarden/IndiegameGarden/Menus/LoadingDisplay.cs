@@ -127,7 +127,7 @@ namespace IndiegameGarden.Menus
                 else 
                 {
                     // suppress drawing during play of another game - save resources and avoid gfx conflicts.
-                    GardenGame.Instance.SuppressDraw();
+                    BentoGame.Instance.SuppressDraw();
                 }
                 if (SimTime > TIME_SHOW_PLAYING_MESSAGE)
                 {
@@ -146,7 +146,7 @@ namespace IndiegameGarden.Menus
                 // perform real exit operation (abort launcher task) when ESC already released
                 if (!loadingDisplay.isExiting && loadingDisplay.willExitSoon)
                 {
-                    GardenGame.Instance.launcher.Abort();
+                    BentoGame.Instance.launcher.Abort();
                     loadingDisplay.willExitSoon = false;
                     //to do: // do not progress to next global state until user has released esc button? or do not consider that as a new ESC press (even better)
                 }
@@ -183,7 +183,7 @@ namespace IndiegameGarden.Menus
                 if (SimTime > 1f && !isFirstDraw)
                 {
                     // suppress drawing during play of another game - save resources and avoid gfx conflicts.
-                    GardenGame.Instance.SuppressDraw();
+                    BentoGame.Instance.SuppressDraw();
                 }
 
                 // check keyboard - if esc, get back to garden state                
@@ -199,7 +199,7 @@ namespace IndiegameGarden.Menus
                 // perform real exit operation (abort launcher task) when ESC released
                 if (!loadingDisplay.isExiting && loadingDisplay.willExitSoon)
                 {
-                    GardenGame.Instance.launcher.Abort();
+                    BentoGame.Instance.launcher.Abort();
                     loadingDisplay.willExitSoon = false;
                 }
 
@@ -405,7 +405,7 @@ namespace IndiegameGarden.Menus
         protected override void OnUpdate(ref UpdateParams p)
         {
             base.OnUpdate(ref p);
-            if (GardenGame.Instance.IsActive)
+            if (BentoGame.Instance.IsActive)
             {
                 KeyboardControls(ref p);
             }

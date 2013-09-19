@@ -49,7 +49,7 @@ namespace IndiegameGarden.Menus
             panel.Motion.Position = new Vector2(0.0f, 0.0f);
 
             // get the items to display
-            gamesList = GardenGame.Instance.GameLib.GetList();
+            gamesList = BentoGame.Instance.GameLib.GetList();
 
             // background
             Spritelet bg = new Spritelet("wee2");
@@ -215,7 +215,7 @@ namespace IndiegameGarden.Menus
             base.OnUpdate(ref p);
 
             // check keyboard/mouse inputs from user
-            if (GardenGame.Instance.IsActive)
+            if (BentoGame.Instance.IsActive)
             {
                 KeyboardControls(ref p);
                 MouseControls(ref p);

@@ -27,9 +27,7 @@ namespace IndiegameGarden.Menus
         const float LAYER_DODGING_ITEM = 0.3f;
         const float LAYER_GRID_ITEMS = 0.9f;
 
-        const float PANEL_ZOOM_STARTUP = 0.45f;
-        const float PANEL_ZOOM_REGULAR = 1.00f; //0.16f;
-        const float PANEL_ZOOM_DETAILED_VIEW = 2.5f; //2.857f;
+        const float PANEL_ZOOM_REGULAR = 0.4f;
         const float PANEL_DELTA_GRID_X = 0.16f;
         const float PANEL_DELTA_GRID_Y = 0.12f;
         const float PANEL_SPEED_SHIFT = 3.2f;
@@ -42,14 +40,14 @@ namespace IndiegameGarden.Menus
         static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-3f);
 
         const float        CURSOR_SCALE_REGULAR = 0.28f; 
-        float               CURSOR_DISCOVERY_RANGE = 1f;
-        const float         CURSOR_DISCOVERY_RANGE_MIN = 1f;
-        const float         CURSOR_DISCOVERY_RANGE_MAX = 2.7f; 
-        const float         CURSOR_FADEOUT_RANGE = 4.4f;
-        const float        CURSOR_DESTRUCTION_RANGE = 6.3f;
+        float               CURSOR_DISCOVERY_RANGE = 9999f;
+        const float         CURSOR_DISCOVERY_RANGE_MIN = 9999f;
+        const float         CURSOR_DISCOVERY_RANGE_MAX = 9999f; 
+        const float         CURSOR_FADEOUT_RANGE = 9999f;
+        const float        CURSOR_DESTRUCTION_RANGE = 9999f;
         const float        CURSOR_MARGIN_X = 0.15f;
         const float        CURSOR_MARGIN_Y = 0.15f;
-        static Vector2     CURSOR_INITIAL_POSITION = new Vector2(3f, 0f);
+        static Vector2     CURSOR_INITIAL_POSITION = new Vector2(0f, 0f);
 
         public const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; 
         const float        THUMBNAIL_SCALE_SELECTED = 0.51f; 
@@ -138,8 +136,8 @@ namespace IndiegameGarden.Menus
             creditsBitmap.Motion.TargetPosSpeed = CREDITS_SPEED_MOVE;
 
             // default zoom
-            Motion.Zoom = PANEL_ZOOM_DETAILED_VIEW;
-            Motion.ZoomTarget = PANEL_ZOOM_DETAILED_VIEW;
+            Motion.Zoom = PANEL_ZOOM_REGULAR;
+            Motion.ZoomTarget = PANEL_ZOOM_REGULAR;
             Motion.ZoomSpeed = PANEL_ZOOM_SPEED_REGULAR;
             Motion.ZoomCenterTarget = cursor.Motion;
         }
@@ -216,21 +214,21 @@ namespace IndiegameGarden.Menus
                 {
                     if (selGame.IsInstalled)
                     {
-                        GardenGame.Instance.music.FadeOut();
-                        GardenGame.Instance.ActionLaunchGame(selGame, thumb);
+                        BentoGame.Instance.music.FadeOut();
+                        BentoGame.Instance.ActionLaunchGame(selGame, thumb);
                         isExiting = true;
                         timeExiting = TIME_BEFORE_EXIT;
                     }
                     else
                     {
-                        GardenGame.Instance.ActionDownloadAndInstallGame(selGame);
+                        BentoGame.Instance.ActionDownloadAndInstallGame(selGame);
                     }
                 }
                 else
                 {
                     if (selGame.IsWebGame)
                     {
-                        GardenGame.Instance.ActionLaunchWebsitePlayGame(selGame, thumb);
+                        BentoGame.Instance.ActionLaunchWebsitePlayGame(selGame, thumb);
                     }
                     else if (!selGame.IsGrowable)
                     {
@@ -238,12 +236,12 @@ namespace IndiegameGarden.Menus
                     }
                     else if (selGame.IsInstalled)
                     {
-                        GardenGame.Instance.music.FadeOut();
-                        GardenGame.Instance.ActionLaunchGame(selGame, thumb);
+                        BentoGame.Instance.music.FadeOut();
+                        BentoGame.Instance.ActionLaunchGame(selGame, thumb);
                     }
                     else // if (not installed)
                     {
-                        GardenGame.Instance.ActionDownloadAndInstallGame(selGame);
+                        BentoGame.Instance.ActionDownloadAndInstallGame(selGame);
                     }
                 }
                 isGameLaunchOngoing = false;
@@ -254,14 +252,14 @@ namespace IndiegameGarden.Menus
             // handle exit key
             if (isExiting)
             {
-                GardenGame.Instance.music.FadeOut();
+                BentoGame.Instance.music.FadeOut();
                 timeExiting += p.Dt;
                 if (timeExiting > TIME_BEFORE_EXIT)
                 {
                     parentMenu.background.Motion.ScaleModifier = 1f / (1f + (timeExiting-TIME_BEFORE_EXIT) / 11f);
                     if (!isExitingUnstoppable)
                     {
-                        GardenGame.Instance.SignalExitGame();
+                        BentoGame.Instance.SignalExitGame();
                         isExitingUnstoppable = true;
                         Motion.ZoomSpeed = PANEL_ZOOM_SPEED_QUITTING;
                     }
@@ -272,8 +270,8 @@ namespace IndiegameGarden.Menus
             {
                 if (timeExiting > 0f)
                 {
-                    if(GardenGame.Instance.music.UserWantsMusic)
-                        GardenGame.Instance.music.FadeIn();
+                    if(BentoGame.Instance.music.UserWantsMusic)
+                        BentoGame.Instance.music.FadeIn();
                     timeExiting = 0f;
                 }
             }
@@ -284,7 +282,7 @@ namespace IndiegameGarden.Menus
                 if (selGame != null && selGame.DeveloperWebsiteURL.Length > 0 )
                 {
                     GameThumbnail thumb = thumbnailsCache[selGame.GameID];
-                    GardenGame.Instance.ActionLaunchWebsite(selGame, thumb);
+                    BentoGame.Instance.ActionLaunchWebsite(selGame, thumb);
                 }
                 isLaunchWebsite = false;
             }
@@ -421,25 +419,6 @@ namespace IndiegameGarden.Menus
                 if( g != infoBox.game)
                     infoBox.SetGameInfo(g);
 
-                //-- helpful controls text
-                if (g.GameID.Equals("igg_controls") && !isExiting)
-                {
-                    helpTextBitmap.Motion.TargetPos = HELPTEXT_SHOWN_POSITION;
-                    if (g.Name.Length == 0)
-                    {
-                        string msg = GardenConfig.Instance.ServerMsg;
-                        string[] msgLines = msg.Split(new char[] { '\n' },2);
-                        g.Name = msgLines[0];
-                        if (msgLines.Length > 1) 
-                            g.Description = msgLines[1];
-                        
-                    }
-                }
-                else
-                {
-                    helpTextBitmap.Motion.TargetPos = HELPTEXT_HIDDEN_POSITION;
-                }
-
                 //-- credits text
                 if (g.GameID.Equals("igg_credits") && !isExiting)
                 {
@@ -542,10 +521,10 @@ namespace IndiegameGarden.Menus
         {
             // HACK: for web games launch, make sure that music is turned back on upon next user input after play
             if (!isGameLaunchOngoing && 
-                !GardenGame.Instance.music.IsFadedIn && 
-                GardenGame.Instance.music.UserWantsMusic)
+                !BentoGame.Instance.music.IsFadedIn && 
+                BentoGame.Instance.music.UserWantsMusic)
             {
-                GardenGame.Instance.music.FadeIn();
+                BentoGame.Instance.music.FadeIn();
             }
 
             switch (inp)
@@ -617,21 +596,8 @@ namespace IndiegameGarden.Menus
                         catch (Exception) { ; }
                         if (th != null)
                         {
-                            switch (selectionLevel)
-                            {
-                                case 0:
-                                    // select once - zoom in on selected game
-                                    Motion.ZoomTarget = PANEL_ZOOM_DETAILED_VIEW;
-                                    Motion.ZoomSpeed = PANEL_ZOOM_SPEED_REGULAR; // 0.01f; 
-                                    Motion.ZoomCenterTarget = cursor.Motion;
-                                    SelectedGame.Refresh();
-                                    selectionLevel++;
-                                    break;
-                                case 1:
-                                    // select again - install or launch game if selection key pressed long enough.
-                                    isGameLaunchOngoing = true;
-                                    break;
-                            }
+                            // select again - install or launch game if selection key pressed long enough.
+                            isGameLaunchOngoing = true;
                         }
                     }
                     break;
@@ -653,7 +619,7 @@ namespace IndiegameGarden.Menus
                     break;
 
                 case UserInput.TOGGLE_MUSIC:
-                    GardenGame.Instance.music.ToggleMusic();
+                    BentoGame.Instance.music.ToggleMusic();
                     break;
 
             } // switch(inp)

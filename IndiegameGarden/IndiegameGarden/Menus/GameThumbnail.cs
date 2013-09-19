@@ -160,7 +160,7 @@ namespace IndiegameGarden.Menus
             
             if (DefaultTexture == null)
             {
-                DefaultTexture = GardenGame.Instance.Content.Load<Texture2D>("ball-supernova2");
+                DefaultTexture = BentoGame.Instance.Content.Load<Texture2D>("ball-supernova2");
             }
             
             // use default texture as long as thumbnail not loaded yet

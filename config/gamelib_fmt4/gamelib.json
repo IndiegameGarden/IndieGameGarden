@@ -2,77 +2,12 @@
 "gameslist":
 [
 {
-"ID": "igg_controls",
-"Scale": 1.5,
-"RotSpeed": 0.14,
-"FX": 0,
-"X": 3, "Y": 0
-},
-{
 "ID": "igg_credits",	  	
 "Site": "indiegamegarden.com",	
 "FX": 0,
 "Scale": 0.5,
 "X": 1, "Y": 0
 },
-{
-"ID": "indiegamegarden",	  	
-"Name": "Indiegame Garden 7",
-"Descr": "It's like the more thoughtful big brother of Glorious Wreckz Garden. Try it here!\nExplore, download and play free games. Grow your garden!",
-"Zip": "indiegamegarden.com/Indiegame Garden 7.exe",
-"Exe": "Indiegame Garden 7.exe",
-"ThumbURL": "igg.png",
-"Site": "indiegamegarden.com",	
-"X": 5, "Y": 0
-},
-[
-{ "ID": "section_music",
-	"X": 7, "Y": 0, "DX": 2
-},
-{
- 	"ID": "igg_iconmusic",
-	"Name": "",
-	"Scale": 0.47,
-	"X": -1, "Y": 0
-},
-{
-	"ID": "ProducerSnafu_OhMyGlob",
-	"Name": "\"Oh My Glob\" by Producer Snafu",
-	"Descr": "Yeah, it's the title song of Glorious Wreckz Garden!\nFrom the album \"Bitches Don't Know Bout My Beeps\". Hit \"W\" for Snafu's website. (CC BY-NC-ND license.)",
-	"Zip": "ProducerSnafu_OhMyGlob.zip",
-	"Exe": "ProducerSnafu_OhMyGlob.ogg",
-	"ThumbURL": "producersnafu.png",
-	"Site": "producersnafu.bandcamp.com"
-},
-{
-	"ID": "Torley_Zalgone",
-	"Name": "\"Zalgone\" by Torley",
-	"Descr": "From the album \"Glitch Piano\". Hit \"W\" for Torley's website. (CC BY-NC-SA license.)",
-	"Zip": "Torley_Zalgone.zip",
-	"Exe": "Torley_Zalgone.ogg",
-	"ThumbURL": "torley.png",
-	"Site": "music.torley.com"
-},
-{
-	"ID": "Torley_Departuring",
-	"Name": "\"Departuring\" by Torley",
-	"Descr": "From the album \"Dream Journal 2\". Hit \"W\" for Torley's website. (CC BY-NC-SA license.)",
-	"Zip": "Torley_Departuring.zip",
-	"Exe": "Torley_Departuring.ogg",
-	"ThumbURL": "torley.png",
-	"Site": "music.torley.com"
-},
-{
-	"ID": "Space-Explorers_Galaxius",
-	"Name": "\"Galaxius\" by Space Explorer(s)",
-	"Descr": "Hit \"W\" for Space Explorer(s) website. (CC BY license.)",
-	"Zip": "Space-Explorers_Galaxius.zip",
-	"Exe": "Space-Explorers_Galaxius.ogg",
-	"Site": "spaceexplorers.bandcamp.com",
-	"ThumbURL": "Space-Explorers.png"
-}
-],
-
 
 [
 {

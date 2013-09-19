@@ -24,52 +24,22 @@ namespace IndiegameGarden.Base
         /// 5 = BETA-5
         /// 6 = BETA-6
         /// 7 = Indiegame Garden 7
+        /// 8 = GWG
+        /// 9 = Bento
         /// etc.
         /// </summary>
-        public const int IGG_CLIENT_VERSION=7;
+        public const int IGG_CLIENT_VERSION = 9;
 
-        /// <summary>
-        /// update for a new build -> quick bootstrap to load a known version of gamelib. This version number
-        /// starts again at 1 each time a new gamelib format ("fmt") version is released.
-        /// For example "fmt3" in the source refers to gamelib format version 3.
-        /// </summary>
-        public const int KNOWN_GAMELIB_VERSION=1;
-
-        /// <summary>
-        /// checking config file integrity (somewhat) by comparing loaded config Magic to below value
-        /// </summary>
-        public const string CONFIG_MAGIC_VALUE = "gwgfj239jf0a9w";
-        
-        /// <summary>
-        /// garden ID default when no ID assigned yet by server (this assignment is not yet implemented)
-        /// </summary>
-        public const string DEFAULT_GARDEN_ID = "42";
-        
         /// <summary>
         /// specifies relative folder from which to copy files to the DataPath folder during init
         /// </summary>
         public const string COPY_FILES_SRC_PATH = "."; 
         
-        /// <summary>
-        /// true if config has been loaded ok from file, false if not (yet)
-        /// </summary>
-        bool hasLoadedFromFileOk = false;
-
         protected static GardenConfig instance = null;
 
         public GardenConfig()
         {
             InitDefaults();                        
-            try
-            {
-                LoadJson();
-                hasLoadedFromFileOk = true;
-                InitFromJSON();
-            }
-            catch (Exception )
-            {
-                hasLoadedFromFileOk = false;
-            }            
         }
 
         public static GardenConfig Instance
@@ -97,8 +67,6 @@ namespace IndiegameGarden.Base
             // For bundle .exe files, save in same folder as Indiegame Garden exe (nice for collecting them)
             BundleDataPath = Path.GetFullPath(".");
 
-            GardenID = DEFAULT_GARDEN_ID;
-            ServerMsg = "Enjoy your garden!\nIn case you see just a handful of icons, try restarting while connected to the internet.";
             ConfigFilesFolder = GetFolder("config");
             PackedFilesFolder = GetFolder("zips");
             UnpackedFilesFolder = GetFolder("games");
@@ -107,8 +75,6 @@ namespace IndiegameGarden.Base
             ConfigFilename = "gwg-config.json";
             GameLibraryFilename = "gamelib.json";
             GameLibraryFilenameBin = "gamelib.bin";
-            NewestGameLibraryVersion = KNOWN_GAMELIB_VERSION;
-            Magic = "gwgfj239jf0a9w"; // dummy magic value. Will only be used for validation once loaded from JSON.
 
             ThumbnailsServerURL = "http://indie.indiegamegarden.com/thumbs/";
             ConfigFilesServerURL = "http://indie.indiegamegarden.com/gwg_gamelib_fmt4/"; 
@@ -116,32 +82,6 @@ namespace IndiegameGarden.Base
             BundleFilesServerURL = "http://www.indiegamegarden.com/";
 
             jsonFilePath = Path.Combine(ConfigFilesFolder, ConfigFilename);
-
-        }
-
-        /// <summary>
-        /// Second init based on JSON file loaded key/values
-        /// </summary>
-        protected void InitFromJSON()
-        {
-            try { GameLibraryFilename = GetString("GameLibraryFilename"); }
-            catch (Exception) { ; };
-            try { ThumbnailsServerURL = GetString("ThumbnailsServerURL"); }
-            catch (Exception) { ; };
-            try { ConfigFilesServerURL = GetString("ConfigFilesServerURL"); }
-            catch (Exception) { ; };
-            try { PackedFilesServerURL = GetString("PackedFilesServerURL"); }
-            catch (Exception) { ; };
-            try { GardenID = GetString("Garden"); }
-            catch (Exception) { ; };
-            try { ServerMsg = GetString("ServerMsg"); }
-            catch (Exception) { ; };
-            try { NewestGameLibraryVersion = (int)GetValue("GameLibVer"); }
-            catch (Exception) { ; };
-            try { NewestClientVersion = (int)GetValue("ClientVer"); }
-            catch (Exception) { ; };
-            try { Magic = GetString("Magic"); }
-            catch (Exception) { ; };
 
         }
 
@@ -233,46 +173,8 @@ namespace IndiegameGarden.Base
         /// <returns></returns>
         public bool IsValid()
         {
-            if (hasLoadedFromFileOk && !Magic.Equals(GardenConfig.CONFIG_MAGIC_VALUE))
-                return false;
-            else
-                return true;
+            return true;
         }
-
-        public override void Reload()
-        {
-            try
-            {
-                base.Reload();
-                hasLoadedFromFileOk = true;
-            }
-            catch (Exception)
-            {
-                hasLoadedFromFileOk = false;
-            }
-            InitFromJSON();
-        }
-
-        /// <summary>
-        /// check whether a config has been loaded successfully from a file
-        /// </summary>
-        public bool HasLoadedFromFileOk
-        {
-            get
-            {
-                return hasLoadedFromFileOk;
-            }
-        }
-
-        /// <summary>
-        /// the unique ID of this garden (may be changed by config server, may be unused as well)
-        /// </summary>
-        public string GardenID { get; set; }
-
-        /// <summary>
-        /// special message from config server e.g. showing issues or news
-        /// </summary>
-        public string ServerMsg { get; set; }
 
         /// <summary>
         /// a folder path, abs or rel, pointing to the location where all below defined data folders are present
@@ -320,16 +222,6 @@ namespace IndiegameGarden.Base
         public string GameLibraryFilenameBin { get; set; }
 
         /// <summary>
-        /// version of the newest game library currently available (obtained from config server)
-        /// </summary>
-        public int NewestGameLibraryVersion { get; set; }
-
-        /// <summary>
-        /// magic value to check config integrity (loosely)
-        /// </summary>
-        public string Magic { get; set; }
-
-        /// <summary>
         /// returns the version of current running client
         /// </summary>
         public int ClientVersion { 
@@ -337,11 +229,6 @@ namespace IndiegameGarden.Base
                 return IGG_CLIENT_VERSION;
             }
         }
-
-        /// <summary>
-        /// returns newest available known client version (obtained from config server)
-        /// </summary>
-        public int NewestClientVersion { get; set; }
 
         /// <summary>
         /// url of the thumbnails server (incl path to thumbnails folder if any)

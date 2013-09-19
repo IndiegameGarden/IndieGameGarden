@@ -14,7 +14,7 @@ namespace IndiegameGarden.Base
     {
         public override void OnEntry(Gamelet g)
         {
-            //GardenGame.Instance.IsMouseVisible = false;
+            //BentoGame.Instance.IsMouseVisible = false;
         }
     }
 
@@ -25,7 +25,7 @@ namespace IndiegameGarden.Base
     {
         public override void OnEntry(Gamelet g)
         {
-            //GardenGame.Instance.IsMouseVisible = false;
+            //BentoGame.Instance.IsMouseVisible = false;
         }
     }
 
@@ -52,7 +52,7 @@ namespace IndiegameGarden.Base
         public override void OnEntry(Gamelet g)
         {
             base.OnEntry(g);
-            //GardenGame.Instance.IsMouseVisible = true;
+            //BentoGame.Instance.IsMouseVisible = true;
         }
 
         public override void OnUpdate(Gamelet g, ref UpdateParams p)
@@ -62,16 +62,16 @@ namespace IndiegameGarden.Base
             if (stateDuration > 0f)
             {
                 if (simTime > stateDuration)
-                    GardenGame.Instance.TreeRoot.SetNextState(new StateBrowsingMenu());
+                    BentoGame.Instance.TreeRoot.SetNextState(new StateBrowsingMenu());
             }
         }
 
         public override void OnExit(Gamelet g)
         {
             base.OnExit(g);
-            //GardenGame.Instance.IsMouseVisible = false;
+            //BentoGame.Instance.IsMouseVisible = false;
             if (fadeInMusicWhenDone)
-                GardenGame.Instance.music.FadeIn();
+                BentoGame.Instance.music.FadeIn();
         }
     }
 
