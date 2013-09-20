@@ -1,0 +1,3 @@
+NetServ.Net.Json.JsonString - add support for UTF-16.
+NetServ.Net.Json.JsonParser - add support for UTF-16.
+NetServ.Net.Json.IndentedJsonWriter - modify PreWrite to write empty objects and arrays on one line.

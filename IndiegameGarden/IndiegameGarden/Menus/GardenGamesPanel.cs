@@ -457,6 +457,7 @@ namespace IndiegameGarden.Menus
             cursor.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT;
 
             // panel shift effect when cursor hits edges of panel
+            /*
             Vector2 cp = cursor.Motion.PositionAbsZoomed;
             float chw = cursor.DrawInfo.WidthAbs / 2.0f; // cursor-half-width
             float chh = cursor.DrawInfo.HeightAbs / 2.0f; // cursor-half-height
@@ -479,7 +480,7 @@ namespace IndiegameGarden.Menus
             {
                 PanelShiftPos.Y += dx;
             }
-
+            */
         }
 
         public override void OnChangedSelectedGame(GardenItem newSel, GardenItem oldSel)

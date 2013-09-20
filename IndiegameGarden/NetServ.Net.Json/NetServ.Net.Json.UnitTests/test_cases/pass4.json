@@ -1,0 +1,30 @@
+{
+	"Name": "Andrew Kernahan",
+	"Tel.": "55378008",
+	"Delivery": true,
+	"Address": 
+	{
+		"Street": "16 Melrose Place",
+		"Line1": "Monktown",
+		"City": "Eastport",
+		"County": "Merseyside",
+		"Postcode": "PR9ERRNO"
+	},
+	"Total": 12.60,
+	"Items": 
+	[
+		{
+			"ID": "Chicken & Chips",
+			"Qty": 2,
+			"Price": 1.5,
+			"Req": "Plenty of salad."
+		},
+		{
+			"ID": "Pizza",
+			"Qty": 1,
+			"Price": 9.6,
+			"Size": "16\"",
+			"Req": ""
+		}
+	]
+}

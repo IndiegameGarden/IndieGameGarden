@@ -1,0 +1,4 @@
+http://www.json.org/JSON_checker/test.zip
+
+Also removed some strict tests as we provide some flexibility when parsing
+(such as case insensitivity).
