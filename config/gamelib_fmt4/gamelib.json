@@ -13,10 +13,8 @@
 {
 	"ID": "section_wrecks",
 	"Visible": 0,
-	"X": 0, "Y": 1, "DX": 60
+	"X": 0, "Y": 0, "DX": 8
 },
-
-
 {
 	"ID": "gametitle",
 	"Name": "Game Title",

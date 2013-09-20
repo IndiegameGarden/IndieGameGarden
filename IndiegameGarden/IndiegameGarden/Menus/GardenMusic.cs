@@ -12,13 +12,14 @@ namespace IndiegameGarden.Menus
 {
     public class GardenMusic: Gamelet
     {
+        public static double MUSIC_FADE_SPEED = 4;
         public bool UserWantsMusic = false;
 
         SoundEvent soundScript;
         RenderParams rp = new RenderParams();
         bool isFadeOut = false;
         bool isFadeIn = false;
-        double fadeSpeed = 0.3;
+        double fadeSpeed = MUSIC_FADE_SPEED;
         SampleSoundEvent currentSong = null;
         double currentSongStartTime = 0;
         string lastMusicFile = null;

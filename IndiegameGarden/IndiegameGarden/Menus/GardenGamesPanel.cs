@@ -27,7 +27,7 @@ namespace IndiegameGarden.Menus
         const float LAYER_DODGING_ITEM = 0.3f;
         const float LAYER_GRID_ITEMS = 0.9f;
 
-        const float PANEL_ZOOM_REGULAR = 0.8f;
+        const float PANEL_ZOOM_REGULAR = 1.2f;
         const float PANEL_DELTA_GRID_X = 0.16f;
         const float PANEL_DELTA_GRID_Y = 0.12f;
         const float PANEL_SPEED_SHIFT = 3.2f;
@@ -68,10 +68,10 @@ namespace IndiegameGarden.Menus
         const float    CREDITS_SCALE_DEFAULT = 1f;
         const float    CREDITS_SPEED_MOVE = 3.8f;
         
-        const float TIME_BEFORE_GAME_LAUNCH = 0.4f;
+        const float TIME_BEFORE_GAME_LAUNCH = 0.2f;
         const float TIME_AFTER_GAME_LAUNCH_CANCELS = 4f;
-        const float TIME_BEFORE_EXIT = 1.1f;
-        const float TIME_BEFORE_EXIT_CONTINUES = 0.6f;
+        const float TIME_BEFORE_EXIT = 0.05f;
+        const float TIME_BEFORE_EXIT_CONTINUES = 0.03f;
 
         // maximum sizes of grid
         public double GridMaxX=99, GridMaxY=99; // TODO link to GameLib size (100)
