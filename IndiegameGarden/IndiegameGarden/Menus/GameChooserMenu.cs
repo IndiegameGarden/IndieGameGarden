@@ -187,6 +187,7 @@ namespace IndiegameGarden.Menus
         protected void MouseControls(ref UpdateParams p)
         {
             MouseState st = Mouse.GetState();
+            pointerPos = new Vector2(st.X, st.Y); 
 
             if (st.LeftButton == ButtonState.Released && wasMouseButPressed)
             {
@@ -199,7 +200,6 @@ namespace IndiegameGarden.Menus
                 if (!wasMouseButPressed)
                 {
                     lastPointerPos = pointerPos;
-                    pointerPos = new Vector2(st.X, st.Y); 
                     panel.OnUserInput(GamesPanel.UserInput.POSITION_SELECT, pointerPos);
                     //if ((pointerPos - lastPointerPos).Length() < 30f)
                     //{
@@ -208,6 +208,14 @@ namespace IndiegameGarden.Menus
                 }
                 wasMouseButPressed = true;
             }
+
+            // mouse position without clicking
+            if ((pointerPos - lastPointerPos).Length() > 3f)
+            {
+                panel.OnUserInput(GamesPanel.UserInput.MOUSE_OVER, pointerPos);
+                lastPointerPos = pointerPos;
+            }                    
+            
         }
 
         protected override void OnUpdate(ref UpdateParams p)

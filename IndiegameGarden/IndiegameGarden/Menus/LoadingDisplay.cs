@@ -72,7 +72,7 @@ namespace IndiegameGarden.Menus
             {
                 base.OnUpdate(g, ref p);
                 int phase = (int)Math.Round((SimTime*2f) % 3.0f);
-                string t = "Loading \"" + loadingDisplay.game.Name + "\"";
+                string t = ""; // "Loading \"" + loadingDisplay.game.Name + "\"";
                 switch (phase)
                 {
                     case 0: t += " .";
@@ -122,7 +122,7 @@ namespace IndiegameGarden.Menus
 
                 if (SimTime <= 1f || isFirstDraw)
                 {
-                    loadingDisplay.tbox.Text = "   Enjoy \"" + loadingDisplay.game.Name + "\"";
+                    loadingDisplay.tbox.Text = ""; //   Enjoy \"" + loadingDisplay.game.Name + "\"";
                 }
                 else 
                 {
@@ -215,7 +215,7 @@ namespace IndiegameGarden.Menus
         public LoadingDisplay()
         {
             tbox = new GameTextBox("m41_lovebit");
-            tbox.Text = "Loading ...";
+            tbox.Text = "";
             tbox.Motion.Position = new Microsoft.Xna.Framework.Vector2(LEFT_POSITION, 0.05f); // TODO consts
             Add(tbox);
 
