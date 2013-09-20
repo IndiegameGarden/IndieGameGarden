@@ -369,7 +369,13 @@ namespace IndiegameGarden.Menus
                     Vector2 targetPos = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
                     th.Motion.TargetPos = targetPos;
                     th.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT;
-                }                
+                }
+
+                if (g.IsInstalling)
+                {
+                    // wobble the size of icon when installing.
+                    th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED * (1.0f + 0.1f * (float)Math.Sin(MathHelper.TwoPi * 0.16f * SimTime));
+                }
 
             } // end for loop over all games
 
@@ -407,7 +413,6 @@ namespace IndiegameGarden.Menus
                     if (thumbnailsCache.ContainsKey(g.GameID))
                     {
                         GameThumbnail th = thumbnailsCache[g.GameID];
-
                         if (g.IsInstalling)
                         {
                             // wobble the size of icon when installing.
@@ -415,6 +420,7 @@ namespace IndiegameGarden.Menus
                         }
                         else
                         {
+
                             // displaying selected thumbnails larger
                             if (g.IsGrowable)
                             {

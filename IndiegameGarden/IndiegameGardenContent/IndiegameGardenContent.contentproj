@@ -63,13 +63,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameThumbnailCursor.fx">
-      <Name>GameThumbnailCursor</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="m41_lovebit.spritefont">
       <Name>m41_lovebit</Name>
       <Importer>FontDescriptionImporter</Importer>
