@@ -50,7 +50,7 @@ namespace IndiegameGarden.Menus
         static Vector2     CURSOR_INITIAL_POSITION = new Vector2(0f, 0f);
 
         public const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; 
-        const float        THUMBNAIL_SCALE_SELECTED = 0.51f; 
+        const float        THUMBNAIL_SCALE_SELECTED = 0.56f; 
         public const float THUMBNAIL_MAX_WIDTH_PIXELS = 320f;
         public const float THUMBNAIL_MAX_HEIGHT_PIXELS = 240f;
         const float        THUMBNAIL_FADE_SPEED = 0.3f;
@@ -74,7 +74,7 @@ namespace IndiegameGarden.Menus
         const float TIME_BEFORE_EXIT_CONTINUES = 0.03f;
 
         // maximum sizes of grid
-        public double GridMaxX=99, GridMaxY=99; // TODO link to GameLib size (100)
+        public double GridMaxX=15, GridMaxY=15; // TODO link to GameLib size (100)
 
         Dictionary<string, GameThumbnail> thumbnailsCache = new Dictionary<string, GameThumbnail>();
 
@@ -113,7 +113,6 @@ namespace IndiegameGarden.Menus
             cursor.Motion.Position = CURSOR_INITIAL_POSITION * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
             cursor.Motion.TargetPos = CURSOR_INITIAL_POSITION * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
             cursor.GridPosition = CURSOR_INITIAL_POSITION;
-            cursor.Motion.Add(new MyFuncyModifier(delegate(float v) { return v / 10.3f; }, "Rotate"));
 
             // info box - will be added to parent upon OnNewParent() event
             infoBox = new GameInfoBox();
@@ -310,18 +309,16 @@ namespace IndiegameGarden.Menus
                     //th.Position = new Vector2(RandomMath.RandomBetween(-0.4f,2.0f), RandomMath.RandomBetween(-0.4f,1.4f) );
                     //th.Scale = RandomMath.RandomBetween(0.01f, 0.09f); 
                     // create with new position and scale
-                    th.Motion.Position = new Vector2(0f,0f);
-                    th.Motion.Scale = 0.05f;
-                    th.Motion.ScaleTarget = 0.05f;
+                    th.Motion.Position = (g.Position - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
+
+                    th.Motion.Scale = THUMBNAIL_SCALE_UNSELECTED;
+                    th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
                     th.Motion.ScaleSpeed = 0.01f; // TODO const
 
                     th.DrawInfo.LayerDepth = LAYER_GRID_ITEMS + ((float)th.ID) * 0.0000001f;
                     th.Visible = false;
                     th.ColorB.Alpha = 0.0f;
 
-                    // special case thumbnails 
-                    if (g.GameID.Equals("igg_controls"))
-                        th.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/6.3f; }, "Rotate"));
                 }
             }
                 

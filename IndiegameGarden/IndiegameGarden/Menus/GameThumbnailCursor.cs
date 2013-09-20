@@ -15,12 +15,12 @@ namespace IndiegameGarden.Menus
     /**
      * a cursor hovering over game thumbnails to select them
      */
-    public class GameThumbnailCursor: EffectSpritelet
+    public class GameThumbnailCursor: Spritelet
     {
         public Vector2 GridPosition = Vector2.Zero;        
 
         public GameThumbnailCursor()
-            : base("cursor3","GameThumbnailCursor")
+            : base("empty")
         {
             DrawInfo.LayerDepth = 0.95f;
         }

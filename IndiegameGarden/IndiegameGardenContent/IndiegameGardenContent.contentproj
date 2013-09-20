@@ -124,15 +124,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cursor3.png">
-      <Name>cursor3</Name>
+    <Compile Include="water-progbar.png">
+      <Name>water-progbar</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="water-progbar.png">
-      <Name>water-progbar</Name>
+    <Compile Include="empty.png">
+      <Name>empty</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
