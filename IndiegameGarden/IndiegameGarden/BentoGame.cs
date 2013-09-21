@@ -148,7 +148,7 @@ namespace IndiegameGarden
 
             TreeRoot.Add(mainScreenlet);
             TreeRoot.Add(loadingScreenlet);
-            mainScreenlet.DrawInfo.DrawColor = Color.Black; // new Color(169 * 2 / 3, 157 * 2 / 3, 241 * 2 / 3); // Color.Black;
+            mainScreenlet.DrawInfo.DrawColor = Color.White; // new Color(169 * 2 / 3, 157 * 2 / 3, 241 * 2 / 3); // Color.Black;
 
             // graphics bitmap scaling that adapts to screen resolution 
             mainScreenlet.Motion.Scale = ((float)myWindowHeight) / 900f;

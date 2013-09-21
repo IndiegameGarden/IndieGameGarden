@@ -44,7 +44,7 @@ float4 PixelShaderFunction(float4 color : COLOR0, float2 texCoord : TEXCOORD0) :
 	float t = -time;
 	float2 vTexSample = Center + (lWarped * vDifNorm) + (Velocity * t * 0.8334 * vDifNorm); 
 	res = tex2D(TextureSampler, vTexSample ) ;		  
-	alpha = 1-1.95*lDif-(1-color.r); //2.0*lDif; //*lDif ;//*2.5;
+	alpha = 1-2.25*lDif-(1-color.r); //2.0*lDif; //*lDif ;//*2.5;
 	if (alpha < 0)
 		alpha = 0;
 	res *= alpha;

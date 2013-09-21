@@ -50,7 +50,8 @@ namespace IndiegameGarden.Menus
         static Vector2     CURSOR_INITIAL_POSITION = new Vector2(0f, 0f);
 
         public const float THUMBNAIL_SCALE_UNSELECTED = 0.44f; 
-        const float        THUMBNAIL_SCALE_SELECTED = 0.56f; 
+        const float        THUMBNAIL_SCALE_SELECTED = 0.50f;
+        const float         THUMBNAIL_SCALE_SPEED = 0.02f; 
         public const float THUMBNAIL_MAX_WIDTH_PIXELS = 320f;
         public const float THUMBNAIL_MAX_HEIGHT_PIXELS = 240f;
         const float        THUMBNAIL_FADE_SPEED = 0.3f;
@@ -190,8 +191,8 @@ namespace IndiegameGarden.Menus
             if (selGame != null && isGameLaunchOngoing && timeLaunching < TIME_BEFORE_GAME_LAUNCH)
             {
                 GameThumbnail th = thumbnailsCache[selGame.GameID];
-                th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED ; 
-                th.Motion.ScaleSpeed = 0.06f;
+                th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED ;
+                th.Motion.ScaleSpeed = THUMBNAIL_SCALE_SPEED;
                 cursor.Motion.ScaleTarget = CURSOR_SCALE_REGULAR ;
                 cursor.Motion.ScaleSpeed = th.Motion.ScaleSpeed / selGame.ScaleIcon; // TODO correct ScaleIcon?
             }
@@ -253,7 +254,7 @@ namespace IndiegameGarden.Menus
                 timeExiting += p.Dt;
                 if (timeExiting > TIME_BEFORE_EXIT)
                 {
-                    parentMenu.background.Motion.ScaleModifier = 1f / (1f + (timeExiting-TIME_BEFORE_EXIT) / 11f);
+                    //parentMenu.background.Motion.ScaleModifier = 1f / (1f + (timeExiting-TIME_BEFORE_EXIT) / 11f);
                     if (!isExitingUnstoppable)
                     {
                         BentoGame.Instance.SignalExitGame();
@@ -311,7 +312,7 @@ namespace IndiegameGarden.Menus
 
                     th.Motion.Scale = THUMBNAIL_SCALE_UNSELECTED;
                     th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
-                    th.Motion.ScaleSpeed = 0.06f; // TODO const
+                    th.Motion.ScaleSpeed = THUMBNAIL_SCALE_SPEED; // TODO const
 
                     th.DrawInfo.LayerDepth = LAYER_GRID_ITEMS + ((float)th.ID) * 0.0000001f;
                     th.Visible = false;
@@ -346,16 +347,8 @@ namespace IndiegameGarden.Menus
                 // check if thnail is loaded and still in range. If so, start displaying it (fade in)
                 if (th.IsLoaded() && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE)
                 {
-                    if (th.Game.IsGrowable)
-                    {
-                        th.ColorB.AlphaTarget = 1f; // (0.65f + 0.35f * g.InstallProgress);
-                        th.ColorB.SaturationTarget = (0.8f + 0.2f * g.InstallProgress);
-                    }
-                    else
-                    {
-                        th.ColorB.AlphaTarget = 1f;
-                        th.ColorB.SaturationTarget = 1f;
-                    }
+                    th.ColorB.AlphaTarget = 1f;
+                    th.ColorB.SaturationTarget = 1f;
                 }
 
                 th.IsFadingOut = false;

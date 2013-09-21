@@ -62,7 +62,8 @@ namespace IndiegameGarden.Base
         protected void InitDefaults()
         {
             // NOTE DataPath should be set FIRST of all.
-            DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "IndiegameGarden");
+            //DataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "IndiegameGarden");
+            DataPath = "../../../../..";
             DataPath = Path.GetFullPath(DataPath);
             // For bundle .exe files, save in same folder as Indiegame Garden exe (nice for collecting them)
             BundleDataPath = Path.GetFullPath(".");

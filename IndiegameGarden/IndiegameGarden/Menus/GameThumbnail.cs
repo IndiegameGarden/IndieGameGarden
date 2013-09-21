@@ -211,7 +211,7 @@ namespace IndiegameGarden.Menus
         public void Enable()
         {
             Visible = true;
-            EffectEnabled = (Texture != DefaultTexture);
+            //EffectEnabled = (Texture != DefaultTexture);
             
             if (loaderTask == null)
             {
@@ -334,8 +334,8 @@ namespace IndiegameGarden.Menus
             }
 
             // effect on when FX mode says so, and only if thumbnail is loaded
-            if (isLoaded)
-                EffectEnabled = (Game.IsGrowable); // TODO && Game.IsInstalled ?;
+            //if (isLoaded)
+            //    EffectEnabled = (Game.IsGrowable); // TODO && Game.IsInstalled ?;
 
             if (EffectEnabled)
             {
@@ -361,7 +361,7 @@ namespace IndiegameGarden.Menus
                 {
                     // this is a conversion from 'halotime' to the time format that can be given to the pixel shader
                     // via the 'draw color' parameter
-                    double warpedTime = 20 * (1 + Math.Sin(1.5f * MathHelper.Pi + MathHelper.TwoPi * 0.05 * (double)haloTime));
+                    double warpedTime = 0; // 20 * (1 + Math.Sin(1.5f * MathHelper.Pi + MathHelper.TwoPi * 0.01 * (double)haloTime));
                     int t = (int)(warpedTime * 16);
                     int c3 = t % 256;
                     int c2 = ((t - c3) / 256) % 256;

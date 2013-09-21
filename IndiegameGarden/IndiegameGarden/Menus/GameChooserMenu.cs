@@ -52,6 +52,7 @@ namespace IndiegameGarden.Menus
             gamesList = BentoGame.Instance.GameLib.GetList();
 
             // background
+            /*
             Spritelet bg = new Spritelet("wee2");
             bg.Motion.Position = new Vector2(0.68f, 0.425f);
             bg.DrawInfo.LayerDepth = 1f;
@@ -63,6 +64,7 @@ namespace IndiegameGarden.Menus
             bg.Motion.TargetPosSpeed = 0.004f;
             Add(bg);
             background = bg;
+             */
 
             // logo that floats in top right
             Spritelet logo = new Spritelet("gtlogo");
