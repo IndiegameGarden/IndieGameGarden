@@ -37,7 +37,7 @@ namespace IndiegameGarden.Menus
         const float PANEL_ZOOM_SPEED_QUITTING = 0.008f;
         const float PANEL_ZOOM_SPEED_REGULAR = 0.03f;
         const float PANEL_ZOOM_SPEED_ABORTQUITTING = PANEL_ZOOM_SPEED_REGULAR;
-        static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-3f);
+        static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-1.5f);
 
         const float        CURSOR_SCALE_REGULAR = 0.28f; 
         float               CURSOR_DISCOVERY_RANGE = 9999f;
@@ -121,14 +121,14 @@ namespace IndiegameGarden.Menus
             infoBox.Motion.TargetPosSpeed = INFOBOX_SPEED_MOVE;
 
             // controls help 
-            helpTextBitmap = new Spritelet("keymap");
+            helpTextBitmap = new Spritelet("empty");
             helpTextBitmap.Motion.Scale = HELPTEXT_SCALE_DEFAULT;
             helpTextBitmap.Motion.Position = HELPTEXT_HIDDEN_POSITION;
             helpTextBitmap.Motion.TargetPos = HELPTEXT_SHOWN_POSITION;
             helpTextBitmap.Motion.TargetPosSpeed = HELPTEXT_SPEED_MOVE;
 
             // credits
-            creditsBitmap = new Spritelet("credits.png");
+            creditsBitmap = new Spritelet("empty");
             creditsBitmap.Motion.Scale = CREDITS_SCALE_DEFAULT;
             creditsBitmap.Motion.Position = CREDITS_HIDDEN_POSITION;
             creditsBitmap.Motion.TargetPos = CREDITS_HIDDEN_POSITION;
@@ -389,12 +389,14 @@ namespace IndiegameGarden.Menus
                 if (g.GameID.Equals("igg_credits") && !isExiting)
                 {
                     creditsBitmap.Motion.TargetPos = CREDITS_SHOWN_POSITION;
-                    Vector2 cpd = cursor.Motion.PositionAbsZoomed;
+                    /*
+                    Vector2 cpd = cursor.Motion.PositionAbsZoomed;                    
                     if (cpd.Y <= 0.35f) // TODO const
                     {
                         float dxp = PANEL_SPEED_SHIFT * p.Dt;
                         PanelShiftPos.Y -= dxp;
                     }
+                     */
                 }
                 else
                 {
