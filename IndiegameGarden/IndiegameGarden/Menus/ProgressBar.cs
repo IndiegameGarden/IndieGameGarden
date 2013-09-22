@@ -23,16 +23,13 @@ namespace IndiegameGarden.Menus
         float progressValue;
         float progressSpeed = 0f;
         float progressValueTarget;
-        SpriteFont spriteFont;
-        float textScale = 1f;
 
         public ProgressBar()
-            : base("water-progbar") //("citybar4") 
+            : base("simple-progbar") //("citybar4") 
         {
             progressValue = 0f;
             progressValueTarget = 0f;
             ProgressCatchupSpeed = 0.6f;
-            spriteFont = TTengineMaster.ActiveGame.Content.Load<SpriteFont>("m41_lovebit");
             Motion.Scale = 1f;// 0.6f;
         }
 
@@ -123,7 +120,6 @@ namespace IndiegameGarden.Menus
                 // animate percentage text a bit
                 float ampl = 0.043f;
                 float frequency = 0.383f;// +progressSpeed * 0.0000001f; //0.6243f;
-                textScale = 1f + ampl + ampl * (float)Math.Sin(MathHelper.TwoPi * (double)frequency * SimTime);
 
                 // bar color
                 ampl = 0.080f;
@@ -133,7 +129,6 @@ namespace IndiegameGarden.Menus
             else
             {
                 DrawInfo.DrawColor = Color.White;
-                textScale = 1f;
             }
         }
 
@@ -150,12 +145,6 @@ namespace IndiegameGarden.Menus
             MySpriteBatch.Draw(Texture, pos, srcRect, DrawInfo.DrawColor,
                             Motion.RotateAbs, new Vector2(0f,height/4), drawSc, SpriteEffects.None, DrawInfo.LayerDepth);
 
-            // plot text percentage
-            Color textColor = DrawInfo.DrawColor;
-            Vector2 tpos = pos + new Vector2(width * drawSc, height/4); //Texture.Height / 2.0f - 10.0f) ;
-            Vector2 origin = new Vector2(10f,6f);
-            MySpriteBatch.DrawString(spriteFont, String.Format("  {0,3}%", Math.Round(progressValuePercent)), tpos, 
-                                     textColor, Motion.RotateAbs, origin, textScale * drawSc * 0.72f, SpriteEffects.None, DrawInfo.LayerDepth);
         }
 
     }

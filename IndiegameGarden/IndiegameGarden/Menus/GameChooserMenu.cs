@@ -51,34 +51,6 @@ namespace IndiegameGarden.Menus
             // get the items to display
             gamesList = BentoGame.Instance.GameLib.GetList();
 
-            // background
-            /*
-            Spritelet bg = new Spritelet("wee2");
-            bg.Motion.Position = new Vector2(0.68f, 0.425f);
-            bg.DrawInfo.LayerDepth = 1f;
-            //bg.DrawInfo.DrawColor = new Color(0.3f, 0.3f, 0.3f, 0.3f);
-            // bg color 169, 157, 241
-            bg.Motion.Add(new MyFuncyModifier( delegate(float v) { return v/44.7f; }, "Rotate"));
-            bg.Motion.Add(new MyFuncyModifier(delegate(float v) { return (10.5f + 0.95f * (float) Math.Sqrt(v/430.0)); }, "Scale"));
-            bg.Motion.TargetPos = new Vector2(Screen.Width/2.0f + 0.1f, 0.75f);
-            bg.Motion.TargetPosSpeed = 0.004f;
-            Add(bg);
-            background = bg;
-             */
-
-            // logo that floats in top right
-            Spritelet logo = new Spritelet("gtlogo");
-            Add(logo);
-            logo.DrawInfo.Alpha = 0.0f;
-            logo.Motion.Scale = 0.7f;
-            logo.Motion.Position = new Vector2(Screen.AspectRatio - 0.24f, 0.06f);
-            //ColorChangeBehavior fadeIn = new ColorChangeBehavior();
-            //logo.Add(fadeIn);
-            //fadeIn.Alpha = 0f;
-            //fadeIn.AlphaTarget = 0f;
-            //fadeIn.FadeAlphaToTarget(0.9344f, 6f);
-            logo.Motion.Add(new SineModifier("ScaleModifier", 0.06124f, 0.07144f, 1.0f));
-
             // set my panel and games list
             Add(panel);
             panel.OnUpdateList(gamesList);

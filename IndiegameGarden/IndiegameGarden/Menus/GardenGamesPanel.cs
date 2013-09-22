@@ -154,7 +154,6 @@ namespace IndiegameGarden.Menus
             {
                 GardenItem g = gl.FindGameAt(cursor.GridPosition);
                 SelectedGame = g;
-                infoBox.ClearProgressBar();
                 if (g != null && !g.IsVisible)  // reset back to null for invisible items. Not selectable.
                     SelectedGame = null;
                 if (g != null)
@@ -364,11 +363,13 @@ namespace IndiegameGarden.Menus
                     th.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT;
                 }
 
+                /*
                 if (g.IsInstalling)
                 {
                     // wobble the size of icon when installing.
                     th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED * (1.0f + 0.1f * (float)Math.Sin(MathHelper.TwoPi * 0.16f * SimTime));
                 }
+                 */
 
             } // end for loop over all games
 
@@ -411,7 +412,7 @@ namespace IndiegameGarden.Menus
                         if (g.IsInstalling)
                         {
                             // wobble the size of icon when installing.
-                            th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED * (1.0f + 0.1f * (float)Math.Sin(MathHelper.TwoPi * 0.16f * SimTime));
+                            //th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED * (1.0f + 0.1f * (float)Math.Sin(MathHelper.TwoPi * 0.16f * SimTime));
                         }
                         else
                         {

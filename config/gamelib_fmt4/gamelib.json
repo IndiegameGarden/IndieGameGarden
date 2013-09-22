@@ -1,25 +1,24 @@
 {
 "gameslist":
 [
+
 {
-"ID": "igg_credits",	  	
-"Site": "indiegamegarden.com",	
-"FX": 0,
-"Scale": 0.5,
-"X": 1, "Y": 0
+"ID": "igg_iconclose",
+"Scale": 0.25,
+"Exe": "",
+"X": 7, "Y": 0
 },
 
 [
 {
 	"ID": "section_wrecks",
 	"Visible": 0,
-	"X": 0, "Y": 0, "DX": 8
+	"X": 0, "Y": 0, "DX": 7
 },
 {
 	"ID": "test1",
 	"Name": "Game Title",
 	"Descr": "\"A Zelda-esque dungeon crawler, but you only have one hit point; various weapons are hidden to ease the difficulty\"",
-	"ThumbURL": "http://indie.indiegamegarden.com/thumbs/gametitle.jpg",
 	"Site": "www.glorioustrainwrecks.com/node/2258"
 },
 {

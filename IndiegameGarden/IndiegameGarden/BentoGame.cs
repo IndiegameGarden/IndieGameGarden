@@ -155,25 +155,25 @@ namespace IndiegameGarden
             loadingScreenlet.Motion.Scale = mainScreenlet.Motion.Scale;
 
             //
-            Spritelet SplashScreen = new Spritelet("gtlogo");
+            Spritelet SplashScreen = new Spritelet("bentologo");
             SplashScreen.DrawInfo.LayerDepth = 1f;
-            SplashScreen.ActiveInState = new StateStartup();
+            //SplashScreen.ActiveInState = new StateStartup();
             //l.Duration = 17.5f;
             SplashScreen.Motion.Position = mainScreenlet.Center;
             //l.Motion.Add(new MyFuncyModifier( delegate(float v) { return 1f-(float)Math.Sqrt((18f-v)/18f); }, "Scale" ));
             mainScreenlet.Add(SplashScreen);
-
-            // music engine
-            musicEngine = MusicEngine.GetInstance();
-            musicEngine.AudioPath = ".";
-            if (!musicEngine.Initialize())
-                throw new Exception(musicEngine.StatusMsg);
 
             Thread t = new Thread(new ThreadStart(GardenInitInBackground));
             t.Start();
         }
 
         void GardenInitInBackground() {
+
+            // music engine
+            musicEngine = MusicEngine.GetInstance();
+            musicEngine.AudioPath = ".";
+            if (!musicEngine.Initialize())
+                throw new Exception(musicEngine.StatusMsg);
 
             // music
             music = new GardenMusic();

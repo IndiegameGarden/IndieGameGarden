@@ -88,21 +88,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="keymap.png">
-      <Name>keymap</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="credits.png">
-      <Name>credits</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="gtlogo.png">
       <Name>gtlogo</Name>
       <Importer>TextureImporter</Importer>
@@ -117,15 +102,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="water-progbar.png">
-      <Name>water-progbar</Name>
+    <Compile Include="empty.png">
+      <Name>empty</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="empty.png">
-      <Name>empty</Name>
+    <Compile Include="simple-progbar.png">
+      <Name>simple-progbar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="bentologo.png">
+      <Name>bentologo</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

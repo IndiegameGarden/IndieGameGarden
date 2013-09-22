@@ -124,19 +124,6 @@ namespace IndiegameGarden.Base
             }
             return null;
         }
-
-        /*
-        public GardenItem GetRandomInstalledGame()
-        {
-            GardenItem g = null;
-            do
-            {
-                int n = (int)RandomMath.RandomBetween(0, this.Count - 1.0f);
-                g = this[n];
-            } while (g.IsSystemPackage || !g.IsGrowable || !g.IsInstalled || !g.IsPlayable);
-            return g;
-        }
-         */
     
     }
 }

@@ -21,6 +21,8 @@ namespace IndiegameGarden.Menus
     /// </summary>
     public class GameThumbnail: EffectSpritelet
     {
+        static Vector2 PROGRESS_BAR_POSITION_RELATIVE = new Vector2(-0.08f, -0.08f);
+
         /// <summary>
         /// my color change behavior used eg for fading in/out
         /// </summary>
@@ -30,6 +32,8 @@ namespace IndiegameGarden.Menus
         /// ref to game for which this thumbnail is
         /// </summary>
         public GardenItem Game;
+
+        public ProgressBar progBar;
 
         public bool IsFadingOut = false;
 
@@ -165,6 +169,18 @@ namespace IndiegameGarden.Menus
             
             // use default texture as long as thumbnail not loaded yet
             Texture = DefaultTexture;
+
+            // progress bar
+            progBar = new ProgressBar();
+            progBar.Motion.Position = PROGRESS_BAR_POSITION_RELATIVE;
+            progBar.Visible = false;
+            progBar.ProgressValue = 0f;
+            progBar.ProgressTarget = 0f;
+            progBar.BarWidth = 1f;
+            progBar.DrawInfo.LayerDepth = 0.04f;
+            Add(progBar);
+
+
         }
 
         public override void Dispose()
@@ -266,57 +282,9 @@ namespace IndiegameGarden.Menus
             return true;
         }
 
-        /*
-        protected Texture2D ScaleTexture(Texture2D tex, int x, int y)
-        {
-            GraphicsDevice cGraphicsDevice = Screen.graphicsDevice;
-            int iTextureWidth = x;
-            int iTextureHeight = y;
-
-            // Backup the Graphics Device's Depth Stencil Buffer 
-            DepthStencilBuffer cOldDepthStencilBuffer = cGraphicsDevice.DepthStencilBuffer;
-
-            // Create the Render Target to draw the scaled Texture to 
-            RenderTarget2D cNewRenderTarget = new RenderTarget2D(cGraphicsDevice, iTextureWidth, iTextureHeight);
-            RenderTarget2D cOldRenderTarget = cGraphicsDevice.GetRenderTargets
-            // Set the given Graphics Device to draw to the new Render Target 
-            cGraphicsDevice.SetRenderTarget(cNewRenderTarget);
-
-            // Make sure the Graphic Device's Depth Stencil Buffer is large enough 
-            //cGraphicsDevice.DepthStencilBuffer = new DepthStencilBuffer(cGraphicsDevice, iTextureWidth, iTextureHeight, cGraphicsDevice.DepthStencilBuffer.Format);
-
-            // Clear the scene 
-            cGraphicsDevice.Clear(Color.Black);
-
-            // Create the new SpriteBatch that will be used to scale the Texture 
-            SpriteBatch cSpriteBatch = new SpriteBatch(cGraphicsDevice);
-
-            // Draw the scaled Texture 
-            cSpriteBatch.Begin(); // (SpriteBlendMode.None);
-            cSpriteBatch.Draw(tex, new Rectangle(0, 0, iTextureWidth, iTextureHeight), Color.White);
-            cSpriteBatch.End();
-
-            // Restore the given Graphics Device's Render Target 
-            cGraphicsDevice.SetRenderTarget(cOldRenderTarget);
-
-            // Restore the given Graphics Device's Depth Stencil 
-            //cGraphicsDevice.DepthStencilBuffer = cOldDepthStencilBuffer;
-
-            // Set the Texture To Return to the scaled Texture 
-            //Texture2D cTextureToReturn = cNewRenderTarget.GetTexture();
-            return cNewRenderTarget;
-        }
-         */
-
         protected override void OnUpdate(ref UpdateParams p)
         {
             base.OnUpdate(ref p);
-
-            // animation of loading
-            if (!isLoaded)
-            {
-                Motion.RotateModifier += SimTime / 6.0f;
-            }
 
             // adapt scale according to GameItem preset
             Motion.ScaleModifier *= ThumbnailScale;
@@ -333,10 +301,6 @@ namespace IndiegameGarden.Menus
                 }
             }
 
-            // effect on when FX mode says so, and only if thumbnail is loaded
-            //if (isLoaded)
-            //    EffectEnabled = (Game.IsGrowable); // TODO && Game.IsInstalled ?;
-
             if (EffectEnabled)
             {
                 Motion.ScaleModifier *= (1f / 0.7f); // this extends image for shader fx region, see .fx file
@@ -345,6 +309,53 @@ namespace IndiegameGarden.Menus
                 else
                     haloTime = 0f;
             }
+
+            /*
+            if ((Game.IsGrowable && Game.IsInstalled) )
+            {
+                progBar.ProgressTarget = 1.0f;
+                progBar.ProgressValue = 1.0f;
+            }
+             */
+            if (Game.DlAndInstallTask != null &&
+                Game.ThreadedDlAndInstallTask != null &&
+                !Game.ThreadedDlAndInstallTask.IsFinished())
+            {
+                if (Game.DlAndInstallTask.IsDownloading())
+                {
+                    Game.Status = "[loading]"; 
+                }
+                else if (Game.DlAndInstallTask.IsInstalling())
+                {
+                    Game.Status = "[installing]";
+                }
+                progBar.ProgressTarget = (float)Game.DlAndInstallTask.Progress();
+                progBar.ProgressSpeed = (float)Game.DlAndInstallTask.DownloadSpeed();
+                // make bar visible if not already. Or if value needs to go down from a previous selected game's value.
+                if (progBar.Visible == false || progBar.ProgressValue > progBar.ProgressTarget)
+                {
+                    progBar.Visible = true;
+                    // instantly reset value to new one, if we just made the bar visible
+                    progBar.ProgressValue = progBar.ProgressTarget;
+                }
+            }
+            else
+            {
+                progBar.Visible = false;
+                progBar.ProgressTarget = 1.0f;
+                progBar.ProgressValue = 1.0f;
+                if (Game.ThreadedDlAndInstallTask != null &&
+                    !Game.ThreadedDlAndInstallTask.IsSuccess() &&
+                    Game.ThreadedDlAndInstallTask.IsFinished())
+                {
+                    Game.Status = "[download error - retry]";
+                }
+                else
+                {
+                    Game.Status = null;
+                }
+            }
+
         }
 
         protected override void OnDraw(ref DrawParams p)

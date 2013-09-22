@@ -107,6 +107,8 @@ namespace IndiegameGarden.Base
         [ProtoMember(17)]
         protected string thumbnailURL = "";
 
+        public string Status = null;
+
         /// <summary>
         /// Vector2 version (copy) of PositionX/PositionY
         /// </summary>
@@ -487,7 +489,7 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                return GameID.StartsWith("igg") || GameID.StartsWith("gwg");
+                return GameID.StartsWith("igg");
             }
         }
 
