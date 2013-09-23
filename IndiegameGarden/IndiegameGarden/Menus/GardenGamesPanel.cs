@@ -521,8 +521,8 @@ namespace IndiegameGarden.Menus
                 case UserInput.START_EXIT:
                     isExiting = true;
                     //selectionLevel = 0;
-                    Motion.ZoomTarget = PANEL_ZOOM_TARGET_QUITTING ;
-                    Motion.ZoomSpeed = PANEL_ZOOM_SPEED_REGULAR ;
+                    //Motion.ZoomTarget = PANEL_ZOOM_TARGET_QUITTING ;
+                    //Motion.ZoomSpeed = PANEL_ZOOM_SPEED_REGULAR ;
                     infoBox.Motion.TargetPos = INFOBOX_ALL_HIDDEN_POSITION;
                     creditsBitmap.Motion.TargetPos = CREDITS_HIDDEN_POSITION;
                     helpTextBitmap.Motion.TargetPos = HELPTEXT_HIDDEN_POSITION;
