@@ -21,11 +21,6 @@ namespace GameLibCompiler
         const string GAMELIB_TARGET_DIR = "gamelib_fmt4";
 
         /// <summary>
-        /// target path to put a copy of latest gamelib binary (in the IGG XNA Content project)
-        /// </summary>
-        //const string CONTENT_TARGET_DIR = "..\\..\\..\\IndiegameGardenContent";
-
-        /// <summary>
         /// target dir where IGG client unpacks downloaded gamelib zips into ("local copy" version).
         /// For local testing, the new gamelib files need to be in here. This is not checked into
         /// the version control server.

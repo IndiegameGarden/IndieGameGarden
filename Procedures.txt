@@ -1,15 +1,9 @@
 
-*** Building a new IGG client
-- run build.bat and check version numbers shown
+*** Building a new Bento client
+- run build.bat (or manually build in Visual Studio: Release target)
 - run make-release.bat 
 
-*** Editing and Testing a new gamelib locally
+*** Editing and Testing a new gamelib
 - edit config/gamelib_fmt4/gamelib.json
-- run test-gamelib.bat
-- run igg
-
-*** Updating gamelib to new version
 - run build-gamelib.bat
-- run make-release-gamelib.bat
-- check GameLibVer in gamelib-config.json
-- publish gamelib.zip to website via FTP (see Servers.txt)
+- run Bento

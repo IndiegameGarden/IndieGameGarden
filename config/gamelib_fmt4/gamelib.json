@@ -6,14 +6,14 @@
 "ID": "igg_iconclose",
 "Scale": 0.25,
 "Exe": "",
-"X": 7, "Y": 0
+"X": 9, "Y": 1
 },
 
 [
 {
-	"ID": "section_wrecks",
+	"ID": "section_main",
 	"Visible": 0,
-	"X": 0, "Y": 0, "DX": 7
+	"X": 1, "Y": 1, "DX": 7
 },
 {
 	"ID": "test1",

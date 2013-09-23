@@ -110,7 +110,15 @@ namespace IndiegameGarden.Base
             int x = (int) Math.Round(pos.X);
             int y = (int)Math.Round(pos.Y);
             if (x >= 0 && x < sizeX && y >=0 && y < sizeY) {
-                return matrix[x, y];
+                var g = matrix[x, y];
+                if (g == null)
+                    return g;
+                // check, for a downscaled icon, if the user's click is close enough to the actual icon.
+                float relSize = g.ScaleIcon / 2f;
+                if (Math.Abs(pos.X - (float)x) <= relSize && Math.Abs(pos.Y-(float)y) <= relSize )
+                {
+                    return g;
+                }
             }
             return null;
         }

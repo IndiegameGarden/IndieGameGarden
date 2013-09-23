@@ -27,7 +27,7 @@ namespace IndiegameGarden.Menus
         const float LAYER_DODGING_ITEM = 0.3f;
         const float LAYER_GRID_ITEMS = 0.9f;
 
-        const float PANEL_ZOOM_REGULAR = 1.2f;
+        const float PANEL_ZOOM_REGULAR = 1f;
         const float PANEL_DELTA_GRID_X = 0.16f;
         const float PANEL_DELTA_GRID_Y = 0.12f;
         const float PANEL_SPEED_SHIFT = 3.2f;
@@ -37,7 +37,7 @@ namespace IndiegameGarden.Menus
         const float PANEL_ZOOM_SPEED_QUITTING = 0.008f;
         const float PANEL_ZOOM_SPEED_REGULAR = 0.03f;
         const float PANEL_ZOOM_SPEED_ABORTQUITTING = PANEL_ZOOM_SPEED_REGULAR;
-        static Vector2 PANEL_INITIAL_SHIFT_POS = new Vector2(-1.5f,-1.5f);
+        static Vector2 PANEL_INITIAL_SHIFT_POS = Vector2.Zero; //new Vector2(-1.5f,-1.5f);
 
         const float        CURSOR_SCALE_REGULAR = 0.28f; 
         float               CURSOR_DISCOVERY_RANGE = 9999f;
@@ -207,39 +207,27 @@ namespace IndiegameGarden.Menus
                 cursor.Motion.ScaleTarget = CURSOR_SCALE_REGULAR;
 
                 GameThumbnail thumb = thumbnailsCache[selGame.GameID];
-                if (selGame.IsIggClient)
+
+                if (selGame.IsWebGame)
                 {
-                    if (selGame.IsInstalled)
-                    {
-                        BentoGame.Instance.music.FadeOut();
-                        BentoGame.Instance.ActionLaunchGame(selGame, thumb);
-                        isExiting = true;
-                        timeExiting = TIME_BEFORE_EXIT;
-                    }
-                    else
-                    {
-                        BentoGame.Instance.ActionDownloadAndInstallGame(selGame);
-                    }
+                    BentoGame.Instance.ActionLaunchWebsitePlayGame(selGame, thumb);
                 }
-                else
+                else if (!selGame.IsGrowable)
                 {
-                    if (selGame.IsWebGame)
+                    if (selGame.GameID.Equals("igg_iconclose"))
                     {
-                        BentoGame.Instance.ActionLaunchWebsitePlayGame(selGame, thumb);
+                        OnUserInput(UserInput.START_EXIT);
                     }
-                    else if (!selGame.IsGrowable)
-                    {
-                        thumb.Motion.Add(new TemporaryScaleBlowup());
-                    }
-                    else if (selGame.IsInstalled)
-                    {
-                        BentoGame.Instance.music.FadeOut();
-                        BentoGame.Instance.ActionLaunchGame(selGame, thumb);
-                    }
-                    else // if (not installed)
-                    {
-                        BentoGame.Instance.ActionDownloadAndInstallGame(selGame);
-                    }
+                    thumb.Motion.Add(new TemporaryScaleBlowup());
+                }
+                else if (selGame.IsInstalled)
+                {
+                    BentoGame.Instance.music.FadeOut();
+                    BentoGame.Instance.ActionLaunchGame(selGame, thumb);
+                }
+                else // if (not installed)
+                {
+                    BentoGame.Instance.ActionDownloadAndInstallGame(selGame);
                 }
                 isGameLaunchOngoing = false;
                 isGameLaunchConfirmed = false;
@@ -473,7 +461,7 @@ namespace IndiegameGarden.Menus
             Vector2 panelPos = (((pointerPos / Screen.HeightPixels) - Screen.Center) / Motion.Zoom) + Motion.ZoomCenter;
             
             Vector2 gridPos = new Vector2( panelPos.X / PANEL_DELTA_GRID_X, panelPos.Y / PANEL_DELTA_GRID_Y) + PanelShiftPos;
-            TTutil.Round(ref gridPos);
+            //TTutil.Round(ref gridPos);
             //cursor.Motion.TargetPos = (cursor.GridPosition - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
             //cursor.Motion.TargetPos = panelPos;
 
