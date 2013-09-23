@@ -4,10 +4,15 @@
 
 {
 "ID": "igg_iconclose",
-"Scale": 0.25,
-"Exe": "",
-"X": 9, "Y": 1
+"Name": "[Exit]",
+"Scale": 0.25, "X": 8, "Y": 0.3
 },
+
+{
+"ID": "igg_bentobox",
+"Name": "INDIE BENTO  -  What will you have for lunch?    //    IndiegameGarden.com    //  Twitter  @IndiegameGarden"
+"X": 4, "Y": 4
+}
 
 [
 {

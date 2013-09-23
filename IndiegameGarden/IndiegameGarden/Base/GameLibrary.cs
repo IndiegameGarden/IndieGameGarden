@@ -176,8 +176,8 @@ namespace IndiegameGarden.Base
                             // checking the automatic calculated game position with section width
                             if (gi.PositionX >= sectionWidthHeight.X)
                             {
-                                gi.PositionY += 1;
-                                gi.PositionX = 0;
+                                gi.PositionY += 1f;
+                                gi.PositionX = 0f;
                             }
                         } while (gamesCollection.FindGameAt(gi.Position + childPosOffset) != null);
                     }                    
@@ -186,8 +186,8 @@ namespace IndiegameGarden.Base
                     posPrevious = gi.Position;
 
                     // apply the section position offset
-                    gi.PositionX += (int) childPosOffset.X;
-                    gi.PositionY += (int) childPosOffset.Y;
+                    gi.PositionX += childPosOffset.X;
+                    gi.PositionY += childPosOffset.Y;
 
                     // add to collection at specified position
                     gamesCollection.Add(gi);

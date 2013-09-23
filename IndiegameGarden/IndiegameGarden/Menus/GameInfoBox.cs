@@ -38,8 +38,8 @@ namespace IndiegameGarden.Menus
 
         private void InitComponents()
         {
-            titleBox = new GameTextBox("m41_lovebit");
-            titleBox.Motion.Position = new Vector2(0.0f, 0.0f);
+            titleBox = new GameTextBox("GameDescriptionFont");
+            titleBox.Motion.Position = new Vector2(0.0f, -0.005f);
             titleBox.DrawInfo.LayerDepth = 0.04f;
             Add(titleBox);
 

@@ -92,17 +92,17 @@ namespace IndiegameGarden.Base
         /// where in 2D coordinates this game is positioned. Zero means non-specified.
         /// </summary>
         [ProtoMember(13)]
-        public int PositionX = 0;
+        public float PositionX = 0;
         [ProtoMember(14)]        
-        public int PositionY = 0;
+        public float PositionY = 0;
 
         /// <summary>
         /// in case a 2D Position is not given, this specifies a wished position delta of game w.r.t. previous game in the library.
         /// </summary>
         [ProtoMember(15)]        
-        public int PositionDeltaX = 0;
+        public float PositionDeltaX = 0;
         [ProtoMember(16)]        
-        public int PositionDeltaY = 0;
+        public float PositionDeltaY = 0;
 
         [ProtoMember(17)]
         protected string thumbnailURL = "";
@@ -116,7 +116,23 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                return new Vector2((float)PositionX, (float)PositionY);
+                return new Vector2(PositionX, PositionY);
+            }
+        }
+
+        public int GridPositionX
+        {
+            get
+            {
+                return (int) Math.Round((double)PositionX);
+            }
+        }
+
+        public int GridPositionY
+        {
+            get
+            {
+                return (int)Math.Round((double)PositionY);
             }
         }
 
@@ -255,7 +271,7 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                return (PositionX != 0) || (PositionY != 0);
+                return (PositionX != 0f) || (PositionY != 0f);
             }
         }
 
@@ -266,7 +282,7 @@ namespace IndiegameGarden.Base
         {
             get
             {
-                return (PositionDeltaX != 0) || (PositionDeltaY != 0);
+                return (PositionDeltaX != 0f) || (PositionDeltaY != 0f);
             }
         }
 
@@ -278,8 +294,8 @@ namespace IndiegameGarden.Base
             }
             set
             {
-                PositionX = (int) value.X;
-                PositionY = (int) value.Y;
+                PositionX = value.X;
+                PositionY = value.Y;
             }
         }
 
@@ -291,8 +307,8 @@ namespace IndiegameGarden.Base
             }
             set
             {
-                PositionDeltaX = (int)value.X;
-                PositionDeltaY = (int)value.Y;
+                PositionDeltaX = value.X;
+                PositionDeltaY = value.Y;
             }
         }
 
@@ -660,13 +676,13 @@ namespace IndiegameGarden.Base
             catch (Exception) { ;}
             try { VisibilityLabel = (byte)((JsonNumber)j["Visible"]).Value; }
             catch (Exception) { ;}
-            try { PositionX = (int)((JsonNumber)j["X"]).Value; }
+            try { PositionX = (float)((JsonNumber)j["X"]).Value; }
             catch (Exception) { ;}
-            try { PositionY = (int)((JsonNumber)j["Y"]).Value; }
+            try { PositionY = (float)((JsonNumber)j["Y"]).Value; }
             catch (Exception) { ;}
-            try { PositionDeltaX = (int)((JsonNumber)j["DX"]).Value; }
+            try { PositionDeltaX = (float)((JsonNumber)j["DX"]).Value; }
             catch (Exception) { ;}
-            try { PositionDeltaY = (int)((JsonNumber)j["DY"]).Value; }
+            try { PositionDeltaY = (float)((JsonNumber)j["DY"]).Value; }
             catch (Exception) { ;}
             try { ScaleIcon = (float)((JsonNumber)j["Scale"]).Value; }
             catch (Exception) { ;}

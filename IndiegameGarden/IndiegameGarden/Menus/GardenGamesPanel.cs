@@ -458,7 +458,7 @@ namespace IndiegameGarden.Menus
         public override void OnUserInput(GamesPanel.UserInput inp, Vector2 pointerPos)
         {
             //((mousepos / screenheight - screen.center) / motionparent.zoom ) + MotionParent.zoomcenter
-            Vector2 panelPos = (((pointerPos / Screen.HeightPixels) - Screen.Center) / Motion.Zoom) + Motion.ZoomCenter;
+            Vector2 panelPos = (((pointerPos / Screen.HeightPixels) - Screen.Center) / Motion.Zoom) + Motion.ZoomCenter - Motion.Position;
             
             Vector2 gridPos = new Vector2( panelPos.X / PANEL_DELTA_GRID_X, panelPos.Y / PANEL_DELTA_GRID_Y) + PanelShiftPos;
             //TTutil.Round(ref gridPos);

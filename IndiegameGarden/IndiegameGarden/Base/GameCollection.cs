@@ -32,7 +32,7 @@ namespace IndiegameGarden.Base
             {
                 //if (matrix[gi.PositionX, gi.PositionY] != null)
                 //    throw new Exception("Multiple games at same position in GameCollection - Gamelib data error");
-                matrix[gi.PositionX, gi.PositionY] = gi;
+                matrix[gi.GridPositionX, gi.GridPositionY] = gi;
             }
         }
 
@@ -41,7 +41,7 @@ namespace IndiegameGarden.Base
         /// </summary>
         /// <param name="gi"></param>
         public void Add(GardenItem gi) {
-            matrix[gi.PositionX,gi.PositionY] = gi;
+            matrix[gi.GridPositionX, gi.GridPositionY] = gi;
             gamesList.Add(gi);
         }
 
@@ -115,7 +115,8 @@ namespace IndiegameGarden.Base
                     return g;
                 // check, for a downscaled icon, if the user's click is close enough to the actual icon.
                 float relSize = g.ScaleIcon / 2f;
-                if (Math.Abs(pos.X - (float)x) <= relSize && Math.Abs(pos.Y-(float)y) <= relSize )
+                if (Math.Abs(pos.X - g.PositionX) <= relSize && 
+                    Math.Abs(pos.Y - g.PositionY) <= relSize )
                 {
                     return g;
                 }

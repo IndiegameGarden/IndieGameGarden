@@ -46,7 +46,9 @@ namespace IndiegameGarden.Menus
         {
             ActiveInState = new StateBrowsingMenu();
             panel = new GardenGamesPanel(this);
-            panel.Motion.Position = new Vector2(0.0f, 0.0f);
+
+            // positioning of panel based on resolution / screen width
+            panel.Motion.Position = new Vector2(Screen.Center.X - 0.66666666666f, 0f);
 
             // get the items to display
             gamesList = BentoGame.Instance.GameLib.GetList();
