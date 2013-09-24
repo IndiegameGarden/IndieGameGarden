@@ -327,7 +327,7 @@ namespace IndiegameGarden.Menus
 
             if (st.IsKeyDown(Keys.Enter) && wasEnterPressed && timeSinceLastKeypress > MAX_KEY_PRESSING_TIME )
             {
-                int a = 3;
+                wasEnterPressed = true; // DUMMY LINE! for setting breakpoints here.
                 //OnUserInput(GamesPanel.UserInput.STOP_SELECT);
                 //lastKeypressTime = p.SimTime; // assume next round gonna be a new keypress
             }

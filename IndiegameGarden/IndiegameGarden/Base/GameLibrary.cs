@@ -61,32 +61,6 @@ namespace IndiegameGarden.Base
         }
 
         /// <summary>
-        /// (re)load information from default JSON config file(s) of a specific version number
-        /// </summary>
-        /// <param name="version">version number is required since there may be multiple gamelib versions on disk to choose from</param>
-        /// <exception cref="">various IO exceptions may occur when library file could not be found/loaded</exception>
-        public void LoadJson(int version)
-        {
-            GardenItem g = GardenItem.ConstructGameLibItem(version);
-            string fn = g.GameFolder + "\\" + GardenConfig.Instance.GameLibraryFilename;
-            LoadJson(fn);
-            this.version = version;
-        }
-
-        /// <summary>
-        /// (re)load information from default binary (protocol buffers) config file(s) of a specific version number
-        /// </summary>
-        /// <param name="version">version number is required since there may be multiple gamelib versions on disk to choose from</param>
-        /// <exception cref="">various IO exceptions may occur when library file could not be found/loaded</exception>
-        public void LoadBin(int version)
-        {
-            GardenItem g = GardenItem.ConstructGameLibItem(version);
-            string fn = g.GameFolder + "\\" + GardenConfig.Instance.GameLibraryFilenameBin;
-            LoadBin(fn);
-            this.version = version;            
-        }
-
-        /// <summary>
         /// (re)load information from given Json file
         /// </summary>
         /// <exception cref="">various IO exceptions may occur when library file could not be found/loaded</exception>
@@ -198,7 +172,6 @@ namespace IndiegameGarden.Base
             {
                 // process single leaf item
                 GardenItem ig = new GardenItem((JsonObject)j);
-                ig.WreckProcessing();
                 // return null to indicate skip, if not valid 'trainwreck' that this client can handle.
                 if (!ig.IsValidWreck)
                     return null;

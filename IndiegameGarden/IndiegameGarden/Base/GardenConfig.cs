@@ -68,21 +68,17 @@ namespace IndiegameGarden.Base
             // For bundle .exe files, save in same folder as Indiegame Garden exe (nice for collecting them)
             BundleDataPath = Path.GetFullPath(".");
 
-            ConfigFilesFolder = GetFolder("config");
             PackedFilesFolder = GetFolder("zips");
-            UnpackedFilesFolder = GetFolder("games");
+            UnpackedFilesFolder = GetFolder("Bento");
             ThumbnailsFolder = GetFolder("thumbs");
 
-            ConfigFilename = "gwg-config.json";
             GameLibraryFilename = "gamelib.json";
             GameLibraryFilenameBin = "gamelib.bin";
 
-            ThumbnailsServerURL = "http://indie.indiegamegarden.com/thumbs/";
-            ConfigFilesServerURL = "http://indie.indiegamegarden.com/gwg_gamelib_fmt4/"; 
             PackedFilesServerURL = "http://indie.indiegamegarden.com/zips/";
             BundleFilesServerURL = "http://www.indiegamegarden.com/";
 
-            jsonFilePath = Path.Combine(ConfigFilesFolder, ConfigFilename);
+            //jsonFilePath = Path.Combine("config/gamelib_fmt4", ConfigFilename);
 
         }
 
@@ -188,11 +184,6 @@ namespace IndiegameGarden.Base
         public string BundleDataPath { get; set; }
 
         /// <summary>
-        /// abs folder path where config files are stored
-        /// </summary>
-        public string ConfigFilesFolder { get; set; }
-
-        /// <summary>
         /// abs folder path name where packed files (zip, rar, etc) of games are stored
         /// </summary>
         public string PackedFilesFolder { get; set; }
@@ -206,11 +197,6 @@ namespace IndiegameGarden.Base
         /// abs folder path where thumbnails are stored
         /// </summary>
         public string ThumbnailsFolder { get; set; } 
-
-        /// <summary>
-        /// name of the configuration file (may be updated by server for some reason)
-        /// </summary>
-        public string ConfigFilename { get; set; }
 
         /// <summary>
         /// name of the game library JSON file
@@ -230,16 +216,6 @@ namespace IndiegameGarden.Base
                 return IGG_CLIENT_VERSION;
             }
         }
-
-        /// <summary>
-        /// url of the thumbnails server (incl path to thumbnails folder if any)
-        /// </summary>
-        public string ThumbnailsServerURL { get; set; }
-
-        /// <summary>
-        /// url of the config server (incl path, excl config file name)
-        /// </summary>
-        public string ConfigFilesServerURL { get; set; }
 
         /// <summary>
         /// url of a mirror server storing packed files (incl path) for all or most games
@@ -277,14 +253,5 @@ namespace IndiegameGarden.Base
                 return p2;
         }
                
-        /// <summary>
-        /// get url to remotely stored thumbnail file on default server ThumbnailsServerURL
-        /// </summary>
-        /// <returns></returns>
-        public string GetThumbnailURL(string thumbnailFilename)
-        {
-            return ThumbnailsServerURL + thumbnailFilename; 
-        }
-
     }
 }

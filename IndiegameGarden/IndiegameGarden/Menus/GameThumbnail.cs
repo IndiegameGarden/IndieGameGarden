@@ -74,31 +74,20 @@ namespace IndiegameGarden.Menus
         Texture2D updatedTexture;
         Object updateTextureLock = new Object();
 
-        /// <summary>
-        /// indicate whether texture already loaded
-        /// </summary>
-        bool isLoaded = false;
-        
-        /// <summary>
-        /// a time variable for rendering shader 'halo' around a thumbnail
-        /// </summary>
-        float haloTime = 0f;
-
         // a default texture to use if no thumbnail has been loaded yet
         static Texture2D DefaultTexture;
 
         /**
-         * internal Task to load a thumbnail from disk, or download it first if not available.
+         * internal Task to load a thumbnail from disk
          * To be called in a separate thread e.g. by using a ThreadedTask.
          */
-        class GameThumbnailLoadTask : ThumbnailDownloader
+        class GameThumbnailLoadTask : Task
         {
 
             // my parent - where to load for/to
             GameThumbnail parent;
 
-            public GameThumbnailLoadTask(GameThumbnail th): 
-                base(th.Game)
+            public GameThumbnailLoadTask(GameThumbnail th)
             {                
                 parent = th;
             }
@@ -120,9 +109,6 @@ namespace IndiegameGarden.Menus
                     }
                     else
                     {
-                        // first run the base downloading task now. If that is ok, then load from file downloaded.                    
-                        base.StartInternal();
-
                         if (File.Exists(parent.ThumbnailFilepath) && IsSuccess())
                         {
                             bool ok = parent.LoadTextureFromFile();
@@ -149,6 +135,12 @@ namespace IndiegameGarden.Menus
                     numLoadingTasksActive--;
                 }
             }
+
+            protected override void AbortInternal()
+            {
+                //
+            }
+
         } // class
 
         public GameThumbnail(GardenItem game)
@@ -297,26 +289,10 @@ namespace IndiegameGarden.Menus
                 {
                     Texture = updatedTexture;
                     updatedTexture = null;
-                    isLoaded = true;
+                    //isLoaded = true;
                 }
             }
 
-            if (EffectEnabled)
-            {
-                Motion.ScaleModifier *= (1f / 0.7f); // this extends image for shader fx region, see .fx file
-                if (Game.IsInstalled)
-                    haloTime += p.Dt; // move the 'halo' of the icon onwards as long as it's visible.
-                else
-                    haloTime = 0f;
-            }
-
-            /*
-            if ((Game.IsGrowable && Game.IsInstalled) )
-            {
-                progBar.ProgressTarget = 1.0f;
-                progBar.ProgressValue = 1.0f;
-            }
-             */
             if (Game.DlAndInstallTask != null &&
                 Game.ThreadedDlAndInstallTask != null &&
                 !Game.ThreadedDlAndInstallTask.IsFinished())

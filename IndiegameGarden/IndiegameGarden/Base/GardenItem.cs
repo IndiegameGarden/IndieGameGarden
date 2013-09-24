@@ -330,16 +330,6 @@ namespace IndiegameGarden.Base
         {            
         }
 
-        public static GardenItem ConstructGameLibItem(int version)
-        {
-            GardenItem g = new GardenItem();
-            g.Version = version;
-            g.GameID = "gwg_gamelib_fmt4"; // TODO to config constants?
-            g.ExeFile = "gamelib.bin";
-            g.PackedFileURL = GardenConfig.Instance.ConfigFilesServerURL + "gamelib.zip";
-            return g;
-        }
-
         public void Dispose()
         {
             if (ThreadedDlAndInstallTask != null)
@@ -594,11 +584,7 @@ namespace IndiegameGarden.Base
                 if (IsBundleItem)
                     return GardenConfig.Instance.BundleDataPath;
                 string folder;
-                // if system package then it's located in config files folder
-                if (IsSystemPackage)
-                    folder = GardenConfig.Instance.ConfigFilesFolder;
-                else
-                    folder = GardenConfig.Instance.UnpackedFilesFolder;
+                folder = GardenConfig.Instance.UnpackedFilesFolder;
                 return Path.Combine(folder , GameIDwithVersion);
             }
         }
@@ -616,26 +602,6 @@ namespace IndiegameGarden.Base
                 else
                 {
                     return GameIDwithVersion + ".png";
-                }
-            }
-        }
-
-        public string ThumbnailURL
-        {
-            get
-            {
-                if (thumbnailURL.Length > 0)
-                {
-                    // if only a filename given, assume default url location for thumbs
-                    if (!thumbnailURL.Contains("/"))
-                        return GardenConfig.Instance.GetThumbnailURL(thumbnailURL);
-                    else
-                        return thumbnailURL; // in case a full url given with or without http:// in front
-                }
-                else
-                {
-                    // default if nothing given at all.
-                    return GardenConfig.Instance.GetThumbnailURL(GameIDwithVersion + ".png");
                 }
             }
         }
@@ -722,26 +688,5 @@ namespace IndiegameGarden.Base
 
         }
 
-        /// <summary>
-        /// specific processing for 'wrecks' to fix issues in the json lib during game compilation.
-        /// </summary>
-        public void WreckProcessing()
-        {
-            // items without thumbnail get the default one
-            if (packedFileURL.Length > 0 && thumbnailURL.Length == 0 && !IsSystemPackage && !IsSectionId )
-            {
-                thumbnailURL = GardenConfig.Instance.ThumbnailsServerURL + "default.jpg";
-            }
-
-            // swf and html file items become web items
-            if (packedFileURL.ToLower().EndsWith(".swf") ||
-                packedFileURL.ToLower().EndsWith(".html") ||
-                packedFileURL.ToLower().EndsWith(".htm") )
-            {
-                ExeFile = packedFileURL;
-                packedFileURL = "";
-            }
-
-        }
     }
 }
