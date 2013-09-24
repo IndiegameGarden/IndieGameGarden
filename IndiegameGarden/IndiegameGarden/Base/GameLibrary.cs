@@ -172,9 +172,6 @@ namespace IndiegameGarden.Base
             {
                 // process single leaf item
                 GardenItem ig = new GardenItem((JsonObject)j);
-                // return null to indicate skip, if not valid 'trainwreck' that this client can handle.
-                if (!ig.IsValidWreck)
-                    return null;
                 return ig;
             }
             else

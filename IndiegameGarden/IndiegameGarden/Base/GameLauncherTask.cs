@@ -90,11 +90,6 @@ namespace IndiegameGarden.Base
                     return;
                 }
 
-                // delay for igg itself
-                if (Game.IsIggClient)
-                {
-                    Thread.Sleep(100);
-                }
                 Proc = System.Diagnostics.Process.Start(Game.ExeFile);
                 Proc.Exited += new EventHandler(EvHandlerProcessExited);
                 Proc.EnableRaisingEvents = true;

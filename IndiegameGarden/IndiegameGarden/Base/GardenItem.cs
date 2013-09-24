@@ -418,17 +418,6 @@ namespace IndiegameGarden.Base
         }
 
         /// <summary>
-        /// check whether it is a downloadable update for the Indiegame Garden client
-        /// </summary>
-        public bool IsIggClient
-        {
-            get
-            {
-                return GameID.Equals("igg");
-            }
-        }
-
-        /// <summary>
         /// check whether this is a gamelib for igg
         /// </summary>
         public bool IsGameLib
@@ -449,8 +438,6 @@ namespace IndiegameGarden.Base
             {
                 if (IsSystemPackage)
                 {
-                    if (IsIggClient)
-                        return true;
                     if (IsGameLib)
                         return true;
                     return false;
@@ -536,30 +523,6 @@ namespace IndiegameGarden.Base
                 if (ExeFile.Equals(packedFileURL) && ExeFile.Length > 0 )
                     return true;
                 return false;
-            }
-        }
-
-        /// <summary>
-        /// checks whether this item is a valid 'trainwreck' game that can be included in the library.
-        /// Invalid ones are e.g. without downloadable file, or that require Klik 'n Play runtime.
-        /// or swf?
-        /// </summary>
-        public bool IsValidWreck
-        {
-            get
-            {
-                if (IsSectionId || IsSystemPackage || IsMusic || IsPositionGiven)
-                    return true;
-
-                // if no downloadable file at all, for a non-web-game
-                if (!IsWebGame && packedFileURL.Length == 0)
-                    return false;
-
-                // if 7zip archive (not supported yet)
-                if (packedFileURL.ToLower().EndsWith(".7z"))
-                    return false;
-
-                return true;
             }
         }
 
