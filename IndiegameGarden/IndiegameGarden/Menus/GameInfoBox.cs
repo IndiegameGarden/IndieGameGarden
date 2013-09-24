@@ -72,7 +72,7 @@ namespace IndiegameGarden.Menus
                 string title = game.Name;
                 if (game.Status != null)
                 {
-                    title += game.Status;
+                    title += "    " + game.Status;
                 }
 
                 string desc = game.Description + "\n";
