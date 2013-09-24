@@ -14,6 +14,7 @@ namespace IndiegameGarden.Base
     {
         public override void OnEntry(Gamelet g)
         {
+            base.OnEntry(g);
             //BentoGame.Instance.IsMouseVisible = false;
         }
     }
@@ -25,6 +26,7 @@ namespace IndiegameGarden.Base
     {
         public override void OnEntry(Gamelet g)
         {
+            base.OnEntry(g);
             //BentoGame.Instance.IsMouseVisible = false;
         }
     }

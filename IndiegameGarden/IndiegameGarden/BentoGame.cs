@@ -59,11 +59,6 @@ namespace IndiegameGarden
         public Gamelet TreeRoot;
 
         /// <summary>
-        /// loading screen with text
-        /// </summary>
-        LoadingDisplay loadingDisplay;
-
-        /// <summary>
         /// startup splash screen graphic
         /// </summary>
         public Spritelet SplashScreen;
@@ -78,7 +73,7 @@ namespace IndiegameGarden
         ThreadedTask launchGameThread;
 
         GraphicsDeviceManager graphics;
-        Screenlet mainScreenlet, loadingScreenlet;       
+        Screenlet mainScreenlet;       
         HttpFtpProtocolExtension myDownloaderProtocol;
         int myWindowWidth; // = 1280; //1024; //1280; //1440; //1280;
         int myWindowHeight; // = 768; //768; //720; //900; //720;
@@ -130,30 +125,19 @@ namespace IndiegameGarden
 
         void GardenInit()
         {
-            // loading screen
-            loadingScreenlet = new Screenlet(myWindowWidth, myWindowHeight);
-            TTengineMaster.ActiveScreen = loadingScreenlet;
-            loadingScreenlet.ActiveInState = new StatePlayingGame();
-            loadingScreenlet.DrawInfo.DrawColor = Color.Black;
-            loadingDisplay = new LoadingDisplay();
-            loadingScreenlet.Add(loadingDisplay);
-
             // from here on, main screen
             mainScreenlet = new Screenlet(myWindowWidth, myWindowHeight);
             TTengineMaster.ActiveScreen = mainScreenlet;
-            //mainScreenlet.ActiveInState = new StateBrowsingMenu();
             TreeRoot = new FixedTimestepPhysics();
             TreeRoot.SetNextState(new StateStartup()); // set the initial state
 
             TreeRoot.Add(mainScreenlet);
-            TreeRoot.Add(loadingScreenlet);
             mainScreenlet.DrawInfo.DrawColor = Color.White; // new Color(169 * 2 / 3, 157 * 2 / 3, 241 * 2 / 3); // Color.Black;
 
             // graphics bitmap scaling that adapts to screen resolution 
             mainScreenlet.Motion.Scale = ((float)myWindowHeight) / 900f;
-            loadingScreenlet.Motion.Scale = mainScreenlet.Motion.Scale;
 
-            //
+            // splash screen (upon starting Bento)
             Spritelet SplashScreen = new Spritelet("bentologo");
             SplashScreen.DrawInfo.LayerDepth = 1f;
             //SplashScreen.ActiveInState = new StateStartup();
@@ -185,7 +169,7 @@ namespace IndiegameGarden
             {
                 // game chooser menu
                 GameChooserMenu menu = new GameChooserMenu();
-                menu.ActiveInState = new StateBrowsingMenu();
+                //menu.ActiveInState = new StateBrowsingMenu();
                 mainScreenlet.AddNextUpdate(menu);
             }
             else
@@ -204,13 +188,6 @@ namespace IndiegameGarden
 
             // update any other XNA components
             base.Update(gameTime);
-
-            // TODO document
-            if (launcher != null && !launcher.IsFinished() && 
-                launcher.IsGameShowingWindow && loadingDisplay.IsLoadingState() )
-            {
-                loadingDisplay.SetPlayingGame(3.0f);
-            }
 
             if (isExiting && !music.IsPlaying )
             {
@@ -275,7 +252,6 @@ namespace IndiegameGarden
         {
             ITask t = new ThreadedTask(new SiteLauncherTask(g));
             t.Start();
-            loadingDisplay.SetLoadingGame(g, thumb);
             TreeRoot.SetNextState(new StatePlayingGame(2f,false));
         }
 
@@ -283,7 +259,6 @@ namespace IndiegameGarden
         {
             ITask t = new ThreadedTask(new SiteLauncherTask(g.ExeFile));
             t.Start();
-            loadingDisplay.SetLoadingGame(g, thumb);
             music.FadeOut();
             TreeRoot.SetNextState(new StatePlayingGame(2f,false));
         }
@@ -302,7 +277,6 @@ namespace IndiegameGarden
                     if ((launcher == null || launcher.IsFinished() == true) &&
                          (launchGameThread == null || launchGameThread.IsFinished()))
                     {
-                        loadingDisplay.SetLoadingGame(g, thumb);
                         // set state of game to 'game playing state'
                         TreeRoot.SetNextState(new StatePlayingGame());
 

@@ -38,13 +38,13 @@ namespace IndiegameGarden.Menus
         GamesPanel panel;
         KeyboardState prevKeyboardState = Keyboard.GetState();
         Vector2 pointerPos, lastPointerPos;
+        IState stateBrowsingMenu = new StateBrowsingMenu();
 
         /// <summary>
         /// construct new menu
         /// </summary>
         public GameChooserMenu()
         {
-            ActiveInState = new StateBrowsingMenu();
             panel = new GardenGamesPanel(this);
 
             // positioning of panel based on resolution / screen width
@@ -199,7 +199,7 @@ namespace IndiegameGarden.Menus
             base.OnUpdate(ref p);
 
             // check keyboard/mouse inputs from user
-            if (BentoGame.Instance.IsActive)
+            if (BentoGame.Instance.IsActive && IsInState(stateBrowsingMenu))
             {
                 KeyboardControls(ref p);
                 MouseControls(ref p);

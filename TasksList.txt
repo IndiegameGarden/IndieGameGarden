@@ -1,12 +1,12 @@
 Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-- remove loading screen when launching game
 - avoid separate folders for games that are inside a folder already
 - fix datapath for deployment configuration
 - progress bar should be white with darkening bar around it.
 
 CLOSED  [date order]
+- 2013-09-24 18:11:52 remove loading screen when launching game
 - 2013-09-24 09:02:30 progress bar position wrong
 - 2013-09-24 09:02:56 bug that games folder was still created
 

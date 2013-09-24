@@ -163,7 +163,6 @@
     <Compile Include="BentoGame.cs" />
     <Compile Include="Menus\FloatingTextMessage.cs" />
     <Compile Include="Menus\GardenMusic.cs" />
-    <Compile Include="Menus\LoadingDisplay.cs" />
     <Compile Include="Base\State.cs" />
     <Compile Include="Base\ThreadedTask.cs" />
     <Compile Include="Download\BaseDownloader.cs" />
