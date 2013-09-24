@@ -21,7 +21,7 @@ namespace IndiegameGarden.Menus
     /// </summary>
     public class GameThumbnail: EffectSpritelet
     {
-        static Vector2 PROGRESS_BAR_POSITION_RELATIVE = new Vector2(-0.08f, -0.08f);
+        // static Vector2 PROGRESS_BAR_POSITION_RELATIVE = new Vector2(-0.08f, -0.08f);
 
         /// <summary>
         /// my color change behavior used eg for fading in/out
@@ -164,7 +164,7 @@ namespace IndiegameGarden.Menus
 
             // progress bar
             progBar = new ProgressBar();
-            progBar.Motion.Position = PROGRESS_BAR_POSITION_RELATIVE;
+            //progBar.Motion.Position = PROGRESS_BAR_POSITION_RELATIVE;
             progBar.Visible = false;
             progBar.ProgressValue = 0f;
             progBar.ProgressTarget = 0f;
@@ -299,7 +299,7 @@ namespace IndiegameGarden.Menus
             {
                 if (Game.DlAndInstallTask.IsDownloading())
                 {
-                    Game.Status = "[loading]"; 
+                    Game.Status = "[downloading]"; 
                 }
                 else if (Game.DlAndInstallTask.IsInstalling())
                 {

@@ -23,7 +23,7 @@ namespace IndiegameGarden.Install
         /// <summary>
         /// how much of the progress percentage is allocated to downloading (remainder is for installing)
         /// </summary>
-        const double FRACTION_OF_PROGRESS_FOR_DOWNLOAD = 0.90;
+        const double FRACTION_OF_PROGRESS_FOR_DOWNLOAD = 0.80;
 
         InstallTask installTask;
         GameDownloader downloadTask;

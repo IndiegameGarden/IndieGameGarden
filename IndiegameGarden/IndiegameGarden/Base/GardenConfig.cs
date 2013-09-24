@@ -91,15 +91,9 @@ namespace IndiegameGarden.Base
         {
             // verify and/or create all individual folders
             if (!VerifyFolder(".")) return false;
-            if (!VerifyFolder("config")) return false;
             if (!VerifyFolder("thumbs")) return false;
             if (!VerifyFolder("zips")) return false;
-            if (!VerifyFolder("games")) return false;
-
-            // copy over some initial files if needed (only if dir is empty)           
-            //if (!CopyFiles("config")) return false;
-            if (!CopyFiles("thumbs")) return false;
-            //if (!CopyFiles("zips")) return false;
+            if (!VerifyFolder("Bento")) return false;
 
             return true;
         }

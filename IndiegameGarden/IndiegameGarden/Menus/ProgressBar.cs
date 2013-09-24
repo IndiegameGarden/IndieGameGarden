@@ -25,12 +25,13 @@ namespace IndiegameGarden.Menus
         float progressValueTarget;
 
         public ProgressBar()
-            : base("simple-progbar") //("citybar4") 
+            : base("simple-progbar") 
         {
             progressValue = 0f;
             progressValueTarget = 0f;
-            ProgressCatchupSpeed = 0.6f;
-            Motion.Scale = 1f;// 0.6f;
+            ProgressCatchupSpeed = 0.3f;
+            Motion.Scale = 1.5f;// 0.6f;
+            Motion.Position = new Vector2( -0.02f,0f); //-(DrawInfo.Width * Motion.Scale) / 2f, 0f);
         }
 
         /// <summary>
