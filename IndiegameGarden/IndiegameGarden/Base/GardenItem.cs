@@ -107,6 +107,10 @@ namespace IndiegameGarden.Base
         [ProtoMember(17)]
         protected string thumbnailURL = "";
 
+        [ProtoMember(18)]
+        public bool HasOwnFolder = false;
+
+        // <summary>Displayable status string of the current item, e.g. if downloading or failed to download.</summary>
         public string Status = null;
 
         /// <summary>
@@ -348,7 +352,7 @@ namespace IndiegameGarden.Base
                 if (IsBundleItem)
                     return Path.Combine(GameFolder, ExeFile);
                 else
-                    return GameFolder + "\\" + CdPath + "\\" + ExeFile;
+                    return Path.Combine(GameFolder , CdPath , ExeFile);
             }
         }
 
@@ -361,19 +365,12 @@ namespace IndiegameGarden.Base
         {
             get
             {
+                if (!IsGrowable)            // non-growable items are assumed installed by default
+                    isInstalled = true;
+
                 if (refreshInstallationStatusNeeded) // avoid continuous calling of Directory.Exists via this mechanism
                 {
-                    if (!IsBundleItem)
-                    {
-                        if (!IsGrowable)            // non-growable items are assumed installed by default
-                            isInstalled = true;
-                        else
-                            isInstalled = Directory.Exists(GameFolder) && (DlAndInstallTask == null || DlAndInstallTask.IsFinished());
-                    }
-                    else
-                    {
-                        isInstalled = File.Exists(ExeFilepath) && (DlAndInstallTask == null || DlAndInstallTask.IsFinished());
-                    }
+                    isInstalled = File.Exists(ExeFilepath) && (DlAndInstallTask == null || DlAndInstallTask.IsFinished());
                     refreshInstallationStatusNeeded = false;
                 }
                 return isInstalled;
@@ -548,7 +545,22 @@ namespace IndiegameGarden.Base
                     return GardenConfig.Instance.BundleDataPath;
                 string folder;
                 folder = GardenConfig.Instance.UnpackedFilesFolder;
-                return Path.Combine(folder , GameIDwithVersion);
+                // if has own folder, then don't return a folder based on GameID
+                if (HasOwnFolder)
+                    return folder;
+                else
+                    return Path.Combine(folder , GameIDwithVersion);
+            }
+        }
+
+        /// <summary>
+        /// get the folder where the .exe file of the game/item is stored
+        /// </summary>
+        public string ExeFolder
+        {
+            get
+            {
+                return Path.Combine(GameFolder, CdPath);
             }
         }
 
@@ -620,6 +632,8 @@ namespace IndiegameGarden.Base
             try { Description = j["Descr"].ToString(); }
             catch (Exception) { ; }
             try { HelpText = j["Help"].ToString(); }
+            catch (Exception) { ; }
+            try { HasOwnFolder = ((JsonBoolean)j["HasOwnFolder"]).Value; }
             catch (Exception) { ; }
             try { ExeFile = j["Exe"].ToString(); }
             catch (Exception) { ; }

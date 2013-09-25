@@ -64,7 +64,7 @@ namespace IndiegameGarden.Install
                 status = installTask.Status();
                 statusMsg = installTask.StatusMsg();
 
-                // install failed? remove the zip file and the game dir
+                // install failed? remove the zip file and the game dir too
                 if (status == ITaskStatus.FAIL)
                 {
                     string fn = game.PackedFilePath;
@@ -81,7 +81,7 @@ namespace IndiegameGarden.Install
                     }
                     if (!game.IsBundleItem)
                     {
-                        fn = game.GameFolder;
+                        fn = game.ExeFolder; // the game dir
                         if (fn != null && fn.Length > 0)
                         {
                             try

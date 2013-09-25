@@ -196,7 +196,6 @@
     <Compile Include="Base\GardenItem.cs" />
     <Compile Include="Base\JSONStore.cs" />
     <Compile Include="Base\GardenConfig.cs" />
-    <Compile Include="Menus\ThumbnailFromFile.cs" />
     <Compile Include="Base\Task.cs" />
     <Compile Include="Unpack\CopyFileTask.cs" />
     <Compile Include="Unpack\UnpackerTask.cs" />

@@ -50,14 +50,13 @@ namespace IndiegameGarden.Base
             {
                 // first cd to the game's folder
                 string cwd = Directory.GetCurrentDirectory();
-                string gameFolder = Game.GameFolder;
-                if (!Directory.Exists(gameFolder))
+                if (!File.Exists(Game.ExeFilepath))
                 {
                     status = ITaskStatus.FAIL;
-                    statusMsg = "GameFolder not found: " + gameFolder;
+                    statusMsg = "GameFolder not found: " + Game.GameFolder;
                     return;
                 }
-                Directory.SetCurrentDirectory(gameFolder);
+                Directory.SetCurrentDirectory(Game.GameFolder);
 
                 // find the .exe file if needed, and if it's still unknown abort.
                 AutoDetectExeFileIfNeeded(Game);

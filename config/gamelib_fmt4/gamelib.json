@@ -29,7 +29,6 @@
 {
  	"ID": "test2",
 	"Name": "Fox aliens from space invade a planet within space",
-	"Descr": "\"jump as mr zuper hero dude, stop em aliens, bring their ships down destroy dem walkers.\"\nPress \"W\" to visit the YoYoGames website of this game. GameMaker is great, try it!",
 	"ZipOrigin": "http://sandbox.yoyogames.com/games/196253-fox-aliens-from-space-invade-a-planet-within-space/send_download?code=113999adfa054f80141a43cc8f58f5cd2f70a5b1",
 	"Site": "http://sandbox.yoyogames.com/games/196253-fox-aliens-from-space-invade-a-planet-within-space#",
 	"Exe": "FOXLZRS.exe",
@@ -39,36 +38,24 @@
 {
  	"ID": "test3",
 	"Name": "Wither",
-	"Descr": "Short RPG made in old gameboy style. Press \"W\" to visit the rpgmaker.net site for this game!",
 	"Zip": "wither.rar",
 	"Site": "http://rpgmaker.net/games/3434/",
+	"HasOwnFolder": true,
 	"Exe": "RPG_RT.exe",
 	"Cd": "Wither"
 },
 {
 	"ID": "test4",
 	"Name": "Starman",
-	"Descr": "Jump on the goomba!",
 	"Cd": "starman",
 	"Exe": "starman.exe",
+	"HasOwnFolder": true,
 	"Zip": "klikscene.com/games/Radix_starman.rar",
 	"Site": "klikscene.com/2009/starman/"
 },
 {
- 	"ID": "test5",
-	"Name": "Dwarf Fortress 0.34.11",
-	"Descr": "Single-player fantasy game set in a randomly generated, persistent world. Amazingly, all visuals are ASCII.",
-	"Help": "You can maximize the window to see a larger map area during the game.",
-	"Zip": "www.bay12games.com/dwarves/df_34_11_win.zip",
-	"ZipMirrors": ["b12.wimbli.com/df_34_11_win.zip", "df.nucleardog.com/df_34_11_win.zip"],
-	"Site": "www.bay12games.com/dwarves/",
-	"Exe": "Dwarf Fortress.exe",
-	"Version": 2
-},
-{
-"ID": "theyneedtobefed",
+"ID": "TheyNeedToBeFed",
 "Name": "They Need To Be Fed",
-"Descr": "A casual, fresh and fun platformer. Walk upside down, jump from one object to another.\nIncludes 5 worlds with each 7 levels. Use space as the select/jump key.",
 "Help": "Hint: full screen mode can be selected from the menu. Use space as the select/jump key.",
 "Zip": "www.venbrux.com/games/TNTBF.zip",
 "Site": "http://www.venbrux.com",
@@ -76,49 +63,48 @@
 "dummy":1
 },
 {
-"ID": "caph",
+"ID": "Caph",
 "Name": "Caph",
-"Descr": "Sandbox game, based on physics. The aim is to make the red object make contact with the green object. You can \nuse various objects, solid, wire (rope), and bendable objects. Gravity will help you.",
 "Zip": "sourceforge.net/projects/caphgame/files/caph/caphgame-1.1/caph-1.1-mingw32.zip/download?use_mirror=?/caph-1.1-mingw32.zip",
 "Site": "http://caphgame.sourceforge.net",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Puzzle/Caph/Image.jpg",
 "dummy":1
 },
 {
-"ID": "spelunky",
+"ID": "Spelunky",
 "Name": "Spelunky",
-"Descr": "Spelunky is a cave exploration / treasure-hunting game inspired by classic platform games and roguelikes, \nwhere the goal is to grab as much treasure from the cave as possible. Every time you play the cave's layout \nwill be different. Use your wits, your reflexes, and the items available to you to survive and go ever deeper! \nPerhaps at the end you may find what you're looking for...",
 "Zip": "http://www.derekyu.com/games/spelunky_1_1.zip",
 "Site": "http://www.spelunkyworld.com",
 "ThumbURL": "game-downloader.googlecode.com/svn/trunk/Data/Categories/Platform/Spelunky/Image.jpg",
 "Exe": "Spelunky.exe"
 },
 {
-"ID":"alexadventure",
+"ID":"AlexAdventure",
 "Name":"Alex Adventure",
-"Descr": "Retro exploration/platform game with puzzle elements",
 "Zip": "http://tomvert.free.fr/Alex-Adventure.zip",
 "Site": "http://tomvert.free.fr/"
 },
 {
-"ID":"coldgearz",
+"ID":"Coldgearz",
 "Name":"Coldgearz",
-"Descr": "Platform shooter for old skool gamers. Press \"W\" for detailed unit descriptions on the Andygames website.",
 "Site": "http://www.andygames.com/cg_page.html"
 },
 {
-"ID":"glumbuster",
+"ID":"GlumBuster",
 "Name":"Glum Buster",
-"Descr": "An original video game where glum must be busted. Very nice art style.\nDonations can be made at the website (press \"W\").",
 "Site": "http://glumbuster.com",
+"HasOwnFolder": true,
+"Exe": "Glum Buster.exe",
+"Cd": "Glum Buster",
 "Zip": "http://cosmind.powweb.com/blog/GlumBuster/GlumBuster.zip"
 },
 {
-"ID":"in60seconds",
+"ID":"In60seconds",
 "Name":"In 60 Seconds",
 "Descr": "A metroidvania, probably the only one where you are limited to a 60 second period of play time.\nPress \"W\" for the YouTube spoiler :)",
 "Site": "http://www.youtube.com/watch?v=h6zu-ImiEFQ",
-"Zip": "in60seconds.rar"
+"Zip": "in60seconds.rar",
+"Exe": "I60Sf.exe"
 },
 {}
 

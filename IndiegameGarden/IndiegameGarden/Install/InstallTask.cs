@@ -30,15 +30,14 @@ namespace IndiegameGarden.Install
 
         protected override void StartInternal()
         {
-            string destFolder = game.GameFolder;
-            if (Directory.Exists(destFolder)) // assume it's already there
+            if (File.Exists(game.ExeFilepath)) // assume it's already there
             {
                 status = ITaskStatus.SUCCESS;
             }
             else
             {
                 unpacker = new UnpackerTask(game.PackedFilePath,
-                                            destFolder,
+                                            game.GameFolder,
                                             game.ExeFile);
                 if (File.Exists(unpacker.Filename))
                 {
