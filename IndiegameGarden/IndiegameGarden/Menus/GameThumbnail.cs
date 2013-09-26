@@ -163,9 +163,8 @@ namespace IndiegameGarden.Menus
 
             // progress bar
             progBar = new ProgressBar();
-            //progBar.Motion.Position = PROGRESS_BAR_POSITION_RELATIVE;
-            progBar.Visible = true; // xyz
-            progBar.Motion.Scale = 1f ; // DrawInfo.Width / progBar.DrawInfo.Width;
+            progBar.Visible = false;
+            progBar.Motion.Scale = 1f ; 
             progBar.ProgressValue = 0f;
             progBar.ProgressTarget = 0f;
             progBar.DrawInfo.LayerDepth = 0.04f;
@@ -280,12 +279,11 @@ namespace IndiegameGarden.Menus
             // adapt scale according to GameItem preset
             Motion.ScaleModifier *= ThumbnailScale;
 
-            // debug xyz
-            progBar.ProgressTarget = (p.SimTime ) % 10;
-            if ((progBar.ProgressValue - progBar.ProgressTarget) > 0.12)
-                progBar.ProgressValue = 0;
-
-            progBar.ProgressTarget += RandomMath.RandomBetween(-0.13f, 0.13f);
+            // debug progress bar code
+            //progBar.ProgressTarget = (p.SimTime ) % 10;
+            //if ((progBar.ProgressValue - progBar.ProgressTarget) > 0.12)
+            //    progBar.ProgressValue = 0;
+            //progBar.ProgressTarget += RandomMath.RandomBetween(-0.13f, 0.13f);
 
             // check if a new texture has been loaded in background
             if (updatedTexture != null)
@@ -303,6 +301,7 @@ namespace IndiegameGarden.Menus
                 Game.ThreadedDlAndInstallTask != null &&
                 !Game.ThreadedDlAndInstallTask.IsFinished())
             {
+                progBar.IsDone = false;
                 if (Game.DlAndInstallTask.IsDownloading())
                 {
                     Game.Status = "[downloading]"; 
@@ -323,9 +322,14 @@ namespace IndiegameGarden.Menus
             }
             else
             {
+                if (progBar.Visible && !progBar.IsDone)
+                {
+                    progBar.IsDone = true;
+                    progBar.Add(new TimedInvisibility(3f));
+                }
                 //progBar.Visible = false;
-                //progBar.ProgressTarget = 1.0f;
-                //progBar.ProgressValue = 1.0f;
+                progBar.ProgressTarget = 1.0f;
+                progBar.ProgressValue = 1.0f;
                 if (Game.ThreadedDlAndInstallTask != null &&
                     !Game.ThreadedDlAndInstallTask.IsSuccess() &&
                     Game.ThreadedDlAndInstallTask.IsFinished())

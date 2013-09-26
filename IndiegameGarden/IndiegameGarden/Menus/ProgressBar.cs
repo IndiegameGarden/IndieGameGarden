@@ -103,6 +103,8 @@ namespace IndiegameGarden.Menus
             }
         }
 
+        public bool IsDone = false;
+
         public Color BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.65f);
 
         protected override void OnUpdate(ref UpdateParams p)
