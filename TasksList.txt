@@ -1,9 +1,9 @@
 Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
+- <working:> progress bar should be white with darkening bar around it.
 - game icon needs updating to bento style
 - fix datapath for deployment configuration
-- progress bar should be white with darkening bar around it.
 - better UI feedback when starting a game
 
 CLOSED  [date order]

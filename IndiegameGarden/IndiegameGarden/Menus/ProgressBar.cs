@@ -29,9 +29,9 @@ namespace IndiegameGarden.Menus
         {
             progressValue = 0f;
             progressValueTarget = 0f;
-            ProgressCatchupSpeed = 0.3f;
-            Motion.Scale = 1.5f;// 0.6f;
-            Motion.Position = new Vector2( -0.02f,0f); //-(DrawInfo.Width * Motion.Scale) / 2f, 0f);
+            ProgressCatchupSpeed = 0.15f;
+            //Motion.Scale = 1.5f;// 0.6f;
+            //Motion.Position = new Vector2( -0.02f,0f); //-(DrawInfo.Width * Motion.Scale) / 2f, 0f);
         }
 
         /// <summary>
@@ -103,9 +103,14 @@ namespace IndiegameGarden.Menus
             }
         }
 
+        public Color BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.65f);
+
         protected override void OnUpdate(ref UpdateParams p)
         {
             base.OnUpdate(ref p);
+
+            // adapt scale to compensate for parent thumbnails' changing scale HACK
+            Motion.ScaleModifier = 1f / (Parent.Motion.Scale * Parent.Motion.ScaleModifier);
 
             // move level towards the target
             if (progressValue < progressValueTarget)
@@ -139,12 +144,21 @@ namespace IndiegameGarden.Menus
             double progressValuePercent = 100 * progressValue;
             float drawSc = DrawInfo.DrawScale;
             int width = 1 + (int)Math.Round(ToPixels(DrawInfo.WidthAbs) * progressValue * barWidth );
+            int widthFull = (int)Math.Round(ToPixels(DrawInfo.WidthAbs) * barWidth);
             int height = (int) Math.Round(ToPixels(DrawInfo.HeightAbs));
             if (width > Texture.Width) width = Texture.Width;
 
+            // draw background for bar
+            Vector2 posBackground = pos + new Vector2(-0.35f, -1f);
+            Vector2 drawCenter = new Vector2(widthFull/2, height/2);
+            Vector2 barScaling = new Vector2(1.09f, 1.3f);
+            MySpriteBatch.Draw(Texture, posBackground, null, BackgroundColor,
+                            Motion.RotateAbs, drawCenter, barScaling, SpriteEffects.None, DrawInfo.LayerDepth + 0.00001f);
+
+            // draw bar
             Rectangle srcRect = new Rectangle(0, 0, width, Texture.Height-2);
             MySpriteBatch.Draw(Texture, pos, srcRect, DrawInfo.DrawColor,
-                            Motion.RotateAbs, new Vector2(0f,height/4), drawSc, SpriteEffects.None, DrawInfo.LayerDepth);
+                            Motion.RotateAbs, drawCenter, drawSc, SpriteEffects.None, DrawInfo.LayerDepth);
 
         }
 

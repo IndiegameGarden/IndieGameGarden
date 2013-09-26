@@ -12,6 +12,8 @@ using TTengine.Core;
 
 using IndiegameGarden.Base;
 using IndiegameGarden.Download;
+using IndiegameGarden.Util;
+
 using MyDownloader.Core;
 
 namespace IndiegameGarden.Menus
@@ -19,7 +21,7 @@ namespace IndiegameGarden.Menus
     /// <summary>
     /// A thumbnail showing a single game, with scaling, auto-loading and downloading of image data.
     /// </summary>
-    public class GameThumbnail: EffectSpritelet
+    public class GameThumbnail: Spritelet
     {
         // static Vector2 PROGRESS_BAR_POSITION_RELATIVE = new Vector2(-0.08f, -0.08f);
 
@@ -144,16 +146,13 @@ namespace IndiegameGarden.Menus
         } // class
 
         public GameThumbnail(GardenItem game)
-            : base( (Texture2D) null, "GameThumbnail")
+            : base( (Texture2D) null)
         {
             ColorB = new ColorChangeBehavior();         
             Add(ColorB);
             Motion.Scale = GardenGamesPanel.THUMBNAIL_SCALE_UNSELECTED;
             Game = game;
-            // effect is still off if no bitmap loaded yet
-            EffectEnabled = false;
-            // first-time texture init
-            
+            // first-time texture init            
             if (DefaultTexture == null)
             {
                 DefaultTexture = BentoGame.Instance.Content.Load<Texture2D>("ball-supernova2");
@@ -165,10 +164,10 @@ namespace IndiegameGarden.Menus
             // progress bar
             progBar = new ProgressBar();
             //progBar.Motion.Position = PROGRESS_BAR_POSITION_RELATIVE;
-            progBar.Visible = false;
+            progBar.Visible = true; // xyz
+            progBar.Motion.Scale = 1f ; // DrawInfo.Width / progBar.DrawInfo.Width;
             progBar.ProgressValue = 0f;
             progBar.ProgressTarget = 0f;
-            progBar.BarWidth = 1f;
             progBar.DrawInfo.LayerDepth = 0.04f;
             Add(progBar);
 
@@ -281,6 +280,13 @@ namespace IndiegameGarden.Menus
             // adapt scale according to GameItem preset
             Motion.ScaleModifier *= ThumbnailScale;
 
+            // debug xyz
+            progBar.ProgressTarget = (p.SimTime ) % 10;
+            if ((progBar.ProgressValue - progBar.ProgressTarget) > 0.12)
+                progBar.ProgressValue = 0;
+
+            progBar.ProgressTarget += RandomMath.RandomBetween(-0.13f, 0.13f);
+
             // check if a new texture has been loaded in background
             if (updatedTexture != null)
             {
@@ -317,9 +323,9 @@ namespace IndiegameGarden.Menus
             }
             else
             {
-                progBar.Visible = false;
-                progBar.ProgressTarget = 1.0f;
-                progBar.ProgressValue = 1.0f;
+                //progBar.Visible = false;
+                //progBar.ProgressTarget = 1.0f;
+                //progBar.ProgressValue = 1.0f;
                 if (Game.ThreadedDlAndInstallTask != null &&
                     !Game.ThreadedDlAndInstallTask.IsSuccess() &&
                     Game.ThreadedDlAndInstallTask.IsFinished())
@@ -336,25 +342,9 @@ namespace IndiegameGarden.Menus
 
         protected override void OnDraw(ref DrawParams p)
         {
-            if (timeParam != null)
-                timeParam.SetValue(SimTime);
-            if (positionParam != null)
-                positionParam.SetValue(Motion.Position);
-
             if (Texture != null)
             {
                 Color col = DrawInfo.DrawColor;
-                if (EffectEnabled)
-                {
-                    // this is a conversion from 'halotime' to the time format that can be given to the pixel shader
-                    // via the 'draw color' parameter
-                    double warpedTime = 0; // 20 * (1 + Math.Sin(1.5f * MathHelper.Pi + MathHelper.TwoPi * 0.01 * (double)haloTime));
-                    int t = (int)(warpedTime * 16);
-                    int c3 = t % 256;
-                    int c2 = ((t - c3) / 256) % 256;
-                    //int c1 = ((t - c2 - c3)/65536) % 256;
-                    col = new Color(col.R, c2, c3, col.A); // (intensity, timeMSB, timeLSB, alpha) passed to shader
-                }
                 MySpriteBatch.Draw(Texture, DrawInfo.DrawPosition, null, col,
                        Motion.RotateAbs, DrawInfo.DrawCenter, DrawInfo.DrawScale, SpriteEffects.None, DrawInfo.LayerDepth);
             }

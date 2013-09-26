@@ -1,6 +1,7 @@
 ﻿// (c) 2010-2013 TranceTrance.com. Distributed under the FreeBSD license in LICENSE.txt
 
 using System;
+using System.Threading;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
