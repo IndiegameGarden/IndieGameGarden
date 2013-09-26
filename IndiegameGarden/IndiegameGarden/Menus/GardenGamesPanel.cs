@@ -54,7 +54,7 @@ namespace IndiegameGarden.Menus
         const float         THUMBNAIL_SCALE_SPEED = 0.02f; 
         public const float THUMBNAIL_MAX_WIDTH_PIXELS = 320f;
         public const float THUMBNAIL_MAX_HEIGHT_PIXELS = 240f;
-        const float        THUMBNAIL_FADE_SPEED = 0.3f;
+        const float        THUMBNAIL_FADE_SPEED = 0.8f;
 
         static Vector2 INFOBOX_SHOWN_POSITION = new Vector2(0.05f, 0.97f);
         static Vector2 INFOBOX_DESCRIPTION_HIDDEN_POSITION = new Vector2(0.05f, 0.97f);
@@ -331,8 +331,12 @@ namespace IndiegameGarden.Menus
                         thumbnailLoadsStarted++;                                                
                 }
 
+                if (IsInState(new StatePlayingGame()) && !g.Equals(selGame)) {
+                    th.ColorB.AlphaTarget = 0f;
+                    th.ColorB.SaturationTarget = 1f;
+                }
                 // check if thnail is loaded and still in range. If so, start displaying it (fade in)
-                if (th.IsLoaded() && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE)
+                else if (th.IsLoaded() && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE)
                 {
                     th.ColorB.AlphaTarget = 1f;
                     th.ColorB.SaturationTarget = 1f;
@@ -351,14 +355,6 @@ namespace IndiegameGarden.Menus
                     th.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT;
                 }
 
-                /*
-                if (g.IsInstalling)
-                {
-                    // wobble the size of icon when installing.
-                    th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED * (1.0f + 0.1f * (float)Math.Sin(MathHelper.TwoPi * 0.16f * SimTime));
-                }
-                 */
-
             } // end for loop over all games
 
             foreach (GameThumbnail th in toRemoveFromCache)
@@ -373,24 +369,6 @@ namespace IndiegameGarden.Menus
                 // update text box with currently selected game info
                 if( g != infoBox.game)
                     infoBox.SetGameInfo(g);
-
-                //-- credits text
-                if (g.GameID.Equals("igg_credits") && !isExiting)
-                {
-                    creditsBitmap.Motion.TargetPos = CREDITS_SHOWN_POSITION;
-                    /*
-                    Vector2 cpd = cursor.Motion.PositionAbsZoomed;                    
-                    if (cpd.Y <= 0.35f) // TODO const
-                    {
-                        float dxp = PANEL_SPEED_SHIFT * p.Dt;
-                        PanelShiftPos.Y -= dxp;
-                    }
-                     */
-                }
-                else
-                {
-                    creditsBitmap.Motion.TargetPos = CREDITS_HIDDEN_POSITION;
-                }
 
                 if (!isGameLaunchOngoing)
                 {
@@ -423,31 +401,6 @@ namespace IndiegameGarden.Menus
             cursor.Motion.TargetPos = (cursor.GridPosition - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
             cursor.Motion.TargetPosSpeed = PANEL_SPEED_SHIFT;
 
-            // panel shift effect when cursor hits edges of panel
-            /*
-            Vector2 cp = cursor.Motion.PositionAbsZoomed;
-            float chw = cursor.DrawInfo.WidthAbs / 2.0f; // cursor-half-width
-            float chh = cursor.DrawInfo.HeightAbs / 2.0f; // cursor-half-height
-            float dx = PANEL_SPEED_SHIFT * p.Dt;
-            const float xMargin = CURSOR_MARGIN_X; // TODO into gui props
-            const float yMargin = CURSOR_MARGIN_Y;
-            if (cp.X <= chw + xMargin)
-            {
-                PanelShiftPos.X -= dx;
-            }
-            else if (cp.X >= PANEL_SIZE_X - chw - xMargin)
-            {
-                PanelShiftPos.X += dx;
-            }
-            if (cp.Y <= chh + yMargin)
-            {
-                PanelShiftPos.Y -= dx;
-            }
-            else if (cp.Y >= PANEL_SIZE_Y - chh - yMargin)
-            {
-                PanelShiftPos.Y += dx;
-            }
-            */
         }
 
         public override void OnChangedSelectedGame(GardenItem newSel, GardenItem oldSel)

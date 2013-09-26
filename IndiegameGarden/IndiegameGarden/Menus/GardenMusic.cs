@@ -12,7 +12,7 @@ namespace IndiegameGarden.Menus
 {
     public class GardenMusic: Gamelet
     {
-        public static double MUSIC_FADE_SPEED = 4;
+        public static double MUSIC_FADE_SPEED = 2;
         public bool UserWantsMusic = false;
 
         SoundEvent soundScript;
