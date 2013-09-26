@@ -304,11 +304,11 @@ namespace IndiegameGarden.Menus
                 progBar.IsDone = false;
                 if (Game.DlAndInstallTask.IsDownloading())
                 {
-                    Game.Status = "[downloading]"; 
+                    Game.Status = "[downloading " + String.Format("{0:0%}" , Game.DlAndInstallTask.ProgressDownload()) + "]"; 
                 }
                 else if (Game.DlAndInstallTask.IsInstalling())
                 {
-                    Game.Status = "[installing]";
+                    Game.Status = "[installing " + String.Format("{0:0%}", Game.DlAndInstallTask.ProgressInstall()) + "]"; 
                 }
                 progBar.ProgressTarget = (float)Game.DlAndInstallTask.Progress();
                 progBar.ProgressSpeed = (float)Game.DlAndInstallTask.DownloadSpeed();

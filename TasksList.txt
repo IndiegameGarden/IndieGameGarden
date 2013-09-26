@@ -1,12 +1,14 @@
 Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
-- <working:> progress bar should be white with darkening bar around it.
+- select new music 
 - game icon needs updating to bento style
 - fix datapath for deployment configuration
 - better UI feedback when starting a game
 
 CLOSED  [date order]
+- 2013-09-26 17:20:06 percentage bars included
+- 2013-09-26 16:39:25 progress bar should be white with darkening bar around it.
 - 2013-09-25 20:12:18 avoid separate folders for games that are inside a folder already
 - 2013-09-24 18:11:52 remove loading screen when launching game
 - 2013-09-24 09:02:30 progress bar position wrong

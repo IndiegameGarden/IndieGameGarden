@@ -29,7 +29,7 @@ namespace IndiegameGarden.Menus
         {
             progressValue = 0f;
             progressValueTarget = 0f;
-            ProgressCatchupSpeed = 0.15f;
+            ProgressCatchupSpeed = 0.6f;
             //Motion.Scale = 1.5f;// 0.6f;
             //Motion.Position = new Vector2( -0.02f,0f); //-(DrawInfo.Width * Motion.Scale) / 2f, 0f);
         }
