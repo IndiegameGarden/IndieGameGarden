@@ -39,6 +39,8 @@ namespace IndiegameGarden.Menus
 
         public bool IsFadingOut = false;
 
+        public bool IsPlaying = false;
+
         /// <summary>
         /// actual/intended full path to local thumbnail file (the file may or may not exist)
         /// </summary>
@@ -284,7 +286,7 @@ namespace IndiegameGarden.Menus
             //if ((progBar.ProgressValue - progBar.ProgressTarget) > 0.12)
             //    progBar.ProgressValue = 0;
             //progBar.ProgressTarget += RandomMath.RandomBetween(-0.13f, 0.13f);
-
+            
             // check if a new texture has been loaded in background
             if (updatedTexture != null)
             {
@@ -338,7 +340,11 @@ namespace IndiegameGarden.Menus
                 }
                 else
                 {
-                    Game.Status = null;
+                    if (this.IsPlaying)
+                    {
+                        Game.Status = "[playing]";
+                    } else 
+                        Game.Status = null;
                 }
             }
 
@@ -346,6 +352,9 @@ namespace IndiegameGarden.Menus
 
         protected override void OnDraw(ref DrawParams p)
         {
+            // use Alpha also for my progbar
+            progBar.DrawInfo.Alpha = DrawInfo.Alpha;
+
             if (Texture != null)
             {
                 Color col = DrawInfo.DrawColor;

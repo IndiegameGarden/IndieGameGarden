@@ -101,6 +101,7 @@ namespace IndiegameGarden.Menus
         float timeLaunching = 0f;
         Vector2 PanelShiftPos = PANEL_INITIAL_SHIFT_POS;
         GameChooserMenu parentMenu;
+        IState statePlayingGame = new StatePlayingGame();
 
         public GardenGamesPanel(GameChooserMenu parent)
         {
@@ -223,7 +224,8 @@ namespace IndiegameGarden.Menus
                 else if (selGame.IsInstalled)
                 {
                     BentoGame.Instance.music.FadeOut();
-                    BentoGame.Instance.ActionLaunchGame(selGame, thumb);
+                    LaunchedGame = selGame;
+                    BentoGame.Instance.ActionLaunchGame(selGame, thumb);                    
                 }
                 else // if (not installed)
                 {
@@ -314,6 +316,7 @@ namespace IndiegameGarden.Menus
             foreach(GameThumbnail th in thumbnailsCache.Values)
             {
                 g = th.Game;
+                th.IsPlaying = false;
 
                 // check if out of range. If so, remove from cache later
                 if (cursor.DistanceTo(th) > CURSOR_DESTRUCTION_RANGE)
@@ -331,10 +334,24 @@ namespace IndiegameGarden.Menus
                         thumbnailLoadsStarted++;                                                
                 }
 
-                if (IsInState(new StatePlayingGame()) && !g.Equals(selGame)) {
-                    th.ColorB.AlphaTarget = 0f;
-                    th.ColorB.SaturationTarget = 1f;
+                if (IsInState(statePlayingGame))
+                {
+                    if (!g.Equals(LaunchedGame))
+                    {
+                        if (g.DlAndInstallTask == null || g.DlAndInstallTask.IsFinished())
+                        {
+                            th.ColorB.AlphaTarget = 0f;
+                            th.ColorB.SaturationTarget = 1f;
+                        }
+                    }
+                    else
+                    {
+                        th.ColorB.AlphaTarget = 1f;
+                        th.ColorB.SaturationTarget = 1f;
+                        th.IsPlaying = true;
+                    }
                 }
+
                 // check if thnail is loaded and still in range. If so, start displaying it (fade in)
                 else if (th.IsLoaded() && cursor.DistanceTo(th) <= CURSOR_DISCOVERY_RANGE)
                 {
@@ -375,23 +392,13 @@ namespace IndiegameGarden.Menus
                     if (thumbnailsCache.ContainsKey(g.GameID))
                     {
                         GameThumbnail th = thumbnailsCache[g.GameID];
-                        if (g.IsInstalling)
+                        if (!g.IsInstalling)
                         {
-                            // wobble the size of icon when installing.
-                            //th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED * (1.0f + 0.1f * (float)Math.Sin(MathHelper.TwoPi * 0.16f * SimTime));
-                        }
-                        else
-                        {
-
                             // displaying selected thumbnails larger
                             if (g.IsGrowable)
-                            {
                                 th.Motion.ScaleTarget = THUMBNAIL_SCALE_SELECTED;
-                            }
                             else
-                            {
                                 th.Motion.ScaleTarget = THUMBNAIL_SCALE_UNSELECTED;
-                            }
                         }
                     }
                 }
@@ -411,12 +418,8 @@ namespace IndiegameGarden.Menus
         public override void OnUserInput(GamesPanel.UserInput inp, Vector2 pointerPos)
         {
             //((mousepos / screenheight - screen.center) / motionparent.zoom ) + MotionParent.zoomcenter
-            Vector2 panelPos = (((pointerPos / Screen.HeightPixels) - Screen.Center) / Motion.Zoom) + Motion.ZoomCenter - Motion.Position;
-            
+            Vector2 panelPos = (((pointerPos / Screen.HeightPixels) - Screen.Center) / Motion.Zoom) + Motion.ZoomCenter - Motion.Position;            
             Vector2 gridPos = new Vector2( panelPos.X / PANEL_DELTA_GRID_X, panelPos.Y / PANEL_DELTA_GRID_Y) + PanelShiftPos;
-            //TTutil.Round(ref gridPos);
-            //cursor.Motion.TargetPos = (cursor.GridPosition - PanelShiftPos) * new Vector2(PANEL_DELTA_GRID_X, PANEL_DELTA_GRID_Y);
-            //cursor.Motion.TargetPos = panelPos;
 
             cursor.GridPosition = gridPos;
             SelectGameBelowCursor();

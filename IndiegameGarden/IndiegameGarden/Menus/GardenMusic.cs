@@ -13,6 +13,8 @@ namespace IndiegameGarden.Menus
     public class GardenMusic: Gamelet
     {
         public static double MUSIC_FADE_SPEED = 2;
+        public static double MUSIC_VOLUME = 0.45;
+
         public bool UserWantsMusic = false;
 
         SoundEvent soundScript;
@@ -43,7 +45,7 @@ namespace IndiegameGarden.Menus
 
         public void PlayDefaultSong()
         { 
-            Play( BentoGame.Instance.Content.RootDirectory + "\\music.ogg", 0.5, 0f);
+            Play( BentoGame.Instance.Content.RootDirectory + "\\music.ogg", MUSIC_VOLUME, 0f);
         }
 
         public void PlayLastSong()
@@ -51,7 +53,7 @@ namespace IndiegameGarden.Menus
             if (lastMusicFile == null)
                 PlayDefaultSong();
             else
-                Play(lastMusicFile, 0.5, 0f);
+                Play(lastMusicFile, MUSIC_VOLUME, 0f);
         }
 
         public bool IsPlaying

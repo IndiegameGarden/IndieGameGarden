@@ -274,8 +274,9 @@ namespace IndiegameGarden
                 if (g.IsPlayable)
                 {
                     // if installed, then launch it if possible
-                    if ((launcher == null || launcher.IsFinished() == true) &&
-                         (launchGameThread == null || launchGameThread.IsFinished()))
+                    if(true) 
+                    //if ((launcher == null || launcher.IsFinished() == true) &&
+                    //     (launchGameThread == null || launchGameThread.IsFinished()))
                     {
                         // set state of game to 'game playing state'
                         TreeRoot.SetNextState(new StatePlayingGame());

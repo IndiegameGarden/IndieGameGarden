@@ -18,6 +18,8 @@ namespace IndiegameGarden.Menus
      */
     public class ProgressBar: Spritelet
     {
+        public static float BACKGROUND_BAR_ALPHA = 0.65f;
+
         bool isPulsing = false;
         float barWidth = 1f;
         float progressValue;
@@ -105,7 +107,7 @@ namespace IndiegameGarden.Menus
 
         public bool IsDone = false;
 
-        public Color BackgroundColor = new Color(0.1f, 0.1f, 0.1f, 0.65f);
+        public Color BackgroundColor = new Color(0.1f, 0.1f, 0.1f, BACKGROUND_BAR_ALPHA);
 
         protected override void OnUpdate(ref UpdateParams p)
         {
@@ -123,6 +125,7 @@ namespace IndiegameGarden.Menus
             }
 
             // pulsing
+            /*
             if (isPulsing)
             {
                 // animate percentage text a bit
@@ -134,10 +137,8 @@ namespace IndiegameGarden.Menus
                 float v = (1 - ampl) + ampl * (float)Math.Sin(MathHelper.TwoPi * (double)frequency * SimTime);
                 DrawInfo.DrawColor = new Color(1f, v, v, 1f);
             }
-            else
-            {
-                DrawInfo.DrawColor = Color.White;
-            }
+             */
+
         }
 
         protected override void OnDraw(ref DrawParams p)
@@ -149,6 +150,9 @@ namespace IndiegameGarden.Menus
             int widthFull = (int)Math.Round(ToPixels(DrawInfo.WidthAbs) * barWidth);
             int height = (int) Math.Round(ToPixels(DrawInfo.HeightAbs));
             if (width > Texture.Width) width = Texture.Width;
+
+            // copy alpha value also to background bar.
+            BackgroundColor.A = (byte) (255f * (DrawInfo.Alpha * BACKGROUND_BAR_ALPHA));
 
             // draw background for bar
             Vector2 posBackground = pos + new Vector2(-0.35f, -1f);

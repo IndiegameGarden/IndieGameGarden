@@ -41,6 +41,9 @@ namespace IndiegameGarden.Menus
             }
         }
 
+        // stores the currently launched game, or null if none running/launched.
+        public GardenItem LaunchedGame = null;
+
         public GamesPanel()
         {
         }
