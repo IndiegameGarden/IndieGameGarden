@@ -4,9 +4,9 @@ OPEN  [top issues first]
 - game icon needs updating to bento style
 - fix datapath for deployment configuration
 - bug: if music restarts while starting game, music wont stop
-- add 'emergency exit' with ESC key when a game is started.
 
 CLOSED  [date order]
+- 2013-09-27 22:27:50 - add 'emergency exit' with ESC key when a game is started.
 - 2013-09-26 23:00:55 better UI feedback when starting a game
 - 2013-09-26 22:25:56 select new music 
 - 2013-09-26 17:20:06 percentage bars included

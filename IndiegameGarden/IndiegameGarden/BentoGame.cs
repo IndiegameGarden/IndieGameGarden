@@ -296,6 +296,7 @@ namespace IndiegameGarden
         }
 
         // called when a launched process concludes
+        // FIXME - what if multiple processes call this? wrong behavior of menu?
         void taskThread_TaskFinishedEvent(object sender)
         {
             // set menu state back to 'menu viewing' state
