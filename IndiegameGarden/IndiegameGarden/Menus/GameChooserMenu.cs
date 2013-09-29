@@ -26,11 +26,12 @@ namespace IndiegameGarden.Menus
         /// <summary>
         /// UI constants
         /// </summary>
-        const double MIN_MENU_CHANGE_DELAY = 0.3f; 
-        
-        GameCollection gamesList;
+        const float MIN_MENU_CHANGE_DELAY = 0.3f;
+        const float TIME_TO_SUPPRESS_DRAW = 3f;
 
-        float lastKeypressTime = 0;
+        GameCollection gamesList;
+        float timeInStatePlayingGame = 0f;
+        float lastKeypressTime = 0f;
         bool wasEscPressed = false;
         bool wasEnterPressed = false;
         bool wasMouseButPressed = false;
@@ -38,6 +39,7 @@ namespace IndiegameGarden.Menus
         GamesPanel panel;
         KeyboardState prevKeyboardState = Keyboard.GetState();
         Vector2 pointerPos, lastPointerPos;
+        // convenience vars to state instances
         IState stateBrowsingMenu = new StateBrowsingMenu();
         IState statePlayingGame = new StatePlayingGame();
 
@@ -220,11 +222,24 @@ namespace IndiegameGarden.Menus
         {
             base.OnUpdate(ref p);
 
+            if (IsInState(statePlayingGame))
+                timeInStatePlayingGame += p.Dt;
+            else
+                timeInStatePlayingGame = 0f;
+
             // check keyboard/mouse inputs from user
             if (BentoGame.Instance.IsActive)
             {
                 KeyboardControls(ref p);
                 MouseControls(ref p);
+            }
+            else
+            {
+                if (IsInState(statePlayingGame))
+                {                    
+                    if (timeInStatePlayingGame > TIME_TO_SUPPRESS_DRAW )
+                        BentoGame.Instance.SuppressDraw();
+                }
             }
         }
 
