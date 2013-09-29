@@ -338,11 +338,9 @@ namespace IndiegameGarden.Menus
                 {
                     if (!g.Equals(LaunchedGame))
                     {
-                        if (g.DlAndInstallTask == null || g.DlAndInstallTask.IsFinished())
-                        {
-                            th.ColorB.AlphaTarget = 0f;
-                            th.ColorB.SaturationTarget = 1f;
-                        }
+                        //if (g.DlAndInstallTask == null || g.DlAndInstallTask.IsFinished())
+                        th.ColorB.AlphaTarget = 0f;
+                        th.ColorB.SaturationTarget = 1f;
                     }
                     else
                     {
