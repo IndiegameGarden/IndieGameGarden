@@ -330,8 +330,6 @@ namespace IndiegameGarden.Menus
                     progBar.Add(new TimedInvisibility(3f));
                 }
                 //progBar.Visible = false;
-                progBar.ProgressTarget = 1.0f;
-                progBar.ProgressValue = 1.0f;
                 if (Game.ThreadedDlAndInstallTask != null &&
                     !Game.ThreadedDlAndInstallTask.IsSuccess() &&
                     Game.ThreadedDlAndInstallTask.IsFinished())
@@ -340,6 +338,8 @@ namespace IndiegameGarden.Menus
                 }
                 else
                 {
+                    progBar.ProgressTarget = 1.0f;
+                    //progBar.ProgressValue = 1.0f;
                     if (this.IsPlaying)
                     {
                         Game.Status = "[playing]";
