@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("GameLibCompiler")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("GameLibCompiler for Bento Box")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("IndiegameGarden.com")]
 [assembly: AssemblyProduct("GameLibCompiler")]
-[assembly: AssemblyCopyright("Copyright © IndiegameGarden.com 2012")]
+[assembly: AssemblyCopyright("Copyright © IndiegameGarden.com 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("29a43766-6d41-4111-9d84-23bdef66b536")]
+[assembly: Guid("29a43876-6d41-4111-9a84-24bdef66b536")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.5.0.0")]
-[assembly: AssemblyFileVersion("1.5.0.0")]
+[assembly: AssemblyVersion("1.9.0.0")]
+[assembly: AssemblyFileVersion("1.9.0.0")]
