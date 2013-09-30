@@ -2,11 +2,11 @@ Tasks List (OPEN, OPTIONAL, CLOSED, and SKIPPED tasks)
 
 OPEN  [top issues first]
 - bar width wrong in 1366x768 resolution
-- game icon needs updating to bento style
 - fix datapath for deployment configuration
 - bug: if music restarts while starting game, music wont stop
 
 CLOSED  [date order]
+- 2013-09-30 - game icon needs updating to bento style
 - 2013-09-30 - bug: if multiple games started, fading won't work at all anymore
 - 2013-09-27 22:27:50 - add 'emergency exit' with ESC key when a game is started.
 - 2013-09-26 23:00:55 better UI feedback when starting a game
