@@ -142,7 +142,7 @@ namespace IndiegameGarden.Menus
                 if (!st.IsKeyDown(Keys.Escape) && wasEscPressed)
                 {
                     wasEscPressed = false;
-                    SetNextState(stateBrowsingMenu); // upon release, switch back state to browsing.
+                    BentoGame.Instance.TreeRoot.SetNextState(stateBrowsingMenu); // upon release, switch back state to browsing.
                 }
 
                 if (st.IsKeyDown(Keys.Escape))

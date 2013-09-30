@@ -7,6 +7,7 @@ OPEN  [top issues first]
 - bug: if music restarts while starting game, music wont stop
 
 CLOSED  [date order]
+- 2013-09-30 - bug: if multiple games started, fading won't work at all anymore
 - 2013-09-27 22:27:50 - add 'emergency exit' with ESC key when a game is started.
 - 2013-09-26 23:00:55 better UI feedback when starting a game
 - 2013-09-26 22:25:56 select new music 
