@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndiegameGarden", "IndiegameGarden\IndiegameGarden\IndiegameGarden.csproj", "{F325652C-7602-4B74-88ED-02CF2D025261}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndiegameGardenContent", "IndiegameGarden\IndiegameGardenContent\IndiegameGardenContent.contentproj", "{1C5413AC-4401-442C-8576-87E9B7B4E0B0}"
@@ -31,14 +31,10 @@ Global
 		{616035D5-3927-44CD-BD41-2EEE846AC3A3}.Debug|x86.Build.0 = Debug|x86
 		{616035D5-3927-44CD-BD41-2EEE846AC3A3}.Release|x86.ActiveCfg = Release|x86
 		{616035D5-3927-44CD-BD41-2EEE846AC3A3}.Release|x86.Build.0 = Release|x86
-		{E763345E-6696-4C53-8764-47E4ABD67DEF}.Debug|x86.ActiveCfg = Debug|x86
-		{E763345E-6696-4C53-8764-47E4ABD67DEF}.Debug|x86.Build.0 = Debug|x86
-		{E763345E-6696-4C53-8764-47E4ABD67DEF}.Release|x86.ActiveCfg = Release|x86
-		{E763345E-6696-4C53-8764-47E4ABD67DEF}.Release|x86.Build.0 = Release|x86
-		{95B7294D-230D-4ADA-9330-FF4EBD154A29}.Debug|x86.ActiveCfg = Debug|x86
-		{95B7294D-230D-4ADA-9330-FF4EBD154A29}.Debug|x86.Build.0 = Debug|x86
-		{95B7294D-230D-4ADA-9330-FF4EBD154A29}.Release|x86.ActiveCfg = Release|x86
-		{95B7294D-230D-4ADA-9330-FF4EBD154A29}.Release|x86.Build.0 = Release|x86
+		{E763345E-6696-4C53-8764-47E4ABD67DEF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E763345E-6696-4C53-8764-47E4ABD67DEF}.Release|x86.ActiveCfg = Release|Any CPU
+		{95B7294D-230D-4ADA-9330-FF4EBD154A29}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{95B7294D-230D-4ADA-9330-FF4EBD154A29}.Release|x86.ActiveCfg = Release|Any CPU
 		{CB99D0C9-FD0E-4B90-91BD-7D5816B38A2C}.Debug|x86.ActiveCfg = Debug|x86
 		{CB99D0C9-FD0E-4B90-91BD-7D5816B38A2C}.Debug|x86.Build.0 = Debug|x86
 		{CB99D0C9-FD0E-4B90-91BD-7D5816B38A2C}.Release|x86.ActiveCfg = Release|x86
