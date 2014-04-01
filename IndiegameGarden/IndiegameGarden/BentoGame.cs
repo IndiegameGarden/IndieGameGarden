@@ -86,7 +86,7 @@ namespace IndiegameGarden
         {
             // frame border
             Form frm = (Form)Form.FromHandle(Window.Handle);
-            frm.FormBorderStyle = FormBorderStyle.None;
+            //frm.FormBorderStyle = FormBorderStyle.None;
 
             Instance = this;
             Content.RootDirectory = "Content";
@@ -162,7 +162,7 @@ namespace IndiegameGarden
 
             // MyDownloader configuration
             myDownloaderProtocol = new HttpFtpProtocolExtension();
-            Settings.Default.MaxRetries = 0;
+            MyDownloader.Core.Settings.Default.MaxRetries = 0;
 
             // load config
             if ((GardenConfig.Instance != null) && LoadGameLibrary())
