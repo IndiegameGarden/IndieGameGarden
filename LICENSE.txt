@@ -1,9 +1,9 @@
 
 -------------------------------------------------------------------------------
 
-For files where (c) TranceTrance.com and FreeBSD license is indicated:
+For files where (c) IndiegameGarden.com and FreeBSD license is indicated:
 
-Copyright (c) 2010-2012, TranceTrance.com and its domain owner
+Copyright (c) 2010-2012, IndiegameGarden.com and its domain owner
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification, 
